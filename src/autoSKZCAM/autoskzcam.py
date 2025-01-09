@@ -22,8 +22,7 @@ if TYPE_CHECKING:
 
     from autoSKZCAM.types import (
         SKZCAMOutput,
-        semicore_frozen_core_dict,
-        valence_frozen_core_dict,
+        SKZCAMInfo
     )
 
 
