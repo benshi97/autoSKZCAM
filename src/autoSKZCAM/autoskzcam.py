@@ -20,10 +20,7 @@ from monty.os.path import zpath
 if TYPE_CHECKING:
     from numpy.typing import NDArray
 
-    from autoSKZCAM.types import (
-        SKZCAMOutput,
-        SKZCAMInfo
-    )
+    from autoSKZCAM.types import SKZCAMInfo, SKZCAMOutput
 
 
 element_from_atomic_num_dict = {v: k for k, v in atomic_numbers.items()}
