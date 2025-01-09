@@ -4,13 +4,13 @@ from pathlib import Path
 from typing import TYPE_CHECKING
 
 import numpy as np
-from ase.atoms import Atom, Atoms
 
 # from ase.io.orca import write_orca
 
 # from quacc.calculators.mrcc.io import write_mrcc
 
 if TYPE_CHECKING:
+    from ase.atoms import Atom, Atoms
 
     from autoSKZCAM.types import (
         BlockInfo,
@@ -19,7 +19,6 @@ if TYPE_CHECKING:
         MRCCInputDict,
         MultiplicityDict,
     )
-
 
 
 class MRCCInputGenerator:
@@ -859,6 +858,7 @@ coords
         )
         self.orcablocks["slab"] += preamble_input
 
+
 def create_atom_coord_string(
     atom: Atom,
     is_ghost_atom: bool = False,
@@ -901,4 +901,3 @@ def create_atom_coord_string(
         atom_coord_str = f"{atom.symbol.ljust(3)} {' '*16} {atom.position[0]:-16.11f} {atom.position[1]:-16.11f} {atom.position[2]:-16.11f}\n"
 
     return atom_coord_str
-

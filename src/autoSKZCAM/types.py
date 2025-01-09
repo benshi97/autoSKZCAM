@@ -8,8 +8,7 @@ if TYPE_CHECKING:
     from ase.atoms import Atoms
     from typing_extensions import TypedDict
 
-
-   # ----------- Atoms handling type hints -----------
+    # ----------- Atoms handling type hints -----------
 
     ElementStr = Literal[
         "H",

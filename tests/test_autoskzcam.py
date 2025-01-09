@@ -22,7 +22,7 @@ from autoSKZCAM.io import (
 FILE_DIR = Path(__file__).parent
 
 
-@pytest.fixture()
+@pytest.fixture
 def skzcam_clusters():
     return CreateSKZCAMClusters(
         adsorbate_indices=[0, 1],
@@ -33,19 +33,19 @@ def skzcam_clusters():
     )
 
 
-@pytest.fixture()
+@pytest.fixture
 def slab_embedded_cluster(skzcam_clusters):
     return skzcam_clusters._convert_pun_to_atoms(
         pun_file=Path(FILE_DIR, "skzcam_files", "ChemShell_Cluster.pun.gz")
     )
 
 
-@pytest.fixture()
+@pytest.fixture
 def distance_matrix(slab_embedded_cluster):
     return slab_embedded_cluster.get_all_distances()
 
 
-@pytest.fixture()
+@pytest.fixture
 def adsorbate_slab_embedded_cluster():
     with gzip.open(
         Path(FILE_DIR, "skzcam_files", "adsorbate_slab_embedded_cluster.npy.gz"), "r"
@@ -53,7 +53,7 @@ def adsorbate_slab_embedded_cluster():
         return np.load(file, allow_pickle=True).item()["atoms"]
 
 
-@pytest.fixture()
+@pytest.fixture
 def mrcc_input_generator(adsorbate_slab_embedded_cluster, element_info):
     return MRCCInputGenerator(
         adsorbate_slab_embedded_cluster=adsorbate_slab_embedded_cluster,
@@ -65,7 +65,7 @@ def mrcc_input_generator(adsorbate_slab_embedded_cluster, element_info):
     )
 
 
-@pytest.fixture()
+@pytest.fixture
 def orca_input_generator(adsorbate_slab_embedded_cluster, element_info):
     pal_nprocs_block = {"nprocs": 1, "maxcore": 5000}
 
@@ -109,7 +109,7 @@ end"""
     )
 
 
-@pytest.fixture()
+@pytest.fixture
 def element_info():
     return {
         "C": {
@@ -133,7 +133,7 @@ def element_info():
     }
 
 
-@pytest.fixture()
+@pytest.fixture
 def skzcam_clusters_output(adsorbate_slab_embedded_cluster):
     return {
         "adsorbate_slab_embedded_cluster": adsorbate_slab_embedded_cluster,
@@ -205,7 +205,6 @@ def skzcam_clusters_output(adsorbate_slab_embedded_cluster):
             ],
         ],
     }
-
 
 
 def test_MRCCInputGenerator_init(adsorbate_slab_embedded_cluster, element_info):
