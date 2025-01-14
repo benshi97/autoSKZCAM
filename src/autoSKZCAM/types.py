@@ -150,7 +150,7 @@ if TYPE_CHECKING:
         basis: str
         code: Literal["mrcc", "orca"]
         element_info: dict[ElementStr, ElementInfo] | None
-        code_inputs: dict[str, str] | None     
+        code_inputs: dict[str, str] | None
 
     class BlockInfo(TypedDict):
         adsorbate_slab: str
@@ -170,4 +170,4 @@ if TYPE_CHECKING:
     class CalculatorInfo(TypedDict):
         adsorbate_slab: Atoms
         adsorbate: Atoms
-        slab: Atoms       
+        slab: Atoms

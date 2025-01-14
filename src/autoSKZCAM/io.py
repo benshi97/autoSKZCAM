@@ -636,9 +636,7 @@ coords
         element_symbols.sort()
 
         # Check all element symbols are provided in element_info keys
-        if not all(
-            element in self.element_info for element in element_symbols
-        ):
+        if not all(element in self.element_info for element in element_symbols):
             raise ValueError(
                 "Not all element symbols are provided in the element_info dictionary."
             )
@@ -670,12 +668,10 @@ coords
             preamble_input += f'NewAuxJGTO {element} "{element_basis}" end\n'
             # ri_cwft_basis
             element_basis = self.element_info[element]["ri_cwft_basis"]
-            preamble_input += (
-                f"""NewAuxCGTO {element} "{element_basis}" end\n"""
-            )
+            preamble_input += f"""NewAuxCGTO {element} "{element_basis}" end\n"""
             # ecp
             if "ecp" in self.element_info[element]:
-                element_ecp = self.element_info[element]['ecp']
+                element_ecp = self.element_info[element]["ecp"]
                 preamble_input += f'NewECP {element} "{element_ecp}" end\n'
 
         preamble_input += "end\n"

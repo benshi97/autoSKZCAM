@@ -8,16 +8,15 @@ from pathlib import Path
 import numpy as np
 import pytest
 from ase import Atoms
-from ase.calculators.calculator import compare_atoms
 from ase.io import read
 from numpy.testing import assert_allclose, assert_equal
 
-from autoSKZCAM.autoskzcam import CreateSKZCAMClusters, _get_atom_distances,autoSKZCAMPrepare
-from autoSKZCAM.io import (
-    MRCCInputGenerator,
-    ORCAInputGenerator,
-    create_atom_coord_string,
+from autoSKZCAM.autoskzcam import (
+    CreateSKZCAMClusters,
+    _get_atom_distances,
+    autoSKZCAMPrepare,
 )
+from autoSKZCAM.io import MRCCInputGenerator, ORCAInputGenerator
 
 FILE_DIR = Path(__file__).parent
 
@@ -203,7 +202,6 @@ def skzcam_clusters_output(adsorbate_slab_embedded_cluster):
     }
 
 
-
 @pytest.fixture
 def skzcam_clusters_output(adsorbate_slab_embedded_cluster):
     return {
@@ -277,50 +275,104 @@ def skzcam_clusters_output(adsorbate_slab_embedded_cluster):
         ],
     }
 
+
 @pytest.fixture
 def ref_oniom_layers():
-    return {'Base': {
-                    'll': None,
-                    'hl': {'method': 'MP2', 'frozen_core': 'valence', 'basis': 'CBS(DZ/TZ)', 'max_cluster_num': 2, 'code': 'orca'}
-                    },
-                'Delta_Basis and Delta_Core': {
-                    'll': {'method': 'MP2', 'frozen_core': 'valence', 'basis': 'CBS(DZ/TZ)', 'max_cluster_num': 1, 'code': 'orca'},
-                    'hl': {'method': 'MP2', 'frozen_core': 'semicore', 'basis': 'CBS(TZ/QZ)', 'max_cluster_num': 1, 'code': 'orca'}
-                    },
-                'FSE Error': {
-                    'll': {'method': 'MP2', 'frozen_core': 'valence', 'basis': 'DZ', 'max_cluster_num': 1, 'code': 'orca'},
-                    'hl': {'method': 'MP2', 'frozen_core': 'valence', 'basis': 'DZ', 'max_cluster_num': 2, 'code': 'orca'}
-                    },
-                'DeltaCC': {
-                    'll': {'method': 'LMP2', 'frozen_core': 'valence', 'basis': 'CBS(DZ/TZ)', 'max_cluster_num': 1, 'code': 'mrcc', 'code kwargs': None},
-                    'hl': {'method': 'LNO-CCSD(T)', 'frozen_core': 'valence', 'basis': 'CBS(DZ/TZ)', 'max_cluster_num': 1, 'code': 'mrcc'}
-                    }
-                }
+    return {
+        "Base": {
+            "ll": None,
+            "hl": {
+                "method": "MP2",
+                "frozen_core": "valence",
+                "basis": "CBS(DZ/TZ)",
+                "max_cluster_num": 2,
+                "code": "orca",
+            },
+        },
+        "Delta_Basis and Delta_Core": {
+            "ll": {
+                "method": "MP2",
+                "frozen_core": "valence",
+                "basis": "CBS(DZ/TZ)",
+                "max_cluster_num": 1,
+                "code": "orca",
+            },
+            "hl": {
+                "method": "MP2",
+                "frozen_core": "semicore",
+                "basis": "CBS(TZ/QZ)",
+                "max_cluster_num": 1,
+                "code": "orca",
+            },
+        },
+        "FSE Error": {
+            "ll": {
+                "method": "MP2",
+                "frozen_core": "valence",
+                "basis": "DZ",
+                "max_cluster_num": 1,
+                "code": "orca",
+            },
+            "hl": {
+                "method": "MP2",
+                "frozen_core": "valence",
+                "basis": "DZ",
+                "max_cluster_num": 2,
+                "code": "orca",
+            },
+        },
+        "DeltaCC": {
+            "ll": {
+                "method": "LMP2",
+                "frozen_core": "valence",
+                "basis": "CBS(DZ/TZ)",
+                "max_cluster_num": 1,
+                "code": "mrcc",
+                "code kwargs": None,
+            },
+            "hl": {
+                "method": "LNO-CCSD(T)",
+                "frozen_core": "valence",
+                "basis": "CBS(DZ/TZ)",
+                "max_cluster_num": 1,
+                "code": "mrcc",
+            },
+        },
+    }
 
-def test_autoSKZCAMPrepare_init(skzcam_clusters_output,ref_oniom_layers,element_info):
 
+def test_autoSKZCAMPrepare_init(skzcam_clusters_output, ref_oniom_layers, element_info):
     prep_cluster = autoSKZCAMPrepare(
-        skzcam_clusters_output[
-            "adsorbate_slab_embedded_cluster"
-        ],
+        skzcam_clusters_output["adsorbate_slab_embedded_cluster"],
         quantum_cluster_indices_set=skzcam_clusters_output[
             "quantum_cluster_indices_set"
         ],
         ecp_region_indices_set=skzcam_clusters_output["ecp_region_indices_set"],
-        oniom_layers = ref_oniom_layers
-    ) 
+        oniom_layers=ref_oniom_layers,
+    )
 
     assert prep_cluster.oniom_layers == ref_oniom_layers
-    assert prep_cluster.adsorbate_slab_embedded_cluster == skzcam_clusters_output["adsorbate_slab_embedded_cluster"]
-    assert prep_cluster.quantum_cluster_indices_set==skzcam_clusters_output[
-            "quantum_cluster_indices_set"
-        ]
-    assert prep_cluster.ecp_region_indices_set == skzcam_clusters_output["ecp_region_indices_set"]
+    assert (
+        prep_cluster.adsorbate_slab_embedded_cluster
+        == skzcam_clusters_output["adsorbate_slab_embedded_cluster"]
+    )
+    assert (
+        prep_cluster.quantum_cluster_indices_set
+        == skzcam_clusters_output["quantum_cluster_indices_set"]
+    )
+    assert (
+        prep_cluster.ecp_region_indices_set
+        == skzcam_clusters_output["ecp_region_indices_set"]
+    )
     assert prep_cluster.max_cluster == 2
 
-    assert prep_cluster.multiplicities == {'adsorbate_slab': 1, 'adsorbate': 1, 'slab': 1}
+    assert prep_cluster.multiplicities == {
+        "adsorbate_slab": 1,
+        "adsorbate": 1,
+        "slab": 1,
+    }
     assert prep_cluster.capped_ecp == {
-    "orca": """NewECP
+        "orca": """NewECP
 N_core 0
 lmax f
 s 1
@@ -332,7 +384,7 @@ d 1
 f 1
 1      1.000000000    0.000000000 2
 end""",
-    "mrcc":  """
+        "mrcc": """
 *
     NCORE = 12    LMAX = 3
 f
@@ -343,59 +395,60 @@ p-f
     5.175700000  2     1.115000000
 d-f
    -1.816000000  2     1.203000000
-*"""
-}
+*""",
+    }
     # Check if errors raised when multiplicities is provided wrongly
     with pytest.raises(
         ValueError,
-        match="The multiplicities must be provided for all three structures: adsorbate_slab, adsorbate, and slab."
+        match="The multiplicities must be provided for all three structures: adsorbate_slab, adsorbate, and slab.",
     ):
         prep_cluster = autoSKZCAMPrepare(
-        skzcam_clusters_output[
-            "adsorbate_slab_embedded_cluster"
-        ],
-        quantum_cluster_indices_set=skzcam_clusters_output[
-            "quantum_cluster_indices_set"
-        ],
-        ecp_region_indices_set=skzcam_clusters_output["ecp_region_indices_set"],
-        oniom_layers = ref_oniom_layers,
-        multiplicities={'adsorbate_slab': 3, 'adsorbate': 1}
-    ) 
-        
+            skzcam_clusters_output["adsorbate_slab_embedded_cluster"],
+            quantum_cluster_indices_set=skzcam_clusters_output[
+                "quantum_cluster_indices_set"
+            ],
+            ecp_region_indices_set=skzcam_clusters_output["ecp_region_indices_set"],
+            oniom_layers=ref_oniom_layers,
+            multiplicities={"adsorbate_slab": 3, "adsorbate": 1},
+        )
+
     # Check everything is read correctly when non-default multiplicities and capped_ecp are provided
     prep_cluster = autoSKZCAMPrepare(
-    skzcam_clusters_output[
-        "adsorbate_slab_embedded_cluster"
-    ],
-    quantum_cluster_indices_set=skzcam_clusters_output[
-        "quantum_cluster_indices_set"
-    ],
-    ecp_region_indices_set=skzcam_clusters_output["ecp_region_indices_set"],
-    oniom_layers = ref_oniom_layers,
-    multiplicities={'adsorbate_slab': 3, 'adsorbate': 1, 'slab': 2},
-    capped_ecp={'MRCC': 'capped_ecp_mrcc', 'ORCA': 'capped_ecp_orca'})
-
-    assert prep_cluster.multiplicities == {'adsorbate_slab': 3, 'adsorbate': 1, 'slab': 2}
-    assert prep_cluster.capped_ecp == {'mrcc': 'capped_ecp_mrcc', 'orca': 'capped_ecp_orca'}
-
-
-    # Check if errors are raised if capped_ecp are not provided correctly
-    wrong_capped_ecp = {'asdf': 'wrong'}
-    with pytest.raises(
-        ValueError,
-        match="The keys in the capped_ecp dictionary must be either 'mrcc' or 'orca' in the corresponding code format."
-    ):
-        prep_cluster = autoSKZCAMPrepare(
-        skzcam_clusters_output[
-            "adsorbate_slab_embedded_cluster"
-        ],
+        skzcam_clusters_output["adsorbate_slab_embedded_cluster"],
         quantum_cluster_indices_set=skzcam_clusters_output[
             "quantum_cluster_indices_set"
         ],
         ecp_region_indices_set=skzcam_clusters_output["ecp_region_indices_set"],
-        oniom_layers = ref_oniom_layers,
-        capped_ecp=wrong_capped_ecp)    
+        oniom_layers=ref_oniom_layers,
+        multiplicities={"adsorbate_slab": 3, "adsorbate": 1, "slab": 2},
+        capped_ecp={"MRCC": "capped_ecp_mrcc", "ORCA": "capped_ecp_orca"},
+    )
 
+    assert prep_cluster.multiplicities == {
+        "adsorbate_slab": 3,
+        "adsorbate": 1,
+        "slab": 2,
+    }
+    assert prep_cluster.capped_ecp == {
+        "mrcc": "capped_ecp_mrcc",
+        "orca": "capped_ecp_orca",
+    }
+
+    # Check if errors are raised if capped_ecp are not provided correctly
+    wrong_capped_ecp = {"asdf": "wrong"}
+    with pytest.raises(
+        ValueError,
+        match="The keys in the capped_ecp dictionary must be either 'mrcc' or 'orca' in the corresponding code format.",
+    ):
+        prep_cluster = autoSKZCAMPrepare(
+            skzcam_clusters_output["adsorbate_slab_embedded_cluster"],
+            quantum_cluster_indices_set=skzcam_clusters_output[
+                "quantum_cluster_indices_set"
+            ],
+            ecp_region_indices_set=skzcam_clusters_output["ecp_region_indices_set"],
+            oniom_layers=ref_oniom_layers,
+            capped_ecp=wrong_capped_ecp,
+        )
 
     # Check if errors are raised if length of quantum_cluster_indices_set is different from ecp_region_indices_set
     with pytest.raises(
@@ -404,215 +457,397 @@ d-f
     ):
         prep_cluster = autoSKZCAMPrepare(
             adsorbate_slab_embedded_cluster=skzcam_clusters_output[
-            "adsorbate_slab_embedded_cluster"
-        ],
+                "adsorbate_slab_embedded_cluster"
+            ],
             quantum_cluster_indices_set=[[0]],
             ecp_region_indices_set=skzcam_clusters_output["ecp_region_indices_set"],
-            oniom_layers = ref_oniom_layers
+            oniom_layers=ref_oniom_layers,
         )
-    
+
     # Check if errors are raised if parameters in oniom_layers are not provided
     for parameter in ["method", "max_cluster_num", "basis", "frozen_core"]:
         with pytest.raises(
             ValueError,
-            match=f'The {parameter} parameter must be provided for all ONIOM layers specified.'
+            match=f"The {parameter} parameter must be provided for all ONIOM layers specified.",
         ):
             wrong_oniom_layers = deepcopy(ref_oniom_layers)
-            wrong_oniom_layers['Base']['hl'].pop(parameter)
+            wrong_oniom_layers["Base"]["hl"].pop(parameter)
             prep_cluster = autoSKZCAMPrepare(
-                skzcam_clusters_output[
-                    "adsorbate_slab_embedded_cluster"
-                ],
+                skzcam_clusters_output["adsorbate_slab_embedded_cluster"],
                 quantum_cluster_indices_set=skzcam_clusters_output[
                     "quantum_cluster_indices_set"
                 ],
                 ecp_region_indices_set=skzcam_clusters_output["ecp_region_indices_set"],
-                oniom_layers = wrong_oniom_layers
-            ) 
+                oniom_layers=wrong_oniom_layers,
+            )
 
     # Check if errors are raised if too large a max_cluster_num given.
     wrong_oniom_layers = deepcopy(ref_oniom_layers)
-    for max_cluster_num in [0,3]:
-        wrong_oniom_layers['Base']['hl']["max_cluster_num"] = max_cluster_num
+    for max_cluster_num in [0, 3]:
+        wrong_oniom_layers["Base"]["hl"]["max_cluster_num"] = max_cluster_num
         with pytest.raises(
             ValueError,
-            match="The maximum cluster number for all ONIOM layers must be bigger than 0 and less than or equal to the number of quantum clusters generated by autoSKZCAM."
+            match="The maximum cluster number for all ONIOM layers must be bigger than 0 and less than or equal to the number of quantum clusters generated by autoSKZCAM.",
         ):
             prep_cluster = autoSKZCAMPrepare(
-                skzcam_clusters_output[
-                    "adsorbate_slab_embedded_cluster"
-                ],
+                skzcam_clusters_output["adsorbate_slab_embedded_cluster"],
                 quantum_cluster_indices_set=skzcam_clusters_output[
                     "quantum_cluster_indices_set"
                 ],
                 ecp_region_indices_set=skzcam_clusters_output["ecp_region_indices_set"],
-                oniom_layers = wrong_oniom_layers
-            )        
+                oniom_layers=wrong_oniom_layers,
+            )
 
     # Check if errors are raise if wrong frozen_core parameters are given.
     wrong_oniom_layers = deepcopy(ref_oniom_layers)
-    wrong_oniom_layers['Base']['hl']["frozen_core"] = "wrong"
+    wrong_oniom_layers["Base"]["hl"]["frozen_core"] = "wrong"
     with pytest.raises(
         ValueError,
-        match="The frozen_core must be specified as either 'valence' or 'semicore'."
+        match="The frozen_core must be specified as either 'valence' or 'semicore'.",
     ):
         prep_cluster = autoSKZCAMPrepare(
-            skzcam_clusters_output[
-                "adsorbate_slab_embedded_cluster"
-            ],
+            skzcam_clusters_output["adsorbate_slab_embedded_cluster"],
             quantum_cluster_indices_set=skzcam_clusters_output[
                 "quantum_cluster_indices_set"
             ],
             ecp_region_indices_set=skzcam_clusters_output["ecp_region_indices_set"],
-            oniom_layers = wrong_oniom_layers
+            oniom_layers=wrong_oniom_layers,
         )
-    
+
     # Check if errors are raised when wrong code specified
     wrong_oniom_layers = deepcopy(ref_oniom_layers)
-    wrong_oniom_layers['Base']['hl']["code"] = "wrong"
+    wrong_oniom_layers["Base"]["hl"]["code"] = "wrong"
     with pytest.raises(
-        ValueError,
-        match="The code must be specified as either 'mrcc' or 'orca'."
+        ValueError, match="The code must be specified as either 'mrcc' or 'orca'."
     ):
         prep_cluster = autoSKZCAMPrepare(
-            skzcam_clusters_output[
-                "adsorbate_slab_embedded_cluster"
-            ],
+            skzcam_clusters_output["adsorbate_slab_embedded_cluster"],
             quantum_cluster_indices_set=skzcam_clusters_output[
                 "quantum_cluster_indices_set"
             ],
             ecp_region_indices_set=skzcam_clusters_output["ecp_region_indices_set"],
-            oniom_layers = wrong_oniom_layers
+            oniom_layers=wrong_oniom_layers,
         )
-    
+
     # Check if errors are raised when wrong basis specified
     wrong_oniom_layers = deepcopy(ref_oniom_layers)
-    wrong_oniom_layers['Base']['hl']["basis"] = "wrong"
+    wrong_oniom_layers["Base"]["hl"]["basis"] = "wrong"
     with pytest.raises(
         ValueError,
-        match=r"The basis must be specified as either DZ, TZ, QZ, 5Z, CBS\(DZ/TZ\), CBS\(TZ/QZ\) or CBS\(QZ/5Z\)\."
+        match=r"The basis must be specified as either DZ, TZ, QZ, 5Z, CBS\(DZ/TZ\), CBS\(TZ/QZ\) or CBS\(QZ/5Z\)\.",
     ):
         prep_cluster = autoSKZCAMPrepare(
-            skzcam_clusters_output[
-                "adsorbate_slab_embedded_cluster"
-            ],
+            skzcam_clusters_output["adsorbate_slab_embedded_cluster"],
             quantum_cluster_indices_set=skzcam_clusters_output[
                 "quantum_cluster_indices_set"
             ],
             ecp_region_indices_set=skzcam_clusters_output["ecp_region_indices_set"],
-            oniom_layers = wrong_oniom_layers
+            oniom_layers=wrong_oniom_layers,
         )
-        
+
     # Check if errors are raised when wrong element in element_info is specified
     wrong_oniom_layers = deepcopy(ref_oniom_layers)
     wrong_element_info = deepcopy(element_info)
-    wrong_element_info['ABC'] = element_info['C']
-    wrong_oniom_layers['Base']['hl']['element_info'] = wrong_element_info
+    wrong_element_info["ABC"] = element_info["C"]
+    wrong_oniom_layers["Base"]["hl"]["element_info"] = wrong_element_info
     with pytest.raises(
         ValueError,
-        match="The keys in the element_info dictionary must be valid element symbols."
+        match="The keys in the element_info dictionary must be valid element symbols.",
     ):
         prep_cluster = autoSKZCAMPrepare(
-            skzcam_clusters_output[
-                "adsorbate_slab_embedded_cluster"
-            ],
+            skzcam_clusters_output["adsorbate_slab_embedded_cluster"],
             quantum_cluster_indices_set=skzcam_clusters_output[
                 "quantum_cluster_indices_set"
             ],
             ecp_region_indices_set=skzcam_clusters_output["ecp_region_indices_set"],
-            oniom_layers = wrong_oniom_layers
+            oniom_layers=wrong_oniom_layers,
         )
-    
+
     for basis_type in ["basis", "ri_scf_basis", "ri_cwft_basis"]:
-        wrong_element_info = {'C': {basis_type: "wrong"}}
+        wrong_element_info = {"C": {basis_type: "wrong"}}
         wrong_oniom_layers = deepcopy(ref_oniom_layers)
-        wrong_oniom_layers['Delta_Basis and Delta_Core']['hl']['element_info'] = wrong_element_info
+        wrong_oniom_layers["Delta_Basis and Delta_Core"]["hl"]["element_info"] = (
+            wrong_element_info
+        )
         with pytest.raises(
             ValueError,
-            match=f"The {basis_type}" +r" parameter must be provided in the element_info dictionary as format CBS\(X/Y\), where X and Y are the two basis sets."):
+            match=f"The {basis_type}"
+            + r" parameter must be provided in the element_info dictionary as format CBS\(X/Y\), where X and Y are the two basis sets.",
+        ):
             prep_cluster = autoSKZCAMPrepare(
-                skzcam_clusters_output[
-                    "adsorbate_slab_embedded_cluster"
-                ],
+                skzcam_clusters_output["adsorbate_slab_embedded_cluster"],
                 quantum_cluster_indices_set=skzcam_clusters_output[
                     "quantum_cluster_indices_set"
                 ],
                 ecp_region_indices_set=skzcam_clusters_output["ecp_region_indices_set"],
-                oniom_layers = wrong_oniom_layers
+                oniom_layers=wrong_oniom_layers,
             )
 
     # Check if errors are raised when wrong code inputs are specified for ORCA
     wrong_oniom_layers = deepcopy(ref_oniom_layers)
-    wrong_oniom_layers['Base']['hl']['code_inputs'] = {'wrong': 'input'}
+    wrong_oniom_layers["Base"]["hl"]["code_inputs"] = {"wrong": "input"}
 
     with pytest.raises(
         ValueError,
-        match=f"If the code is orca, the orcasimpleinput and orcablocks must be provided in the code_inputs dictionary."
+        match="If the code is orca, the orcasimpleinput and orcablocks must be provided in the code_inputs dictionary.",
     ):
         prep_cluster = autoSKZCAMPrepare(
-            skzcam_clusters_output[
-                "adsorbate_slab_embedded_cluster"
-            ],
+            skzcam_clusters_output["adsorbate_slab_embedded_cluster"],
             quantum_cluster_indices_set=skzcam_clusters_output[
                 "quantum_cluster_indices_set"
             ],
             ecp_region_indices_set=skzcam_clusters_output["ecp_region_indices_set"],
-            oniom_layers = wrong_oniom_layers
-        )   
+            oniom_layers=wrong_oniom_layers,
+        )
 
-def test_autoSKZCAMPrepare_intialize_clusters(skzcam_clusters_output,ref_oniom_layers,element_info):
+
+def test_autoSKZCAMPrepare_intialize_clusters(
+    skzcam_clusters_output, ref_oniom_layers, element_info
+):
     prep_cluster = autoSKZCAMPrepare(
-        skzcam_clusters_output[
-            "adsorbate_slab_embedded_cluster"
-        ],
+        skzcam_clusters_output["adsorbate_slab_embedded_cluster"],
         quantum_cluster_indices_set=skzcam_clusters_output[
             "quantum_cluster_indices_set"
         ],
         ecp_region_indices_set=skzcam_clusters_output["ecp_region_indices_set"],
-        oniom_layers = ref_oniom_layers
+        oniom_layers=ref_oniom_layers,
     )
 
-    oniom_layer_parameters = {'method': 'MP2', 'frozen_core': 'valence', 'basis': 'DZ', 'max_cluster_num': 2, 'code': 'mrcc'}
+    oniom_layer_parameters = {
+        "method": "MP2",
+        "frozen_core": "valence",
+        "basis": "DZ",
+        "max_cluster_num": 2,
+        "code": "mrcc",
+    }
 
     # Confirm that the MP2 default are created correctly
-    calculators = prep_cluster.initialize_calculator(oniom_layer_parameters=oniom_layer_parameters,quantum_cluster_indices=skzcam_clusters_output["quantum_cluster_indices_set"][0], ecp_region_indices=skzcam_clusters_output["ecp_region_indices_set"][0],element_info=element_info)
-    
-    assert calculators['adsorbate'].calc.parameters == {'calc': 'DF-MP2', 'scftype': 'rhf', 'verbosity': 3, 'mem': '80000MB', 'symm': 'off', 'unit': 'angs', 'scfiguess': 'small', 'scfmaxit': 1000, 'scfalg': 'locfit1', 'basis_sm': 'special\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\n\n', 'basis': 'special\naug-cc-pVDZ\naug-cc-pVDZ\ncc-pVDZ\naug-cc-pVDZ\naug-cc-pVDZ\naug-cc-pVDZ\naug-cc-pVDZ\naug-cc-pVDZ\n\n', 'dfbasis_scf': 'special\ndef2/J\ndef2/JK\ndef2/J\ndef2/JK\ndef2/JK\ndef2/JK\ndef2/JK\ndef2/JK\n\n', 'dfbasis_cor': 'special\naug-cc-pVDZ/C\naug-cc-pVDZ/C\ncc-pVDZ/C\naug-cc-pVDZ/C\naug-cc-pVDZ/C\naug-cc-pVDZ/C\naug-cc-pVDZ/C\naug-cc-pVDZ/C\n\n', 'ecp': 'special\nnone\nnone\nnone\nnone\nnone\nnone\nnone\nnone\n', 'charge': '0', 'mult': '1', 'core': '2', 'geom': 'xyz\n8\n\nC                       0.00000000000    0.00000000000    2.00000000000\nO                       0.00000000000    0.00000000000    3.12800000000\nMg                      0.00000000000    0.00000000000    0.00000000000\nO                      -2.12018425659    0.00000000000    0.00567209089\nO                       0.00000000000    2.12018425659    0.00567209089\nO                       2.12018425659    0.00000000000    0.00567209089\nO                       0.00000000000   -2.12018425659    0.00567209089\nO                       0.00000000000    0.00000000000   -2.14129966123\n', 'ghost': 'serialno\n3,4,5,6,7,8\n\n'}
+    calculators = prep_cluster.initialize_calculator(
+        oniom_layer_parameters=oniom_layer_parameters,
+        quantum_cluster_indices=skzcam_clusters_output["quantum_cluster_indices_set"][
+            0
+        ],
+        ecp_region_indices=skzcam_clusters_output["ecp_region_indices_set"][0],
+        element_info=element_info,
+    )
+
+    assert calculators["adsorbate"].calc.parameters == {
+        "calc": "DF-MP2",
+        "scftype": "rhf",
+        "verbosity": 3,
+        "mem": "80000MB",
+        "symm": "off",
+        "unit": "angs",
+        "scfiguess": "small",
+        "scfmaxit": 1000,
+        "scfalg": "locfit1",
+        "basis_sm": "special\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\n\n",
+        "basis": "special\naug-cc-pVDZ\naug-cc-pVDZ\ncc-pVDZ\naug-cc-pVDZ\naug-cc-pVDZ\naug-cc-pVDZ\naug-cc-pVDZ\naug-cc-pVDZ\n\n",
+        "dfbasis_scf": "special\ndef2/J\ndef2/JK\ndef2/J\ndef2/JK\ndef2/JK\ndef2/JK\ndef2/JK\ndef2/JK\n\n",
+        "dfbasis_cor": "special\naug-cc-pVDZ/C\naug-cc-pVDZ/C\ncc-pVDZ/C\naug-cc-pVDZ/C\naug-cc-pVDZ/C\naug-cc-pVDZ/C\naug-cc-pVDZ/C\naug-cc-pVDZ/C\n\n",
+        "ecp": "special\nnone\nnone\nnone\nnone\nnone\nnone\nnone\nnone\n",
+        "charge": "0",
+        "mult": "1",
+        "core": "2",
+        "geom": "xyz\n8\n\nC                       0.00000000000    0.00000000000    2.00000000000\nO                       0.00000000000    0.00000000000    3.12800000000\nMg                      0.00000000000    0.00000000000    0.00000000000\nO                      -2.12018425659    0.00000000000    0.00567209089\nO                       0.00000000000    2.12018425659    0.00567209089\nO                       2.12018425659    0.00000000000    0.00567209089\nO                       0.00000000000   -2.12018425659    0.00567209089\nO                       0.00000000000    0.00000000000   -2.14129966123\n",
+        "ghost": "serialno\n3,4,5,6,7,8\n\n",
+    }
 
     # Confirm that the LNO-CCSD(T) default are created correctly
-    oniom_layer_parameters = {'method': 'LNO-CCSD(T)', 'frozen_core': 'valence', 'basis': 'DZ', 'max_cluster_num': 2, 'code': 'mrcc'}
-    calculators = prep_cluster.initialize_calculator(oniom_layer_parameters=oniom_layer_parameters, quantum_cluster_indices=skzcam_clusters_output["quantum_cluster_indices_set"][0], ecp_region_indices=skzcam_clusters_output["ecp_region_indices_set"][0],element_info=element_info)
+    oniom_layer_parameters = {
+        "method": "LNO-CCSD(T)",
+        "frozen_core": "valence",
+        "basis": "DZ",
+        "max_cluster_num": 2,
+        "code": "mrcc",
+    }
+    calculators = prep_cluster.initialize_calculator(
+        oniom_layer_parameters=oniom_layer_parameters,
+        quantum_cluster_indices=skzcam_clusters_output["quantum_cluster_indices_set"][
+            0
+        ],
+        ecp_region_indices=skzcam_clusters_output["ecp_region_indices_set"][0],
+        element_info=element_info,
+    )
 
-    assert calculators['adsorbate'].calc.parameters == {'calc': 'LNO-CCSD(T)', 'scftype': 'rhf', 'verbosity': 3, 'mem': '80000MB', 'symm': 'off', 'unit': 'angs', 'scfiguess': 'small', 'scfmaxit': 1000, 'scfalg': 'locfit1', 'lcorthr': 'tight', 'bpedo': 0.99999, 'ccmaxit': 400, 'usedisk': 0, 'ccsdalg': 'dfdirect', 'ccsdthreads': 4, 'ccsdmkl': 'thr', 'ptthreads': 4, 'basis_sm': 'special\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\n\n', 'basis': 'special\naug-cc-pVDZ\naug-cc-pVDZ\ncc-pVDZ\naug-cc-pVDZ\naug-cc-pVDZ\naug-cc-pVDZ\naug-cc-pVDZ\naug-cc-pVDZ\n\n', 'dfbasis_scf': 'special\ndef2/J\ndef2/JK\ndef2/J\ndef2/JK\ndef2/JK\ndef2/JK\ndef2/JK\ndef2/JK\n\n', 'dfbasis_cor': 'special\naug-cc-pVDZ/C\naug-cc-pVDZ/C\ncc-pVDZ/C\naug-cc-pVDZ/C\naug-cc-pVDZ/C\naug-cc-pVDZ/C\naug-cc-pVDZ/C\naug-cc-pVDZ/C\n\n', 'ecp': 'special\nnone\nnone\nnone\nnone\nnone\nnone\nnone\nnone\n', 'charge': '0', 'mult': '1', 'core': '2', 'geom': 'xyz\n8\n\nC                       0.00000000000    0.00000000000    2.00000000000\nO                       0.00000000000    0.00000000000    3.12800000000\nMg                      0.00000000000    0.00000000000    0.00000000000\nO                      -2.12018425659    0.00000000000    0.00567209089\nO                       0.00000000000    2.12018425659    0.00567209089\nO                       2.12018425659    0.00000000000    0.00567209089\nO                       0.00000000000   -2.12018425659    0.00567209089\nO                       0.00000000000    0.00000000000   -2.14129966123\n', 'ghost': 'serialno\n3,4,5,6,7,8\n\n'}
+    assert calculators["adsorbate"].calc.parameters == {
+        "calc": "LNO-CCSD(T)",
+        "scftype": "rhf",
+        "verbosity": 3,
+        "mem": "80000MB",
+        "symm": "off",
+        "unit": "angs",
+        "scfiguess": "small",
+        "scfmaxit": 1000,
+        "scfalg": "locfit1",
+        "lcorthr": "tight",
+        "bpedo": 0.99999,
+        "ccmaxit": 400,
+        "usedisk": 0,
+        "ccsdalg": "dfdirect",
+        "ccsdthreads": 4,
+        "ccsdmkl": "thr",
+        "ptthreads": 4,
+        "basis_sm": "special\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\n\n",
+        "basis": "special\naug-cc-pVDZ\naug-cc-pVDZ\ncc-pVDZ\naug-cc-pVDZ\naug-cc-pVDZ\naug-cc-pVDZ\naug-cc-pVDZ\naug-cc-pVDZ\n\n",
+        "dfbasis_scf": "special\ndef2/J\ndef2/JK\ndef2/J\ndef2/JK\ndef2/JK\ndef2/JK\ndef2/JK\ndef2/JK\n\n",
+        "dfbasis_cor": "special\naug-cc-pVDZ/C\naug-cc-pVDZ/C\ncc-pVDZ/C\naug-cc-pVDZ/C\naug-cc-pVDZ/C\naug-cc-pVDZ/C\naug-cc-pVDZ/C\naug-cc-pVDZ/C\n\n",
+        "ecp": "special\nnone\nnone\nnone\nnone\nnone\nnone\nnone\nnone\n",
+        "charge": "0",
+        "mult": "1",
+        "core": "2",
+        "geom": "xyz\n8\n\nC                       0.00000000000    0.00000000000    2.00000000000\nO                       0.00000000000    0.00000000000    3.12800000000\nMg                      0.00000000000    0.00000000000    0.00000000000\nO                      -2.12018425659    0.00000000000    0.00567209089\nO                       0.00000000000    2.12018425659    0.00567209089\nO                       2.12018425659    0.00000000000    0.00567209089\nO                       0.00000000000   -2.12018425659    0.00567209089\nO                       0.00000000000    0.00000000000   -2.14129966123\n",
+        "ghost": "serialno\n3,4,5,6,7,8\n\n",
+    }
 
     # Confirm that calculations work when utilising non-default methods
-    oniom_layer_parameters = {'method': 'dRPA', 'frozen_core': 'valence', 'basis': 'DZ', 'max_cluster_num': 2, 'code': 'mrcc', 'code_inputs': {'calc':'dRPA','scf': 'uhf'}}
-    calculators = prep_cluster.initialize_calculator(oniom_layer_parameters=oniom_layer_parameters, quantum_cluster_indices=skzcam_clusters_output["quantum_cluster_indices_set"][0], ecp_region_indices=skzcam_clusters_output["ecp_region_indices_set"][0],element_info=element_info)
-    assert calculators['adsorbate'].calc.parameters == {'verbosity': 3, 'mem': '80000MB', 'symm': 'off', 'unit': 'angs', 'scfiguess': 'small', 'calc': 'dRPA', 'scf': 'uhf', 'basis_sm': 'special\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\n\n', 'basis': 'special\naug-cc-pVDZ\naug-cc-pVDZ\ncc-pVDZ\naug-cc-pVDZ\naug-cc-pVDZ\naug-cc-pVDZ\naug-cc-pVDZ\naug-cc-pVDZ\n\n', 'dfbasis_scf': 'special\ndef2/J\ndef2/JK\ndef2/J\ndef2/JK\ndef2/JK\ndef2/JK\ndef2/JK\ndef2/JK\n\n', 'dfbasis_cor': 'special\naug-cc-pVDZ/C\naug-cc-pVDZ/C\ncc-pVDZ/C\naug-cc-pVDZ/C\naug-cc-pVDZ/C\naug-cc-pVDZ/C\naug-cc-pVDZ/C\naug-cc-pVDZ/C\n\n', 'ecp': 'special\nnone\nnone\nnone\nnone\nnone\nnone\nnone\nnone\n', 'charge': '0', 'mult': '1', 'core': '2', 'geom': 'xyz\n8\n\nC                       0.00000000000    0.00000000000    2.00000000000\nO                       0.00000000000    0.00000000000    3.12800000000\nMg                      0.00000000000    0.00000000000    0.00000000000\nO                      -2.12018425659    0.00000000000    0.00567209089\nO                       0.00000000000    2.12018425659    0.00567209089\nO                       2.12018425659    0.00000000000    0.00567209089\nO                       0.00000000000   -2.12018425659    0.00567209089\nO                       0.00000000000    0.00000000000   -2.14129966123\n', 'ghost': 'serialno\n3,4,5,6,7,8\n\n'}
+    oniom_layer_parameters = {
+        "method": "dRPA",
+        "frozen_core": "valence",
+        "basis": "DZ",
+        "max_cluster_num": 2,
+        "code": "mrcc",
+        "code_inputs": {"calc": "dRPA", "scf": "uhf"},
+    }
+    calculators = prep_cluster.initialize_calculator(
+        oniom_layer_parameters=oniom_layer_parameters,
+        quantum_cluster_indices=skzcam_clusters_output["quantum_cluster_indices_set"][
+            0
+        ],
+        ecp_region_indices=skzcam_clusters_output["ecp_region_indices_set"][0],
+        element_info=element_info,
+    )
+    assert calculators["adsorbate"].calc.parameters == {
+        "verbosity": 3,
+        "mem": "80000MB",
+        "symm": "off",
+        "unit": "angs",
+        "scfiguess": "small",
+        "calc": "dRPA",
+        "scf": "uhf",
+        "basis_sm": "special\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\n\n",
+        "basis": "special\naug-cc-pVDZ\naug-cc-pVDZ\ncc-pVDZ\naug-cc-pVDZ\naug-cc-pVDZ\naug-cc-pVDZ\naug-cc-pVDZ\naug-cc-pVDZ\n\n",
+        "dfbasis_scf": "special\ndef2/J\ndef2/JK\ndef2/J\ndef2/JK\ndef2/JK\ndef2/JK\ndef2/JK\ndef2/JK\n\n",
+        "dfbasis_cor": "special\naug-cc-pVDZ/C\naug-cc-pVDZ/C\ncc-pVDZ/C\naug-cc-pVDZ/C\naug-cc-pVDZ/C\naug-cc-pVDZ/C\naug-cc-pVDZ/C\naug-cc-pVDZ/C\n\n",
+        "ecp": "special\nnone\nnone\nnone\nnone\nnone\nnone\nnone\nnone\n",
+        "charge": "0",
+        "mult": "1",
+        "core": "2",
+        "geom": "xyz\n8\n\nC                       0.00000000000    0.00000000000    2.00000000000\nO                       0.00000000000    0.00000000000    3.12800000000\nMg                      0.00000000000    0.00000000000    0.00000000000\nO                      -2.12018425659    0.00000000000    0.00567209089\nO                       0.00000000000    2.12018425659    0.00567209089\nO                       2.12018425659    0.00000000000    0.00567209089\nO                       0.00000000000   -2.12018425659    0.00567209089\nO                       0.00000000000    0.00000000000   -2.14129966123\n",
+        "ghost": "serialno\n3,4,5,6,7,8\n\n",
+    }
 
     # Now check if the ORCA calculations are created correctly
-    oniom_layer_parameters = {'method': 'MP2', 'frozen_core': 'valence', 'basis': 'DZ', 'max_cluster_num': 2, 'code': 'orca'}
-    calculators = prep_cluster.initialize_calculator(oniom_layer_parameters=oniom_layer_parameters, quantum_cluster_indices=skzcam_clusters_output["quantum_cluster_indices_set"][0], ecp_region_indices=skzcam_clusters_output["ecp_region_indices_set"][0],element_info=element_info)
-    assert calculators['adsorbate'].calc.parameters == {'orcasimpleinput': 'TightSCF RI-MP2 TightPNO RIJCOSX DIIS', 'orcablocks': '\n%pal nprocs 8 end\n%maxcore 25000\n%method\nMethod hf\nRI on\nRunTyp Energy\nend\n%scf\nHFTyp rhf\nSCFMode Direct\nsthresh 1e-6\nAutoTRAHIter 60\nMaxIter 1000\nend\n\n%method\nNewNCore C 2 end\nNewNCore Mg 2 end\nNewNCore O 2 end\nend\n%basis\nNewGTO C "aug-cc-pVDZ" end\nNewAuxJGTO C "def2/J" end\nNewAuxCGTO C "aug-cc-pVDZ/C" end\nNewGTO Mg "cc-pVDZ" end\nNewAuxJGTO Mg "def2/J" end\nNewAuxCGTO Mg "cc-pVDZ/C" end\nNewGTO O "aug-cc-pVDZ" end\nNewAuxJGTO O "def2/JK" end\nNewAuxCGTO O "aug-cc-pVDZ/C" end\nend\n%coords\nCTyp xyz\nMult 1\nUnits angs\nCharge 0\ncoords\nC                       0.00000000000    0.00000000000    2.00000000000\nO                       0.00000000000    0.00000000000    3.12800000000\nMg:                     0.00000000000    0.00000000000    0.00000000000\nO:                     -2.12018425659    0.00000000000    0.00567209089\nO:                      0.00000000000    2.12018425659    0.00567209089\nO:                      2.12018425659    0.00000000000    0.00567209089\nO:                      0.00000000000   -2.12018425659    0.00567209089\nO:                      0.00000000000    0.00000000000   -2.14129966123\nend\nend\n'}
+    oniom_layer_parameters = {
+        "method": "MP2",
+        "frozen_core": "valence",
+        "basis": "DZ",
+        "max_cluster_num": 2,
+        "code": "orca",
+    }
+    calculators = prep_cluster.initialize_calculator(
+        oniom_layer_parameters=oniom_layer_parameters,
+        quantum_cluster_indices=skzcam_clusters_output["quantum_cluster_indices_set"][
+            0
+        ],
+        ecp_region_indices=skzcam_clusters_output["ecp_region_indices_set"][0],
+        element_info=element_info,
+    )
+    assert calculators["adsorbate"].calc.parameters == {
+        "orcasimpleinput": "TightSCF RI-MP2 TightPNO RIJCOSX DIIS",
+        "orcablocks": '\n%pal nprocs 8 end\n%maxcore 25000\n%method\nMethod hf\nRI on\nRunTyp Energy\nend\n%scf\nHFTyp rhf\nSCFMode Direct\nsthresh 1e-6\nAutoTRAHIter 60\nMaxIter 1000\nend\n\n%method\nNewNCore C 2 end\nNewNCore Mg 2 end\nNewNCore O 2 end\nend\n%basis\nNewGTO C "aug-cc-pVDZ" end\nNewAuxJGTO C "def2/J" end\nNewAuxCGTO C "aug-cc-pVDZ/C" end\nNewGTO Mg "cc-pVDZ" end\nNewAuxJGTO Mg "def2/J" end\nNewAuxCGTO Mg "cc-pVDZ/C" end\nNewGTO O "aug-cc-pVDZ" end\nNewAuxJGTO O "def2/JK" end\nNewAuxCGTO O "aug-cc-pVDZ/C" end\nend\n%coords\nCTyp xyz\nMult 1\nUnits angs\nCharge 0\ncoords\nC                       0.00000000000    0.00000000000    2.00000000000\nO                       0.00000000000    0.00000000000    3.12800000000\nMg:                     0.00000000000    0.00000000000    0.00000000000\nO:                     -2.12018425659    0.00000000000    0.00567209089\nO:                      0.00000000000    2.12018425659    0.00567209089\nO:                      2.12018425659    0.00000000000    0.00567209089\nO:                      0.00000000000   -2.12018425659    0.00567209089\nO:                      0.00000000000    0.00000000000   -2.14129966123\nend\nend\n',
+    }
 
     # Check if DLPNO-CCSD(T) and DLPNO-MP2 calculations are created correctly
-    oniom_layer_parameters = {'method': 'DLPNO-CCSD(T)', 'frozen_core': 'valence', 'basis': 'DZ', 'max_cluster_num': 2, 'code': 'orca'}
-    calculators = prep_cluster.initialize_calculator(oniom_layer_parameters=oniom_layer_parameters, quantum_cluster_indices=skzcam_clusters_output["quantum_cluster_indices_set"][0], ecp_region_indices=skzcam_clusters_output["ecp_region_indices_set"][0],element_info=element_info)
-    assert calculators['adsorbate'].calc.parameters['orcasimpleinput'] == r"TightSCF DLPNO-CCSD(T) TightPNO RIJCOSX DIIS"
-    oniom_layer_parameters = {'method': 'DLPNO-MP2', 'frozen_core': 'valence', 'basis': 'DZ', 'max_cluster_num': 2, 'code': 'orca'}
-    calculators = prep_cluster.initialize_calculator(oniom_layer_parameters=oniom_layer_parameters, quantum_cluster_indices=skzcam_clusters_output["quantum_cluster_indices_set"][0], ecp_region_indices=skzcam_clusters_output["ecp_region_indices_set"][0],element_info=element_info)
-    assert calculators['adsorbate'].calc.parameters['orcasimpleinput'] == r"TightSCF DLPNO-MP2 TightPNO RIJCOSX DIIS"
+    oniom_layer_parameters = {
+        "method": "DLPNO-CCSD(T)",
+        "frozen_core": "valence",
+        "basis": "DZ",
+        "max_cluster_num": 2,
+        "code": "orca",
+    }
+    calculators = prep_cluster.initialize_calculator(
+        oniom_layer_parameters=oniom_layer_parameters,
+        quantum_cluster_indices=skzcam_clusters_output["quantum_cluster_indices_set"][
+            0
+        ],
+        ecp_region_indices=skzcam_clusters_output["ecp_region_indices_set"][0],
+        element_info=element_info,
+    )
+    assert (
+        calculators["adsorbate"].calc.parameters["orcasimpleinput"]
+        == r"TightSCF DLPNO-CCSD(T) TightPNO RIJCOSX DIIS"
+    )
+    oniom_layer_parameters = {
+        "method": "DLPNO-MP2",
+        "frozen_core": "valence",
+        "basis": "DZ",
+        "max_cluster_num": 2,
+        "code": "orca",
+    }
+    calculators = prep_cluster.initialize_calculator(
+        oniom_layer_parameters=oniom_layer_parameters,
+        quantum_cluster_indices=skzcam_clusters_output["quantum_cluster_indices_set"][
+            0
+        ],
+        ecp_region_indices=skzcam_clusters_output["ecp_region_indices_set"][0],
+        element_info=element_info,
+    )
+    assert (
+        calculators["adsorbate"].calc.parameters["orcasimpleinput"]
+        == r"TightSCF DLPNO-MP2 TightPNO RIJCOSX DIIS"
+    )
 
     # Check that custom code inputs are used correctly
-    oniom_layer_parameters = {'method': 'CEPA', 'frozen_core': 'valence', 'basis': 'DZ', 'max_cluster_num': 2, 'code': 'orca', 'code_inputs': {'orcasimpleinput': 'CEPA', 'orcablocks': '%scf\nHFTyp uhf\nend'}}
-    calculators = prep_cluster.initialize_calculator(oniom_layer_parameters=oniom_layer_parameters, quantum_cluster_indices=skzcam_clusters_output["quantum_cluster_indices_set"][0], ecp_region_indices=skzcam_clusters_output["ecp_region_indices_set"][0],element_info=element_info)
-    assert calculators['adsorbate'].calc.parameters == {'orcasimpleinput': 'CEPA', 'orcablocks': '%scf\nHFTyp uhf\nend\n%method\nNewNCore C 2 end\nNewNCore Mg 2 end\nNewNCore O 2 end\nend\n%basis\nNewGTO C "aug-cc-pVDZ" end\nNewAuxJGTO C "def2/J" end\nNewAuxCGTO C "aug-cc-pVDZ/C" end\nNewGTO Mg "cc-pVDZ" end\nNewAuxJGTO Mg "def2/J" end\nNewAuxCGTO Mg "cc-pVDZ/C" end\nNewGTO O "aug-cc-pVDZ" end\nNewAuxJGTO O "def2/JK" end\nNewAuxCGTO O "aug-cc-pVDZ/C" end\nend\n%coords\nCTyp xyz\nMult 1\nUnits angs\nCharge 0\ncoords\nC                       0.00000000000    0.00000000000    2.00000000000\nO                       0.00000000000    0.00000000000    3.12800000000\nMg:                     0.00000000000    0.00000000000    0.00000000000\nO:                     -2.12018425659    0.00000000000    0.00567209089\nO:                      0.00000000000    2.12018425659    0.00567209089\nO:                      2.12018425659    0.00000000000    0.00567209089\nO:                      0.00000000000   -2.12018425659    0.00567209089\nO:                      0.00000000000    0.00000000000   -2.14129966123\nend\nend\n'}
+    oniom_layer_parameters = {
+        "method": "CEPA",
+        "frozen_core": "valence",
+        "basis": "DZ",
+        "max_cluster_num": 2,
+        "code": "orca",
+        "code_inputs": {
+            "orcasimpleinput": "CEPA",
+            "orcablocks": "%scf\nHFTyp uhf\nend",
+        },
+    }
+    calculators = prep_cluster.initialize_calculator(
+        oniom_layer_parameters=oniom_layer_parameters,
+        quantum_cluster_indices=skzcam_clusters_output["quantum_cluster_indices_set"][
+            0
+        ],
+        ecp_region_indices=skzcam_clusters_output["ecp_region_indices_set"][0],
+        element_info=element_info,
+    )
+    assert calculators["adsorbate"].calc.parameters == {
+        "orcasimpleinput": "CEPA",
+        "orcablocks": '%scf\nHFTyp uhf\nend\n%method\nNewNCore C 2 end\nNewNCore Mg 2 end\nNewNCore O 2 end\nend\n%basis\nNewGTO C "aug-cc-pVDZ" end\nNewAuxJGTO C "def2/J" end\nNewAuxCGTO C "aug-cc-pVDZ/C" end\nNewGTO Mg "cc-pVDZ" end\nNewAuxJGTO Mg "def2/J" end\nNewAuxCGTO Mg "cc-pVDZ/C" end\nNewGTO O "aug-cc-pVDZ" end\nNewAuxJGTO O "def2/JK" end\nNewAuxCGTO O "aug-cc-pVDZ/C" end\nend\n%coords\nCTyp xyz\nMult 1\nUnits angs\nCharge 0\ncoords\nC                       0.00000000000    0.00000000000    2.00000000000\nO                       0.00000000000    0.00000000000    3.12800000000\nMg:                     0.00000000000    0.00000000000    0.00000000000\nO:                     -2.12018425659    0.00000000000    0.00567209089\nO:                      0.00000000000    2.12018425659    0.00567209089\nO:                      2.12018425659    0.00000000000    0.00567209089\nO:                      0.00000000000   -2.12018425659    0.00567209089\nO:                      0.00000000000    0.00000000000   -2.14129966123\nend\nend\n',
+    }
 
-    oniom_layer_parameters = {'method': 'CEPA', 'frozen_core': 'valence', 'basis': 'DZ', 'max_cluster_num': 2, 'code': 'orca', 'code_inputs': {'orcasimpleinput': 'CEPA'}}
-    calculators = prep_cluster.initialize_calculator(oniom_layer_parameters=oniom_layer_parameters, quantum_cluster_indices=skzcam_clusters_output["quantum_cluster_indices_set"][0], ecp_region_indices=skzcam_clusters_output["ecp_region_indices_set"][0],element_info=element_info)
-    assert calculators['adsorbate'].calc.parameters ==  {'orcasimpleinput': 'CEPA', 'orcablocks': '\n%pal nprocs 8 end\n%maxcore 25000\n%method\nMethod hf\nRI on\nRunTyp Energy\nend\n%scf\nHFTyp rhf\nSCFMode Direct\nsthresh 1e-6\nAutoTRAHIter 60\nMaxIter 1000\nend\n\n%method\nNewNCore C 2 end\nNewNCore Mg 2 end\nNewNCore O 2 end\nend\n%basis\nNewGTO C "aug-cc-pVDZ" end\nNewAuxJGTO C "def2/J" end\nNewAuxCGTO C "aug-cc-pVDZ/C" end\nNewGTO Mg "cc-pVDZ" end\nNewAuxJGTO Mg "def2/J" end\nNewAuxCGTO Mg "cc-pVDZ/C" end\nNewGTO O "aug-cc-pVDZ" end\nNewAuxJGTO O "def2/JK" end\nNewAuxCGTO O "aug-cc-pVDZ/C" end\nend\n%coords\nCTyp xyz\nMult 1\nUnits angs\nCharge 0\ncoords\nC                       0.00000000000    0.00000000000    2.00000000000\nO                       0.00000000000    0.00000000000    3.12800000000\nMg:                     0.00000000000    0.00000000000    0.00000000000\nO:                     -2.12018425659    0.00000000000    0.00567209089\nO:                      0.00000000000    2.12018425659    0.00567209089\nO:                      2.12018425659    0.00000000000    0.00567209089\nO:                      0.00000000000   -2.12018425659    0.00567209089\nO:                      0.00000000000    0.00000000000   -2.14129966123\nend\nend\n'}
+    oniom_layer_parameters = {
+        "method": "CEPA",
+        "frozen_core": "valence",
+        "basis": "DZ",
+        "max_cluster_num": 2,
+        "code": "orca",
+        "code_inputs": {"orcasimpleinput": "CEPA"},
+    }
+    calculators = prep_cluster.initialize_calculator(
+        oniom_layer_parameters=oniom_layer_parameters,
+        quantum_cluster_indices=skzcam_clusters_output["quantum_cluster_indices_set"][
+            0
+        ],
+        ecp_region_indices=skzcam_clusters_output["ecp_region_indices_set"][0],
+        element_info=element_info,
+    )
+    assert calculators["adsorbate"].calc.parameters == {
+        "orcasimpleinput": "CEPA",
+        "orcablocks": '\n%pal nprocs 8 end\n%maxcore 25000\n%method\nMethod hf\nRI on\nRunTyp Energy\nend\n%scf\nHFTyp rhf\nSCFMode Direct\nsthresh 1e-6\nAutoTRAHIter 60\nMaxIter 1000\nend\n\n%method\nNewNCore C 2 end\nNewNCore Mg 2 end\nNewNCore O 2 end\nend\n%basis\nNewGTO C "aug-cc-pVDZ" end\nNewAuxJGTO C "def2/J" end\nNewAuxCGTO C "aug-cc-pVDZ/C" end\nNewGTO Mg "cc-pVDZ" end\nNewAuxJGTO Mg "def2/J" end\nNewAuxCGTO Mg "cc-pVDZ/C" end\nNewGTO O "aug-cc-pVDZ" end\nNewAuxJGTO O "def2/JK" end\nNewAuxCGTO O "aug-cc-pVDZ/C" end\nend\n%coords\nCTyp xyz\nMult 1\nUnits angs\nCharge 0\ncoords\nC                       0.00000000000    0.00000000000    2.00000000000\nO                       0.00000000000    0.00000000000    3.12800000000\nMg:                     0.00000000000    0.00000000000    0.00000000000\nO:                     -2.12018425659    0.00000000000    0.00567209089\nO:                      0.00000000000    2.12018425659    0.00567209089\nO:                      2.12018425659    0.00000000000    0.00567209089\nO:                      0.00000000000   -2.12018425659    0.00567209089\nO:                      0.00000000000    0.00000000000   -2.14129966123\nend\nend\n',
+    }
 
-def test_autoSKZCAMPrepare_create_element_info(skzcam_clusters_output,ref_oniom_layers):
+
+def test_autoSKZCAMPrepare_create_element_info(
+    skzcam_clusters_output, ref_oniom_layers
+):
     # First for 'DZ' and 'semicore' for MRCC
     prep_cluster = autoSKZCAMPrepare(
         adsorbate_slab_embedded_cluster=skzcam_clusters_output[
@@ -626,10 +861,7 @@ def test_autoSKZCAMPrepare_create_element_info(skzcam_clusters_output,ref_oniom_
     )
 
     element_info = prep_cluster.create_element_info(
-        basis="DZ",
-        frozen_core="semicore",
-        code="mrcc",
-        ecp={},
+        basis="DZ", frozen_core="semicore", code="mrcc", ecp={}
     )
     assert element_info == {
         "C": {
@@ -657,10 +889,7 @@ def test_autoSKZCAMPrepare_create_element_info(skzcam_clusters_output,ref_oniom_
 
     # Then for 'QZ' and 'valence' for ORCA
     element_info = prep_cluster.create_element_info(
-        basis="QZ",
-        frozen_core="valence",
-        code="orca",
-        ecp={},
+        basis="QZ", frozen_core="valence", code="orca", ecp={}
     )
 
     assert element_info == {
@@ -689,10 +918,7 @@ def test_autoSKZCAMPrepare_create_element_info(skzcam_clusters_output,ref_oniom_
 
     # Specifying ecp for MRCC
     element_info = prep_cluster.create_element_info(
-        basis="DZ",
-        frozen_core="semicore",
-        code="mrcc",
-        ecp={"Mg": "ECP10SDF"},
+        basis="DZ", frozen_core="semicore", code="mrcc", ecp={"Mg": "ECP10SDF"}
     )
     assert element_info == {
         "C": {
@@ -717,7 +943,7 @@ def test_autoSKZCAMPrepare_create_element_info(skzcam_clusters_output,ref_oniom_
             "ri_cwft_basis": "cc-pwCVDZ-RI",
         },
     }
-    
+
 
 # def test_autoSKZCAMPrepare_create_cluster_calcs(skzcam_clusters_output,ref_oniom_layers,element_info):
 

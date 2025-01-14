@@ -1,35 +1,42 @@
 from __future__ import annotations
 
+from copy import deepcopy
 from importlib.util import find_spec
 from pathlib import Path
 from typing import TYPE_CHECKING, Literal
 
 import numpy as np
 from ase.atoms import Atoms
-from ase.io import read, write
+from ase.calculators.orca import ORCA, OrcaProfile
 from ase.data import atomic_numbers
-
-
+from ase.io import read, write
 from ase.units import Bohr
 from monty.dev import requires
 from monty.io import zopen
 from monty.os.path import zpath
+from quacc import get_settings
 
-from copy import deepcopy
-
-from autoSKZCAM.io import MRCCInputGenerator, ORCAInputGenerator
 # from ase.io.orca import write_orca
 # from quacc.calculators.mrcc.io import write_mrcc
 from quacc.calculators.mrcc.mrcc import MRCC, MrccProfile
-from ase.calculators.orca import ORCA, OrcaProfile
-from quacc import get_settings
 
-from autoSKZCAM.data import code_calculation_defaults, frozen_core_defaults, capped_ecp_defaults
+from autoSKZCAM.data import (
+    capped_ecp_defaults,
+    code_calculation_defaults,
+    frozen_core_defaults,
+)
+from autoSKZCAM.io import MRCCInputGenerator, ORCAInputGenerator
 
 if TYPE_CHECKING:
     from numpy.typing import NDArray
 
-    from autoSKZCAM.types import ONIOMLayerInfo, SKZCAMOutput, ElementInfo, ElementStr, CalculatorInfo
+    from autoSKZCAM.types import (
+        CalculatorInfo,
+        ElementInfo,
+        ElementStr,
+        ONIOMLayerInfo,
+        SKZCAMOutput,
+    )
 
 has_chemshell = find_spec("chemsh") is not None
 
@@ -45,8 +52,8 @@ class autoSKZCAMPrepare:
         quantum_cluster_indices_set: list[list[int]],
         ecp_region_indices_set: list[list[int]],
         oniom_layers: dict[str, ONIOMLayerInfo],
-        capped_ecp: dict[Literal["mrcc","orca"],str] = capped_ecp_defaults,
-        multiplicities: dict[str, int] = {"adsorbate_slab": 1, "adsorbate": 1, "slab": 1},
+        capped_ecp: dict[Literal["mrcc", "orca"], str] = capped_ecp_defaults,
+        multiplicities: dict[str, int] | None = None,
     ) -> None:
         """
         Parameters
@@ -69,6 +76,8 @@ class autoSKZCAMPrepare:
         None
         """
 
+        if multiplicities is None:
+            multiplicities = {"adsorbate_slab": 1, "adsorbate": 1, "slab": 1}
         self.adsorbate_slab_embedded_cluster = adsorbate_slab_embedded_cluster
         self.quantum_cluster_indices_set = quantum_cluster_indices_set
         self.ecp_region_indices_set = ecp_region_indices_set
@@ -81,19 +90,22 @@ class autoSKZCAMPrepare:
             raise ValueError(
                 "The quantum_cluster_indices_set and ecp_region_indices_set must be the same length."
             )
-        
+
         # Raise an error if the capped_ecp dictionary is not formatted correctly
         for key in capped_ecp:
             if key.lower() == "mrcc" or key.lower() == "orca":
                 self.capped_ecp[key.lower()] = capped_ecp[key]
             else:
                 raise ValueError(
-                    "The keys in the capped_ecp dictionary must be either 'mrcc' or 'orca' in the corresponding code format.")
-        
+                    "The keys in the capped_ecp dictionary must be either 'mrcc' or 'orca' in the corresponding code format."
+                )
+
         # Raise an error if multiplicities is not formatted correctly
         for structure in ["adsorbate_slab", "adsorbate", "slab"]:
             if structure not in self.multiplicities:
-                raise ValueError("The multiplicities must be provided for all three structures: adsorbate_slab, adsorbate, and slab.")
+                raise ValueError(
+                    "The multiplicities must be provided for all three structures: adsorbate_slab, adsorbate, and slab."
+                )
 
         # Check that all of the necessary keywords are included in each oniom layer
         max_cluster = 0
@@ -107,7 +119,7 @@ class autoSKZCAMPrepare:
                         "max_cluster_num",
                         "basis",
                         "frozen_core",
-                        "code"
+                        "code",
                     ]:
                         if parameter not in oniom_layer_parameters:
                             raise ValueError(
@@ -133,51 +145,86 @@ class autoSKZCAMPrepare:
                         raise ValueError(
                             "The frozen_core must be specified as either 'valence' or 'semicore'."
                         )
-                    
+
                     # Check that the code is either 'mrcc' or 'orca'
                     if oniom_layer_parameters["code"] not in ["mrcc", "orca"]:
                         raise ValueError(
                             "The code must be specified as either 'mrcc' or 'orca'."
                         )
-                    
+
                     # Ensure that basis is specified as either DZ, TZ, QZ, 5Z or CBS(X/Y)
-                    if oniom_layer_parameters["basis"] not in ["DZ", "TZ", "QZ", "5Z", "CBS(DZ/TZ)", "CBS(TZ/QZ)", "CBS(QZ/5Z)"]:
+                    if oniom_layer_parameters["basis"] not in [
+                        "DZ",
+                        "TZ",
+                        "QZ",
+                        "5Z",
+                        "CBS(DZ/TZ)",
+                        "CBS(TZ/QZ)",
+                        "CBS(QZ/5Z)",
+                    ]:
                         raise ValueError(
                             "The basis must be specified as either DZ, TZ, QZ, 5Z, CBS(DZ/TZ), CBS(TZ/QZ) or CBS(QZ/5Z)."
                         )
 
                     # Some checks of the element_info in the case where the layer involves a CBS calculation
                     # If element_info is provided, check that it is a dictionary
-                    if 'element_info' in oniom_layer_parameters and oniom_layer_parameters["element_info"] is not None:
+                    if (
+                        "element_info" in oniom_layer_parameters
+                        and oniom_layer_parameters["element_info"] is not None
+                    ):
                         # Check that the keys in element_info are valid element symbols
-                        if not all( key in frozen_core_defaults['semicore'] for key in oniom_layer_parameters["element_info"]):
+                        if not all(
+                            key in frozen_core_defaults["semicore"]
+                            for key in oniom_layer_parameters["element_info"]
+                        ):
                             raise ValueError(
                                 "The keys in the element_info dictionary must be valid element symbols."
                             )
                         # If the basis set is a CBS basis set, ensure that the basis set is split into two
                         if "CBS" in oniom_layer_parameters.get("basis", ""):
                             for element in oniom_layer_parameters["element_info"]:
-                                for basis_type in ["basis", "ri_scf_basis", "ri_cwft_basis"]:
-                                    if basis_type in oniom_layer_parameters["element_info"][element] and "CBS" not in oniom_layer_parameters["element_info"][element][basis_type]:
+                                for basis_type in [
+                                    "basis",
+                                    "ri_scf_basis",
+                                    "ri_cwft_basis",
+                                ]:
+                                    if (
+                                        basis_type
+                                        in oniom_layer_parameters["element_info"][
+                                            element
+                                        ]
+                                        and "CBS"
+                                        not in oniom_layer_parameters["element_info"][
+                                            element
+                                        ][basis_type]
+                                    ):
                                         raise ValueError(
                                             f"The {basis_type} parameter must be provided in the element_info dictionary as format CBS(X/Y), where X and Y are the two basis sets."
                                         )
-                                    
+
                     # If code_inputs is provided and the code is orca, check that the orcasimpleinput and orcablocks are provided
-                    if oniom_layer_parameters["code"] == "orca" and "code_inputs" in oniom_layer_parameters and oniom_layer_parameters["code_inputs"] is not None:
-                        if "orcasimpleinput" not in oniom_layer_parameters["code_inputs"] or "orcablocks" not in oniom_layer_parameters["code_inputs"]:
-                            raise ValueError( 
+                    if (
+                        oniom_layer_parameters["code"] == "orca"
+                        and "code_inputs" in oniom_layer_parameters
+                        and oniom_layer_parameters["code_inputs"] is not None
+                    ):
+                        if (
+                            "orcasimpleinput"
+                            not in oniom_layer_parameters["code_inputs"]
+                            or "orcablocks" not in oniom_layer_parameters["code_inputs"]
+                        ):
+                            raise ValueError(
                                 "If the code is orca, the orcasimpleinput and orcablocks must be provided in the code_inputs dictionary."
                             )
-                    
+
         self.max_cluster = max_cluster
 
     def initialize_calculator(
-            self,
-            oniom_layer_parameters: ONIOMLayerInfo,
-            quantum_cluster_indices: list[int],
-            ecp_region_indices: list[int],
-            element_info: dict[ElementStr, ElementInfo],
+        self,
+        oniom_layer_parameters: ONIOMLayerInfo,
+        quantum_cluster_indices: list[int],
+        ecp_region_indices: list[int],
+        element_info: dict[ElementStr, ElementInfo],
     ) -> CalculatorInfo:
         """
         Initialize the ASE calculator for the quantum cluster with the necessary inputs.
@@ -200,10 +247,13 @@ class autoSKZCAMPrepare:
         """
         code = oniom_layer_parameters["code"]
         method = oniom_layer_parameters["method"]
-        calculators = {structure: deepcopy(self.adsorbate_slab_embedded_cluster) for structure in ['adsorbate', 'slab', 'adsorbate_slab']}
+        calculators = {
+            structure: deepcopy(self.adsorbate_slab_embedded_cluster)
+            for structure in ["adsorbate", "slab", "adsorbate_slab"]
+        }
 
         # Depending on the code, set the calculator and inputs
-        if code == 'mrcc':
+        if code == "mrcc":
             # Use MRCCInputGenerator to generate the necessary blocks for the SKZCAM protocol for the MRCC ASE calculator
             mrcc_skzcam_inputs = MRCCInputGenerator(
                 adsorbate_slab_embedded_cluster=self.adsorbate_slab_embedded_cluster,
@@ -215,38 +265,39 @@ class autoSKZCAMPrepare:
             ).generate_input()
 
             if method.upper() == "LNO-CCSD(T)":
-                mrcc_default_method_inputs = code_calculation_defaults[code]["LNO-CCSD(T)"]
-            elif method.upper() in ["MP2","RI-MP2"]:
+                mrcc_default_method_inputs = code_calculation_defaults[code][
+                    "LNO-CCSD(T)"
+                ]
+            elif method.upper() in ["MP2", "RI-MP2"]:
                 mrcc_default_method_inputs = code_calculation_defaults[code]["MP2"]
             else:
-                mrcc_default_method_inputs = code_calculation_defaults[code]['Other']
+                mrcc_default_method_inputs = code_calculation_defaults[code]["Other"]
 
             # Add default values to the mrcc_calc_inputs dictionary
-            if "code_inputs" in oniom_layer_parameters and oniom_layer_parameters["code_inputs"] is not None:
+            if (
+                "code_inputs" in oniom_layer_parameters
+                and oniom_layer_parameters["code_inputs"] is not None
+            ):
                 mrcc_calc_inputs = {
                     **mrcc_default_method_inputs,
                     **oniom_layer_parameters["code_inputs"],
                 }
-            else:   
-                mrcc_calc_inputs = {
-                    **mrcc_default_method_inputs
-                        }
+            else:
+                mrcc_calc_inputs = {**mrcc_default_method_inputs}
 
             # Combine with the mrcc_block inputs
             inputs = {
-                structure: {
-                    **mrcc_calc_inputs,
-                    **mrcc_skzcam_inputs[structure],
-                }
+                structure: {**mrcc_calc_inputs, **mrcc_skzcam_inputs[structure]}
                 for structure in mrcc_skzcam_inputs
             }
 
-
             for structure, calculator in calculators.items():
-                calculator.calc = MRCC(profile=MrccProfile(command=get_settings().MRCC_CMD),
-                         **inputs[structure])
-                
-        elif code == 'orca':
+                calculator.calc = MRCC(
+                    profile=MrccProfile(command=get_settings().MRCC_CMD),
+                    **inputs[structure],
+                )
+
+        elif code == "orca":
             # Use ORCAInputGenerator to generate the necessary orca_blocks for the ORCA ASE calculator
             orca_skzcam_inputs = ORCAInputGenerator(
                 adsorbate_slab_embedded_cluster=self.adsorbate_slab_embedded_cluster,
@@ -254,23 +305,36 @@ class autoSKZCAMPrepare:
                 ecp_region_indices=ecp_region_indices,
                 element_info=element_info,
                 include_cp=True,
-                multiplicities=self.multiplicities
+                multiplicities=self.multiplicities,
             ).generate_input()
 
             if method.upper() == "DLPNO-CCSD(T)":
-                orcasimpleinput = code_calculation_defaults[code]["orcasimpleinput"]["DLPNO-CCSD(T)"]
+                orcasimpleinput = code_calculation_defaults[code]["orcasimpleinput"][
+                    "DLPNO-CCSD(T)"
+                ]
             elif method.upper() == "DLPNO-MP2":
-                orcasimpleinput = code_calculation_defaults[code]["orcasimpleinput"]["DLPNO-MP2"]
-            elif method.upper() in ["MP2","RI-MP2"]:
-                orcasimpleinput = code_calculation_defaults[code]["orcasimpleinput"]["MP2"]
+                orcasimpleinput = code_calculation_defaults[code]["orcasimpleinput"][
+                    "DLPNO-MP2"
+                ]
+            elif method.upper() in ["MP2", "RI-MP2"]:
+                orcasimpleinput = code_calculation_defaults[code]["orcasimpleinput"][
+                    "MP2"
+                ]
             else:
-                orcasimpleinput = code_calculation_defaults[code]["orcasimpleinput"]["Other"]
+                orcasimpleinput = code_calculation_defaults[code]["orcasimpleinput"][
+                    "Other"
+                ]
 
             orcablocks = code_calculation_defaults[code]["orcablocks"]
 
-            if "code_inputs" in oniom_layer_parameters and oniom_layer_parameters["code_inputs"] is not None:
+            if (
+                "code_inputs" in oniom_layer_parameters
+                and oniom_layer_parameters["code_inputs"] is not None
+            ):
                 if "orcasimpleinput" in oniom_layer_parameters["code_inputs"]:
-                    orcasimpleinput = oniom_layer_parameters["code_inputs"]["orcasimpleinput"]
+                    orcasimpleinput = oniom_layer_parameters["code_inputs"][
+                        "orcasimpleinput"
+                    ]
                 if "orcablocks" in oniom_layer_parameters["code_inputs"]:
                     orcablocks = oniom_layer_parameters["code_inputs"]["orcablocks"]
 
@@ -279,15 +343,21 @@ class autoSKZCAMPrepare:
                 structure: {
                     "orcasimpleinput": orcasimpleinput,
                     "orcablocks": f"{orcablocks}\n{orca_skzcam_inputs[structure]}",
-                } for structure in orca_skzcam_inputs
+                }
+                for structure in orca_skzcam_inputs
             }
 
-            calculators = {structure: deepcopy(self.adsorbate_slab_embedded_cluster) for structure in inputs}
+            calculators = {
+                structure: deepcopy(self.adsorbate_slab_embedded_cluster)
+                for structure in inputs
+            }
             for structure, calculator in calculators.items():
-                calculator.calc = ORCA(profile=OrcaProfile(command=get_settings().ORCA_CMD),
-                         **inputs[structure])
+                calculator.calc = ORCA(
+                    profile=OrcaProfile(command=get_settings().ORCA_CMD),
+                    **inputs[structure],
+                )
 
-        return calculators    
+        return calculators
 
     def create_cluster_calcs(self) -> CalculatorInfo:
         """
@@ -300,7 +370,9 @@ class autoSKZCAMPrepare:
 
         """
         # Set up the dictionary to store the information for each cluster
-        skzcam_cluster_calculators = {cluster_num: {} for cluster_num in range(1,self.max_cluster+1)}
+        skzcam_cluster_calculators = {
+            cluster_num: {} for cluster_num in range(1, self.max_cluster + 1)
+        }
         for oniom_layer in self.oniom_layers:
             for level in ["ll", "hl"]:
                 if self.oniom_layers[oniom_layer][level] is not None:
@@ -317,33 +389,56 @@ class autoSKZCAMPrepare:
                     else:
                         basis_sets = [oniom_layer_parameters["basis"]]
                     for basis_idx, basis_set in enumerate(basis_sets):
-                        default_element_info = self.create_element_info(frozen_core=frozen_core, basis = basis_set, code = code )
+                        default_element_info = self.create_element_info(
+                            frozen_core=frozen_core, basis=basis_set, code=code
+                        )
 
                         if oniom_layer_parameters["element_info"] is not None:
                             custom_element_info = {}
                             for key, value in oniom_layer_parameters["element_info"]:
-                                if 'CBS' in oniom_layer_parameters["basis"] and 'basis' in key and 'CBS' in value:
-                                    custom_element_info[key] = value[4:-1].split("/")[basis_idx]
+                                if (
+                                    "CBS" in oniom_layer_parameters["basis"]
+                                    and "basis" in key
+                                    and "CBS" in value
+                                ):
+                                    custom_element_info[key] = value[4:-1].split("/")[
+                                        basis_idx
+                                    ]
                                 else:
                                     custom_element_info[key] = value
-                            element_info = {**default_element_info, **custom_element_info}
+                            element_info = {
+                                **default_element_info,
+                                **custom_element_info,
+                            }
                         else:
                             element_info = default_element_info
 
-
                         calculation_label = f"{code} {method} {frozen_core} {basis_set}"
-                        for cluster_num, cluster_calculators in skzcam_cluster_calculators.items():
-                            if calculation_label not in cluster_calculators and cluster_num < oniom_layer_parameters["max_cluster_num"] + 1:
-                                skzcam_cluster_calculators[cluster_num][calculation_label] = self.initialize_calculator(
+                        for (
+                            cluster_num,
+                            cluster_calculators,
+                        ) in skzcam_cluster_calculators.items():
+                            if (
+                                calculation_label not in cluster_calculators
+                                and cluster_num
+                                < oniom_layer_parameters["max_cluster_num"] + 1
+                            ):
+                                skzcam_cluster_calculators[cluster_num][
+                                    calculation_label
+                                ] = self.initialize_calculator(
                                     oniom_layer_parameters=oniom_layer_parameters,
-                                    quantum_cluster_indices=self.quantum_cluster_indices_set[cluster_num-1],
-                                    ecp_region_indices=self.ecp_region_indices_set[cluster_num-1],
+                                    quantum_cluster_indices=self.quantum_cluster_indices_set[
+                                        cluster_num - 1
+                                    ],
+                                    ecp_region_indices=self.ecp_region_indices_set[
+                                        cluster_num - 1
+                                    ],
                                     element_info=element_info,
-                                    multiplicities=self.multiplicities
+                                    multiplicities=self.multiplicities,
                                 )
-                                
+
         return skzcam_cluster_calculators
-    
+
     def create_element_info(
         self,
         frozen_core: Literal["valence", "semicore"],
@@ -393,9 +488,7 @@ class autoSKZCAMPrepare:
                     "core": frozen_core_defaults["valence"][atom.symbol],
                     "basis": f"aug-cc-pV{basis}",
                     "ecp": ecp.get(atom.symbol, "none"),
-                    "ri_scf_basis": "def2-QZVPP-RI-JK"
-                    if code == "mrcc"
-                    else "def2/J",
+                    "ri_scf_basis": "def2-QZVPP-RI-JK" if code == "mrcc" else "def2/J",
                     "ri_cwft_basis": f"aug-cc-pV{basis}-RI"
                     if code == "mrcc"
                     else f"aug-cc-pV{basis}/C",
@@ -409,9 +502,7 @@ class autoSKZCAMPrepare:
                     "core": frozen_core_defaults["valence"][atom.symbol],
                     "basis": f"cc-pV{basis}",
                     "ecp": ecp.get(atom.symbol, "none"),
-                    "ri_scf_basis": "def2-QZVPP-RI-JK"
-                    if code == "mrcc"
-                    else "def2/J",
+                    "ri_scf_basis": "def2-QZVPP-RI-JK" if code == "mrcc" else "def2/J",
                     "ri_cwft_basis": f"cc-pV{basis}-RI"
                     if code == "mrcc"
                     else f"cc-pV{basis}/C",
@@ -425,19 +516,17 @@ class autoSKZCAMPrepare:
                     "core": frozen_core_defaults["semicore"][atom.symbol],
                     "basis": f"cc-pwCV{basis}",
                     "ecp": ecp.get(atom.symbol, "none"),
-                    "ri_scf_basis": "def2-QZVPP-RI-JK"
-                    if code == "mrcc"
-                    else "def2/J",
+                    "ri_scf_basis": "def2-QZVPP-RI-JK" if code == "mrcc" else "def2/J",
                     "ri_cwft_basis": f"cc-pwCV{basis}-RI"
                     if code == "mrcc"
                     else "AutoAux",
                 }
 
         return element_info_dict
-    
-    def generate_input(self, 
-                       skzcam_cluster_calculators: CalculatorInfo,
-                       input_dir: str | Path) -> None:
+
+    def generate_input(
+        self, skzcam_cluster_calculators: CalculatorInfo, input_dir: str | Path
+    ) -> None:
         """
         Generates the SKZCAM input for the MRCC and ORCA ASE calculators.
 
@@ -452,7 +541,7 @@ class autoSKZCAMPrepare:
         """
 
         for cluster_num in skzcam_cluster_calculators:
-            for calculation_label, calculator in skzcam_cluster_calculators[cluster_num].items():
+            for calculation_label in skzcam_cluster_calculators[cluster_num]:
                 code = calculation_label.split()[0]
                 method = calculation_label.split()[1]
                 frozen_core = calculation_label.split()[2]
@@ -467,27 +556,27 @@ class autoSKZCAMPrepare:
                             ),
                             self.adsorbate_slab_embedded_cluster,
                             mrcc_inputs[structure],
-                            )
+                        )
 
                 elif code == "orca":
                     element_info = self.create_element_info(
                         basis=basis_set,
                         frozen_core=frozen_core,
                         code=code,
-                        ecp={'Mg':'Hellow'}
+                        ecp={"Mg": "Hellow"},
                     )
                     # Use ORCAInputGenerator to generate the necessary orca_blocks for the ORCA ASE calculator
                     orca_input_generator = ORCAInputGenerator(
                         adsorbate_slab_embedded_cluster=self.adsorbate_slab_embedded_cluster,
-                        quantum_cluster_indices=skzcam_clusters_information_dict[cluster_num]["quantum_cluster_indices"],
-                        ecp_region_indices=skzcam_clusters_information_dict[cluster_num]["ecp_region_indices"],
+                        quantum_cluster_indices=skzcam_clusters_information_dict[
+                            cluster_num
+                        ]["quantum_cluster_indices"],
+                        ecp_region_indices=skzcam_clusters_information_dict[
+                            cluster_num
+                        ]["ecp_region_indices"],
                         element_info=element_info,
                         include_cp=True,
-                        multiplicities={
-                            "adsorbate_slab": 1,
-                            "adsorbate": 1,
-                            "slab": 1,
-                        }
+                        multiplicities={"adsorbate_slab": 1, "adsorbate": 1, "slab": 1},
                     )
                     orca_blocks = orca_input_generator.generate_input()
 
@@ -510,7 +599,7 @@ class autoSKZCAMPrepare:
                             self.adsorbate_slab_embedded_cluster,
                             orca_inputs[structure],
                         )
-                        if structure in ['slab', 'adsorbate_slab']:
+                        if structure in ["slab", "adsorbate_slab"]:
                             # Write point charge files
                             orca_input_generator.create_point_charge_file(
                                 Path(
@@ -518,7 +607,7 @@ class autoSKZCAMPrepare:
                                     f"ORCA_MP2_cluster_{cluster_num}_{basis_name}.pc",
                                 )
                             )
-    
+
     def generate_cluster_Atoms(self, skzcam_clusters_information_dict):
         """
         Generate the ASE Atoms object for each cluster from the series of clusters generated by the [quacc.atoms.skzcam.CreateSKZCAMClusters][] class.
@@ -543,7 +632,7 @@ class autoSKZCAMPrepare:
                 **cluster_info,
                 "cluster Atoms": cluster_atoms,
             }
-        skzcam_clusters_information_dict = {
+        return {
             cluster_num: {
                 **skzcam_clusters_information_dict[cluster_num],
                 "cluster Atoms": self.adsorbate_slab_embedded_cluster[
@@ -552,7 +641,6 @@ class autoSKZCAMPrepare:
             }
             for cluster_num in skzcam_clusters_information_dict
         }
-        return skzcam_clusters_information_dict
 
 
 class CreateSKZCAMClusters:

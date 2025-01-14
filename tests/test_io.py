@@ -1,15 +1,12 @@
 from __future__ import annotations
 
 import gzip
-import os
 from copy import deepcopy
 from pathlib import Path
 
 import numpy as np
 import pytest
-from ase import Atoms
 from ase.calculators.calculator import compare_atoms
-from ase.io import read
 from numpy.testing import assert_allclose, assert_equal
 
 from autoSKZCAM.autoskzcam import CreateSKZCAMClusters
@@ -39,6 +36,7 @@ def slab_embedded_cluster(skzcam_clusters):
         pun_file=Path(FILE_DIR, "skzcam_files", "ChemShell_Cluster.pun.gz")
     )
 
+
 @pytest.fixture
 def adsorbate_slab_embedded_cluster():
     with gzip.open(
@@ -67,7 +65,7 @@ def orca_input_generator(adsorbate_slab_embedded_cluster, element_info):
         ecp_region_indices=[8, 9, 10, 11, 12, 13, 14, 15, 20, 21, 22, 23, 24],
         element_info=element_info,
         include_cp=True,
-        multiplicities={"adsorbate_slab": 3, "adsorbate": 1, "slab": 2}
+        multiplicities={"adsorbate_slab": 3, "adsorbate": 1, "slab": 2},
     )
 
 
@@ -256,7 +254,7 @@ def test_MRCCInputGenerator_generate_input(mrcc_input_generator):
 
 def test_MRCCInputGenerator_generate_basis_ecp_block(mrcc_input_generator):
     mrcc_input_generator_nocp = deepcopy(mrcc_input_generator)
-    mrcc_input_generator_ecp =deepcopy(mrcc_input_generator)
+    mrcc_input_generator_ecp = deepcopy(mrcc_input_generator)
 
     mrcc_input_generator_nocp.include_cp = False
     mrcc_input_generator_nocp._generate_basis_ecp_block()
@@ -350,7 +348,7 @@ def test_MRCCInputGenerator_generate_basis_ecp_block(mrcc_input_generator):
             generated_mrcc_blocks_nocp_collated[system],
             reference_mrcc_blocks_nocp_collated[system],
         )
-    
+
     # Test if atom ecps are added
     # Check the case if the element_info has all of the same values
     element_info = {
@@ -380,8 +378,8 @@ def test_MRCCInputGenerator_generate_basis_ecp_block(mrcc_input_generator):
 
     assert (
         mrcc_input_generator_ecp.skzcam_input_str["adsorbate"]
-        == '\nbasis_sm=special\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\n\n\nbasis=special\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\n\n\ndfbasis_scf=special\ndef2/J\ndef2/J\ndef2/J\ndef2/J\ndef2/J\ndef2/J\ndef2/J\ndef2/J\n\n\ndfbasis_cor=special\ndef2-SVP/C\ndef2-SVP/C\ndef2-SVP/C\ndef2-SVP/C\ndef2-SVP/C\ndef2-SVP/C\ndef2-SVP/C\ndef2-SVP/C\n\n\necp=special\nccECP\nnone\nnone\nnone\nnone\nnone\nnone\nnone\n\n'
-    )    
+        == "\nbasis_sm=special\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\n\n\nbasis=special\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\n\n\ndfbasis_scf=special\ndef2/J\ndef2/J\ndef2/J\ndef2/J\ndef2/J\ndef2/J\ndef2/J\ndef2/J\n\n\ndfbasis_cor=special\ndef2-SVP/C\ndef2-SVP/C\ndef2-SVP/C\ndef2-SVP/C\ndef2-SVP/C\ndef2-SVP/C\ndef2-SVP/C\ndef2-SVP/C\n\n\necp=special\nccECP\nnone\nnone\nnone\nnone\nnone\nnone\nnone\n\n"
+    )
 
 
 def test_MRCCInputGenerator_create_atomtype_basis(mrcc_input_generator):
@@ -550,13 +548,12 @@ def test_MRCCInputGenerator_generate_point_charge_block(mrcc_input_generator):
 
 
 def test_ORCAInputGenerator_init(adsorbate_slab_embedded_cluster, element_info):
-
     orca_input_generator = ORCAInputGenerator(
         adsorbate_slab_embedded_cluster=adsorbate_slab_embedded_cluster,
         quantum_cluster_indices=[0, 1, 2, 3, 4, 5, 6, 7],
         ecp_region_indices=[8, 9, 10, 11, 12, 13, 14, 15, 20, 21, 22, 23, 24],
         element_info=element_info,
-        include_cp=True
+        include_cp=True,
     )
 
     # Check when multiplicities is not provided
@@ -605,7 +602,7 @@ def test_ORCAInputGenerator_init(adsorbate_slab_embedded_cluster, element_info):
             ecp_region_indices=[7, 9, 10, 11, 12, 13, 14, 15, 20, 21, 22, 23, 24],
             element_info=element_info,
             include_cp=True,
-            multiplicities={"adsorbate_slab": 3, "adsorbate": 1, "slab": 2}
+            multiplicities={"adsorbate_slab": 3, "adsorbate": 1, "slab": 2},
         )
 
 
@@ -617,9 +614,57 @@ def test_ORCAInputGenerator_generate_input(orca_input_generator):
 
     orca_input_generator.generate_input()
 
-    reference_block_collated =  {'adsorbate_slab': {'float': [2.0, 2.0], 'string': ['%pointcharges', 'end', 'NewAuxCGTO', '%coords', 'cappedECP', 'Mg>']}, 'adsorbate': {'float': [2.0], 'string': ['%method', 'C', '"cc-pVDZ/C"', 'xyz']}, 'slab': {'float': [2.0, 2.0], 'string': ['%pointcharges', 'end', 'NewAuxCGTO', '%coords', 'cappedECP', 'Mg>']}}
+    reference_block_collated = {
+        "adsorbate_slab": {
+            "float": [2.0, 2.0],
+            "string": [
+                "%pointcharges",
+                "end",
+                "NewAuxCGTO",
+                "%coords",
+                "cappedECP",
+                "Mg>",
+            ],
+        },
+        "adsorbate": {"float": [2.0], "string": ["%method", "C", '"cc-pVDZ/C"', "xyz"]},
+        "slab": {
+            "float": [2.0, 2.0],
+            "string": [
+                "%pointcharges",
+                "end",
+                "NewAuxCGTO",
+                "%coords",
+                "cappedECP",
+                "Mg>",
+            ],
+        },
+    }
 
-    reference_block_nocp_collated = {'adsorbate_slab': {'float': [2.0, 2.0], 'string': ['%pointcharges', 'end', 'NewAuxCGTO', '%coords', 'cappedECP', 'Mg>']}, 'adsorbate': {'float': [2.0], 'string': ['%method', 'C', '"cc-pVDZ/C"', 'xyz']}, 'slab': {'float': [2.0], 'string': ['%pointcharges', 'end', 'NewAuxCGTO', '%coords', 'cappedECP', 'Mg>']}}
+    reference_block_nocp_collated = {
+        "adsorbate_slab": {
+            "float": [2.0, 2.0],
+            "string": [
+                "%pointcharges",
+                "end",
+                "NewAuxCGTO",
+                "%coords",
+                "cappedECP",
+                "Mg>",
+            ],
+        },
+        "adsorbate": {"float": [2.0], "string": ["%method", "C", '"cc-pVDZ/C"', "xyz"]},
+        "slab": {
+            "float": [2.0],
+            "string": [
+                "%pointcharges",
+                "end",
+                "NewAuxCGTO",
+                "%coords",
+                "cappedECP",
+                "Mg>",
+            ],
+        },
+    }
 
     generated_block_collated = {
         system: {"float": [], "string": []}
@@ -674,18 +719,15 @@ def test_ORCAInputGenerator_generate_input(orca_input_generator):
             atol=1e-07,
         )
 
+
 def test_create_atom_coord_string(adsorbate_slab_embedded_cluster):
     atom = adsorbate_slab_embedded_cluster[0]
 
     # First let's try the case where it's a normal atom.
     atom_coord_string = create_atom_coord_string(atom=atom)
 
-    with pytest.raises(
-        ValueError, match="Capped ECP cannot be a ghost atom."
-    ):
-        create_atom_coord_string(
-            atom, is_capped_ecp=True, is_ghost_atom=True
-        )
+    with pytest.raises(ValueError, match="Capped ECP cannot be a ghost atom."):
+        create_atom_coord_string(atom, is_capped_ecp=True, is_ghost_atom=True)
 
     with pytest.raises(
         ValueError, match="Point charge value must be given for atoms with ECP info."
@@ -722,9 +764,53 @@ def test_ORCAInputGenerator_generate_coords_block(orca_input_generator):
 
     orca_input_generator._generate_coords_block()
 
-    reference_block_collated = {'adsorbate_slab': {'float': [3.0, 0.0, 2.11144262254, 2.0, -2.10705287155, 2.0], 'string': ['%coords', 'coords', 'O', 'cappedECP', 'Mg>', 'cappedECP', 'end']}, 'adsorbate': {'float': [1.0, 0.0], 'string': ['%coords', 'coords', 'O:']}, 'slab': {'float': [2.0, 0.0, 2.11144262254, 2.0, -2.10705287155, 2.0], 'string': ['%coords', 'coords', 'O', 'cappedECP', 'Mg>', 'cappedECP', 'end']}}
+    reference_block_collated = {
+        "adsorbate_slab": {
+            "float": [3.0, 0.0, 2.11144262254, 2.0, -2.10705287155, 2.0],
+            "string": [
+                "%coords",
+                "coords",
+                "O",
+                "cappedECP",
+                "Mg>",
+                "cappedECP",
+                "end",
+            ],
+        },
+        "adsorbate": {"float": [1.0, 0.0], "string": ["%coords", "coords", "O:"]},
+        "slab": {
+            "float": [2.0, 0.0, 2.11144262254, 2.0, -2.10705287155, 2.0],
+            "string": [
+                "%coords",
+                "coords",
+                "O",
+                "cappedECP",
+                "Mg>",
+                "cappedECP",
+                "end",
+            ],
+        },
+    }
 
-    reference_block_nocp_collated = {'adsorbate_slab': {'float': [3.0, 0.0, 2.11144262254, 2.0, -2.10705287155, 2.0], 'string': ['%coords', 'coords', 'O', 'cappedECP', 'Mg>', 'cappedECP', 'end']}, 'adsorbate': {'float': [1.0], 'string': ['%coords', 'coords']}, 'slab': {'float': [2.0, 0.0, 2.0, 2.10705287155, 2.0, 0.0], 'string': ['%coords', 'coords', 'Mg>', 'cappedECP', 'Mg>', 'cappedECP']}}
+    reference_block_nocp_collated = {
+        "adsorbate_slab": {
+            "float": [3.0, 0.0, 2.11144262254, 2.0, -2.10705287155, 2.0],
+            "string": [
+                "%coords",
+                "coords",
+                "O",
+                "cappedECP",
+                "Mg>",
+                "cappedECP",
+                "end",
+            ],
+        },
+        "adsorbate": {"float": [1.0], "string": ["%coords", "coords"]},
+        "slab": {
+            "float": [2.0, 0.0, 2.0, 2.10705287155, 2.0, 0.0],
+            "string": ["%coords", "coords", "Mg>", "cappedECP", "Mg>", "cappedECP"],
+        },
+    }
 
     generated_block_collated = {
         system: {"float": [], "string": []}
@@ -779,6 +865,7 @@ def test_ORCAInputGenerator_generate_coords_block(orca_input_generator):
             rtol=1e-05,
             atol=1e-07,
         )
+
 
 def test_ORCAInputGenerator_generate_preamble_block(orca_input_generator):
     # Make copy of orca_input_generator for further tests
