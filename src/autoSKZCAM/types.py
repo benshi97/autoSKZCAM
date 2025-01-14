@@ -137,25 +137,20 @@ if TYPE_CHECKING:
         ecp_region_indices_set: list[list[int]]
 
     class ElementInfo(TypedDict):
-        core: int
-        basis: str
-        ecp: str
-        ri_scf_basis: str
-        ri_cwft_basis: str
+        core: int | None
+        basis: str | None
+        ecp: str | None
+        ri_scf_basis: str | None
+        ri_cwft_basis: str | None
 
-    class SKZCAMInfo(TypedDict):
+    class ONIOMLayerInfo(TypedDict):
         max_cluster_num: int
-        element_frozencore: Literal["valence", "semicore"] | dict[ElementStr, int]
-        element_basis: Literal["DZ", "TZ", "QZ", "5Z", "6Z"] | dict[ElementStr, str]
+        method: str
+        frozen_core: Literal["valence", "semicore"]
+        basis: str
         code: Literal["mrcc", "orca"]
-        nprocs: int | None
-        max_memory: int | None
-        element_ecp: dict[ElementStr, str] | None
-        multiplicities: MultiplicityDict | None
-        cation_cap_ecp: dict[ElementStr, str] | None
-        orca_method_block: dict[str, str] | None
-        orca_scf_block: dict[str, str] | None
-        mrcc_calc_inputs: dict[str, str] | None
+        element_info: dict[ElementStr, ElementInfo] | None
+        code_inputs: dict[str, str] | None     
 
     class BlockInfo(TypedDict):
         adsorbate_slab: str
@@ -171,3 +166,8 @@ if TYPE_CHECKING:
         adsorbate_slab: int
         slab: int
         adsorbate: int
+
+    class CalculatorInfo(TypedDict):
+        adsorbate_slab: Atoms
+        adsorbate: Atoms
+        slab: Atoms       
