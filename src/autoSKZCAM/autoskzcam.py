@@ -297,7 +297,7 @@ class autoSKZCAMPrepare:
                     profile=MrccProfile(command=get_settings().MRCC_CMD),
                     **inputs[structure],
                 )
-                if structure in ['slab', 'adsorbate_slab']:
+                if structure in ["slab", "adsorbate_slab"]:
                     calculator.calc.genbas = genbas_file
                 else:
                     calculator.calc.genbas = None
@@ -364,7 +364,7 @@ class autoSKZCAMPrepare:
                     profile=OrcaProfile(command=get_settings().ORCA_CMD),
                     **inputs[structure],
                 )
-                if structure in ['slab', 'adsorbate_slab']:
+                if structure in ["slab", "adsorbate_slab"]:
                     calculator.calc.point_charges = pc_file
                 else:
                     calculator.calc.point_charges = None
@@ -545,7 +545,8 @@ class autoSKZCAMPrepare:
 
         return element_info_dict
 
-    def write_inputs(self, skzcam_cluster_calculators: CalculatorInfo, input_dir: str | Path
+    def write_inputs(
+        self, skzcam_cluster_calculators: CalculatorInfo, input_dir: str | Path
     ) -> None:
         """
         Generates the SKZCAM input for the MRCC and ORCA ASE calculators.
@@ -569,29 +570,35 @@ class autoSKZCAMPrepare:
                 frozen_core = calculation_label.split()[2]
                 basis_set = calculation_label.split()[3]
                 for structure in ["adsorbate", "slab", "adsorbate_slab"]:
-                    system_path = Path(input_dir, code, f"{method}_{basis_set}_{frozen_core}", structure)
+                    system_path = Path(
+                        input_dir,
+                        code,
+                        f"{method}_{basis_set}_{frozen_core}",
+                        structure,
+                    )
                     system_path.mkdir(parents=True, exist_ok=True)
                     # Write MRCC input files
                     if code == "mrcc":
                         write_mrcc(
-                            Path(
-                                system_path,
-                                "MINP",
-                            ),
-                            skzcam_cluster_calculators[cluster_num][calculation_label][structure],
-                            skzcam_cluster_calculators[cluster_num][calculation_label][structure].calc.parameters,
+                            Path(system_path, "MINP"),
+                            skzcam_cluster_calculators[cluster_num][calculation_label][
+                                structure
+                            ],
+                            skzcam_cluster_calculators[cluster_num][calculation_label][
+                                structure
+                            ].calc.parameters,
                         )
                     # Write ORCA input files
                     elif code == "orca":
                         write_orca(
-                            Path(
-                                system_path,
-                                "orca.inp",
-                            ),
-                            skzcam_cluster_calculators[cluster_num][calculation_label][structure],
-                            skzcam_cluster_calculators[cluster_num][calculation_label][structure].calc.parameters,
+                            Path(system_path, "orca.inp"),
+                            skzcam_cluster_calculators[cluster_num][calculation_label][
+                                structure
+                            ],
+                            skzcam_cluster_calculators[cluster_num][calculation_label][
+                                structure
+                            ].calc.parameters,
                         )
-                        
 
 
 class CreateSKZCAMClusters:
@@ -938,7 +945,6 @@ class CreateSKZCAMClusters:
         # Load the pun file as a list of strings
         with zopen(zpath(str(Path(pun_file))), mode="rt", encoding="utf-8") as f:
             raw_pun_file = [line.rstrip() for line in f]
-
 
         # Get the number of atoms and number of atomic charges in the .pun file
         n_atoms = int(raw_pun_file[3].split()[-1])

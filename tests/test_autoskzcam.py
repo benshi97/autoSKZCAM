@@ -737,10 +737,13 @@ def test_autoSKZCAMPrepare_intialize_clusters(
         "ghost": "serialno\n3,4,5,6,7,8\n\n",
     }
 
-    assert calculators["adsorbate"].calc.genbas == None
-    assert calculators["adsorbate_slab"].calc.genbas == 'Mg:cappedECP\nINSERT_cappedECP\n\nMg:no-basis-set\nno basis set\n\n    0\n    0\n    0\n    0\n\nMg:no-basis-set-ri-jk\nno basis set\n\n    0\n    0\n    0\n    0\n\n'
+    assert calculators["adsorbate"].calc.genbas is None
+    assert (
+        calculators["adsorbate_slab"].calc.genbas
+        == "Mg:cappedECP\nINSERT_cappedECP\n\nMg:no-basis-set\nno basis set\n\n    0\n    0\n    0\n    0\n\nMg:no-basis-set-ri-jk\nno basis set\n\n    0\n    0\n    0\n    0\n\n"
+    )
     assert calculators["slab"].calc.genbas == calculators["adsorbate_slab"].calc.genbas
-    
+
     # Now check if the ORCA calculations are created correctly
     oniom_layer_parameters = {
         "method": "MP2",
@@ -762,11 +765,48 @@ def test_autoSKZCAMPrepare_intialize_clusters(
         "orcablocks": '\n%pal nprocs 8 end\n%maxcore 25000\n%method\nMethod hf\nRI on\nRunTyp Energy\nend\n%scf\nHFTyp rhf\nSCFMode Direct\nsthresh 1e-6\nAutoTRAHIter 60\nMaxIter 1000\nend\n\n%method\nNewNCore C 2 end\nNewNCore Mg 2 end\nNewNCore O 2 end\nend\n%basis\nNewGTO C "aug-cc-pVDZ" end\nNewAuxJGTO C "def2/J" end\nNewAuxCGTO C "aug-cc-pVDZ/C" end\nNewGTO Mg "cc-pVDZ" end\nNewAuxJGTO Mg "def2/J" end\nNewAuxCGTO Mg "cc-pVDZ/C" end\nNewGTO O "aug-cc-pVDZ" end\nNewAuxJGTO O "def2/JK" end\nNewAuxCGTO O "aug-cc-pVDZ/C" end\nend\n%coords\nCTyp xyz\nMult 1\nUnits angs\nCharge 0\ncoords\nC                       0.00000000000    0.00000000000    2.00000000000\nO                       0.00000000000    0.00000000000    3.12800000000\nMg:                     0.00000000000    0.00000000000    0.00000000000\nO:                     -2.12018425659    0.00000000000    0.00567209089\nO:                      0.00000000000    2.12018425659    0.00567209089\nO:                      2.12018425659    0.00000000000    0.00567209089\nO:                      0.00000000000   -2.12018425659    0.00567209089\nO:                      0.00000000000    0.00000000000   -2.14129966123\nend\nend\n',
     }
 
-    assert calculators["adsorbate"].calc.point_charges == None
-    assert_allclose([float(x) for x in calculators["slab"].calc.point_charges.split()[1::50]], [-2.0, 0.0, 2.0, 4.22049352791, -2.0, -6.32954443328, -2.0, -4.22049352791, -2.0, -4.22049352791, 2.0, -2.12018425659, -2.0, 8.44098705582, -2.0, 8.44098705582, -2.0, -2.11024676395, 2.0, -6.32080279923, 2.0, 8.44098705582, 2.0, 40.09468851513, 0.8, 0.0, -15.1398030077, 49.48825903601, -1.345733491, 23.6698692456],        rtol=1e-05, atol=1e-07,)
-    assert calculators["slab"].calc.point_charges == calculators["adsorbate_slab"].calc.point_charges
-
-
+    assert calculators["adsorbate"].calc.point_charges is None
+    assert_allclose(
+        [float(x) for x in calculators["slab"].calc.point_charges.split()[1::50]],
+        [
+            -2.0,
+            0.0,
+            2.0,
+            4.22049352791,
+            -2.0,
+            -6.32954443328,
+            -2.0,
+            -4.22049352791,
+            -2.0,
+            -4.22049352791,
+            2.0,
+            -2.12018425659,
+            -2.0,
+            8.44098705582,
+            -2.0,
+            8.44098705582,
+            -2.0,
+            -2.11024676395,
+            2.0,
+            -6.32080279923,
+            2.0,
+            8.44098705582,
+            2.0,
+            40.09468851513,
+            0.8,
+            0.0,
+            -15.1398030077,
+            49.48825903601,
+            -1.345733491,
+            23.6698692456,
+        ],
+        rtol=1e-05,
+        atol=1e-07,
+    )
+    assert (
+        calculators["slab"].calc.point_charges
+        == calculators["adsorbate_slab"].calc.point_charges
+    )
 
     # Check if DLPNO-CCSD(T) and DLPNO-MP2 calculations are created correctly
     oniom_layer_parameters = {
@@ -1136,6 +1176,7 @@ def test_autoSKZCAMPrepare_create_cluster_calcs(skzcam_clusters_output, element_
         "ghost": "serialno\n3,4,5,6,7,8\n\n",
     }
 
+
 def test_autoSKZCAMPrepare_write_inputs(skzcam_clusters_output, ref_oniom_layers):
     prep_cluster = autoSKZCAMPrepare(
         adsorbate_slab_embedded_cluster=skzcam_clusters_output[
@@ -1150,7 +1191,8 @@ def test_autoSKZCAMPrepare_write_inputs(skzcam_clusters_output, ref_oniom_layers
 
     skzcam_cluster_calculators = prep_cluster.create_cluster_calcs()
     # print(skzcam_cluster_calculators)
-    prep_cluster.write_inputs(skzcam_cluster_calculators,input_dir='./calculations')
+    prep_cluster.write_inputs(skzcam_cluster_calculators, input_dir="./calculations")
+
 
 def test_CreateSKZCAMClusters_init():
     skzcam_clusters = CreateSKZCAMClusters(
@@ -1677,7 +1719,7 @@ def test_CreateSKZCAMClusters_run_skzcam(skzcam_clusters, tmp_path):
         skzcam_cluster_xyz.get_atomic_numbers().tolist(), [6, 8, 12, 8, 8, 8, 8, 8]
     )
 
-    # Test the write_ecp 
+    # Test the write_ecp
     skzcam_clusters.run_skzcam(
         shell_max=2,
         ecp_dist=3.0,
@@ -1688,7 +1730,8 @@ def test_CreateSKZCAMClusters_run_skzcam(skzcam_clusters, tmp_path):
     )
 
     skzcam_cluster_xyz = read(tmp_path / "SKZCAM_cluster_0.xyz")
-    assert len(skzcam_cluster_xyz) == 21    
+    assert len(skzcam_cluster_xyz) == 21
+
 
 def test_get_atom_distances():
     # Creating a H2 molecule as an Atoms object

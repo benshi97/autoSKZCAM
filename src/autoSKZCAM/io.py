@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from pathlib import Path
 from typing import TYPE_CHECKING
 
 import numpy as np
@@ -177,7 +176,7 @@ class MRCCInputGenerator:
         )
 
         return self.skzcam_input_dict
-    
+
     def create_genbas_file(self) -> str:
         """
         Create a GENBAS file that can be read by MRCC. This contains the capped ECP in CFOUR format as well as empty basis sets for the capped ECP.
@@ -559,7 +558,6 @@ class ORCAInputGenerator:
             The text for the point charge file for the electrostatic embedding.
         """
 
-
         # Get the oxi_states arrays from the embedded_cluster
         oxi_states = self.adsorbate_slab_embedded_cluster.get_array("oxi_states")
 
@@ -575,7 +573,7 @@ class ORCAInputGenerator:
                 if counter != num_pc:
                     pc_file += f"{oxi_states[i]:-16.11f} {position[0]:-16.11f} {position[1]:-16.11f} {position[2]:-16.11f}\n"
                 else:
-                    pc_file +=  f"{oxi_states[i]:-16.11f} {position[0]:-16.11f} {position[1]:-16.11f} {position[2]:-16.11f}"
+                    pc_file += f"{oxi_states[i]:-16.11f} {position[0]:-16.11f} {position[1]:-16.11f} {position[2]:-16.11f}"
         return pc_file
 
     def _generate_coords_block(self) -> None:

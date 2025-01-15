@@ -251,10 +251,15 @@ def test_MRCCInputGenerator_generate_input(mrcc_input_generator):
             atol=1e-07,
         )
 
+
 def test_MRCCInputGenerator_create_genbas_file(mrcc_input_generator):
     genbas_file = mrcc_input_generator.create_genbas_file()
 
-    assert genbas_file == 'Mg:cappedECP\nINSERT_cappedECP\n\nMg:no-basis-set\nno basis set\n\n    0\n    0\n    0\n    0\n\nMg:no-basis-set-ri-jk\nno basis set\n\n    0\n    0\n    0\n    0\n\n'
+    assert (
+        genbas_file
+        == "Mg:cappedECP\nINSERT_cappedECP\n\nMg:no-basis-set\nno basis set\n\n    0\n    0\n    0\n    0\n\nMg:no-basis-set-ri-jk\nno basis set\n\n    0\n    0\n    0\n    0\n\n"
+    )
+
 
 def test_MRCCInputGenerator_generate_basis_ecp_block(mrcc_input_generator):
     mrcc_input_generator_nocp = deepcopy(mrcc_input_generator)
