@@ -253,14 +253,17 @@ class autoSKZCAMPrepare:
         # Depending on the code, set the calculator and inputs
         if code == "mrcc":
             # Use MRCCInputGenerator to generate the necessary blocks for the SKZCAM protocol for the MRCC ASE calculator
-            mrcc_skzcam_inputs = MRCCInputGenerator(
+            inputgenerator = MRCCInputGenerator(
                 adsorbate_slab_embedded_cluster=self.adsorbate_slab_embedded_cluster,
                 quantum_cluster_indices=quantum_cluster_indices,
                 ecp_region_indices=ecp_region_indices,
                 element_info=element_info,
                 include_cp=True,
                 multiplicities=self.multiplicities,
-            ).generate_input()
+            )
+
+            mrcc_skzcam_inputs = inputgenerator.generate_input()
+            genbas_file = inputgenerator.create_genbas_file()
 
             if method.upper() == "LNO-CCSD(T)":
                 mrcc_default_method_inputs = code_calculation_defaults[code][
@@ -294,17 +297,24 @@ class autoSKZCAMPrepare:
                     profile=MrccProfile(command=get_settings().MRCC_CMD),
                     **inputs[structure],
                 )
+                if structure in ['slab', 'adsorbate_slab']:
+                    calculator.calc.genbas = genbas_file
+                else:
+                    calculator.calc.genbas = None
 
         elif code == "orca":
             # Use ORCAInputGenerator to generate the necessary orca_blocks for the ORCA ASE calculator
-            orca_skzcam_inputs = ORCAInputGenerator(
+            inputgenerator = ORCAInputGenerator(
                 adsorbate_slab_embedded_cluster=self.adsorbate_slab_embedded_cluster,
                 quantum_cluster_indices=quantum_cluster_indices,
                 ecp_region_indices=ecp_region_indices,
                 element_info=element_info,
                 include_cp=True,
                 multiplicities=self.multiplicities,
-            ).generate_input()
+            )
+
+            orca_skzcam_inputs = inputgenerator.generate_input()
+            pc_file = inputgenerator.create_point_charge_file()
 
             if method.upper() == "DLPNO-CCSD(T)":
                 orcasimpleinput = code_calculation_defaults[code]["orcasimpleinput"][
@@ -340,7 +350,7 @@ class autoSKZCAMPrepare:
             inputs = {
                 structure: {
                     "orcasimpleinput": orcasimpleinput,
-                    "orcablocks": f"{orcablocks}\n{orca_skzcam_inputs[structure]}",
+                    "orcablocks": f"{orcablocks}\n{orca_skzcam_inputs[structure].replace('cappedECP', self.capped_ecp['orca'])}",
                 }
                 for structure in orca_skzcam_inputs
             }
@@ -354,6 +364,10 @@ class autoSKZCAMPrepare:
                     profile=OrcaProfile(command=get_settings().ORCA_CMD),
                     **inputs[structure],
                 )
+                if structure in ['slab', 'adsorbate_slab']:
+                    calculator.calc.point_charges = pc_file
+                else:
+                    calculator.calc.point_charges = None
 
         return calculators
 
@@ -364,8 +378,7 @@ class autoSKZCAMPrepare:
         Returns
         -------
         dict[int, dict]
-            A dictionary containing the information for each cluster. The information includes the indices of the atoms in the cluster, the indices of the atoms in the ECP region, the calculations to be performed, and the code specific kwargs for each calculation.
-
+            A dictionary containing the cluster number as key and a dictionary of ASE calculators for the calculations that need to performed on each cluster.
         """
         # Set up the dictionary to store the information for each cluster
         skzcam_cluster_calculators = {
@@ -532,14 +545,15 @@ class autoSKZCAMPrepare:
 
         return element_info_dict
 
-    def generate_input(
-        self, skzcam_cluster_calculators: CalculatorInfo, input_dir: str | Path
+    def write_inputs(self, skzcam_cluster_calculators: CalculatorInfo, input_dir: str | Path
     ) -> None:
         """
         Generates the SKZCAM input for the MRCC and ORCA ASE calculators.
 
         Parameters
         ----------
+        skzcam_cluster_calculators
+            A dictionary containing the cluster number as key and a dictionary of ASE calculators for the calculations that need to performed on each cluster.
         input_dir
             The directory where the input files will be written.
 
@@ -554,101 +568,30 @@ class autoSKZCAMPrepare:
                 method = calculation_label.split()[1]
                 frozen_core = calculation_label.split()[2]
                 basis_set = calculation_label.split()[3]
-                if code == "mrcc":
+                for structure in ["adsorbate", "slab", "adsorbate_slab"]:
+                    system_path = Path(input_dir, code, f"{method}_{basis_set}_{frozen_core}", structure)
+                    system_path.mkdir(parents=True, exist_ok=True)
                     # Write MRCC input files
-                    for structure in ["adsorbate", "slab", "adsorbate_slab"]:
+                    if code == "mrcc":
                         write_mrcc(
                             Path(
-                                input_dir,
-                                f"{code}_MINP_{method}_cluster_{cluster_num}_{basis_set}_{structure}",
+                                system_path,
+                                "MINP",
                             ),
-                            self.adsorbate_slab_embedded_cluster,
-                            mrcc_inputs[structure],
+                            skzcam_cluster_calculators[cluster_num][calculation_label][structure],
+                            skzcam_cluster_calculators[cluster_num][calculation_label][structure].calc.parameters,
                         )
-
-                elif code == "orca":
-                    element_info = self.create_element_info(
-                        basis=basis_set,
-                        frozen_core=frozen_core,
-                        code=code,
-                        ecp={"Mg": "Hellow"},
-                    )
-                    # Use ORCAInputGenerator to generate the necessary orca_blocks for the ORCA ASE calculator
-                    orca_input_generator = ORCAInputGenerator(
-                        adsorbate_slab_embedded_cluster=self.adsorbate_slab_embedded_cluster,
-                        quantum_cluster_indices=skzcam_clusters_information_dict[
-                            cluster_num
-                        ]["quantum_cluster_indices"],
-                        ecp_region_indices=skzcam_clusters_information_dict[
-                            cluster_num
-                        ]["ecp_region_indices"],
-                        element_info=element_info,
-                        include_cp=True,
-                        multiplicities={"adsorbate_slab": 1, "adsorbate": 1, "slab": 1},
-                    )
-                    orca_blocks = orca_input_generator.generate_input()
-
-                    # Add simpleinput and blocks to the orca_inputs dictionary
-                    orca_inputs = {
-                        structure: {
-                            "orcasimpleinput": "TightSCF RI-MP2 RIJCOSX SlowConv DIIS",
-                            "orcablocks": orca_blocks[structure],
-                        }
-                        for structure in orca_blocks
-                    }
-
                     # Write ORCA input files
-                    for structure in ["adsorbate", "slab", "adsorbate_slab"]:
+                    elif code == "orca":
                         write_orca(
                             Path(
-                                input_dir,
-                                f"ORCA_MP2_cluster_{cluster_num}_{basis_name}_{structure}.inp",
+                                system_path,
+                                "orca.inp",
                             ),
-                            self.adsorbate_slab_embedded_cluster,
-                            orca_inputs[structure],
+                            skzcam_cluster_calculators[cluster_num][calculation_label][structure],
+                            skzcam_cluster_calculators[cluster_num][calculation_label][structure].calc.parameters,
                         )
-                        if structure in ["slab", "adsorbate_slab"]:
-                            # Write point charge files
-                            orca_input_generator.create_point_charge_file(
-                                Path(
-                                    input_dir,
-                                    f"ORCA_MP2_cluster_{cluster_num}_{basis_name}.pc",
-                                )
-                            )
-
-    def generate_cluster_Atoms(self, skzcam_clusters_information_dict):
-        """
-        Generate the ASE Atoms object for each cluster from the series of clusters generated by the [quacc.atoms.skzcam.CreateSKZCAMClusters][] class.
-
-        Parameters
-        ----------
-        skzcam_clusters_information_dict
-            A dictionary containing the information for each cluster. The information includes the indices of the atoms in the cluster, the indices of the atoms in the ECP region, the calculations to be performed, and the code specific kwargs for each calculation.
-
-        Returns
-        -------
-        dict[int, dict]
-            A dictionary containing the information for each cluster. The information includes the indices of the atoms in the cluster, the indices of the atoms in the ECP region, the calculations to be performed, and the code specific kwargs for each calculation. The dictionary also includes the ASE Atoms object for each cluster.
-        """
-        autoskzcam_clusters_atoms_data = {}
-        for cluster_num in skzcam_clusters_information_dict:
-            cluster_info = skzcam_clusters_information_dict[cluster_num]
-            cluster_atoms = self.adsorbate_slab_embedded_cluster[
-                cluster_info["cluster indices"]
-            ]
-            autoskzcam_clusters_atoms_data[cluster_num] = {
-                **cluster_info,
-                "cluster Atoms": cluster_atoms,
-            }
-        return {
-            cluster_num: {
-                **skzcam_clusters_information_dict[cluster_num],
-                "cluster Atoms": self.adsorbate_slab_embedded_cluster[
-                    skzcam_clusters_information_dict[cluster_num]["cluster indices"]
-                ],
-            }
-            for cluster_num in skzcam_clusters_information_dict
-        }
+                        
 
 
 class CreateSKZCAMClusters:
@@ -993,23 +936,13 @@ class CreateSKZCAMClusters:
         }
 
         # Load the pun file as a list of strings
-        with zopen(zpath(str(Path(pun_file)))) as f:
-            raw_pun_file = [
-                line.rstrip().decode("utf-8")
-                if isinstance(line, bytes)
-                else line.rstrip()
-                for line in f
-            ]
+        with zopen(zpath(str(Path(pun_file))), mode="rt", encoding="utf-8") as f:
+            raw_pun_file = [line.rstrip() for line in f]
+
 
         # Get the number of atoms and number of atomic charges in the .pun file
         n_atoms = int(raw_pun_file[3].split()[-1])
         n_charges = int(raw_pun_file[4 + n_atoms - 1 + 3].split()[-1])
-
-        # Check if number of atom charges same as number of atom positions
-        if n_atoms != n_charges:
-            raise ValueError(
-                "Number of atomic positions and atomic charges in the .pun file are not the same."
-            )
 
         raw_atom_positions = raw_pun_file[4 : 4 + n_atoms]
         raw_charges = raw_pun_file[7 + n_atoms : 7 + 2 * n_atoms]
@@ -1027,8 +960,6 @@ class CreateSKZCAMClusters:
                 atom_types.append(atom_type_dict[line_info[0]])
             elif line_info[0] == "F":
                 atom_types.append("pc")
-            else:
-                atom_types.append("unknown")
 
             # Add the atom number to the atom_number_list and position to the atom_position_list
             atom_numbers += [atomic_numbers[line_info[0]]]

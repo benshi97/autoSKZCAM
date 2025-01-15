@@ -177,6 +177,30 @@ class MRCCInputGenerator:
         )
 
         return self.skzcam_input_dict
+    
+    def create_genbas_file(self) -> str:
+        """
+        Create a GENBAS file that can be read by MRCC. This contains the capped ECP in CFOUR format as well as empty basis sets for the capped ECP.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        str
+            The text for the GENBAS file for the electrostatic embedding.
+        """
+        # Get set of element symbols from the ecp_region
+        element_symbols = list(set(self.ecp_region.get_chemical_symbols()))
+
+        genbas_file = ""
+        for element in element_symbols:
+            genbas_file += f"{element}:cappedECP\nINSERT_cappedECP\n\n"
+            genbas_file += f"{element}:no-basis-set\nno basis set\n\n    0\n    0\n    0\n    0\n\n"
+            genbas_file += f"{element}:no-basis-set-ri-jk\nno basis set\n\n    0\n    0\n    0\n    0\n\n"
+
+        return genbas_file
 
     def _generate_basis_ecp_block(self) -> None:
         """
@@ -521,19 +545,20 @@ class ORCAInputGenerator:
         # Combine the blocks
         return self.orcablocks
 
-    def create_point_charge_file(self, pc_file: str | Path) -> None:
+    def create_point_charge_file(self) -> str:
         """
         Create a point charge file that can be read by ORCA. This requires the embedded_cluster Atoms object containing both atom_type and oxi_states arrays, as well as the indices of the quantum cluster and ECP region.
 
         Parameters
         ----------
-        pc_file
-            A file containing the point charges to be written by ORCA.
+        None
 
         Returns
         -------
-        None
+        str
+            The text for the point charge file for the electrostatic embedding.
         """
+
 
         # Get the oxi_states arrays from the embedded_cluster
         oxi_states = self.adsorbate_slab_embedded_cluster.get_array("oxi_states")
@@ -542,21 +567,16 @@ class ORCAInputGenerator:
         total_indices = self.quantum_cluster_indices + self.ecp_region_indices
         num_pc = len(self.adsorbate_slab_embedded_cluster) - len(total_indices)
         counter = 0
-        with Path.open(pc_file, "w") as f:
-            # Write the number of point charges first
-            f.write(f"{num_pc}\n")
-            for i in range(len(self.adsorbate_slab_embedded_cluster)):
-                if i not in total_indices:
-                    counter += 1
-                    position = self.adsorbate_slab_embedded_cluster[i].position
-                    if counter != num_pc:
-                        f.write(
-                            f"{oxi_states[i]:-16.11f} {position[0]:-16.11f} {position[1]:-16.11f} {position[2]:-16.11f}\n"
-                        )
-                    else:
-                        f.write(
-                            f"{oxi_states[i]:-16.11f} {position[0]:-16.11f} {position[1]:-16.11f} {position[2]:-16.11f}"
-                        )
+        pc_file = f"{num_pc}\n"
+        for i in range(len(self.adsorbate_slab_embedded_cluster)):
+            if i not in total_indices:
+                counter += 1
+                position = self.adsorbate_slab_embedded_cluster[i].position
+                if counter != num_pc:
+                    pc_file += f"{oxi_states[i]:-16.11f} {position[0]:-16.11f} {position[1]:-16.11f} {position[2]:-16.11f}\n"
+                else:
+                    pc_file +=  f"{oxi_states[i]:-16.11f} {position[0]:-16.11f} {position[1]:-16.11f} {position[2]:-16.11f}"
+        return pc_file
 
     def _generate_coords_block(self) -> None:
         """

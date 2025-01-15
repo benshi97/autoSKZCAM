@@ -251,6 +251,10 @@ def test_MRCCInputGenerator_generate_input(mrcc_input_generator):
             atol=1e-07,
         )
 
+def test_MRCCInputGenerator_create_genbas_file(mrcc_input_generator):
+    genbas_file = mrcc_input_generator.create_genbas_file()
+
+    assert genbas_file == 'Mg:cappedECP\nINSERT_cappedECP\n\nMg:no-basis-set\nno basis set\n\n    0\n    0\n    0\n    0\n\nMg:no-basis-set-ri-jk\nno basis set\n\n    0\n    0\n    0\n    0\n\n'
 
 def test_MRCCInputGenerator_generate_basis_ecp_block(mrcc_input_generator):
     mrcc_input_generator_nocp = deepcopy(mrcc_input_generator)
@@ -932,7 +936,9 @@ def test_ORCAInputGenerator_generate_preamble_block(orca_input_generator):
 
 def test_ORCAInputGenerator_create_point_charge_file(orca_input_generator, tmp_path):
     # Create the point charge file
-    orca_input_generator.create_point_charge_file(pc_file=tmp_path / "orca.pc")
+    pc_file = orca_input_generator.create_point_charge_file()
+    with open(tmp_path / "orca.pc", "w") as f:
+        f.write(pc_file)
 
     # Read the written file
     orca_pc_file = np.loadtxt(tmp_path / "orca.pc", skiprows=1)
