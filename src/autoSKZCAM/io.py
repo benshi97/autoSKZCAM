@@ -191,7 +191,10 @@ class MRCCInputGenerator:
         def _create_basis_block(quantum_region, ecp_region=None):
             atomtype_ecp = "ecp=special\n"
             for atom in quantum_region:
-                if "ecp" in self.element_info[atom.symbol] and self.element_info[atom.symbol]["ecp"] is not None:
+                if (
+                    "ecp" in self.element_info[atom.symbol]
+                    and self.element_info[atom.symbol]["ecp"] is not None
+                ):
                     atomtype_ecp += f"{self.element_info[atom.symbol]['ecp']}\n"
                 else:
                     atomtype_ecp += "none\n"
@@ -670,7 +673,10 @@ coords
             element_basis = self.element_info[element]["ri_cwft_basis"]
             preamble_input += f"""NewAuxCGTO {element} "{element_basis}" end\n"""
             # ecp
-            if "ecp" in self.element_info[element] and self.element_info[element]["ecp"] is not None:
+            if (
+                "ecp" in self.element_info[element]
+                and self.element_info[element]["ecp"] is not None
+            ):
                 element_ecp = self.element_info[element]["ecp"]
                 preamble_input += f'NewECP {element} "{element_ecp}" end\n'
 

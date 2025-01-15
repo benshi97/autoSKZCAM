@@ -14,8 +14,8 @@ from numpy.testing import assert_allclose, assert_equal
 from autoSKZCAM.autoskzcam import (
     CreateSKZCAMClusters,
     _get_atom_distances,
+    _is_valid_cbs_format,
     autoSKZCAMPrepare,
-    _is_valid_cbs_format
 )
 from autoSKZCAM.io import MRCCInputGenerator, ORCAInputGenerator
 
@@ -944,28 +944,33 @@ def test_autoSKZCAMPrepare_create_element_info(
         },
     }
 
-def test_autoSKZCAMPrepare_is_valid_cbs_format(skzcam_clusters_output,ref_oniom_layers):
-    
+
+def test_autoSKZCAMPrepare_is_valid_cbs_format(
+    skzcam_clusters_output, ref_oniom_layers
+):
     test_string_1 = "CBS(a//d)"
     test_string_2 = "CBS(/)"
     test_string_3 = "ABC(abc//def)"
     test_string_4 = "CBS(abcdef)"
     test_string_5 = "CBS( def2-SVP/C // def2-TZVPP/C)"
 
-    assert _is_valid_cbs_format(test_string_1) == (True,'a','d')
+    assert _is_valid_cbs_format(test_string_1) == (True, "a", "d")
     assert _is_valid_cbs_format(test_string_2) == (False, None, None)
     assert _is_valid_cbs_format(test_string_3) == (False, None, None)
     assert _is_valid_cbs_format(test_string_4) == (False, None, None)
-    assert _is_valid_cbs_format(test_string_5) == (True,'def2-SVP/C','def2-TZVPP/C')
+    assert _is_valid_cbs_format(test_string_5) == (True, "def2-SVP/C", "def2-TZVPP/C")
 
 
-
-def test_autoSKZCAMPrepare_create_cluster_calcs(skzcam_clusters_output,element_info):
+def test_autoSKZCAMPrepare_create_cluster_calcs(skzcam_clusters_output, element_info):
     custom_cbs_element_info = deepcopy(element_info)
-    for element in ['C','O','Mg']:
-        custom_cbs_element_info[element]['basis'] = 'CBS(def2-TZVPP//def2-QZVPP)'
-        custom_cbs_element_info[element]['ri_scf_basis'] = 'CBS(def2-QZVPP-RI-JK//def2-QZVPP-RI-JK)'
-        custom_cbs_element_info[element]['ri_cwft_basis'] = 'CBS(def2-TZVPP/C//def2-QZVPP/C)'
+    for element in ["C", "O", "Mg"]:
+        custom_cbs_element_info[element]["basis"] = "CBS(def2-TZVPP//def2-QZVPP)"
+        custom_cbs_element_info[element]["ri_scf_basis"] = (
+            "CBS(def2-QZVPP-RI-JK//def2-QZVPP-RI-JK)"
+        )
+        custom_cbs_element_info[element]["ri_cwft_basis"] = (
+            "CBS(def2-TZVPP/C//def2-QZVPP/C)"
+        )
 
     oniom_layers = {
         "Base": {
@@ -992,7 +997,7 @@ def test_autoSKZCAMPrepare_create_cluster_calcs(skzcam_clusters_output,element_i
                 "basis": "CBS(TZ//QZ)",
                 "max_cluster_num": 1,
                 "code": "orca",
-                "element_info": custom_cbs_element_info
+                "element_info": custom_cbs_element_info,
             },
         },
         "FSE Error": {
@@ -1003,7 +1008,7 @@ def test_autoSKZCAMPrepare_create_cluster_calcs(skzcam_clusters_output,element_i
                 "max_cluster_num": 1,
                 "code": "orca",
                 "code_inputs": {"orcasimpleinput": "SOS-MP2 FSE"},
-                "element_info": element_info
+                "element_info": element_info,
             },
             "hl": {
                 "method": "SOS MP2",
@@ -1012,7 +1017,7 @@ def test_autoSKZCAMPrepare_create_cluster_calcs(skzcam_clusters_output,element_i
                 "max_cluster_num": 2,
                 "code": "orca",
                 "code_inputs": {"orcasimpleinput": "SOS-MP2 FSE"},
-                "element_info": element_info
+                "element_info": element_info,
             },
         },
         "DeltaCC": {
@@ -1022,7 +1027,7 @@ def test_autoSKZCAMPrepare_create_cluster_calcs(skzcam_clusters_output,element_i
                 "basis": "CBS(DZ//TZ)",
                 "max_cluster_num": 1,
                 "code": "mrcc",
-                "code_inputs": {"aocd": "extra"}
+                "code_inputs": {"aocd": "extra"},
             },
             "hl": {
                 "method": "LNO-CCSD(T)",
@@ -1030,8 +1035,7 @@ def test_autoSKZCAMPrepare_create_cluster_calcs(skzcam_clusters_output,element_i
                 "basis": "CBS(DZ//TZ)",
                 "max_cluster_num": 1,
                 "code": "mrcc",
-                "code_inputs": {"aocd": "extra"}
-
+                "code_inputs": {"aocd": "extra"},
             },
         },
     }
@@ -1049,19 +1053,80 @@ def test_autoSKZCAMPrepare_create_cluster_calcs(skzcam_clusters_output,element_i
 
     skzcam_cluster_calculators = prep_cluster.create_cluster_calcs()
 
-    assert {key1: [key2 for key2 in value1] for key1,value1 in skzcam_cluster_calculators.items()} == {1: ['orca MP2 valence DZ', 'orca MP2 valence TZ', 'orca MP2 semicore TZ', 'orca MP2 semicore QZ', 'orca SOS_MP2 valence DZ', 'mrcc LMP2 valence DZ', 'mrcc LMP2 valence TZ', 'mrcc LNO-CCSD(T) valence DZ', 'mrcc LNO-CCSD(T) valence TZ'], 2: ['orca MP2 valence DZ', 'orca MP2 valence TZ', 'orca SOS_MP2 valence DZ']}
+    assert {
+        key1: list(value1) for key1, value1 in skzcam_cluster_calculators.items()
+    } == {
+        1: [
+            "orca MP2 valence DZ",
+            "orca MP2 valence TZ",
+            "orca MP2 semicore TZ",
+            "orca MP2 semicore QZ",
+            "orca SOS_MP2 valence DZ",
+            "mrcc LMP2 valence DZ",
+            "mrcc LMP2 valence TZ",
+            "mrcc LNO-CCSD(T) valence DZ",
+            "mrcc LNO-CCSD(T) valence TZ",
+        ],
+        2: ["orca MP2 valence DZ", "orca MP2 valence TZ", "orca SOS_MP2 valence DZ"],
+    }
 
     # Check that an ORCA calculation with default inputs is created correctly
-    assert skzcam_cluster_calculators[1]['orca MP2 valence DZ']['adsorbate'].calc.parameters == {'orcasimpleinput': 'TightSCF RI-MP2 TightPNO RIJCOSX DIIS', 'orcablocks': '\n%pal nprocs 8 end\n%maxcore 25000\n%method\nMethod hf\nRI on\nRunTyp Energy\nend\n%scf\nHFTyp rhf\nSCFMode Direct\nsthresh 1e-6\nAutoTRAHIter 60\nMaxIter 1000\nend\n\n%method\nNewNCore C 2 end\nNewNCore Mg 10 end\nNewNCore O 2 end\nend\n%basis\nNewGTO C "aug-cc-pVDZ" end\nNewAuxJGTO C "def2/J" end\nNewAuxCGTO C "aug-cc-pVDZ/C" end\nNewGTO Mg "cc-pVDZ" end\nNewAuxJGTO Mg "def2/J" end\nNewAuxCGTO Mg "cc-pVDZ/C" end\nNewGTO O "aug-cc-pVDZ" end\nNewAuxJGTO O "def2/J" end\nNewAuxCGTO O "aug-cc-pVDZ/C" end\nend\n%coords\nCTyp xyz\nMult 1\nUnits angs\nCharge 0\ncoords\nC                       0.00000000000    0.00000000000    2.00000000000\nO                       0.00000000000    0.00000000000    3.12800000000\nMg:                     0.00000000000    0.00000000000    0.00000000000\nO:                     -2.12018425659    0.00000000000    0.00567209089\nO:                      0.00000000000    2.12018425659    0.00567209089\nO:                      2.12018425659    0.00000000000    0.00567209089\nO:                      0.00000000000   -2.12018425659    0.00567209089\nO:                      0.00000000000    0.00000000000   -2.14129966123\nend\nend\n'}
+    assert skzcam_cluster_calculators[1]["orca MP2 valence DZ"][
+        "adsorbate"
+    ].calc.parameters == {
+        "orcasimpleinput": "TightSCF RI-MP2 TightPNO RIJCOSX DIIS",
+        "orcablocks": '\n%pal nprocs 8 end\n%maxcore 25000\n%method\nMethod hf\nRI on\nRunTyp Energy\nend\n%scf\nHFTyp rhf\nSCFMode Direct\nsthresh 1e-6\nAutoTRAHIter 60\nMaxIter 1000\nend\n\n%method\nNewNCore C 2 end\nNewNCore Mg 10 end\nNewNCore O 2 end\nend\n%basis\nNewGTO C "aug-cc-pVDZ" end\nNewAuxJGTO C "def2/J" end\nNewAuxCGTO C "aug-cc-pVDZ/C" end\nNewGTO Mg "cc-pVDZ" end\nNewAuxJGTO Mg "def2/J" end\nNewAuxCGTO Mg "cc-pVDZ/C" end\nNewGTO O "aug-cc-pVDZ" end\nNewAuxJGTO O "def2/J" end\nNewAuxCGTO O "aug-cc-pVDZ/C" end\nend\n%coords\nCTyp xyz\nMult 1\nUnits angs\nCharge 0\ncoords\nC                       0.00000000000    0.00000000000    2.00000000000\nO                       0.00000000000    0.00000000000    3.12800000000\nMg:                     0.00000000000    0.00000000000    0.00000000000\nO:                     -2.12018425659    0.00000000000    0.00567209089\nO:                      0.00000000000    2.12018425659    0.00567209089\nO:                      2.12018425659    0.00000000000    0.00567209089\nO:                      0.00000000000   -2.12018425659    0.00567209089\nO:                      0.00000000000    0.00000000000   -2.14129966123\nend\nend\n',
+    }
 
     # Check whether a custom orcasimpleinput is used correctly
-    assert skzcam_cluster_calculators[2]['orca SOS_MP2 valence DZ']['adsorbate'].calc.parameters == {'orcasimpleinput': 'SOS-MP2 FSE', 'orcablocks': '\n%pal nprocs 8 end\n%maxcore 25000\n%method\nMethod hf\nRI on\nRunTyp Energy\nend\n%scf\nHFTyp rhf\nSCFMode Direct\nsthresh 1e-6\nAutoTRAHIter 60\nMaxIter 1000\nend\n\n%method\nNewNCore C 2 end\nNewNCore Mg 2 end\nNewNCore O 2 end\nend\n%basis\nNewGTO C "aug-cc-pVDZ" end\nNewAuxJGTO C "def2/J" end\nNewAuxCGTO C "aug-cc-pVDZ/C" end\nNewGTO Mg "cc-pVDZ" end\nNewAuxJGTO Mg "def2/J" end\nNewAuxCGTO Mg "cc-pVDZ/C" end\nNewGTO O "aug-cc-pVDZ" end\nNewAuxJGTO O "def2/JK" end\nNewAuxCGTO O "aug-cc-pVDZ/C" end\nend\n%coords\nCTyp xyz\nMult 1\nUnits angs\nCharge 0\ncoords\nC                       0.00000000000    0.00000000000    2.00000000000\nO                       0.00000000000    0.00000000000    3.12800000000\nMg:                     0.00000000000    0.00000000000    0.00000000000\nO:                     -2.12018425659    0.00000000000    0.00567209089\nO:                      0.00000000000    2.12018425659    0.00567209089\nO:                      2.12018425659    0.00000000000    0.00567209089\nO:                      0.00000000000   -2.12018425659    0.00567209089\nO:                      0.00000000000    0.00000000000   -2.14129966123\nMg:                    -2.11144262254    2.11144262254   -0.04367284424\nMg:                     2.11144262254    2.11144262254   -0.04367284424\nMg:                     2.11144262254   -2.11144262254   -0.04367284424\nMg:                    -2.11144262254   -2.11144262254   -0.04367284424\nO:                     -2.11070451449    2.11070451449   -2.14923989662\nO:                      2.11070451449    2.11070451449   -2.14923989662\nO:                      2.11070451449   -2.11070451449   -2.14923989662\nO:                     -2.11070451449   -2.11070451449   -2.14923989662\nO:                     -4.22049352791    2.11209139723    0.00772802266\nO:                     -2.11209139723    4.22049352791    0.00772802266\nO:                      2.11209139723    4.22049352791    0.00772802266\nO:                      4.22049352791    2.11209139723    0.00772802266\nO:                      4.22049352791   -2.11209139723    0.00772802266\nO:                      2.11209139723   -4.22049352791    0.00772802266\nO:                     -2.11209139723   -4.22049352791    0.00772802266\nO:                     -4.22049352791   -2.11209139723    0.00772802266\nend\nend\n'}
+    assert skzcam_cluster_calculators[2]["orca SOS_MP2 valence DZ"][
+        "adsorbate"
+    ].calc.parameters == {
+        "orcasimpleinput": "SOS-MP2 FSE",
+        "orcablocks": '\n%pal nprocs 8 end\n%maxcore 25000\n%method\nMethod hf\nRI on\nRunTyp Energy\nend\n%scf\nHFTyp rhf\nSCFMode Direct\nsthresh 1e-6\nAutoTRAHIter 60\nMaxIter 1000\nend\n\n%method\nNewNCore C 2 end\nNewNCore Mg 2 end\nNewNCore O 2 end\nend\n%basis\nNewGTO C "aug-cc-pVDZ" end\nNewAuxJGTO C "def2/J" end\nNewAuxCGTO C "aug-cc-pVDZ/C" end\nNewGTO Mg "cc-pVDZ" end\nNewAuxJGTO Mg "def2/J" end\nNewAuxCGTO Mg "cc-pVDZ/C" end\nNewGTO O "aug-cc-pVDZ" end\nNewAuxJGTO O "def2/JK" end\nNewAuxCGTO O "aug-cc-pVDZ/C" end\nend\n%coords\nCTyp xyz\nMult 1\nUnits angs\nCharge 0\ncoords\nC                       0.00000000000    0.00000000000    2.00000000000\nO                       0.00000000000    0.00000000000    3.12800000000\nMg:                     0.00000000000    0.00000000000    0.00000000000\nO:                     -2.12018425659    0.00000000000    0.00567209089\nO:                      0.00000000000    2.12018425659    0.00567209089\nO:                      2.12018425659    0.00000000000    0.00567209089\nO:                      0.00000000000   -2.12018425659    0.00567209089\nO:                      0.00000000000    0.00000000000   -2.14129966123\nMg:                    -2.11144262254    2.11144262254   -0.04367284424\nMg:                     2.11144262254    2.11144262254   -0.04367284424\nMg:                     2.11144262254   -2.11144262254   -0.04367284424\nMg:                    -2.11144262254   -2.11144262254   -0.04367284424\nO:                     -2.11070451449    2.11070451449   -2.14923989662\nO:                      2.11070451449    2.11070451449   -2.14923989662\nO:                      2.11070451449   -2.11070451449   -2.14923989662\nO:                     -2.11070451449   -2.11070451449   -2.14923989662\nO:                     -4.22049352791    2.11209139723    0.00772802266\nO:                     -2.11209139723    4.22049352791    0.00772802266\nO:                      2.11209139723    4.22049352791    0.00772802266\nO:                      4.22049352791    2.11209139723    0.00772802266\nO:                      4.22049352791   -2.11209139723    0.00772802266\nO:                      2.11209139723   -4.22049352791    0.00772802266\nO:                     -2.11209139723   -4.22049352791    0.00772802266\nO:                     -4.22049352791   -2.11209139723    0.00772802266\nend\nend\n',
+    }
 
     # Check the custom element_info is used correctly
-    assert skzcam_cluster_calculators[1]['orca MP2 semicore TZ']['adsorbate'].calc.parameters == {'orcasimpleinput': 'TightSCF RI-MP2 TightPNO RIJCOSX DIIS', 'orcablocks': '\n%pal nprocs 8 end\n%maxcore 25000\n%method\nMethod hf\nRI on\nRunTyp Energy\nend\n%scf\nHFTyp rhf\nSCFMode Direct\nsthresh 1e-6\nAutoTRAHIter 60\nMaxIter 1000\nend\n\n%method\nNewNCore C 2 end\nNewNCore Mg 2 end\nNewNCore O 2 end\nend\n%basis\nNewGTO C "def2-TZVPP" end\nNewAuxJGTO C "def2-QZVPP-RI-JK" end\nNewAuxCGTO C "def2-TZVPP/C" end\nNewGTO Mg "def2-TZVPP" end\nNewAuxJGTO Mg "def2-QZVPP-RI-JK" end\nNewAuxCGTO Mg "def2-TZVPP/C" end\nNewGTO O "def2-TZVPP" end\nNewAuxJGTO O "def2-QZVPP-RI-JK" end\nNewAuxCGTO O "def2-TZVPP/C" end\nend\n%coords\nCTyp xyz\nMult 1\nUnits angs\nCharge 0\ncoords\nC                       0.00000000000    0.00000000000    2.00000000000\nO                       0.00000000000    0.00000000000    3.12800000000\nMg:                     0.00000000000    0.00000000000    0.00000000000\nO:                     -2.12018425659    0.00000000000    0.00567209089\nO:                      0.00000000000    2.12018425659    0.00567209089\nO:                      2.12018425659    0.00000000000    0.00567209089\nO:                      0.00000000000   -2.12018425659    0.00567209089\nO:                      0.00000000000    0.00000000000   -2.14129966123\nend\nend\n'}
+    assert skzcam_cluster_calculators[1]["orca MP2 semicore TZ"][
+        "adsorbate"
+    ].calc.parameters == {
+        "orcasimpleinput": "TightSCF RI-MP2 TightPNO RIJCOSX DIIS",
+        "orcablocks": '\n%pal nprocs 8 end\n%maxcore 25000\n%method\nMethod hf\nRI on\nRunTyp Energy\nend\n%scf\nHFTyp rhf\nSCFMode Direct\nsthresh 1e-6\nAutoTRAHIter 60\nMaxIter 1000\nend\n\n%method\nNewNCore C 2 end\nNewNCore Mg 2 end\nNewNCore O 2 end\nend\n%basis\nNewGTO C "def2-TZVPP" end\nNewAuxJGTO C "def2-QZVPP-RI-JK" end\nNewAuxCGTO C "def2-TZVPP/C" end\nNewGTO Mg "def2-TZVPP" end\nNewAuxJGTO Mg "def2-QZVPP-RI-JK" end\nNewAuxCGTO Mg "def2-TZVPP/C" end\nNewGTO O "def2-TZVPP" end\nNewAuxJGTO O "def2-QZVPP-RI-JK" end\nNewAuxCGTO O "def2-TZVPP/C" end\nend\n%coords\nCTyp xyz\nMult 1\nUnits angs\nCharge 0\ncoords\nC                       0.00000000000    0.00000000000    2.00000000000\nO                       0.00000000000    0.00000000000    3.12800000000\nMg:                     0.00000000000    0.00000000000    0.00000000000\nO:                     -2.12018425659    0.00000000000    0.00567209089\nO:                      0.00000000000    2.12018425659    0.00567209089\nO:                      2.12018425659    0.00000000000    0.00567209089\nO:                      0.00000000000   -2.12018425659    0.00567209089\nO:                      0.00000000000    0.00000000000   -2.14129966123\nend\nend\n',
+    }
 
     # Check that the MRCC calculations are created correctly
-    assert skzcam_cluster_calculators[1]['mrcc LNO-CCSD(T) valence DZ']['adsorbate'].calc.parameters == {'calc': 'LNO-CCSD(T)', 'scftype': 'rhf', 'verbosity': 3, 'mem': '80000MB', 'symm': 'off', 'unit': 'angs', 'scfiguess': 'small', 'scfmaxit': 1000, 'scfalg': 'locfit1', 'lcorthr': 'tight', 'bpedo': 0.99999, 'ccmaxit': 400, 'usedisk': 0, 'ccsdalg': 'dfdirect', 'ccsdthreads': 4, 'ccsdmkl': 'thr', 'ptthreads': 4, 'aocd': 'extra', 'basis_sm': 'special\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\n\n', 'basis': 'special\naug-cc-pVDZ\naug-cc-pVDZ\ncc-pVDZ\naug-cc-pVDZ\naug-cc-pVDZ\naug-cc-pVDZ\naug-cc-pVDZ\naug-cc-pVDZ\n\n', 'dfbasis_scf': 'special\ndef2-QZVPP-RI-JK\ndef2-QZVPP-RI-JK\ndef2-QZVPP-RI-JK\ndef2-QZVPP-RI-JK\ndef2-QZVPP-RI-JK\ndef2-QZVPP-RI-JK\ndef2-QZVPP-RI-JK\ndef2-QZVPP-RI-JK\n\n', 'dfbasis_cor': 'special\naug-cc-pVDZ-RI\naug-cc-pVDZ-RI\ncc-pVDZ-RI\naug-cc-pVDZ-RI\naug-cc-pVDZ-RI\naug-cc-pVDZ-RI\naug-cc-pVDZ-RI\naug-cc-pVDZ-RI\n\n', 'ecp': 'special\nnone\nnone\nnone\nnone\nnone\nnone\nnone\nnone\n', 'charge': '0', 'mult': '1', 'core': '2', 'geom': 'xyz\n8\n\nC                       0.00000000000    0.00000000000    2.00000000000\nO                       0.00000000000    0.00000000000    3.12800000000\nMg                      0.00000000000    0.00000000000    0.00000000000\nO                      -2.12018425659    0.00000000000    0.00567209089\nO                       0.00000000000    2.12018425659    0.00567209089\nO                       2.12018425659    0.00000000000    0.00567209089\nO                       0.00000000000   -2.12018425659    0.00567209089\nO                       0.00000000000    0.00000000000   -2.14129966123\n', 'ghost': 'serialno\n3,4,5,6,7,8\n\n'}
+    assert skzcam_cluster_calculators[1]["mrcc LNO-CCSD(T) valence DZ"][
+        "adsorbate"
+    ].calc.parameters == {
+        "calc": "LNO-CCSD(T)",
+        "scftype": "rhf",
+        "verbosity": 3,
+        "mem": "80000MB",
+        "symm": "off",
+        "unit": "angs",
+        "scfiguess": "small",
+        "scfmaxit": 1000,
+        "scfalg": "locfit1",
+        "lcorthr": "tight",
+        "bpedo": 0.99999,
+        "ccmaxit": 400,
+        "usedisk": 0,
+        "ccsdalg": "dfdirect",
+        "ccsdthreads": 4,
+        "ccsdmkl": "thr",
+        "ptthreads": 4,
+        "aocd": "extra",
+        "basis_sm": "special\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\n\n",
+        "basis": "special\naug-cc-pVDZ\naug-cc-pVDZ\ncc-pVDZ\naug-cc-pVDZ\naug-cc-pVDZ\naug-cc-pVDZ\naug-cc-pVDZ\naug-cc-pVDZ\n\n",
+        "dfbasis_scf": "special\ndef2-QZVPP-RI-JK\ndef2-QZVPP-RI-JK\ndef2-QZVPP-RI-JK\ndef2-QZVPP-RI-JK\ndef2-QZVPP-RI-JK\ndef2-QZVPP-RI-JK\ndef2-QZVPP-RI-JK\ndef2-QZVPP-RI-JK\n\n",
+        "dfbasis_cor": "special\naug-cc-pVDZ-RI\naug-cc-pVDZ-RI\ncc-pVDZ-RI\naug-cc-pVDZ-RI\naug-cc-pVDZ-RI\naug-cc-pVDZ-RI\naug-cc-pVDZ-RI\naug-cc-pVDZ-RI\n\n",
+        "ecp": "special\nnone\nnone\nnone\nnone\nnone\nnone\nnone\nnone\n",
+        "charge": "0",
+        "mult": "1",
+        "core": "2",
+        "geom": "xyz\n8\n\nC                       0.00000000000    0.00000000000    2.00000000000\nO                       0.00000000000    0.00000000000    3.12800000000\nMg                      0.00000000000    0.00000000000    0.00000000000\nO                      -2.12018425659    0.00000000000    0.00567209089\nO                       0.00000000000    2.12018425659    0.00567209089\nO                       2.12018425659    0.00000000000    0.00567209089\nO                       0.00000000000   -2.12018425659    0.00567209089\nO                       0.00000000000    0.00000000000   -2.14129966123\n",
+        "ghost": "serialno\n3,4,5,6,7,8\n\n",
+    }
 
 
 def test_CreateSKZCAMClusters_init():

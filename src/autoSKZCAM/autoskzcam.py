@@ -1,23 +1,22 @@
 from __future__ import annotations
 
+import re
 from copy import deepcopy
 from importlib.util import find_spec
 from pathlib import Path
 from typing import TYPE_CHECKING, Literal
-import re
 
 import numpy as np
 from ase.atoms import Atoms
 from ase.calculators.orca import ORCA, OrcaProfile
 from ase.data import atomic_numbers
 from ase.io import read, write
+from ase.io.orca import write_orca
 from ase.units import Bohr
 from monty.dev import requires
 from monty.io import zopen
 from monty.os.path import zpath
 from quacc import get_settings
-
-from ase.io.orca import write_orca
 from quacc.calculators.mrcc.io import write_mrcc
 from quacc.calculators.mrcc.mrcc import MRCC, MrccProfile
 
@@ -110,7 +109,7 @@ class autoSKZCAMPrepare:
 
         # Check that all of the necessary keywords are included in each oniom layer
         max_cluster = 0
-        for _,oniom_layer in self.oniom_layers.items():
+        for oniom_layer in self.oniom_layers.values():
             for level in ["ll", "hl"]:
                 if oniom_layer[level] is not None:
                     oniom_layer_parameters = oniom_layer[level]
@@ -194,9 +193,11 @@ class autoSKZCAMPrepare:
                                         in oniom_layer_parameters["element_info"][
                                             element
                                         ]
-                                        and not _is_valid_cbs_format(oniom_layer_parameters["element_info"][
-                                            element
-                                        ][basis_type])[0]
+                                        and not _is_valid_cbs_format(
+                                            oniom_layer_parameters["element_info"][
+                                                element
+                                            ][basis_type]
+                                        )[0]
                                     ):
                                         raise ValueError(
                                             f"The {basis_type} parameter must be provided in the element_info dictionary as format CBS(X//Y), where X and Y are the two basis sets."
@@ -370,35 +371,45 @@ class autoSKZCAMPrepare:
         skzcam_cluster_calculators = {
             cluster_num: {} for cluster_num in range(1, self.max_cluster + 1)
         }
-        for _, oniom_layer in self.oniom_layers.items():
+        for oniom_layer in self.oniom_layers.values():
             for level in ["ll", "hl"]:
                 if oniom_layer[level] is not None:
                     oniom_layer_parameters = oniom_layer[level]
                     frozen_core = oniom_layer_parameters["frozen_core"]
                     method = oniom_layer_parameters["method"].replace(" ", "_")
                     code = oniom_layer_parameters["code"].lower()
-                    (is_cbs, basis_1, basis_2) = _is_valid_cbs_format(oniom_layer_parameters["basis"])
+                    (is_cbs, basis_1, basis_2) = _is_valid_cbs_format(
+                        oniom_layer_parameters["basis"]
+                    )
                     if is_cbs:
-                        (_, basis_1, basis_2) = _is_valid_cbs_format(oniom_layer_parameters["basis"])
-                        basis_sets = [
-                            basis_1,
-                            basis_2,
-                        ]
+                        (_, basis_1, basis_2) = _is_valid_cbs_format(
+                            oniom_layer_parameters["basis"]
+                        )
+                        basis_sets = [basis_1, basis_2]
                     else:
                         basis_sets = [oniom_layer_parameters["basis"]]
                     for basis_idx, basis_set in enumerate(basis_sets):
                         default_element_info = self.create_element_info(
                             frozen_core=frozen_core, basis=basis_set, code=code
                         )
-                        if 'element_info' in oniom_layer_parameters and oniom_layer_parameters['element_info'] is not None:
+                        if (
+                            "element_info" in oniom_layer_parameters
+                            and oniom_layer_parameters["element_info"] is not None
+                        ):
                             custom_element_info = {}
-                            for key, value in oniom_layer_parameters["element_info"].items():
+                            for key, value in oniom_layer_parameters[
+                                "element_info"
+                            ].items():
                                 custom_element_info[key] = {}
                                 for subkey, subvalue in value.items():
                                     if "basis" in subkey:
-                                        is_element_basis_cbs = _is_valid_cbs_format(subvalue)
+                                        is_element_basis_cbs = _is_valid_cbs_format(
+                                            subvalue
+                                        )
                                         if is_cbs and is_element_basis_cbs[0]:
-                                            custom_element_info[key][subkey] = is_element_basis_cbs[basis_idx+1]
+                                            custom_element_info[key][subkey] = (
+                                                is_element_basis_cbs[basis_idx + 1]
+                                            )
                                         else:
                                             custom_element_info[key][subkey] = subvalue
                                     else:
@@ -520,7 +531,7 @@ class autoSKZCAMPrepare:
                 }
 
         return element_info_dict
-    
+
     def generate_input(
         self, skzcam_cluster_calculators: CalculatorInfo, input_dir: str | Path
     ) -> None:
@@ -1263,6 +1274,7 @@ def _get_atom_distances(atoms: Atoms, center_position: NDArray) -> NDArray:
     """
 
     return np.array([np.linalg.norm(atom.position - center_position) for atom in atoms])
+
 
 def _is_valid_cbs_format(string) -> list[bool, str | None, str | None]:
     """
