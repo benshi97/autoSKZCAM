@@ -4,6 +4,7 @@ from copy import deepcopy
 from importlib.util import find_spec
 from pathlib import Path
 from typing import TYPE_CHECKING, Literal
+import re
 
 import numpy as np
 from ase.atoms import Atoms
@@ -16,8 +17,8 @@ from monty.io import zopen
 from monty.os.path import zpath
 from quacc import get_settings
 
-# from ase.io.orca import write_orca
-# from quacc.calculators.mrcc.io import write_mrcc
+from ase.io.orca import write_orca
+from quacc.calculators.mrcc.io import write_mrcc
 from quacc.calculators.mrcc.mrcc import MRCC, MrccProfile
 
 from autoSKZCAM.data import (
@@ -109,10 +110,10 @@ class autoSKZCAMPrepare:
 
         # Check that all of the necessary keywords are included in each oniom layer
         max_cluster = 0
-        for oniom_layer in self.oniom_layers:
+        for _,oniom_layer in self.oniom_layers.items():
             for level in ["ll", "hl"]:
-                if self.oniom_layers[oniom_layer][level] is not None:
-                    oniom_layer_parameters = self.oniom_layers[oniom_layer][level]
+                if oniom_layer[level] is not None:
+                    oniom_layer_parameters = oniom_layer[level]
                     # Check that all the required parameters are provided
                     for parameter in [
                         "method",
@@ -158,12 +159,12 @@ class autoSKZCAMPrepare:
                         "TZ",
                         "QZ",
                         "5Z",
-                        "CBS(DZ/TZ)",
-                        "CBS(TZ/QZ)",
-                        "CBS(QZ/5Z)",
+                        "CBS(DZ//TZ)",
+                        "CBS(TZ//QZ)",
+                        "CBS(QZ//5Z)",
                     ]:
                         raise ValueError(
-                            "The basis must be specified as either DZ, TZ, QZ, 5Z, CBS(DZ/TZ), CBS(TZ/QZ) or CBS(QZ/5Z)."
+                            "The basis must be specified as either DZ, TZ, QZ, 5Z, CBS(DZ//TZ), CBS(TZ//QZ) or CBS(QZ//5Z)."
                         )
 
                     # Some checks of the element_info in the case where the layer involves a CBS calculation
@@ -181,7 +182,7 @@ class autoSKZCAMPrepare:
                                 "The keys in the element_info dictionary must be valid element symbols."
                             )
                         # If the basis set is a CBS basis set, ensure that the basis set is split into two
-                        if "CBS" in oniom_layer_parameters.get("basis", ""):
+                        if _is_valid_cbs_format(oniom_layer_parameters["basis"])[0]:
                             for element in oniom_layer_parameters["element_info"]:
                                 for basis_type in [
                                     "basis",
@@ -193,13 +194,12 @@ class autoSKZCAMPrepare:
                                         in oniom_layer_parameters["element_info"][
                                             element
                                         ]
-                                        and "CBS"
-                                        not in oniom_layer_parameters["element_info"][
+                                        and not _is_valid_cbs_format(oniom_layer_parameters["element_info"][
                                             element
-                                        ][basis_type]
+                                        ][basis_type])[0]
                                     ):
                                         raise ValueError(
-                                            f"The {basis_type} parameter must be provided in the element_info dictionary as format CBS(X/Y), where X and Y are the two basis sets."
+                                            f"The {basis_type} parameter must be provided in the element_info dictionary as format CBS(X//Y), where X and Y are the two basis sets."
                                         )
 
                     # If code_inputs is provided and the code is orca, check that the orcasimpleinput and orcablocks are provided
@@ -208,14 +208,11 @@ class autoSKZCAMPrepare:
                         and "code_inputs" in oniom_layer_parameters
                         and oniom_layer_parameters["code_inputs"] is not None
                     ):
-                        if (
-                            "orcasimpleinput"
-                            not in oniom_layer_parameters["code_inputs"]
-                            or "orcablocks" not in oniom_layer_parameters["code_inputs"]
-                        ):
-                            raise ValueError(
-                                "If the code is orca, the orcasimpleinput and orcablocks must be provided in the code_inputs dictionary."
-                            )
+                        for key in oniom_layer_parameters["code_inputs"]:
+                            if key not in ["orcasimpleinput", "orcablocks"]:
+                                raise ValueError(
+                                    "If the code is orca, the code_inputs dictionary can only contain the orcasimpleinput and orcablocks keys."
+                                )
 
         self.max_cluster = max_cluster
 
@@ -373,39 +370,40 @@ class autoSKZCAMPrepare:
         skzcam_cluster_calculators = {
             cluster_num: {} for cluster_num in range(1, self.max_cluster + 1)
         }
-        for oniom_layer in self.oniom_layers:
+        for _, oniom_layer in self.oniom_layers.items():
             for level in ["ll", "hl"]:
-                if self.oniom_layers[oniom_layer][level] is not None:
-                    oniom_layer_parameters = self.oniom_layers[oniom_layer][level]
+                if oniom_layer[level] is not None:
+                    oniom_layer_parameters = oniom_layer[level]
                     frozen_core = oniom_layer_parameters["frozen_core"]
                     method = oniom_layer_parameters["method"].replace(" ", "_")
-                    code = oniom_layer_parameters["code"].replace(" ", "_")
-                    if "CBS" in oniom_layer_parameters["basis"]:
+                    code = oniom_layer_parameters["code"].lower()
+                    (is_cbs, basis_1, basis_2) = _is_valid_cbs_format(oniom_layer_parameters["basis"])
+                    if is_cbs:
+                        (_, basis_1, basis_2) = _is_valid_cbs_format(oniom_layer_parameters["basis"])
                         basis_sets = [
-                            oniom_layer_parameters["basis"][4:-1].split("/")[0],
-                            oniom_layer_parameters["basis"][4:-1].split("/")[1],
+                            basis_1,
+                            basis_2,
                         ]
-
                     else:
                         basis_sets = [oniom_layer_parameters["basis"]]
                     for basis_idx, basis_set in enumerate(basis_sets):
                         default_element_info = self.create_element_info(
                             frozen_core=frozen_core, basis=basis_set, code=code
                         )
-
-                        if oniom_layer_parameters["element_info"] is not None:
+                        if 'element_info' in oniom_layer_parameters and oniom_layer_parameters['element_info'] is not None:
                             custom_element_info = {}
-                            for key, value in oniom_layer_parameters["element_info"]:
-                                if (
-                                    "CBS" in oniom_layer_parameters["basis"]
-                                    and "basis" in key
-                                    and "CBS" in value
-                                ):
-                                    custom_element_info[key] = value[4:-1].split("/")[
-                                        basis_idx
-                                    ]
-                                else:
-                                    custom_element_info[key] = value
+                            for key, value in oniom_layer_parameters["element_info"].items():
+                                custom_element_info[key] = {}
+                                for subkey, subvalue in value.items():
+                                    if "basis" in subkey:
+                                        is_element_basis_cbs = _is_valid_cbs_format(subvalue)
+                                        if is_cbs and is_element_basis_cbs[0]:
+                                            custom_element_info[key][subkey] = is_element_basis_cbs[basis_idx+1]
+                                        else:
+                                            custom_element_info[key][subkey] = subvalue
+                                    else:
+                                        custom_element_info[key][subkey] = subvalue
+
                             element_info = {
                                 **default_element_info,
                                 **custom_element_info,
@@ -434,7 +432,6 @@ class autoSKZCAMPrepare:
                                         cluster_num - 1
                                     ],
                                     element_info=element_info,
-                                    multiplicities=self.multiplicities,
                                 )
 
         return skzcam_cluster_calculators
@@ -487,7 +484,7 @@ class autoSKZCAMPrepare:
                 element_info_dict[atom.symbol] = {
                     "core": frozen_core_defaults["valence"][atom.symbol],
                     "basis": f"aug-cc-pV{basis}",
-                    "ecp": ecp.get(atom.symbol, "none"),
+                    "ecp": None if ecp is None else ecp.get(atom.symbol, None),
                     "ri_scf_basis": "def2-QZVPP-RI-JK" if code == "mrcc" else "def2/J",
                     "ri_cwft_basis": f"aug-cc-pV{basis}-RI"
                     if code == "mrcc"
@@ -501,7 +498,7 @@ class autoSKZCAMPrepare:
                 element_info_dict[atom.symbol] = {
                     "core": frozen_core_defaults["valence"][atom.symbol],
                     "basis": f"cc-pV{basis}",
-                    "ecp": ecp.get(atom.symbol, "none"),
+                    "ecp": None if ecp is None else ecp.get(atom.symbol, None),
                     "ri_scf_basis": "def2-QZVPP-RI-JK" if code == "mrcc" else "def2/J",
                     "ri_cwft_basis": f"cc-pV{basis}-RI"
                     if code == "mrcc"
@@ -515,7 +512,7 @@ class autoSKZCAMPrepare:
                 element_info_dict[atom.symbol] = {
                     "core": frozen_core_defaults["semicore"][atom.symbol],
                     "basis": f"cc-pwCV{basis}",
-                    "ecp": ecp.get(atom.symbol, "none"),
+                    "ecp": None if ecp is None else ecp.get(atom.symbol, None),
                     "ri_scf_basis": "def2-QZVPP-RI-JK" if code == "mrcc" else "def2/J",
                     "ri_cwft_basis": f"cc-pwCV{basis}-RI"
                     if code == "mrcc"
@@ -523,7 +520,7 @@ class autoSKZCAMPrepare:
                 }
 
         return element_info_dict
-
+    
     def generate_input(
         self, skzcam_cluster_calculators: CalculatorInfo, input_dir: str | Path
     ) -> None:
@@ -1266,3 +1263,27 @@ def _get_atom_distances(atoms: Atoms, center_position: NDArray) -> NDArray:
     """
 
     return np.array([np.linalg.norm(atom.position - center_position) for atom in atoms])
+
+def _is_valid_cbs_format(string) -> list[bool, str | None, str | None]:
+    """
+    Returns True if the string is in the format of a CBS extrapolation when specified in element_info.
+
+    Parameters
+    ----------
+    string
+        The string to be checked.
+
+    Returns
+    -------
+    bool
+        True if the string is in the format of a CBS extrapolation, False otherwise.
+    """
+    string = string.replace(" ", "")
+    # Define the regex pattern with capturing groups for the strings in between
+    pattern = r"^CBS\((.+?)//(.+?)\)$"
+    # Match the string against the pattern
+    match = re.match(pattern, string)
+    if match:
+        # Return the captured groups as a tuple
+        return True, match.group(1), match.group(2)
+    return False, None, None
