@@ -8,151 +8,15 @@ import numpy as np
 from ase.atoms import Atoms
 from ase.data import atomic_numbers
 from ase.io import read, write
-
-# from ase.io.orca import write_orca
 from ase.units import Bohr
 from monty.dev import requires
 from monty.io import zopen
 from monty.os.path import zpath
 
-# from quacc.calculators.mrcc.io import write_mrcc
-
 if TYPE_CHECKING:
     from numpy.typing import NDArray
 
-    from autoSKZCAM.types import (
-        SKZCAMOutput,
-        semicore_frozen_core_dict,
-        valence_frozen_core_dict,
-    )
-
-
-element_from_atomic_num_dict = {v: k for k, v in atomic_numbers.items()}
-
-semicore_frozen_core_dict = {
-    element_from_atomic_num_dict[x]: (
-        0
-        if x <= 4
-        else 2
-        if x <= 12
-        else 10
-        if x <= 30
-        else 18
-        if x <= 38
-        else 28
-        if x <= 48
-        else 36
-        if x <= 71
-        else 46
-        if x <= 80
-        else 68
-        if x <= 103
-        else None  # You can choose a default value or None for x > 103
-    )
-    for x in range(1, 104)  # Adjust the range to include up to 103
-    if x
-    in element_from_atomic_num_dict  # Ensure the atomic number exists in the dictionary
-}
-
-valence_frozen_core_dict = {
-    element_from_atomic_num_dict[x]: (
-        0
-        if x <= 2
-        else 2
-        if x <= 10
-        else 10
-        if x <= 18
-        else 18
-        if x <= 30
-        else 28
-        if x <= 36
-        else 36
-        if x <= 48
-        else 46
-        if x <= 54
-        else 54
-        if x <= 70
-        else 68
-        if x <= 80
-        else 78
-        if x <= 86
-        else 86
-        if x <= 102
-        else 100
-        if x <= 103
-        else None  # You can choose a default value or None for x > 103
-    )
-    for x in range(1, 104)  # Adjust the range to include up to 103
-    if x
-    in element_from_atomic_num_dict  # Ensure the atomic number exists in the dictionary
-}
-
-skzcam_cation_cap_ecp = {
-    "orca": {
-        "Ti": """NewECP
-N_core 0
-  lmax f
-  s 2
-   1      0.860000       9.191690  2
-   2      0.172000       0.008301  2
-  p 2
-   1      0.860000      17.997720  2
-   2      0.172000      -0.032600  2
-  d 2
-   1      1.600000      -9.504310  2
-   2      0.320000      -0.151370  2
-  f 1
-   1      1.000000000    0.000000000 2
-end""",
-        "Mg": """NewECP
-N_core 0
-lmax f
-s 1
-1      1.732000000   14.676000000 2
-p 1
-1      1.115000000    5.175700000 2
-d 1
-1      1.203000000   -1.816000000 2
-f 1
-1      1.000000000    0.000000000 2
-end""",
-    },
-    "mrcc": {
-        "Ti": """
-Ti:capECP
-Stuttgart RSC 1997 ECP
-*
-    NCORE = 22    LMAX = 3
-f
-    0.000000000  2     1.000000000
-s-f
-    9.191690000  2     0.860000000
-    0.008301000  2     0.172000000
-p-f
-   17.997720000  2     0.860000000
-   -0.032600000  2     0.172000000
-d-f
-   -9.504310000  2     1.600000000
-   -0.151370000  2     0.320000000
-*
-""",
-        "Mg": """
-Mg:capECP
-Stuttgart RLC ECP
-*
-    NCORE = 12    LMAX = 3
-f
-    0.000000000  2     1.000000000
-s-f
-   14.676000000  2     1.732000000
-p-f
-    5.175700000  2     1.115000000
-d-f
-   -1.816000000  2     1.203000000
-*
-""",
-    },
-}
+    from autoSKZCAM.types import SKZCAMOutput
 
 has_chemshell = find_spec("chemsh") is not None
 
@@ -499,23 +363,11 @@ class CreateSKZCAMClusters:
         }
 
         # Load the pun file as a list of strings
-        with zopen(zpath(str(Path(pun_file)))) as f:
-            raw_pun_file = [
-                line.rstrip().decode("utf-8")
-                if isinstance(line, bytes)
-                else line.rstrip()
-                for line in f
-            ]
+        with zopen(zpath(str(Path(pun_file))), mode="rt", encoding="utf-8") as f:
+            raw_pun_file = [line.rstrip() for line in f]
 
         # Get the number of atoms and number of atomic charges in the .pun file
         n_atoms = int(raw_pun_file[3].split()[-1])
-        n_charges = int(raw_pun_file[4 + n_atoms - 1 + 3].split()[-1])
-
-        # Check if number of atom charges same as number of atom positions
-        if n_atoms != n_charges:
-            raise ValueError(
-                "Number of atomic positions and atomic charges in the .pun file are not the same."
-            )
 
         raw_atom_positions = raw_pun_file[4 : 4 + n_atoms]
         raw_charges = raw_pun_file[7 + n_atoms : 7 + 2 * n_atoms]
@@ -533,8 +385,6 @@ class CreateSKZCAMClusters:
                 atom_types.append(atom_type_dict[line_info[0]])
             elif line_info[0] == "F":
                 atom_types.append("pc")
-            else:
-                atom_types.append("unknown")
 
             # Add the atom number to the atom_number_list and position to the atom_position_list
             atom_numbers += [atomic_numbers[line_info[0]]]
