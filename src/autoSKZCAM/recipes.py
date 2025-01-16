@@ -15,7 +15,7 @@ def write_inputs(
     skzcam_cluster_calculators: CalculatorInfo, input_dir: str | Path
 ) -> None:
     """
-    Generates the SKZCAM input for the MRCC and ORCA ASE calculators.
+    Generate the input files for the SKZCAM calculations.
 
     Parameters
     ----------
