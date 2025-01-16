@@ -493,7 +493,7 @@ def test_Prepare_intialize_clusters(
         "core": "2",
         "geom": "xyz\n8\n\nC                       0.00000000000    0.00000000000    2.00000000000\nO                       0.00000000000    0.00000000000    3.12800000000\nMg                      0.00000000000    0.00000000000    0.00000000000\nO                      -2.12018425659    0.00000000000    0.00567209089\nO                       0.00000000000    2.12018425659    0.00567209089\nO                       2.12018425659    0.00000000000    0.00567209089\nO                       0.00000000000   -2.12018425659    0.00567209089\nO                       0.00000000000    0.00000000000   -2.14129966123\n",
         "ghost": "serialno\n3,4,5,6,7,8\n\n",
-        "genbas": "Mg:cappedECP\nINSERT_cappedECP\n\nMg:no-basis-set\nno basis set\n\n    0\n    0\n    0\n    0\n\nMg:no-basis-set-ri-jk\nno basis set\n\n    0\n    0\n    0\n    0\n\n"
+        "genbas": "Mg:cappedECP\nINSERT_cappedECP\n\nMg:no-basis-set\nno basis set\n\n    0\n    0\n    0\n    0\n\nMg:no-basis-set-ri-jk\nno basis set\n\n    0\n    0\n    0\n    0\n\n",
     }
 
     # Confirm that the LNO-CCSD(T) default are created correctly
@@ -541,7 +541,7 @@ def test_Prepare_intialize_clusters(
         "core": "2",
         "geom": "xyz\n8\n\nC                       0.00000000000    0.00000000000    2.00000000000\nO                       0.00000000000    0.00000000000    3.12800000000\nMg                      0.00000000000    0.00000000000    0.00000000000\nO                      -2.12018425659    0.00000000000    0.00567209089\nO                       0.00000000000    2.12018425659    0.00567209089\nO                       2.12018425659    0.00000000000    0.00567209089\nO                       0.00000000000   -2.12018425659    0.00567209089\nO                       0.00000000000    0.00000000000   -2.14129966123\n",
         "ghost": "serialno\n3,4,5,6,7,8\n\n",
-        "genbas": "Mg:cappedECP\nINSERT_cappedECP\n\nMg:no-basis-set\nno basis set\n\n    0\n    0\n    0\n    0\n\nMg:no-basis-set-ri-jk\nno basis set\n\n    0\n    0\n    0\n    0\n\n"
+        "genbas": "Mg:cappedECP\nINSERT_cappedECP\n\nMg:no-basis-set\nno basis set\n\n    0\n    0\n    0\n    0\n\nMg:no-basis-set-ri-jk\nno basis set\n\n    0\n    0\n    0\n    0\n\n",
     }
 
     # Confirm that calculations work when utilising non-default methods
@@ -579,15 +579,21 @@ def test_Prepare_intialize_clusters(
         "core": "2",
         "geom": "xyz\n8\n\nC                       0.00000000000    0.00000000000    2.00000000000\nO                       0.00000000000    0.00000000000    3.12800000000\nMg                      0.00000000000    0.00000000000    0.00000000000\nO                      -2.12018425659    0.00000000000    0.00567209089\nO                       0.00000000000    2.12018425659    0.00567209089\nO                       2.12018425659    0.00000000000    0.00567209089\nO                       0.00000000000   -2.12018425659    0.00567209089\nO                       0.00000000000    0.00000000000   -2.14129966123\n",
         "ghost": "serialno\n3,4,5,6,7,8\n\n",
-        "genbas": "Mg:cappedECP\nINSERT_cappedECP\n\nMg:no-basis-set\nno basis set\n\n    0\n    0\n    0\n    0\n\nMg:no-basis-set-ri-jk\nno basis set\n\n    0\n    0\n    0\n    0\n\n"
+        "genbas": "Mg:cappedECP\nINSERT_cappedECP\n\nMg:no-basis-set\nno basis set\n\n    0\n    0\n    0\n    0\n\nMg:no-basis-set-ri-jk\nno basis set\n\n    0\n    0\n    0\n    0\n\n",
     }
 
-    assert calculators["adsorbate"].calc.parameters['genbas'] ==  "Mg:cappedECP\nINSERT_cappedECP\n\nMg:no-basis-set\nno basis set\n\n    0\n    0\n    0\n    0\n\nMg:no-basis-set-ri-jk\nno basis set\n\n    0\n    0\n    0\n    0\n\n"
     assert (
-        calculators["adsorbate_slab"].calc.parameters['genbas']
+        calculators["adsorbate"].calc.parameters["genbas"]
         == "Mg:cappedECP\nINSERT_cappedECP\n\nMg:no-basis-set\nno basis set\n\n    0\n    0\n    0\n    0\n\nMg:no-basis-set-ri-jk\nno basis set\n\n    0\n    0\n    0\n    0\n\n"
     )
-    assert calculators["slab"].calc.parameters['genbas'] == calculators["adsorbate_slab"].calc.parameters['genbas']
+    assert (
+        calculators["adsorbate_slab"].calc.parameters["genbas"]
+        == "Mg:cappedECP\nINSERT_cappedECP\n\nMg:no-basis-set\nno basis set\n\n    0\n    0\n    0\n    0\n\nMg:no-basis-set-ri-jk\nno basis set\n\n    0\n    0\n    0\n    0\n\n"
+    )
+    assert (
+        calculators["slab"].calc.parameters["genbas"]
+        == calculators["adsorbate_slab"].calc.parameters["genbas"]
+    )
 
     # Now check if the ORCA calculations are created correctly
     oniom_layer_parameters = {
@@ -608,12 +614,15 @@ def test_Prepare_intialize_clusters(
     assert calculators["adsorbate"].calc.parameters == {
         "orcasimpleinput": "TightSCF RI-MP2 TightPNO RIJCOSX DIIS",
         "orcablocks": '\n%pal nprocs 8 end\n%maxcore 25000\n%method\nMethod hf\nRI on\nRunTyp Energy\nend\n%scf\nHFTyp rhf\nSCFMode Direct\nsthresh 1e-6\nAutoTRAHIter 60\nMaxIter 1000\nend\n\n%method\nNewNCore C 2 end\nNewNCore Mg 2 end\nNewNCore O 2 end\nend\n%basis\nNewGTO C "aug-cc-pVDZ" end\nNewAuxJGTO C "def2/J" end\nNewAuxCGTO C "aug-cc-pVDZ/C" end\nNewGTO Mg "cc-pVDZ" end\nNewAuxJGTO Mg "def2/J" end\nNewAuxCGTO Mg "cc-pVDZ/C" end\nNewGTO O "aug-cc-pVDZ" end\nNewAuxJGTO O "def2/JK" end\nNewAuxCGTO O "aug-cc-pVDZ/C" end\nend\n%coords\nCTyp xyz\nMult 1\nUnits angs\nCharge 0\ncoords\nC                       0.00000000000    0.00000000000    2.00000000000\nO                       0.00000000000    0.00000000000    3.12800000000\nMg:                     0.00000000000    0.00000000000    0.00000000000\nO:                     -2.12018425659    0.00000000000    0.00567209089\nO:                      0.00000000000    2.12018425659    0.00567209089\nO:                      2.12018425659    0.00000000000    0.00567209089\nO:                      0.00000000000   -2.12018425659    0.00567209089\nO:                      0.00000000000    0.00000000000   -2.14129966123\nend\nend\n',
-        "pointcharges": None
+        "pointcharges": None,
     }
 
-    assert calculators["adsorbate"].calc.parameters['pointcharges'] is None
+    assert calculators["adsorbate"].calc.parameters["pointcharges"] is None
     assert_allclose(
-        [float(x) for x in calculators["slab"].calc.parameters['pointcharges'].split()[1::50]],
+        [
+            float(x)
+            for x in calculators["slab"].calc.parameters["pointcharges"].split()[1::50]
+        ],
         [
             -2.0,
             0.0,
@@ -650,8 +659,8 @@ def test_Prepare_intialize_clusters(
         atol=1e-07,
     )
     assert (
-        calculators["slab"].calc.parameters['pointcharges']
-        == calculators["adsorbate_slab"].calc.parameters['pointcharges']
+        calculators["slab"].calc.parameters["pointcharges"]
+        == calculators["adsorbate_slab"].calc.parameters["pointcharges"]
     )
 
     # Check if DLPNO-CCSD(T) and DLPNO-MP2 calculations are created correctly
@@ -717,7 +726,7 @@ def test_Prepare_intialize_clusters(
     assert calculators["adsorbate"].calc.parameters == {
         "orcasimpleinput": "CEPA",
         "orcablocks": '%scf\nHFTyp uhf\nend\n%method\nNewNCore C 2 end\nNewNCore Mg 2 end\nNewNCore O 2 end\nend\n%basis\nNewGTO C "aug-cc-pVDZ" end\nNewAuxJGTO C "def2/J" end\nNewAuxCGTO C "aug-cc-pVDZ/C" end\nNewGTO Mg "cc-pVDZ" end\nNewAuxJGTO Mg "def2/J" end\nNewAuxCGTO Mg "cc-pVDZ/C" end\nNewGTO O "aug-cc-pVDZ" end\nNewAuxJGTO O "def2/JK" end\nNewAuxCGTO O "aug-cc-pVDZ/C" end\nend\n%coords\nCTyp xyz\nMult 1\nUnits angs\nCharge 0\ncoords\nC                       0.00000000000    0.00000000000    2.00000000000\nO                       0.00000000000    0.00000000000    3.12800000000\nMg:                     0.00000000000    0.00000000000    0.00000000000\nO:                     -2.12018425659    0.00000000000    0.00567209089\nO:                      0.00000000000    2.12018425659    0.00567209089\nO:                      2.12018425659    0.00000000000    0.00567209089\nO:                      0.00000000000   -2.12018425659    0.00567209089\nO:                      0.00000000000    0.00000000000   -2.14129966123\nend\nend\n',
-        "pointcharges": None
+        "pointcharges": None,
     }
 
     oniom_layer_parameters = {
@@ -739,7 +748,7 @@ def test_Prepare_intialize_clusters(
     assert calculators["adsorbate"].calc.parameters == {
         "orcasimpleinput": "CEPA",
         "orcablocks": '\n%pal nprocs 8 end\n%maxcore 25000\n%method\nMethod hf\nRI on\nRunTyp Energy\nend\n%scf\nHFTyp rhf\nSCFMode Direct\nsthresh 1e-6\nAutoTRAHIter 60\nMaxIter 1000\nend\n\n%method\nNewNCore C 2 end\nNewNCore Mg 2 end\nNewNCore O 2 end\nend\n%basis\nNewGTO C "aug-cc-pVDZ" end\nNewAuxJGTO C "def2/J" end\nNewAuxCGTO C "aug-cc-pVDZ/C" end\nNewGTO Mg "cc-pVDZ" end\nNewAuxJGTO Mg "def2/J" end\nNewAuxCGTO Mg "cc-pVDZ/C" end\nNewGTO O "aug-cc-pVDZ" end\nNewAuxJGTO O "def2/JK" end\nNewAuxCGTO O "aug-cc-pVDZ/C" end\nend\n%coords\nCTyp xyz\nMult 1\nUnits angs\nCharge 0\ncoords\nC                       0.00000000000    0.00000000000    2.00000000000\nO                       0.00000000000    0.00000000000    3.12800000000\nMg:                     0.00000000000    0.00000000000    0.00000000000\nO:                     -2.12018425659    0.00000000000    0.00567209089\nO:                      0.00000000000    2.12018425659    0.00567209089\nO:                      2.12018425659    0.00000000000    0.00567209089\nO:                      0.00000000000   -2.12018425659    0.00567209089\nO:                      0.00000000000    0.00000000000   -2.14129966123\nend\nend\n',
-        "pointcharges": None
+        "pointcharges": None,
     }
 
 
@@ -970,7 +979,7 @@ def test_Prepare_create_cluster_calcs(skzcam_clusters_output, element_info):
     ].calc.parameters == {
         "orcasimpleinput": "TightSCF RI-MP2 TightPNO RIJCOSX DIIS",
         "orcablocks": '\n%pal nprocs 8 end\n%maxcore 25000\n%method\nMethod hf\nRI on\nRunTyp Energy\nend\n%scf\nHFTyp rhf\nSCFMode Direct\nsthresh 1e-6\nAutoTRAHIter 60\nMaxIter 1000\nend\n\n%method\nNewNCore C 2 end\nNewNCore Mg 10 end\nNewNCore O 2 end\nend\n%basis\nNewGTO C "aug-cc-pVDZ" end\nNewAuxJGTO C "def2/J" end\nNewAuxCGTO C "aug-cc-pVDZ/C" end\nNewGTO Mg "cc-pVDZ" end\nNewAuxJGTO Mg "def2/J" end\nNewAuxCGTO Mg "cc-pVDZ/C" end\nNewGTO O "aug-cc-pVDZ" end\nNewAuxJGTO O "def2/J" end\nNewAuxCGTO O "aug-cc-pVDZ/C" end\nend\n%coords\nCTyp xyz\nMult 1\nUnits angs\nCharge 0\ncoords\nC                       0.00000000000    0.00000000000    2.00000000000\nO                       0.00000000000    0.00000000000    3.12800000000\nMg:                     0.00000000000    0.00000000000    0.00000000000\nO:                     -2.12018425659    0.00000000000    0.00567209089\nO:                      0.00000000000    2.12018425659    0.00567209089\nO:                      2.12018425659    0.00000000000    0.00567209089\nO:                      0.00000000000   -2.12018425659    0.00567209089\nO:                      0.00000000000    0.00000000000   -2.14129966123\nend\nend\n',
-        'pointcharges': None
+        "pointcharges": None,
     }
 
     # Check whether a custom orcasimpleinput is used correctly
@@ -979,7 +988,7 @@ def test_Prepare_create_cluster_calcs(skzcam_clusters_output, element_info):
     ].calc.parameters == {
         "orcasimpleinput": "SOS-MP2 FSE",
         "orcablocks": '\n%pal nprocs 8 end\n%maxcore 25000\n%method\nMethod hf\nRI on\nRunTyp Energy\nend\n%scf\nHFTyp rhf\nSCFMode Direct\nsthresh 1e-6\nAutoTRAHIter 60\nMaxIter 1000\nend\n\n%method\nNewNCore C 2 end\nNewNCore Mg 2 end\nNewNCore O 2 end\nend\n%basis\nNewGTO C "aug-cc-pVDZ" end\nNewAuxJGTO C "def2/J" end\nNewAuxCGTO C "aug-cc-pVDZ/C" end\nNewGTO Mg "cc-pVDZ" end\nNewAuxJGTO Mg "def2/J" end\nNewAuxCGTO Mg "cc-pVDZ/C" end\nNewGTO O "aug-cc-pVDZ" end\nNewAuxJGTO O "def2/JK" end\nNewAuxCGTO O "aug-cc-pVDZ/C" end\nend\n%coords\nCTyp xyz\nMult 1\nUnits angs\nCharge 0\ncoords\nC                       0.00000000000    0.00000000000    2.00000000000\nO                       0.00000000000    0.00000000000    3.12800000000\nMg:                     0.00000000000    0.00000000000    0.00000000000\nO:                     -2.12018425659    0.00000000000    0.00567209089\nO:                      0.00000000000    2.12018425659    0.00567209089\nO:                      2.12018425659    0.00000000000    0.00567209089\nO:                      0.00000000000   -2.12018425659    0.00567209089\nO:                      0.00000000000    0.00000000000   -2.14129966123\nMg:                    -2.11144262254    2.11144262254   -0.04367284424\nMg:                     2.11144262254    2.11144262254   -0.04367284424\nMg:                     2.11144262254   -2.11144262254   -0.04367284424\nMg:                    -2.11144262254   -2.11144262254   -0.04367284424\nO:                     -2.11070451449    2.11070451449   -2.14923989662\nO:                      2.11070451449    2.11070451449   -2.14923989662\nO:                      2.11070451449   -2.11070451449   -2.14923989662\nO:                     -2.11070451449   -2.11070451449   -2.14923989662\nO:                     -4.22049352791    2.11209139723    0.00772802266\nO:                     -2.11209139723    4.22049352791    0.00772802266\nO:                      2.11209139723    4.22049352791    0.00772802266\nO:                      4.22049352791    2.11209139723    0.00772802266\nO:                      4.22049352791   -2.11209139723    0.00772802266\nO:                      2.11209139723   -4.22049352791    0.00772802266\nO:                     -2.11209139723   -4.22049352791    0.00772802266\nO:                     -4.22049352791   -2.11209139723    0.00772802266\nend\nend\n',
-        'pointcharges': None
+        "pointcharges": None,
     }
 
     # Check the custom element_info is used correctly
@@ -988,7 +997,7 @@ def test_Prepare_create_cluster_calcs(skzcam_clusters_output, element_info):
     ].calc.parameters == {
         "orcasimpleinput": "TightSCF RI-MP2 TightPNO RIJCOSX DIIS",
         "orcablocks": '\n%pal nprocs 8 end\n%maxcore 25000\n%method\nMethod hf\nRI on\nRunTyp Energy\nend\n%scf\nHFTyp rhf\nSCFMode Direct\nsthresh 1e-6\nAutoTRAHIter 60\nMaxIter 1000\nend\n\n%method\nNewNCore C 2 end\nNewNCore Mg 2 end\nNewNCore O 2 end\nend\n%basis\nNewGTO C "def2-TZVPP" end\nNewAuxJGTO C "def2-QZVPP-RI-JK" end\nNewAuxCGTO C "def2-TZVPP/C" end\nNewGTO Mg "def2-TZVPP" end\nNewAuxJGTO Mg "def2-QZVPP-RI-JK" end\nNewAuxCGTO Mg "def2-TZVPP/C" end\nNewGTO O "def2-TZVPP" end\nNewAuxJGTO O "def2-QZVPP-RI-JK" end\nNewAuxCGTO O "def2-TZVPP/C" end\nend\n%coords\nCTyp xyz\nMult 1\nUnits angs\nCharge 0\ncoords\nC                       0.00000000000    0.00000000000    2.00000000000\nO                       0.00000000000    0.00000000000    3.12800000000\nMg:                     0.00000000000    0.00000000000    0.00000000000\nO:                     -2.12018425659    0.00000000000    0.00567209089\nO:                      0.00000000000    2.12018425659    0.00567209089\nO:                      2.12018425659    0.00000000000    0.00567209089\nO:                      0.00000000000   -2.12018425659    0.00567209089\nO:                      0.00000000000    0.00000000000   -2.14129966123\nend\nend\n',
-        'pointcharges': None
+        "pointcharges": None,
     }
 
     # Check that the MRCC calculations are created correctly
@@ -1023,5 +1032,5 @@ def test_Prepare_create_cluster_calcs(skzcam_clusters_output, element_info):
         "core": "2",
         "geom": "xyz\n8\n\nC                       0.00000000000    0.00000000000    2.00000000000\nO                       0.00000000000    0.00000000000    3.12800000000\nMg                      0.00000000000    0.00000000000    0.00000000000\nO                      -2.12018425659    0.00000000000    0.00567209089\nO                       0.00000000000    2.12018425659    0.00567209089\nO                       2.12018425659    0.00000000000    0.00567209089\nO                       0.00000000000   -2.12018425659    0.00567209089\nO                       0.00000000000    0.00000000000   -2.14129966123\n",
         "ghost": "serialno\n3,4,5,6,7,8\n\n",
-        "genbas":  "Mg:cappedECP\nINSERT_cappedECP\n\nMg:no-basis-set\nno basis set\n\n    0\n    0\n    0\n    0\n\nMg:no-basis-set-ri-jk\nno basis set\n\n    0\n    0\n    0\n    0\n\n"
+        "genbas": "Mg:cappedECP\nINSERT_cappedECP\n\nMg:no-basis-set\nno basis set\n\n    0\n    0\n    0\n    0\n\nMg:no-basis-set-ri-jk\nno basis set\n\n    0\n    0\n    0\n    0\n\n",
     }

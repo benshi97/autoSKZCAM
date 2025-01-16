@@ -1,15 +1,13 @@
 from __future__ import annotations
 
 import gzip
-from copy import deepcopy
-from pathlib import Path
 import os
+from pathlib import Path
 
 import numpy as np
 import pytest
-from numpy.testing import assert_allclose
 
-from autoSKZCAM.oniom import Prepare, _is_valid_cbs_format
+from autoSKZCAM.oniom import Prepare
 from autoSKZCAM.recipes import write_inputs
 
 FILE_DIR = Path(__file__).parent
@@ -161,7 +159,7 @@ def ref_oniom_layers():
     }
 
 
-def test_write_inputs(skzcam_clusters_output,ref_oniom_layers,tmp_path):
+def test_write_inputs(skzcam_clusters_output, ref_oniom_layers, tmp_path):
     prep_cluster = Prepare(
         skzcam_clusters_output["adsorbate_slab_embedded_cluster"],
         quantum_cluster_indices_set=skzcam_clusters_output[
@@ -188,4 +186,104 @@ def test_write_inputs(skzcam_clusters_output,ref_oniom_layers,tmp_path):
 
     # Sort the paths list
     paths = sorted(paths)
-    assert paths == ['1', '1/mrcc', '1/mrcc/LMP2_DZ_valence', '1/mrcc/LMP2_DZ_valence/adsorbate', '1/mrcc/LMP2_DZ_valence/adsorbate/GENBAS', '1/mrcc/LMP2_DZ_valence/adsorbate/MINP', '1/mrcc/LMP2_DZ_valence/adsorbate_slab', '1/mrcc/LMP2_DZ_valence/adsorbate_slab/GENBAS', '1/mrcc/LMP2_DZ_valence/adsorbate_slab/MINP', '1/mrcc/LMP2_DZ_valence/slab', '1/mrcc/LMP2_DZ_valence/slab/GENBAS', '1/mrcc/LMP2_DZ_valence/slab/MINP', '1/mrcc/LMP2_TZ_valence', '1/mrcc/LMP2_TZ_valence/adsorbate', '1/mrcc/LMP2_TZ_valence/adsorbate/GENBAS', '1/mrcc/LMP2_TZ_valence/adsorbate/MINP', '1/mrcc/LMP2_TZ_valence/adsorbate_slab', '1/mrcc/LMP2_TZ_valence/adsorbate_slab/GENBAS', '1/mrcc/LMP2_TZ_valence/adsorbate_slab/MINP', '1/mrcc/LMP2_TZ_valence/slab', '1/mrcc/LMP2_TZ_valence/slab/GENBAS', '1/mrcc/LMP2_TZ_valence/slab/MINP', '1/mrcc/LNO-CCSD(T)_DZ_valence', '1/mrcc/LNO-CCSD(T)_DZ_valence/adsorbate', '1/mrcc/LNO-CCSD(T)_DZ_valence/adsorbate/GENBAS', '1/mrcc/LNO-CCSD(T)_DZ_valence/adsorbate/MINP', '1/mrcc/LNO-CCSD(T)_DZ_valence/adsorbate_slab', '1/mrcc/LNO-CCSD(T)_DZ_valence/adsorbate_slab/GENBAS', '1/mrcc/LNO-CCSD(T)_DZ_valence/adsorbate_slab/MINP', '1/mrcc/LNO-CCSD(T)_DZ_valence/slab', '1/mrcc/LNO-CCSD(T)_DZ_valence/slab/GENBAS', '1/mrcc/LNO-CCSD(T)_DZ_valence/slab/MINP', '1/mrcc/LNO-CCSD(T)_TZ_valence', '1/mrcc/LNO-CCSD(T)_TZ_valence/adsorbate', '1/mrcc/LNO-CCSD(T)_TZ_valence/adsorbate/GENBAS', '1/mrcc/LNO-CCSD(T)_TZ_valence/adsorbate/MINP', '1/mrcc/LNO-CCSD(T)_TZ_valence/adsorbate_slab', '1/mrcc/LNO-CCSD(T)_TZ_valence/adsorbate_slab/GENBAS', '1/mrcc/LNO-CCSD(T)_TZ_valence/adsorbate_slab/MINP', '1/mrcc/LNO-CCSD(T)_TZ_valence/slab', '1/mrcc/LNO-CCSD(T)_TZ_valence/slab/GENBAS', '1/mrcc/LNO-CCSD(T)_TZ_valence/slab/MINP', '1/orca', '1/orca/MP2_DZ_valence', '1/orca/MP2_DZ_valence/adsorbate', '1/orca/MP2_DZ_valence/adsorbate/orca.inp', '1/orca/MP2_DZ_valence/adsorbate_slab', '1/orca/MP2_DZ_valence/adsorbate_slab/orca.inp', '1/orca/MP2_DZ_valence/adsorbate_slab/orca.pc', '1/orca/MP2_DZ_valence/slab', '1/orca/MP2_DZ_valence/slab/orca.inp', '1/orca/MP2_DZ_valence/slab/orca.pc', '1/orca/MP2_QZ_semicore', '1/orca/MP2_QZ_semicore/adsorbate', '1/orca/MP2_QZ_semicore/adsorbate/orca.inp', '1/orca/MP2_QZ_semicore/adsorbate_slab', '1/orca/MP2_QZ_semicore/adsorbate_slab/orca.inp', '1/orca/MP2_QZ_semicore/adsorbate_slab/orca.pc', '1/orca/MP2_QZ_semicore/slab', '1/orca/MP2_QZ_semicore/slab/orca.inp', '1/orca/MP2_QZ_semicore/slab/orca.pc', '1/orca/MP2_TZ_semicore', '1/orca/MP2_TZ_semicore/adsorbate', '1/orca/MP2_TZ_semicore/adsorbate/orca.inp', '1/orca/MP2_TZ_semicore/adsorbate_slab', '1/orca/MP2_TZ_semicore/adsorbate_slab/orca.inp', '1/orca/MP2_TZ_semicore/adsorbate_slab/orca.pc', '1/orca/MP2_TZ_semicore/slab', '1/orca/MP2_TZ_semicore/slab/orca.inp', '1/orca/MP2_TZ_semicore/slab/orca.pc', '1/orca/MP2_TZ_valence', '1/orca/MP2_TZ_valence/adsorbate', '1/orca/MP2_TZ_valence/adsorbate/orca.inp', '1/orca/MP2_TZ_valence/adsorbate_slab', '1/orca/MP2_TZ_valence/adsorbate_slab/orca.inp', '1/orca/MP2_TZ_valence/adsorbate_slab/orca.pc', '1/orca/MP2_TZ_valence/slab', '1/orca/MP2_TZ_valence/slab/orca.inp', '1/orca/MP2_TZ_valence/slab/orca.pc', '2', '2/orca', '2/orca/MP2_DZ_valence', '2/orca/MP2_DZ_valence/adsorbate', '2/orca/MP2_DZ_valence/adsorbate/orca.inp', '2/orca/MP2_DZ_valence/adsorbate_slab', '2/orca/MP2_DZ_valence/adsorbate_slab/orca.inp', '2/orca/MP2_DZ_valence/adsorbate_slab/orca.pc', '2/orca/MP2_DZ_valence/slab', '2/orca/MP2_DZ_valence/slab/orca.inp', '2/orca/MP2_DZ_valence/slab/orca.pc', '2/orca/MP2_TZ_valence', '2/orca/MP2_TZ_valence/adsorbate', '2/orca/MP2_TZ_valence/adsorbate/orca.inp', '2/orca/MP2_TZ_valence/adsorbate_slab', '2/orca/MP2_TZ_valence/adsorbate_slab/orca.inp', '2/orca/MP2_TZ_valence/adsorbate_slab/orca.pc', '2/orca/MP2_TZ_valence/slab', '2/orca/MP2_TZ_valence/slab/orca.inp', '2/orca/MP2_TZ_valence/slab/orca.pc']
+    assert paths == [
+        "1",
+        "1/mrcc",
+        "1/mrcc/LMP2_DZ_valence",
+        "1/mrcc/LMP2_DZ_valence/adsorbate",
+        "1/mrcc/LMP2_DZ_valence/adsorbate/GENBAS",
+        "1/mrcc/LMP2_DZ_valence/adsorbate/MINP",
+        "1/mrcc/LMP2_DZ_valence/adsorbate_slab",
+        "1/mrcc/LMP2_DZ_valence/adsorbate_slab/GENBAS",
+        "1/mrcc/LMP2_DZ_valence/adsorbate_slab/MINP",
+        "1/mrcc/LMP2_DZ_valence/slab",
+        "1/mrcc/LMP2_DZ_valence/slab/GENBAS",
+        "1/mrcc/LMP2_DZ_valence/slab/MINP",
+        "1/mrcc/LMP2_TZ_valence",
+        "1/mrcc/LMP2_TZ_valence/adsorbate",
+        "1/mrcc/LMP2_TZ_valence/adsorbate/GENBAS",
+        "1/mrcc/LMP2_TZ_valence/adsorbate/MINP",
+        "1/mrcc/LMP2_TZ_valence/adsorbate_slab",
+        "1/mrcc/LMP2_TZ_valence/adsorbate_slab/GENBAS",
+        "1/mrcc/LMP2_TZ_valence/adsorbate_slab/MINP",
+        "1/mrcc/LMP2_TZ_valence/slab",
+        "1/mrcc/LMP2_TZ_valence/slab/GENBAS",
+        "1/mrcc/LMP2_TZ_valence/slab/MINP",
+        "1/mrcc/LNO-CCSD(T)_DZ_valence",
+        "1/mrcc/LNO-CCSD(T)_DZ_valence/adsorbate",
+        "1/mrcc/LNO-CCSD(T)_DZ_valence/adsorbate/GENBAS",
+        "1/mrcc/LNO-CCSD(T)_DZ_valence/adsorbate/MINP",
+        "1/mrcc/LNO-CCSD(T)_DZ_valence/adsorbate_slab",
+        "1/mrcc/LNO-CCSD(T)_DZ_valence/adsorbate_slab/GENBAS",
+        "1/mrcc/LNO-CCSD(T)_DZ_valence/adsorbate_slab/MINP",
+        "1/mrcc/LNO-CCSD(T)_DZ_valence/slab",
+        "1/mrcc/LNO-CCSD(T)_DZ_valence/slab/GENBAS",
+        "1/mrcc/LNO-CCSD(T)_DZ_valence/slab/MINP",
+        "1/mrcc/LNO-CCSD(T)_TZ_valence",
+        "1/mrcc/LNO-CCSD(T)_TZ_valence/adsorbate",
+        "1/mrcc/LNO-CCSD(T)_TZ_valence/adsorbate/GENBAS",
+        "1/mrcc/LNO-CCSD(T)_TZ_valence/adsorbate/MINP",
+        "1/mrcc/LNO-CCSD(T)_TZ_valence/adsorbate_slab",
+        "1/mrcc/LNO-CCSD(T)_TZ_valence/adsorbate_slab/GENBAS",
+        "1/mrcc/LNO-CCSD(T)_TZ_valence/adsorbate_slab/MINP",
+        "1/mrcc/LNO-CCSD(T)_TZ_valence/slab",
+        "1/mrcc/LNO-CCSD(T)_TZ_valence/slab/GENBAS",
+        "1/mrcc/LNO-CCSD(T)_TZ_valence/slab/MINP",
+        "1/orca",
+        "1/orca/MP2_DZ_valence",
+        "1/orca/MP2_DZ_valence/adsorbate",
+        "1/orca/MP2_DZ_valence/adsorbate/orca.inp",
+        "1/orca/MP2_DZ_valence/adsorbate_slab",
+        "1/orca/MP2_DZ_valence/adsorbate_slab/orca.inp",
+        "1/orca/MP2_DZ_valence/adsorbate_slab/orca.pc",
+        "1/orca/MP2_DZ_valence/slab",
+        "1/orca/MP2_DZ_valence/slab/orca.inp",
+        "1/orca/MP2_DZ_valence/slab/orca.pc",
+        "1/orca/MP2_QZ_semicore",
+        "1/orca/MP2_QZ_semicore/adsorbate",
+        "1/orca/MP2_QZ_semicore/adsorbate/orca.inp",
+        "1/orca/MP2_QZ_semicore/adsorbate_slab",
+        "1/orca/MP2_QZ_semicore/adsorbate_slab/orca.inp",
+        "1/orca/MP2_QZ_semicore/adsorbate_slab/orca.pc",
+        "1/orca/MP2_QZ_semicore/slab",
+        "1/orca/MP2_QZ_semicore/slab/orca.inp",
+        "1/orca/MP2_QZ_semicore/slab/orca.pc",
+        "1/orca/MP2_TZ_semicore",
+        "1/orca/MP2_TZ_semicore/adsorbate",
+        "1/orca/MP2_TZ_semicore/adsorbate/orca.inp",
+        "1/orca/MP2_TZ_semicore/adsorbate_slab",
+        "1/orca/MP2_TZ_semicore/adsorbate_slab/orca.inp",
+        "1/orca/MP2_TZ_semicore/adsorbate_slab/orca.pc",
+        "1/orca/MP2_TZ_semicore/slab",
+        "1/orca/MP2_TZ_semicore/slab/orca.inp",
+        "1/orca/MP2_TZ_semicore/slab/orca.pc",
+        "1/orca/MP2_TZ_valence",
+        "1/orca/MP2_TZ_valence/adsorbate",
+        "1/orca/MP2_TZ_valence/adsorbate/orca.inp",
+        "1/orca/MP2_TZ_valence/adsorbate_slab",
+        "1/orca/MP2_TZ_valence/adsorbate_slab/orca.inp",
+        "1/orca/MP2_TZ_valence/adsorbate_slab/orca.pc",
+        "1/orca/MP2_TZ_valence/slab",
+        "1/orca/MP2_TZ_valence/slab/orca.inp",
+        "1/orca/MP2_TZ_valence/slab/orca.pc",
+        "2",
+        "2/orca",
+        "2/orca/MP2_DZ_valence",
+        "2/orca/MP2_DZ_valence/adsorbate",
+        "2/orca/MP2_DZ_valence/adsorbate/orca.inp",
+        "2/orca/MP2_DZ_valence/adsorbate_slab",
+        "2/orca/MP2_DZ_valence/adsorbate_slab/orca.inp",
+        "2/orca/MP2_DZ_valence/adsorbate_slab/orca.pc",
+        "2/orca/MP2_DZ_valence/slab",
+        "2/orca/MP2_DZ_valence/slab/orca.inp",
+        "2/orca/MP2_DZ_valence/slab/orca.pc",
+        "2/orca/MP2_TZ_valence",
+        "2/orca/MP2_TZ_valence/adsorbate",
+        "2/orca/MP2_TZ_valence/adsorbate/orca.inp",
+        "2/orca/MP2_TZ_valence/adsorbate_slab",
+        "2/orca/MP2_TZ_valence/adsorbate_slab/orca.inp",
+        "2/orca/MP2_TZ_valence/adsorbate_slab/orca.pc",
+        "2/orca/MP2_TZ_valence/slab",
+        "2/orca/MP2_TZ_valence/slab/orca.inp",
+        "2/orca/MP2_TZ_valence/slab/orca.pc",
+    ]
