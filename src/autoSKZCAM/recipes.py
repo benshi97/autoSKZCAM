@@ -53,7 +53,7 @@ def write_inputs(
                     )
                     if "genbas" in calc_parameters:
                         if calc_parameters["genbas"] is not None:
-                            with open(Path(system_path, "GENBAS"), "w") as f:
+                            with Path.open(Path(system_path, "GENBAS"), "w") as f:
                                 f.write(calc_parameters["genbas"])
                         del calc_parameters["genbas"]
 
@@ -75,7 +75,7 @@ def write_inputs(
 
                     if "pointcharges" in calc_parameters:
                         if calc_parameters["pointcharges"] is not None:
-                            with open(Path(system_path, "orca.pc"), "w") as f:
+                            with Path.open(Path(system_path, "orca.pc"), "w") as f:
                                 f.write(calc_parameters["pointcharges"])
                         del calc_parameters["pointcharges"]
 

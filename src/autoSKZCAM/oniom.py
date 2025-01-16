@@ -72,9 +72,9 @@ class Prepare:
             )
 
         # Raise an error if the capped_ecp dictionary is not formatted correctly
-        for key in capped_ecp:
-            if key.lower() == "mrcc" or key.lower() == "orca":
-                self.capped_ecp[key.lower()] = capped_ecp[key]
+        for code, ecp in capped_ecp.items():
+            if code.lower() == "mrcc" or code.lower() == "orca":
+                self.capped_ecp[code.lower()] = ecp
             else:
                 raise ValueError(
                     "The keys in the capped_ecp dictionary must be either 'mrcc' or 'orca' in the corresponding code format."

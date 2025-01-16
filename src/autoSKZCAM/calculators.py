@@ -2,14 +2,16 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+
 from ase.calculators.genericfileio import GenericFileIOCalculator
 from ase.calculators.orca import OrcaProfile, OrcaTemplate
 from ase.io.orca import write_orca
 from quacc.calculators.mrcc.io import write_mrcc
 from quacc.calculators.mrcc.mrcc import MrccProfile, MrccTemplate
+from pathlib import Path
+
 
 if TYPE_CHECKING:
-    from pathlib import Path
     from typing import Any
 
     from ase.atoms import Atoms
@@ -58,7 +60,7 @@ class SkzcamOrcaTemplate(OrcaTemplate):
         }
         kw.update(parameters)
         if "pointcharges" in parameters and parameters["pointcharges"] is not None:
-            with open(directory / "orca.pc", "w") as pc_file:
+            with Path.open(directory / "orca.pc", "w") as pc_file:
                 pc_file.write(parameters["pointcharges"])
             # Remove 'pointcharges' from kw, as it is not an ORCA keyword
             del kw["pointcharges"]
@@ -105,7 +107,7 @@ class SkzcamMrccTemplate(MrccTemplate):
         kw.update(parameters)
 
         if "genbas" in parameters and parameters["genbas"] is not None:
-            with open(directory / "GENBAS", "w") as genbas_file:
+            with Path.open(directory / "GENBAS", "w") as genbas_file:
                 genbas_file.write(parameters["genbas"])
             # Remove 'genbas' from kw, as it is not an MRCC keyword
             del kw["genbas"]

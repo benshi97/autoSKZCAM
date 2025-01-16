@@ -307,13 +307,15 @@ d-f
         )
 
     # Check if errors are raised if parameters in oniom_layers are not provided
+
     for parameter in ["method", "max_cluster_num", "basis", "frozen_core"]:
+        wrong_oniom_layers = deepcopy(ref_oniom_layers)
+        wrong_oniom_layers["Base"]["hl"].pop(parameter)
         with pytest.raises(
             ValueError,
             match=f"The {parameter} parameter must be provided for all ONIOM layers specified.",
         ):
-            wrong_oniom_layers = deepcopy(ref_oniom_layers)
-            wrong_oniom_layers["Base"]["hl"].pop(parameter)
+
             prep_cluster = Prepare(
                 skzcam_clusters_output["adsorbate_slab_embedded_cluster"],
                 quantum_cluster_indices_set=skzcam_clusters_output[
@@ -413,8 +415,7 @@ d-f
         )
         with pytest.raises(
             ValueError,
-            match=f"The {basis_type}"
-            + r" parameter must be provided in the element_info dictionary as format CBS\(X//Y\), where X and Y are the two basis sets.",
+            match=fr"The {basis_type} parameter must be provided in the element_info dictionary as format CBS\(X//Y\), where X and Y are the two basis sets.",
         ):
             prep_cluster = Prepare(
                 skzcam_clusters_output["adsorbate_slab_embedded_cluster"],

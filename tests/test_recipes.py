@@ -178,11 +178,11 @@ def test_write_inputs(skzcam_clusters_output, ref_oniom_layers, tmp_path):
 
     for dirpath, dirnames, filenames in os.walk(tmp_path):
         # Add folder paths
-        for dirname in dirnames:
-            paths.append(os.path.relpath(os.path.join(dirpath, dirname), tmp_path))
+        paths.extend(os.path.relpath(os.path.join(dirpath, dirname), tmp_path) for dirname in dirnames)
+
         # Add file paths
-        for filename in filenames:
-            paths.append(os.path.relpath(os.path.join(dirpath, filename), tmp_path))
+        paths.extend(os.path.relpath(os.path.join(dirpath, filename), tmp_path) for filename in filenames)
+
 
     # Sort the paths list
     paths = sorted(paths)

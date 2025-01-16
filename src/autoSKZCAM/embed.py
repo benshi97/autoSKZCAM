@@ -368,7 +368,6 @@ class CreateSKZCAMClusters:
 
         # Get the number of atoms and number of atomic charges in the .pun file
         n_atoms = int(raw_pun_file[3].split()[-1])
-        n_charges = int(raw_pun_file[4 + n_atoms - 1 + 3].split()[-1])
 
         raw_atom_positions = raw_pun_file[4 : 4 + n_atoms]
         raw_charges = raw_pun_file[7 + n_atoms : 7 + 2 * n_atoms]
