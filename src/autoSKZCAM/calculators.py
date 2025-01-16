@@ -1,15 +1,13 @@
 from __future__ import annotations
 
+from pathlib import Path
 from typing import TYPE_CHECKING
-
 
 from ase.calculators.genericfileio import GenericFileIOCalculator
 from ase.calculators.orca import OrcaProfile, OrcaTemplate
 from ase.io.orca import write_orca
 from quacc.calculators.mrcc.io import write_mrcc
 from quacc.calculators.mrcc.mrcc import MrccProfile, MrccTemplate
-from pathlib import Path
-
 
 if TYPE_CHECKING:
     from typing import Any
