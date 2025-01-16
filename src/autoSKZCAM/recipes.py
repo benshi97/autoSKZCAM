@@ -4,6 +4,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING
 
 from ase.io.orca import write_orca
+from copy import deepcopy
 from quacc.calculators.mrcc.io import write_mrcc
 
 if TYPE_CHECKING:
@@ -11,7 +12,7 @@ if TYPE_CHECKING:
 
 
 def write_inputs(
-    self, skzcam_cluster_calculators: CalculatorInfo, input_dir: str | Path
+    skzcam_cluster_calculators: CalculatorInfo, input_dir: str | Path
 ) -> None:
     """
     Generates the SKZCAM input for the MRCC and ORCA ASE calculators.
@@ -36,28 +37,46 @@ def write_inputs(
             basis_set = calculation_label.split()[3]
             for structure in ["adsorbate", "slab", "adsorbate_slab"]:
                 system_path = Path(
-                    input_dir, code, f"{method}_{basis_set}_{frozen_core}", structure
+                    input_dir, str(cluster_num),code, f"{method}_{basis_set}_{frozen_core}", structure
                 )
                 system_path.mkdir(parents=True, exist_ok=True)
                 # Write MRCC input files
                 if code == "mrcc":
+                    calc_parameters = deepcopy(skzcam_cluster_calculators[cluster_num][calculation_label][
+                            structure
+                        ].calc.parameters)
+                    if "genbas" in calc_parameters:
+                        if calc_parameters["genbas"] is not None:
+                            with open(Path(system_path, "GENBAS"), "w") as f:
+                                f.write(calc_parameters["genbas"])
+                        del calc_parameters["genbas"]                    
+
                     write_mrcc(
                         Path(system_path, "MINP"),
                         skzcam_cluster_calculators[cluster_num][calculation_label][
                             structure
                         ],
-                        skzcam_cluster_calculators[cluster_num][calculation_label][
-                            structure
-                        ].calc.parameters,
+                        calc_parameters,
                     )
+
+
                 # Write ORCA input files
                 elif code == "orca":
+                    calc_parameters = deepcopy(skzcam_cluster_calculators[cluster_num][
+                        calculation_label
+                    ][structure].calc.parameters)
+
+                    if "pointcharges" in calc_parameters:
+                        if  calc_parameters["pointcharges"] is not None:
+                            with open(Path(system_path, "orca.pc"), "w") as f:
+                                f.write(calc_parameters["pointcharges"])
+                        del calc_parameters["pointcharges"]
+
                     write_orca(
                         Path(system_path, "orca.inp"),
                         skzcam_cluster_calculators[cluster_num][calculation_label][
                             structure
                         ],
-                        skzcam_cluster_calculators[cluster_num][calculation_label][
-                            structure
-                        ].calc.parameters,
+                        calc_parameters,
                     )
+

@@ -272,15 +272,16 @@ class Prepare:
                 for structure in mrcc_skzcam_inputs
             }
 
+            # Add "genbas" to the inputs dictionary
+            inputs["adsorbate_slab"]["genbas"] = genbas_file
+            inputs["slab"]["genbas"] = genbas_file
+            inputs["adsorbate"]["genbas"] = genbas_file
+
             for structure, calculator in calculators.items():
                 calculator.calc = MRCC(
                     profile=MrccProfile(command=get_settings().MRCC_CMD),
                     **inputs[structure],
                 )
-                if structure in ["slab", "adsorbate_slab"]:
-                    calculator.calc.genbas = genbas_file
-                else:
-                    calculator.calc.genbas = None
 
         elif code == "orca":
             # Use ORCAInputGenerator to generate the necessary orca_blocks for the ORCA ASE calculator
@@ -335,6 +336,11 @@ class Prepare:
                 for structure in orca_skzcam_inputs
             }
 
+            # Add "pointcharges" to the inputs dictionary
+            inputs["adsorbate_slab"]["pointcharges"] = pc_file
+            inputs["slab"]["pointcharges"] = pc_file
+            inputs["adsorbate"]["pointcharges"] = None
+
             calculators = {
                 structure: deepcopy(self.adsorbate_slab_embedded_cluster)
                 for structure in inputs
@@ -344,10 +350,6 @@ class Prepare:
                     profile=OrcaProfile(command=get_settings().ORCA_CMD),
                     **inputs[structure],
                 )
-                if structure in ["slab", "adsorbate_slab"]:
-                    calculator.calc.point_charges = pc_file
-                else:
-                    calculator.calc.point_charges = None
 
         return calculators
 
