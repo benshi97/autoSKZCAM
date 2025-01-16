@@ -1,33 +1,13 @@
 from __future__ import annotations
 
-import re
-from copy import deepcopy
 from pathlib import Path
-from typing import TYPE_CHECKING, Literal
+from typing import TYPE_CHECKING
 
-from ase.atoms import Atoms
-from ase.calculators.orca import ORCA, OrcaProfile
 from ase.io.orca import write_orca
-
-from quacc import get_settings
 from quacc.calculators.mrcc.io import write_mrcc
-from quacc.calculators.mrcc.mrcc import MRCC, MrccProfile
-
-from autoSKZCAM.data import (
-    capped_ecp_defaults,
-    code_calculation_defaults,
-    frozen_core_defaults,
-)
-from autoSKZCAM.io import MRCCInputGenerator, ORCAInputGenerator
 
 if TYPE_CHECKING:
-
-    from autoSKZCAM.types import (
-        CalculatorInfo,
-        ElementInfo,
-        ElementStr,
-        ONIOMLayerInfo
-    )
+    from autoSKZCAM.types import CalculatorInfo
 
 
 def write_inputs(
@@ -56,10 +36,7 @@ def write_inputs(
             basis_set = calculation_label.split()[3]
             for structure in ["adsorbate", "slab", "adsorbate_slab"]:
                 system_path = Path(
-                    input_dir,
-                    code,
-                    f"{method}_{basis_set}_{frozen_core}",
-                    structure,
+                    input_dir, code, f"{method}_{basis_set}_{frozen_core}", structure
                 )
                 system_path.mkdir(parents=True, exist_ok=True)
                 # Write MRCC input files

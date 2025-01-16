@@ -1,23 +1,17 @@
 from __future__ import annotations
 
 import gzip
-import os
 from copy import deepcopy
 from pathlib import Path
 
 import numpy as np
 import pytest
-from ase import Atoms
-from ase.io import read
-from numpy.testing import assert_allclose, assert_equal
-
-from quacc.calculators.mrcc.mrcc import MrccProfile
-from ase.calculators.orca import OrcaProfile
-from quacc import get_settings
+from numpy.testing import assert_allclose
 
 from autoSKZCAM.oniom import Prepare, _is_valid_cbs_format
 
 FILE_DIR = Path(__file__).parent
+
 
 @pytest.fixture
 def adsorbate_slab_embedded_cluster():
@@ -25,6 +19,7 @@ def adsorbate_slab_embedded_cluster():
         Path(FILE_DIR, "skzcam_files", "adsorbate_slab_embedded_cluster.npy.gz"), "r"
     ) as file:
         return np.load(file, allow_pickle=True).item()["atoms"]
+
 
 @pytest.fixture
 def skzcam_clusters_output(adsorbate_slab_embedded_cluster):
@@ -98,6 +93,7 @@ def skzcam_clusters_output(adsorbate_slab_embedded_cluster):
             ],
         ],
     }
+
 
 @pytest.fixture
 def element_info():
@@ -185,8 +181,6 @@ def ref_oniom_layers():
             },
         },
     }
-
-
 
 
 def test_Prepare_init(skzcam_clusters_output, ref_oniom_layers, element_info):
@@ -743,9 +737,7 @@ def test_Prepare_intialize_clusters(
     }
 
 
-def test_Prepare_create_element_info(
-    skzcam_clusters_output, ref_oniom_layers
-):
+def test_Prepare_create_element_info(skzcam_clusters_output, ref_oniom_layers):
     # First for 'DZ' and 'semicore' for MRCC
     prep_cluster = Prepare(
         adsorbate_slab_embedded_cluster=skzcam_clusters_output[
@@ -1023,4 +1015,3 @@ def test_Prepare_create_cluster_calcs(skzcam_clusters_output, element_info):
         "geom": "xyz\n8\n\nC                       0.00000000000    0.00000000000    2.00000000000\nO                       0.00000000000    0.00000000000    3.12800000000\nMg                      0.00000000000    0.00000000000    0.00000000000\nO                      -2.12018425659    0.00000000000    0.00567209089\nO                       0.00000000000    2.12018425659    0.00567209089\nO                       2.12018425659    0.00000000000    0.00567209089\nO                       0.00000000000   -2.12018425659    0.00567209089\nO                       0.00000000000    0.00000000000   -2.14129966123\n",
         "ghost": "serialno\n3,4,5,6,7,8\n\n",
     }
-

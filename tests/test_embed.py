@@ -11,10 +11,7 @@ from ase import Atoms
 from ase.io import read
 from numpy.testing import assert_allclose, assert_equal
 
-from autoSKZCAM.embed import (
-    CreateSKZCAMClusters,
-    _get_atom_distances,
-)
+from autoSKZCAM.embed import CreateSKZCAMClusters, _get_atom_distances
 from autoSKZCAM.io import MRCCInputGenerator, ORCAInputGenerator
 
 FILE_DIR = Path(__file__).parent

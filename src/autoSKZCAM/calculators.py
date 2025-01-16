@@ -1,11 +1,12 @@
 from __future__ import annotations
 
-from ase.calculators.orca import OrcaTemplate, OrcaProfile
-from ase.io.orca import write_orca
-from quacc.calculators.mrcc.mrcc import MrccTemplate, MrccProfile
-from quacc.calculators.mrcc.io import write_mrcc
-from ase.calculators.genericfileio import GenericFileIOCalculator
 from typing import TYPE_CHECKING
+
+from ase.calculators.genericfileio import GenericFileIOCalculator
+from ase.calculators.orca import OrcaProfile, OrcaTemplate
+from ase.io.orca import write_orca
+from quacc.calculators.mrcc.io import write_mrcc
+from quacc.calculators.mrcc.mrcc import MrccProfile, MrccTemplate
 
 if TYPE_CHECKING:
     from pathlib import Path
@@ -18,6 +19,7 @@ class SkzcamOrcaTemplate(OrcaTemplate):
     """
     The ORCA calculator template class to be used for (auto)SKZCAM calculations.
     """
+
     def write_input(
         self,
         profile: OrcaProfile,  # noqa: ARG002
@@ -45,17 +47,21 @@ class SkzcamOrcaTemplate(OrcaTemplate):
         Returns
         -------
         None
-        """        
+        """
         parameters = dict(parameters)
 
-        kw = dict(charge=0, mult=1, orcasimpleinput='B3LYP def2-TZVP',
-                  orcablocks='%pal nprocs 1 end')
+        kw = {
+            "charge": 0,
+            "mult": 1,
+            "orcasimpleinput": "B3LYP def2-TZVP",
+            "orcablocks": "%pal nprocs 1 end",
+        }
         kw.update(parameters)
-        if 'pointcharges' in parameters and parameters['pointcharges'] is not None:
-            with open(directory / 'orca.pc', 'w') as pc_file:
-                pc_file.write(parameters['pointcharges'])
+        if "pointcharges" in parameters and parameters["pointcharges"] is not None:
+            with open(directory / "orca.pc", "w") as pc_file:
+                pc_file.write(parameters["pointcharges"])
             # Remove 'pointcharges' from kw, as it is not an ORCA keyword
-            del kw['pointcharges']            
+            del kw["pointcharges"]
 
         write_orca(directory / self.inputname, atoms, kw)
 
@@ -64,6 +70,7 @@ class SkzcamMrccTemplate(MrccTemplate):
     """
     The MRCC calculator template class to be used for (auto)SKZCAM calculations.
     """
+
     def write_input(
         self,
         profile: MrccProfile,  # noqa: ARG002
@@ -97,11 +104,11 @@ class SkzcamMrccTemplate(MrccTemplate):
         kw = {"charge": 0, "mult": 1, "calc": "PBE", "basis": "def2-SVP"}
         kw.update(parameters)
 
-        if 'genbas' in parameters and parameters['genbas'] is not None:
-            with open(directory / 'GENBAS', 'w') as genbas_file:
-                genbas_file.write(parameters['genbas'])
+        if "genbas" in parameters and parameters["genbas"] is not None:
+            with open(directory / "GENBAS", "w") as genbas_file:
+                genbas_file.write(parameters["genbas"])
             # Remove 'genbas' from kw, as it is not an MRCC keyword
-            del kw['genbas']
+            del kw["genbas"]
 
         write_mrcc(directory / self.inputname, atoms, kw)
 
@@ -167,7 +174,7 @@ class ORCA(GenericFileIOCalculator):
         orcablocks='%pal nprocs 16 end')
     """
 
-    def __init__(self, *, profile=None, directory='.', **kwargs):
+    def __init__(self, *, profile=None, directory=".", **kwargs):
         """Construct ORCA-calculator object.
 
         Parameters
@@ -187,16 +194,21 @@ class ORCA(GenericFileIOCalculator):
 
         >>> from ase.calculators.orca import ORCA
         >>> h = Atoms(
-        ...     'H',
+        ...     "H",
         ...     calculator=ORCA(
         ...         charge=0,
         ...         mult=1,
-        ...         directory='water',
-        ...         orcasimpleinput='B3LYP def2-TZVP',
-        ...         orcablocks='%pal nprocs 16 end'))
+        ...         directory="water",
+        ...         orcasimpleinput="B3LYP def2-TZVP",
+        ...         orcablocks="%pal nprocs 16 end",
+        ...     ),
+        ... )
 
         """
 
-        super().__init__(template=SkzcamOrcaTemplate(),
-                         profile=profile, directory=directory,
-                         parameters=kwargs)
+        super().__init__(
+            template=SkzcamOrcaTemplate(),
+            profile=profile,
+            directory=directory,
+            parameters=kwargs,
+        )

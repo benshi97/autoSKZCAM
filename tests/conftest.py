@@ -24,7 +24,9 @@ def mock_mrcc_execute(self, directory, *args, **kwargs):
 @pytest.fixture(autouse=True)
 def patch_mrcc_execute(monkeypatch):
     from autoSKZCAM.calculators import SkzcamMrccTemplate
+
     monkeypatch.setattr(SkzcamMrccTemplate, "execute", mock_mrcc_execute)
+
 
 def mock_orca_execute(self, directory, *args, **kwargs):
     import gzip
@@ -39,6 +41,7 @@ def mock_orca_execute(self, directory, *args, **kwargs):
 @pytest.fixture(autouse=True)
 def patch_orca_execute(monkeypatch):
     from autoSKZCAM.calculators import SkzcamOrcaTemplate
+
     monkeypatch.setattr(SkzcamOrcaTemplate, "execute", mock_orca_execute)
 
 
@@ -66,5 +69,3 @@ def patch_run_chemshell(monkeypatch):
     from autoSKZCAM.embed import CreateSKZCAMClusters
 
     monkeypatch.setattr(CreateSKZCAMClusters, "run_chemshell", mock_run_chemshell)
-
-

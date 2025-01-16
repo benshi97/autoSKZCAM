@@ -4,9 +4,7 @@ import re
 from copy import deepcopy
 from typing import TYPE_CHECKING, Literal
 
-from ase.atoms import Atoms
 from ase.calculators.orca import ORCA, OrcaProfile
-
 from quacc import get_settings
 from quacc.calculators.mrcc.mrcc import MRCC, MrccProfile
 
@@ -18,13 +16,9 @@ from autoSKZCAM.data import (
 from autoSKZCAM.io import MRCCInputGenerator, ORCAInputGenerator
 
 if TYPE_CHECKING:
+    from ase.atoms import Atoms
 
-    from autoSKZCAM.types import (
-        CalculatorInfo,
-        ElementInfo,
-        ElementStr,
-        ONIOMLayerInfo
-    )
+    from autoSKZCAM.types import CalculatorInfo, ElementInfo, ElementStr, ONIOMLayerInfo
 
 
 class Prepare:
@@ -530,6 +524,7 @@ class Prepare:
                 }
 
         return element_info_dict
+
 
 def _is_valid_cbs_format(string) -> list[bool, str | None, str | None]:
     """

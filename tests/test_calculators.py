@@ -1,28 +1,17 @@
 from __future__ import annotations
 
-import gzip
 import os
-from copy import deepcopy
-from pathlib import Path
 
-import numpy as np
 import pytest
 from ase import Atoms
-from ase.io import read
-from numpy.testing import assert_allclose, assert_equal
-
-from quacc.calculators.mrcc.mrcc import MrccProfile
 from ase.calculators.orca import OrcaProfile
 from quacc import get_settings
+from quacc.calculators.mrcc.mrcc import MrccProfile
 
+from autoSKZCAM.calculators import MRCC, ORCA
 
-from autoSKZCAM.calculators import (
-    ORCA,
-    MRCC
-)
 
 def test_SkzcamMrcc(tmp_path):
-
     calc = MRCC(
         profile=MrccProfile(command=get_settings().MRCC_CMD),
         calc="PBE",
@@ -47,12 +36,12 @@ def test_SkzcamMrcc(tmp_path):
 
 def test_SkzcamOrca(tmp_path):
     calc = ORCA(
-    profile=OrcaProfile(command=get_settings().ORCA_CMD),
-    calc="PBE",
-    basis="STO-3G",
-    symm="off",
-    pointcharges="2\n-1 0 0 0.5\n1 0 0 -0.5",
-    directory=tmp_path,
+        profile=OrcaProfile(command=get_settings().ORCA_CMD),
+        calc="PBE",
+        basis="STO-3G",
+        symm="off",
+        pointcharges="2\n-1 0 0 0.5\n1 0 0 -0.5",
+        directory=tmp_path,
     )
 
     # Geometry input. Either like this:
@@ -66,5 +55,3 @@ def test_SkzcamOrca(tmp_path):
     assert energy == pytest.approx(-2072.5847888589374)
     # Check that the orca.pc file exists
     assert os.path.exists(tmp_path / "orca.pc")
-
-    

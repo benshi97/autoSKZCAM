@@ -13,15 +13,10 @@ from monty.dev import requires
 from monty.io import zopen
 from monty.os.path import zpath
 
-
-
-
 if TYPE_CHECKING:
     from numpy.typing import NDArray
 
-    from autoSKZCAM.types import (
-        SKZCAMOutput,
-    )
+    from autoSKZCAM.types import SKZCAMOutput
 
 has_chemshell = find_spec("chemsh") is not None
 
@@ -636,4 +631,3 @@ def _get_atom_distances(atoms: Atoms, center_position: NDArray) -> NDArray:
     """
 
     return np.array([np.linalg.norm(atom.position - center_position) for atom in atoms])
-
