@@ -15,7 +15,7 @@ if TYPE_CHECKING:
         BlockInfo,
         ElementInfo,
         ElementStr,
-        MRCCInputDict,
+        MrccInputDict,
         MultiplicityDict,
     )
 
@@ -109,19 +109,19 @@ class MRCCInputGenerator:
         }
 
         # Initialize the dictionary with keyword and values pairs for MRCC input
-        self.skzcam_input_dict: MRCCInputDict = {
+        self.skzcam_input_dict: MrccInputDict = {
             "adsorbate_slab": {},
             "adsorbate": {},
             "slab": {},
         }
 
-    def generate_input(self) -> MRCCInputDict:
+    def generate_input(self) -> MrccInputDict:
         """
         Creates the mrccinput input for the MRCC ASE calculator.
 
         Returns
         -------
-        MRCCInputDict
+        MrccInputDict
             A dictionary of key-value pairs (to be put in 'mrccinput' parameter) for the adsorbate-slab complex, the adsorbate, and the slab.
         """
 

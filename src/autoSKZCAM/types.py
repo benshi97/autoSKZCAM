@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from typing import Literal
+    from pathlib import Path
 
     from ase.atoms import Atoms
     from typing_extensions import TypedDict
@@ -131,7 +132,7 @@ if TYPE_CHECKING:
         "Og",
     ]
 
-    class SKZCAMOutput(TypedDict):
+    class SkzcamOutput(TypedDict):
         adsorbate_slab_embedded_cluster: Atoms
         quantum_cluster_indices_set: list[list[int]]
         ecp_region_indices_set: list[list[int]]
@@ -143,7 +144,7 @@ if TYPE_CHECKING:
         ri_scf_basis: str | None
         ri_cwft_basis: str | None
 
-    class ONIOMLayerInfo(TypedDict):
+    class OniomLayerInfo(TypedDict):
         max_cluster_num: int
         method: str
         frozen_core: Literal["valence", "semicore"]
@@ -152,12 +153,18 @@ if TYPE_CHECKING:
         element_info: dict[ElementStr, ElementInfo] | None
         code_inputs: dict[str, str] | None
 
+    class EmbeddingInfo(TypedDict):
+        adsorbate_indices: list[int]
+        slab_center_indices: list[int]
+        atom_oxi_states: dict[ElementStr, int]
+        adsorbate_slab_file: str | Path
+
     class BlockInfo(TypedDict):
         adsorbate_slab: str
         adsorbate: str
         slab: str
 
-    class MRCCInputDict(TypedDict):
+    class MrccInputDict(TypedDict):
         adsorbate_slab: dict[str, str]
         adsorbate: dict[str, str]
         slab: dict[str, str]

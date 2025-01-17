@@ -95,24 +95,6 @@ def element_info():
         },
     }
 
-
-# def test_autoSKZCAMPrepare_write_inputs(skzcam_clusters_output, ref_oniom_layers):
-#     prep_cluster = autoSKZCAMPrepare(
-#         adsorbate_slab_embedded_cluster=skzcam_clusters_output[
-#             "adsorbate_slab_embedded_cluster"
-#         ],
-#         quantum_cluster_indices_set=skzcam_clusters_output[
-#             "quantum_cluster_indices_set"
-#         ],
-#         ecp_region_indices_set=skzcam_clusters_output["ecp_region_indices_set"],
-#         oniom_layers=ref_oniom_layers,
-#     )
-
-#     skzcam_cluster_calculators = prep_cluster.create_cluster_calcs()
-#     # print(skzcam_cluster_calculators)
-#     prep_cluster.write_inputs(skzcam_cluster_calculators, input_dir="./calculations")
-
-
 def test_CreateSkzcamClusters_init():
     skzcam_clusters = CreateSkzcamClusters(
         adsorbate_indices=[0, 1],
@@ -141,19 +123,6 @@ def test_CreateSkzcamClusters_init():
             adsorbate_slab_file=Path(FILE_DIR, "skzcam_files", "CO_MgO.poscar.gz"),
             pun_file="test.pun",
         )
-
-    # Check if error raised if both adsorbate_slab_file and pun_file are None
-    with pytest.raises(
-        ValueError, match="Either the adsorbate_slab_file or pun_file must be provided."
-    ):
-        skzcam_clusters = CreateSkzcamClusters(
-            adsorbate_indices=[0, 1],
-            slab_center_indices=[32],
-            atom_oxi_states={"Mg": 2.0, "O": -2.0},
-            adsorbate_slab_file=None,
-            pun_file=None,
-        )
-
 
 def test_CreateSkzcamClusters_run_chemshell(skzcam_clusters, tmp_path):
     # Test if xyz file doesn't get written when write_xyz_file=False

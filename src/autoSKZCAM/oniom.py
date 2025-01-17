@@ -18,7 +18,7 @@ from autoSKZCAM.io import MRCCInputGenerator, ORCAInputGenerator
 if TYPE_CHECKING:
     from ase.atoms import Atoms
 
-    from autoSKZCAM.types import CalculatorInfo, ElementInfo, ElementStr, ONIOMLayerInfo
+    from autoSKZCAM.types import CalculatorInfo, ElementInfo, ElementStr, OniomLayerInfo
 
 
 class Prepare:
@@ -31,7 +31,7 @@ class Prepare:
         adsorbate_slab_embedded_cluster: Atoms,
         quantum_cluster_indices_set: list[list[int]],
         ecp_region_indices_set: list[list[int]],
-        oniom_layers: dict[str, ONIOMLayerInfo],
+        oniom_layers: dict[str, OniomLayerInfo],
         capped_ecp: dict[Literal["mrcc", "orca"], str] = capped_ecp_defaults,
         multiplicities: dict[str, int] | None = None,
     ) -> None:
@@ -199,7 +199,7 @@ class Prepare:
 
     def initialize_calculator(
         self,
-        oniom_layer_parameters: ONIOMLayerInfo,
+        oniom_layer_parameters: OniomLayerInfo,
         quantum_cluster_indices: list[int],
         ecp_region_indices: list[int],
         element_info: dict[ElementStr, ElementInfo],
