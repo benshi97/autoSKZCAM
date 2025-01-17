@@ -11,7 +11,7 @@ from ase import Atoms
 from ase.io import read
 from numpy.testing import assert_allclose, assert_equal
 
-from autoSKZCAM.embed import CreateSKZCAMClusters, _get_atom_distances
+from autoSKZCAM.embed import CreateSkzcamClusters, _get_atom_distances
 from autoSKZCAM.io import MRCCInputGenerator, ORCAInputGenerator
 
 FILE_DIR = Path(__file__).parent
@@ -19,7 +19,7 @@ FILE_DIR = Path(__file__).parent
 
 @pytest.fixture
 def skzcam_clusters():
-    return CreateSKZCAMClusters(
+    return CreateSkzcamClusters(
         adsorbate_indices=[0, 1],
         slab_center_indices=[32],
         atom_oxi_states={"Mg": 2.0, "O": -2.0},
@@ -113,8 +113,8 @@ def element_info():
 #     prep_cluster.write_inputs(skzcam_cluster_calculators, input_dir="./calculations")
 
 
-def test_CreateSKZCAMClusters_init():
-    skzcam_clusters = CreateSKZCAMClusters(
+def test_CreateSkzcamClusters_init():
+    skzcam_clusters = CreateSkzcamClusters(
         adsorbate_indices=[0, 1],
         slab_center_indices=[32],
         atom_oxi_states={"Mg": 2.0, "O": -2.0},
@@ -134,7 +134,7 @@ def test_CreateSKZCAMClusters_init():
     with pytest.raises(
         ValueError, match="The adsorbate and slab center indices cannot be the same."
     ):
-        skzcam_clusters = CreateSKZCAMClusters(
+        skzcam_clusters = CreateSkzcamClusters(
             adsorbate_indices=[0, 1],
             slab_center_indices=[0],
             atom_oxi_states={"Mg": 2.0, "O": -2.0},
@@ -146,7 +146,7 @@ def test_CreateSKZCAMClusters_init():
     with pytest.raises(
         ValueError, match="Either the adsorbate_slab_file or pun_file must be provided."
     ):
-        skzcam_clusters = CreateSKZCAMClusters(
+        skzcam_clusters = CreateSkzcamClusters(
             adsorbate_indices=[0, 1],
             slab_center_indices=[32],
             atom_oxi_states={"Mg": 2.0, "O": -2.0},
@@ -155,7 +155,7 @@ def test_CreateSKZCAMClusters_init():
         )
 
 
-def test_CreateSKZCAMClusters_run_chemshell(skzcam_clusters, tmp_path):
+def test_CreateSkzcamClusters_run_chemshell(skzcam_clusters, tmp_path):
     # Test if xyz file doesn't get written when write_xyz_file=False
     skzcam_clusters_nowrite = deepcopy(skzcam_clusters)
     skzcam_clusters_nowrite.convert_slab_to_atoms()
@@ -199,7 +199,7 @@ def test_CreateSKZCAMClusters_run_chemshell(skzcam_clusters, tmp_path):
     )
 
 
-def test_CreateSKZCAMClusters_convert_pun_to_atoms(skzcam_clusters):
+def test_CreateSkzcamClusters_convert_pun_to_atoms(skzcam_clusters):
     slab_embedded_cluster = skzcam_clusters._convert_pun_to_atoms(
         pun_file=Path(FILE_DIR, "skzcam_files", "ChemShell_Cluster.pun.gz")
     )
@@ -254,9 +254,9 @@ def test_CreateSKZCAMClusters_convert_pun_to_atoms(skzcam_clusters):
     )
 
 
-def test_CreateSKZCAMClusters_convert_slab_to_atoms():
+def test_CreateSkzcamClusters_convert_slab_to_atoms():
     # Test for CO on MgO example
-    skzcam_clusters = CreateSKZCAMClusters(
+    skzcam_clusters = CreateSkzcamClusters(
         adsorbate_indices=[0, 1],
         slab_center_indices=[32],
         atom_oxi_states={"Mg": 2.0, "O": -2.0},
@@ -313,7 +313,7 @@ def test_CreateSKZCAMClusters_convert_slab_to_atoms():
     )
 
     # Test for NO on MgO example
-    skzcam_clusters = CreateSKZCAMClusters(
+    skzcam_clusters = CreateSkzcamClusters(
         adsorbate_indices=[0, 1],
         slab_center_indices=[32, 33],
         atom_oxi_states={"Mg": 2.0, "O": -2.0},
@@ -372,7 +372,7 @@ def test_CreateSKZCAMClusters_convert_slab_to_atoms():
     )
 
 
-def test_CreateSKZCAMClusters_find_cation_shells(
+def test_CreateSkzcamClusters_find_cation_shells(
     skzcam_clusters, slab_embedded_cluster
 ):
     # Get distance of atoms from the center
@@ -423,7 +423,7 @@ def test_CreateSKZCAMClusters_find_cation_shells(
     )
 
 
-def test_CreateSKZCAMClusters_get_anion_coordination(
+def test_CreateSkzcamClusters_get_anion_coordination(
     skzcam_clusters, slab_embedded_cluster, distance_matrix
 ):
     # Get the anions for the second SKZCAM shell
@@ -439,7 +439,7 @@ def test_CreateSKZCAMClusters_get_anion_coordination(
     )
 
 
-def test_CreateSKZCAMClusters_get_ecp_region(
+def test_CreateSkzcamClusters_get_ecp_region(
     skzcam_clusters, slab_embedded_cluster, distance_matrix
 ):
     # Find the ECP region for the first cluster
@@ -454,7 +454,7 @@ def test_CreateSKZCAMClusters_get_ecp_region(
     assert_equal(ecp_region_idx[0], [6, 7, 8, 9, 10, 11, 12, 13, 18, 19, 20, 21, 22])
 
 
-def test_CreateSKZCAMClusters_create_adsorbate_slab_embedded_cluster(
+def test_CreateSkzcamClusters_create_adsorbate_slab_embedded_cluster(
     skzcam_clusters, slab_embedded_cluster
 ):
     skzcam_clusters.slab_embedded_cluster = slab_embedded_cluster
@@ -523,7 +523,7 @@ def test_CreateSKZCAMClusters_create_adsorbate_slab_embedded_cluster(
     assert_equal(skzcam_clusters.ecp_region_indices_set, [[2, 3, 5, 6], [7, 8, 9, 10]])
 
 
-def test_CreateSKZCAMClusters_run_skzcam(skzcam_clusters, tmp_path):
+def test_CreateSkzcamClusters_run_skzcam(skzcam_clusters, tmp_path):
     # Get quantum cluster and ECP region indices
     skzcam_clusters.center_position = [0, 0, 2]
     skzcam_clusters.pun_file = Path(

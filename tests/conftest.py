@@ -66,6 +66,6 @@ def mock_run_chemshell(*args, filepath=".", write_xyz_file=False, **kwargs):
 
 @pytest.fixture(autouse=True)
 def patch_run_chemshell(monkeypatch):
-    from autoSKZCAM.embed import CreateSKZCAMClusters
+    from autoSKZCAM.embed import CreateSkzcamClusters
 
-    monkeypatch.setattr(CreateSKZCAMClusters, "run_chemshell", mock_run_chemshell)
+    monkeypatch.setattr(CreateSkzcamClusters, "run_chemshell", mock_run_chemshell)

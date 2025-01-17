@@ -7,8 +7,34 @@ from typing import TYPE_CHECKING
 from ase.io.orca import write_orca
 from quacc.calculators.mrcc.io import write_mrcc
 
+from 
+
 if TYPE_CHECKING:
     from autoSKZCAM.types import CalculatorInfo
+
+
+
+
+def skzcam_eint_flow():
+    pass
+
+def skzcam_generate_job():
+    pass
+    
+def skzcam_calculate_job():
+    pass
+
+def skzcam_analysis():
+    pass
+
+def skzcam_write_inputs():
+    pass
+
+def chemshell_run_job():
+
+    pass
+
+
 
 
 def write_inputs(

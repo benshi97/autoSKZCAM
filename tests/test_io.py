@@ -9,7 +9,7 @@ import pytest
 from ase.calculators.calculator import compare_atoms
 from numpy.testing import assert_allclose, assert_equal
 
-from autoSKZCAM.embed import CreateSKZCAMClusters
+from autoSKZCAM.embed import CreateSkzcamClusters
 from autoSKZCAM.io import (
     MRCCInputGenerator,
     ORCAInputGenerator,
@@ -21,7 +21,7 @@ FILE_DIR = Path(__file__).parent
 
 @pytest.fixture
 def skzcam_clusters():
-    return CreateSKZCAMClusters(
+    return CreateSkzcamClusters(
         adsorbate_indices=[0, 1],
         slab_center_indices=[32],
         atom_oxi_states={"Mg": 2.0, "O": -2.0},
