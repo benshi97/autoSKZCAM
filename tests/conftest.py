@@ -54,6 +54,13 @@ def mock_run_chemshell(*args, filepath=".", write_xyz_file=False, **kwargs):
             Path(filepath).with_suffix(".xyz").open(mode="wb") as f_out,
         ):
             shutil.copyfileobj(f_in, f_out)
+        with (
+            gzip.open(
+                Path(FILE_DIR, "skzcam_files", "ChemShell_Cluster.pun.gz"), "rb"
+            ) as f_in,
+            Path(filepath).with_suffix(".pun").open(mode="wb") as f_out,
+        ):
+            shutil.copyfileobj(f_in, f_out)
     else:
         with (
             gzip.open(

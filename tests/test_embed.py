@@ -24,14 +24,14 @@ def skzcam_clusters():
         slab_center_indices=[32],
         atom_oxi_states={"Mg": 2.0, "O": -2.0},
         adsorbate_slab_file=Path(FILE_DIR, "skzcam_files", "CO_MgO.poscar.gz"),
-        pun_file=None,
+        pun_filepath=None,
     )
 
 
 @pytest.fixture
 def slab_embedded_cluster(skzcam_clusters):
     return skzcam_clusters._convert_pun_to_atoms(
-        pun_file=Path(FILE_DIR, "skzcam_files", "ChemShell_Cluster.pun.gz")
+        pun_filepath=Path(FILE_DIR, "skzcam_files", "ChemShell_Cluster.pun.gz")
     )
 
 
@@ -102,7 +102,7 @@ def test_CreateEmbeddedCluster_init():
         slab_center_indices=[32],
         atom_oxi_states={"Mg": 2.0, "O": -2.0},
         adsorbate_slab_file=Path(FILE_DIR, "skzcam_files", "CO_MgO.poscar.gz"),
-        pun_file="test.pun",
+        pun_filepath="test.pun",
     )
 
     assert_equal(skzcam_clusters.adsorbate_indices, [0, 1])
@@ -111,7 +111,7 @@ def test_CreateEmbeddedCluster_init():
     assert skzcam_clusters.adsorbate_slab_file == Path(
         FILE_DIR, "skzcam_files", "CO_MgO.poscar.gz"
     )
-    assert skzcam_clusters.pun_file == "test.pun"
+    assert skzcam_clusters.pun_filepath == "test.pun"
 
     # Check if error raised if adsorbate_indices and slab_center_indices overlap
     with pytest.raises(
@@ -122,14 +122,13 @@ def test_CreateEmbeddedCluster_init():
             slab_center_indices=[0],
             atom_oxi_states={"Mg": 2.0, "O": -2.0},
             adsorbate_slab_file=Path(FILE_DIR, "skzcam_files", "CO_MgO.poscar.gz"),
-            pun_file="test.pun",
+            pun_filepath="test.pun",
         )
 
 
 def test_CreateEmbeddedCluster_run_chemshell(skzcam_clusters, tmp_path):
     # Test if xyz file doesn't get written when write_xyz_file=False
     skzcam_clusters_nowrite = deepcopy(skzcam_clusters)
-    skzcam_clusters_nowrite.convert_slab_to_atoms()
     skzcam_clusters_nowrite.run_chemshell(
         filepath=tmp_path / "ChemShell_Cluster.pun",
         chemsh_radius_active=5.0,
@@ -138,7 +137,6 @@ def test_CreateEmbeddedCluster_run_chemshell(skzcam_clusters, tmp_path):
     )
     assert not os.path.isfile(tmp_path / "ChemShell_Cluster.xyz")
 
-    skzcam_clusters.convert_slab_to_atoms()
     skzcam_clusters.run_chemshell(
         filepath=tmp_path / "ChemShell_Cluster.pun",
         chemsh_radius_active=5.0,
@@ -172,7 +170,7 @@ def test_CreateEmbeddedCluster_run_chemshell(skzcam_clusters, tmp_path):
 
 def test_CreateEmbeddedCluster_convert_pun_to_atoms(skzcam_clusters):
     slab_embedded_cluster = skzcam_clusters._convert_pun_to_atoms(
-        pun_file=Path(FILE_DIR, "skzcam_files", "ChemShell_Cluster.pun.gz")
+        pun_filepath=Path(FILE_DIR, "skzcam_files", "ChemShell_Cluster.pun.gz")
     )
 
     # Check that number of atoms matches our reference
@@ -232,9 +230,8 @@ def test_CreateEmbeddedCluster_convert_slab_to_atoms():
         slab_center_indices=[32],
         atom_oxi_states={"Mg": 2.0, "O": -2.0},
         adsorbate_slab_file=Path(FILE_DIR, "skzcam_files", "CO_MgO.poscar.gz"),
-        pun_file=None,
+        pun_filepath=None,
     )
-    skzcam_clusters.convert_slab_to_atoms()
 
     # Check adsorbate matches reference
     assert_allclose(
@@ -289,9 +286,8 @@ def test_CreateEmbeddedCluster_convert_slab_to_atoms():
         slab_center_indices=[32, 33],
         atom_oxi_states={"Mg": 2.0, "O": -2.0},
         adsorbate_slab_file=Path(FILE_DIR, "skzcam_files", "NO_MgO.poscar.gz"),
-        pun_file=None,
+        pun_filepath=None,
     )
-    skzcam_clusters.convert_slab_to_atoms()
 
     # Check adsorbate matches reference
     assert_allclose(
@@ -497,7 +493,7 @@ def test_CreateEmbeddedCluster_create_adsorbate_slab_embedded_cluster(
 def test_CreateEmbeddedCluster_run_skzcam(skzcam_clusters, tmp_path):
     # Get quantum cluster and ECP region indices
     skzcam_clusters.center_position = [0, 0, 2]
-    skzcam_clusters.pun_file = Path(
+    skzcam_clusters.pun_filepath = Path(
         FILE_DIR, "skzcam_files", "ChemShell_Cluster.pun.gz"
     )
     skzcam_clusters.adsorbate = Atoms(

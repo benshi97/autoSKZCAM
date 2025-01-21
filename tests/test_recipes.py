@@ -17,6 +17,7 @@ from autoSKZCAM.recipes import (
     skzcam_generate_job,
     skzcam_initialize,
     skzcam_write_inputs,
+    skzcam_eint_flow
 )
 
 FILE_DIR = Path(__file__).parent
@@ -167,14 +168,56 @@ def ref_oniom_layers():
         },
     }
 
-
-def test_skzcam_initialize():
+def test_skzcam_eint_flow(tmp_path, ref_oniom_layers):
     EmbeddedCluster = skzcam_initialize(
         adsorbate_indices=[0, 1],
         slab_center_indices=[32],
         atom_oxi_states={"Mg": 2.0, "O": -2.0},
         adsorbate_slab_file=Path(FILE_DIR, "skzcam_files", "CO_MgO.poscar.gz"),
-        pun_file="test.pun",
+        pun_filepath=Path(
+        FILE_DIR, "skzcam_files", "ChemShell_Cluster.pun.gz"
+    )
+    )
+    skzcam_eint_flow(EmbeddedCluster = EmbeddedCluster, OniomInfo = ref_oniom_layers, calc_folder = tmp_path, dryrun = True)
+
+    # Get list of files in the subfolders in tmp_path
+    paths = []
+    for dirpath, dirnames, filenames in os.walk(tmp_path):
+        # Add folder paths
+        paths.extend(
+            os.path.relpath(os.path.join(dirpath, dirname), tmp_path)
+            for dirname in dirnames
+        )
+
+        # Add file paths
+        paths.extend(
+            os.path.relpath(os.path.join(dirpath, filename), tmp_path)
+            for filename in filenames
+        )
+
+    paths = sorted(paths)
+    assert paths == ['1', '1/mrcc', '1/mrcc/LNO-CCSD(T)_DZ_valence', '1/mrcc/LNO-CCSD(T)_DZ_valence/adsorbate', '1/mrcc/LNO-CCSD(T)_DZ_valence/adsorbate/GENBAS', '1/mrcc/LNO-CCSD(T)_DZ_valence/adsorbate/MINP', '1/mrcc/LNO-CCSD(T)_DZ_valence/adsorbate_slab', '1/mrcc/LNO-CCSD(T)_DZ_valence/adsorbate_slab/GENBAS', '1/mrcc/LNO-CCSD(T)_DZ_valence/adsorbate_slab/MINP', '1/mrcc/LNO-CCSD(T)_DZ_valence/slab', '1/mrcc/LNO-CCSD(T)_DZ_valence/slab/GENBAS', '1/mrcc/LNO-CCSD(T)_DZ_valence/slab/MINP', '1/mrcc/LNO-CCSD(T)_TZ_valence', '1/mrcc/LNO-CCSD(T)_TZ_valence/adsorbate', '1/mrcc/LNO-CCSD(T)_TZ_valence/adsorbate/GENBAS', '1/mrcc/LNO-CCSD(T)_TZ_valence/adsorbate/MINP', '1/mrcc/LNO-CCSD(T)_TZ_valence/adsorbate_slab', '1/mrcc/LNO-CCSD(T)_TZ_valence/adsorbate_slab/GENBAS', '1/mrcc/LNO-CCSD(T)_TZ_valence/adsorbate_slab/MINP', '1/mrcc/LNO-CCSD(T)_TZ_valence/slab', '1/mrcc/LNO-CCSD(T)_TZ_valence/slab/GENBAS', '1/mrcc/LNO-CCSD(T)_TZ_valence/slab/MINP', '1/orca', '1/orca/MP2_DZ_valence', '1/orca/MP2_DZ_valence/adsorbate', '1/orca/MP2_DZ_valence/adsorbate/orca.inp', '1/orca/MP2_DZ_valence/adsorbate_slab', '1/orca/MP2_DZ_valence/adsorbate_slab/orca.inp', '1/orca/MP2_DZ_valence/adsorbate_slab/orca.pc', '1/orca/MP2_DZ_valence/slab', '1/orca/MP2_DZ_valence/slab/orca.inp', '1/orca/MP2_DZ_valence/slab/orca.pc', '1/orca/MP2_QZ_semicore', '1/orca/MP2_QZ_semicore/adsorbate', '1/orca/MP2_QZ_semicore/adsorbate/orca.inp', '1/orca/MP2_QZ_semicore/adsorbate_slab', '1/orca/MP2_QZ_semicore/adsorbate_slab/orca.inp', '1/orca/MP2_QZ_semicore/adsorbate_slab/orca.pc', '1/orca/MP2_QZ_semicore/slab', '1/orca/MP2_QZ_semicore/slab/orca.inp', '1/orca/MP2_QZ_semicore/slab/orca.pc', '1/orca/MP2_TZ_semicore', '1/orca/MP2_TZ_semicore/adsorbate', '1/orca/MP2_TZ_semicore/adsorbate/orca.inp', '1/orca/MP2_TZ_semicore/adsorbate_slab', '1/orca/MP2_TZ_semicore/adsorbate_slab/orca.inp', '1/orca/MP2_TZ_semicore/adsorbate_slab/orca.pc', '1/orca/MP2_TZ_semicore/slab', '1/orca/MP2_TZ_semicore/slab/orca.inp', '1/orca/MP2_TZ_semicore/slab/orca.pc', '1/orca/MP2_TZ_valence', '1/orca/MP2_TZ_valence/adsorbate', '1/orca/MP2_TZ_valence/adsorbate/orca.inp', '1/orca/MP2_TZ_valence/adsorbate_slab', '1/orca/MP2_TZ_valence/adsorbate_slab/orca.inp', '1/orca/MP2_TZ_valence/adsorbate_slab/orca.pc', '1/orca/MP2_TZ_valence/slab', '1/orca/MP2_TZ_valence/slab/orca.inp', '1/orca/MP2_TZ_valence/slab/orca.pc', '2', '2/orca', '2/orca/MP2_DZ_valence', '2/orca/MP2_DZ_valence/adsorbate', '2/orca/MP2_DZ_valence/adsorbate/orca.inp', '2/orca/MP2_DZ_valence/adsorbate_slab', '2/orca/MP2_DZ_valence/adsorbate_slab/orca.inp', '2/orca/MP2_DZ_valence/adsorbate_slab/orca.pc', '2/orca/MP2_DZ_valence/slab', '2/orca/MP2_DZ_valence/slab/orca.inp', '2/orca/MP2_DZ_valence/slab/orca.pc', '2/orca/MP2_TZ_valence', '2/orca/MP2_TZ_valence/adsorbate', '2/orca/MP2_TZ_valence/adsorbate/orca.inp', '2/orca/MP2_TZ_valence/adsorbate_slab', '2/orca/MP2_TZ_valence/adsorbate_slab/orca.inp', '2/orca/MP2_TZ_valence/adsorbate_slab/orca.pc', '2/orca/MP2_TZ_valence/slab', '2/orca/MP2_TZ_valence/slab/orca.inp', '2/orca/MP2_TZ_valence/slab/orca.pc']
+
+
+def test_skzcam_initialize(tmp_path):
+    with pytest.raises(
+        ValueError,
+        match="The path to the .pun file from ChemShell must be provided in EmbeddedCluster if run_chemshell is False."):
+        skzcam_initialize(
+            adsorbate_indices=[0, 1],
+            slab_center_indices=[32],
+            atom_oxi_states={"Mg": 2.0, "O": -2.0},
+            adsorbate_slab_file=Path(FILE_DIR, "skzcam_files", "CO_MgO.poscar.gz"),
+            pun_filepath="test.pun",
+        )
+    EmbeddedCluster = skzcam_initialize(
+        adsorbate_indices=[0, 1],
+        slab_center_indices=[32],
+        atom_oxi_states={"Mg": 2.0, "O": -2.0},
+        adsorbate_slab_file=Path(FILE_DIR, "skzcam_files", "CO_MgO.poscar.gz"),
+        pun_filepath=Path(
+        FILE_DIR, "skzcam_files", "ChemShell_Cluster.pun.gz"
+    ),
     )
 
     assert_equal(EmbeddedCluster.adsorbate_indices, [0, 1])
@@ -183,7 +226,9 @@ def test_skzcam_initialize():
     assert EmbeddedCluster.adsorbate_slab_file == Path(
         FILE_DIR, "skzcam_files", "CO_MgO.poscar.gz"
     )
-    assert EmbeddedCluster.pun_file == "test.pun"
+    assert EmbeddedCluster.pun_filepath == Path(
+        FILE_DIR, "skzcam_files", "ChemShell_Cluster.pun.gz"
+    )
 
     # Check adsorbate matches reference
     assert_allclose(
@@ -232,6 +277,48 @@ def test_skzcam_initialize():
         atol=1e-07,
     )
 
+    # Run ChemShell
+    EmbeddedCluster = skzcam_initialize(
+        adsorbate_indices=[0, 1],
+        slab_center_indices=[32],
+        atom_oxi_states={"Mg": 2.0, "O": -2.0},
+        adsorbate_slab_file=Path(FILE_DIR, "skzcam_files", "CO_MgO.poscar.gz"),
+        pun_filepath= tmp_path /"ChemShell_Cluster.pun",
+        run_chemshell=True,
+        chemsh_radius_active=5.0,
+        chemsh_radius_cluster=10.0,
+        write_xyz_file=True,
+    )
+
+    # Print files in tmp_path
+    print(os.listdir(tmp_path))
+
+    # Check that Path(tmp_path, "ChemShell_Cluster.pun") exists
+    assert Path(tmp_path, "ChemShell_Cluster.pun").exists()
+
+    # Read the output .xyz file
+    chemshell_embedded_cluster = read(tmp_path / "ChemShell_Cluster.xyz")
+
+    # Check that the positions and atomic numbers match reference
+    assert_allclose(
+        chemshell_embedded_cluster.get_positions()[::100],
+        np.array(
+            [
+                [0.00000000e00, 0.00000000e00, -7.72802046e-03],
+                [-2.11024616e00, 2.11024616e00, -6.38586825e00],
+                [6.33073849e00, -2.11024616e00, -6.38586825e00],
+                [-1.09499282e01, -4.53560876e00, 4.95687508e00],
+            ]
+        ),
+        rtol=1e-05,
+        atol=1e-07,
+    )
+
+    assert_equal(
+        chemshell_embedded_cluster.get_atomic_numbers()[::40].tolist(),
+        [12, 12, 12, 8, 8, 8, 12, 9, 9],
+    )
+
 
 def test_skzcam_generate_job(tmp_path):
 
@@ -241,7 +328,9 @@ def test_skzcam_generate_job(tmp_path):
         slab_center_indices=[32],
         atom_oxi_states={"Mg": 2.0, "O": -2.0},
         adsorbate_slab_file=Path(FILE_DIR, "skzcam_files", "CO_MgO.poscar.gz"),
-        pun_file="test.pun",
+        pun_filepath=Path(
+        FILE_DIR, "skzcam_files", "ChemShell_Cluster.pun.gz"
+    ),
     )
 
     # Get quantum cluster and ECP region indices
@@ -251,9 +340,9 @@ def test_skzcam_generate_job(tmp_path):
     )
     EmbeddedCluster.adsorbate_vector_from_slab = [0.0, 0.0, 2.0]
 
-    EmbeddedCluster.pun_file = None
+    EmbeddedCluster.pun_filepath = None
 
-    with pytest.raises(ValueError, match="The path pun_file to the .pun file from ChemShell must be provided in EmbeddedCluster."):
+    with pytest.raises(ValueError, match="The path pun_filepath to the .pun file from ChemShell must be provided in EmbeddedCluster."):
         skzcam_generate_job(
             EmbeddedCluster=EmbeddedCluster,
             max_cluster_num=2,
@@ -263,7 +352,7 @@ def test_skzcam_generate_job(tmp_path):
             write_clusters_path=tmp_path,
         )
 
-    EmbeddedCluster.pun_file = Path(
+    EmbeddedCluster.pun_filepath = Path(
         FILE_DIR, "skzcam_files", "ChemShell_Cluster.pun.gz"
     )
 
@@ -283,7 +372,9 @@ def test_skzcam_generate_job(tmp_path):
         slab_center_indices=[32],
         atom_oxi_states={"Mg": 2.0, "O": -2.0},
         adsorbate_slab_file=Path(FILE_DIR, "skzcam_files", "CO_MgO.poscar.gz"),
-        pun_file="test.pun",
+        pun_filepath=Path(
+        FILE_DIR, "skzcam_files", "ChemShell_Cluster.pun.gz"
+    ),
     )
 
     # Get quantum cluster and ECP region indices
@@ -293,7 +384,7 @@ def test_skzcam_generate_job(tmp_path):
     )
     EmbeddedCluster.adsorbate_vector_from_slab = [0.0, 0.0, 2.0]
 
-    EmbeddedCluster.pun_file = Path(
+    EmbeddedCluster.pun_filepath = Path(
         FILE_DIR, "skzcam_files", "ChemShell_Cluster.pun.gz"
     )
 
@@ -410,14 +501,13 @@ def test_skzcam_calculate_job(tmp_path):
         slab_center_indices=[32],
         atom_oxi_states={"Mg": 2.0, "O": -2.0},
         adsorbate_slab_file=Path(FILE_DIR, "skzcam_files", "CO_MgO.poscar.gz"),
-        pun_file="test.pun",
+        pun_filepath=Path(
+        FILE_DIR, "skzcam_files", "ChemShell_Cluster.pun.gz"
+    ),
     )
 
     # Get quantum cluster and ECP region indices
     EmbeddedCluster.center_position = [0, 0, 2]
-    EmbeddedCluster.pun_file = Path(
-        FILE_DIR, "skzcam_files", "ChemShell_Cluster.pun.gz"
-    )
     EmbeddedCluster.adsorbate = Atoms(
         "CO", positions=[[0.0, 0.0, 0.0], [0.0, 0.0, 1.128]], pbc=[False, False, False]
     )
