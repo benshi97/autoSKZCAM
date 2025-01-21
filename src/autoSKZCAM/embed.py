@@ -21,7 +21,7 @@ if TYPE_CHECKING:
 has_chemshell = find_spec("chemsh") is not None
 
 
-class CreateSkzcamClusters:
+class CreateEmbeddedCluster:
     """
     A class to create the quantum clusters and ECP regions for the SKZCAM protocol.
 

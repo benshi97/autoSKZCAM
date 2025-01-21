@@ -11,6 +11,7 @@ from ase.io import read
 from numpy.testing import assert_allclose, assert_equal
 
 from autoSKZCAM.oniom import Prepare
+from autoSKZCAM.embed import CreateEmbeddedCluster
 from autoSKZCAM.recipes import (
     skzcam_calculate_job,
     skzcam_generate_job,
@@ -233,6 +234,50 @@ def test_skzcam_initialize():
 
 
 def test_skzcam_generate_job(tmp_path):
+
+    # Confirm that everything works as expected
+    EmbeddedCluster = CreateEmbeddedCluster(
+        adsorbate_indices=[0, 1],
+        slab_center_indices=[32],
+        atom_oxi_states={"Mg": 2.0, "O": -2.0},
+        adsorbate_slab_file=Path(FILE_DIR, "skzcam_files", "CO_MgO.poscar.gz"),
+        pun_file="test.pun",
+    )
+
+    # Get quantum cluster and ECP region indices
+    EmbeddedCluster.center_position = [0, 0, 2]
+    EmbeddedCluster.adsorbate = Atoms(
+        "CO", positions=[[0.0, 0.0, 0.0], [0.0, 0.0, 1.128]], pbc=[False, False, False]
+    )
+    EmbeddedCluster.adsorbate_vector_from_slab = [0.0, 0.0, 2.0]
+
+    EmbeddedCluster.pun_file = None
+
+    with pytest.raises(ValueError, match="The path pun_file to the .pun file from ChemShell must be provided in EmbeddedCluster."):
+        skzcam_generate_job(
+            EmbeddedCluster=EmbeddedCluster,
+            max_cluster_num=2,
+            ecp_dist=3.0,
+            shell_width=0.005,
+            write_clusters=True,
+            write_clusters_path=tmp_path,
+        )
+
+    EmbeddedCluster.pun_file = Path(
+        FILE_DIR, "skzcam_files", "ChemShell_Cluster.pun.gz"
+    )
+
+    skzcam_generate_job(
+        EmbeddedCluster=EmbeddedCluster,
+        max_cluster_num=2,
+        ecp_dist=3.0,
+        shell_width=0.005,
+        write_clusters=True,
+        write_clusters_path=tmp_path,
+    )
+
+    assert hasattr(EmbeddedCluster, "adsorbate_slab")
+
     EmbeddedCluster = skzcam_initialize(
         adsorbate_indices=[0, 1],
         slab_center_indices=[32],
@@ -243,13 +288,14 @@ def test_skzcam_generate_job(tmp_path):
 
     # Get quantum cluster and ECP region indices
     EmbeddedCluster.center_position = [0, 0, 2]
-    EmbeddedCluster.pun_file = Path(
-        FILE_DIR, "skzcam_files", "ChemShell_Cluster.pun.gz"
-    )
     EmbeddedCluster.adsorbate = Atoms(
         "CO", positions=[[0.0, 0.0, 0.0], [0.0, 0.0, 1.128]], pbc=[False, False, False]
     )
     EmbeddedCluster.adsorbate_vector_from_slab = [0.0, 0.0, 2.0]
+
+    EmbeddedCluster.pun_file = Path(
+        FILE_DIR, "skzcam_files", "ChemShell_Cluster.pun.gz"
+    )
 
     skzcam_generate_job(
         EmbeddedCluster=EmbeddedCluster,
@@ -259,6 +305,7 @@ def test_skzcam_generate_job(tmp_path):
         write_clusters=True,
         write_clusters_path=tmp_path,
     )
+
 
     # Check quantum cluster indices match with reference
     assert_equal(
