@@ -396,7 +396,7 @@ def test_skzcam_calculate_job(tmp_path):
                 "code": "orca",
                 "code_inputs": {"orcablocks": "%pal nprocs 2 end\n%maxcore 1000\n"},
             },
-        },
+        }
     }
 
     skzcam_calculate_job(
@@ -407,11 +407,16 @@ def test_skzcam_calculate_job(tmp_path):
     )
 
     skzcam_calculate_job(
-        EmbeddedCluster=EmbeddedCluster, OniomLayerInfo=oniom_layers, dryrun=False, calc_folder = tmp_path
+        EmbeddedCluster=EmbeddedCluster,
+        OniomLayerInfo=oniom_layers,
+        dryrun=False,
+        calc_folder=tmp_path,
     )
 
     # Check that "****ORCA TERMINATED NORMALLY****" is in the output file
-    with open(tmp_path / "1" / "orca" / "MP2_DZ_valence" / "adsorbate" / "orca.out") as f:
+    with open(
+        tmp_path / "1" / "orca" / "MP2_DZ_valence" / "adsorbate" / "orca.out"
+    ) as f:
         assert "****ORCA TERMINATED NORMALLY****" in f.read()
 
     oniom_layers = {
@@ -443,28 +448,51 @@ def test_skzcam_calculate_job(tmp_path):
         EmbeddedCluster=EmbeddedCluster,
         OniomLayerInfo=oniom_layers,
         dryrun=True,
-        calc_folder=Path ( tmp_path , "inputs" ),
+        calc_folder=Path(tmp_path, "inputs"),
     )
 
     # Initialize an empty list to store the paths
     paths = []
 
-    for dirpath, dirnames, filenames in os.walk(Path ( tmp_path , "inputs" )):
+    for dirpath, dirnames, filenames in os.walk(Path(tmp_path, "inputs")):
         # Add folder paths
         paths.extend(
-            os.path.relpath(os.path.join(dirpath, dirname), Path ( tmp_path , "inputs" ))
+            os.path.relpath(os.path.join(dirpath, dirname), Path(tmp_path, "inputs"))
             for dirname in dirnames
         )
 
         # Add file paths
         paths.extend(
-            os.path.relpath(os.path.join(dirpath, filename), Path ( tmp_path , "inputs" ))
+            os.path.relpath(os.path.join(dirpath, filename), Path(tmp_path, "inputs"))
             for filename in filenames
         )
 
     # Sort the paths list
     paths = sorted(paths)
-    assert paths == ['1', '1/mrcc', '1/mrcc/LNO-CCSD(T)_DZ_valence', '1/mrcc/LNO-CCSD(T)_DZ_valence/adsorbate', '1/mrcc/LNO-CCSD(T)_DZ_valence/adsorbate/GENBAS', '1/mrcc/LNO-CCSD(T)_DZ_valence/adsorbate/MINP', '1/mrcc/LNO-CCSD(T)_DZ_valence/adsorbate_slab', '1/mrcc/LNO-CCSD(T)_DZ_valence/adsorbate_slab/GENBAS', '1/mrcc/LNO-CCSD(T)_DZ_valence/adsorbate_slab/MINP', '1/mrcc/LNO-CCSD(T)_DZ_valence/slab', '1/mrcc/LNO-CCSD(T)_DZ_valence/slab/GENBAS', '1/mrcc/LNO-CCSD(T)_DZ_valence/slab/MINP', '1/orca', '1/orca/MP2_DZ_valence', '1/orca/MP2_DZ_valence/adsorbate', '1/orca/MP2_DZ_valence/adsorbate/orca.inp', '1/orca/MP2_DZ_valence/adsorbate_slab', '1/orca/MP2_DZ_valence/adsorbate_slab/orca.inp', '1/orca/MP2_DZ_valence/adsorbate_slab/orca.pc', '1/orca/MP2_DZ_valence/slab', '1/orca/MP2_DZ_valence/slab/orca.inp', '1/orca/MP2_DZ_valence/slab/orca.pc']
+    assert paths == [
+        "1",
+        "1/mrcc",
+        "1/mrcc/LNO-CCSD(T)_DZ_valence",
+        "1/mrcc/LNO-CCSD(T)_DZ_valence/adsorbate",
+        "1/mrcc/LNO-CCSD(T)_DZ_valence/adsorbate/GENBAS",
+        "1/mrcc/LNO-CCSD(T)_DZ_valence/adsorbate/MINP",
+        "1/mrcc/LNO-CCSD(T)_DZ_valence/adsorbate_slab",
+        "1/mrcc/LNO-CCSD(T)_DZ_valence/adsorbate_slab/GENBAS",
+        "1/mrcc/LNO-CCSD(T)_DZ_valence/adsorbate_slab/MINP",
+        "1/mrcc/LNO-CCSD(T)_DZ_valence/slab",
+        "1/mrcc/LNO-CCSD(T)_DZ_valence/slab/GENBAS",
+        "1/mrcc/LNO-CCSD(T)_DZ_valence/slab/MINP",
+        "1/orca",
+        "1/orca/MP2_DZ_valence",
+        "1/orca/MP2_DZ_valence/adsorbate",
+        "1/orca/MP2_DZ_valence/adsorbate/orca.inp",
+        "1/orca/MP2_DZ_valence/adsorbate_slab",
+        "1/orca/MP2_DZ_valence/adsorbate_slab/orca.inp",
+        "1/orca/MP2_DZ_valence/adsorbate_slab/orca.pc",
+        "1/orca/MP2_DZ_valence/slab",
+        "1/orca/MP2_DZ_valence/slab/orca.inp",
+        "1/orca/MP2_DZ_valence/slab/orca.pc",
+    ]
 
 
 def test_skzcam_write_inputs(skzcam_clusters_output, ref_oniom_layers, tmp_path):
