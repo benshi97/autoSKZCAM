@@ -54,6 +54,13 @@ def mock_run_chemshell(*args, filepath=".", write_xyz_file=False, **kwargs):
             Path(filepath).with_suffix(".xyz").open(mode="wb") as f_out,
         ):
             shutil.copyfileobj(f_in, f_out)
+        with (
+            gzip.open(
+                Path(FILE_DIR, "skzcam_files", "ChemShell_Cluster.pun.gz"), "rb"
+            ) as f_in,
+            Path(filepath).with_suffix(".pun").open(mode="wb") as f_out,
+        ):
+            shutil.copyfileobj(f_in, f_out)
     else:
         with (
             gzip.open(
@@ -66,6 +73,6 @@ def mock_run_chemshell(*args, filepath=".", write_xyz_file=False, **kwargs):
 
 @pytest.fixture(autouse=True)
 def patch_run_chemshell(monkeypatch):
-    from autoSKZCAM.embed import CreateSKZCAMClusters
+    from autoSKZCAM.embed import CreateEmbeddedCluster
 
-    monkeypatch.setattr(CreateSKZCAMClusters, "run_chemshell", mock_run_chemshell)
+    monkeypatch.setattr(CreateEmbeddedCluster, "run_chemshell", mock_run_chemshell)
