@@ -373,9 +373,6 @@ def test_skzcam_initialize(tmp_path):
         write_xyz_file=True,
     )
 
-    # Print files in tmp_path
-    print(os.listdir(tmp_path))
-
     # Check that Path(tmp_path, "ChemShell_Cluster.pun") exists
     assert Path(tmp_path, "ChemShell_Cluster.pun").exists()
 
