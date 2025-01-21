@@ -48,6 +48,7 @@ def skzcam_eint_flow(
     # Perform the calculations on the embedded clusters
     skzcam_calculate_job(EmbeddedCluster, OniomInfo, **kwargs)
 
+
 def skzcam_initialize(
     adsorbate_indices: list[int],
     slab_center_indices: list[int],
@@ -59,7 +60,7 @@ def skzcam_initialize(
     chemsh_radius_cluster: float = 60.0,
     chemsh_bq_layer: float = 6.0,
     write_xyz_file: bool = False,
-    **kwargs
+    **kwargs,
 ) -> CreateEmbeddedCluster:
     """
     Parameters to initialize the SKZCAM protocol to generate the embedded clusters.
@@ -96,11 +97,11 @@ def skzcam_initialize(
     )
 
     # Check that pun_filepath exists if run_chemshell is False
-    if run_chemshell == False and not Path(pun_filepath).exists():
+    if run_chemshell is False and not Path(pun_filepath).exists():
         raise ValueError(
             "The path to the .pun file from ChemShell must be provided in EmbeddedCluster if run_chemshell is False."
         )
-    
+
     if run_chemshell:
         # Create the ChemShell input file
         EmbeddedCluster.run_chemshell(
@@ -123,7 +124,7 @@ def skzcam_generate_job(
     write_clusters: bool = False,
     write_clusters_path: str | Path = ".",
     write_include_ecp: bool = False,
-    **kwargs
+    **kwargs,
 ) -> SkzcamOutput:
     """
     Generates the set of clusters for the SKZCAM protocol. It will return the embedded cluster Atoms object and the indices of the atoms in the quantum clusters and the ECP region. The number of clusters created is controlled by the max_cluster_num parameter.
@@ -147,7 +148,10 @@ def skzcam_generate_job(
     """
 
     # Ensure that the pun_filepath has been provided in EmbeddedCluster
-    if not hasattr(EmbeddedCluster, "pun_filepath") or EmbeddedCluster.pun_filepath is None:
+    if (
+        not hasattr(EmbeddedCluster, "pun_filepath")
+        or EmbeddedCluster.pun_filepath is None
+    ):
         raise ValueError(
             "The path pun_filepath to the .pun file from ChemShell must be provided in EmbeddedCluster."
         )
@@ -223,6 +227,7 @@ def skzcam_calculate_job(
                     ].get_potential_energy()
 
     return skzcam_cluster_calculators
+
 
 def skzcam_write_inputs(
     skzcam_cluster_calculators: CalculatorInfo, input_dir: str | Path

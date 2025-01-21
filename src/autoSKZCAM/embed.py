@@ -248,7 +248,9 @@ class CreateEmbeddedCluster:
         """
 
         # Read the .pun file and create the embedded_cluster Atoms object
-        self.slab_embedded_cluster = self._convert_pun_to_atoms(pun_filepath=self.pun_filepath)
+        self.slab_embedded_cluster = self._convert_pun_to_atoms(
+            pun_filepath=self.pun_filepath
+        )
 
         # Get distances of all atoms from the cluster center
         atom_center_distances = _get_atom_distances(
