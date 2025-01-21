@@ -49,6 +49,7 @@ class SkzcamOrcaTemplate(OrcaTemplate):
         None
         """
         parameters = dict(parameters)
+        print(parameters)
 
         kw = {
             "charge": 0,

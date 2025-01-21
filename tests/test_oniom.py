@@ -9,6 +9,7 @@ import pytest
 from numpy.testing import assert_allclose
 
 from autoSKZCAM.oniom import Prepare, _is_valid_cbs_format
+from autoSKZCAM.data import capped_ecp_defaults
 
 FILE_DIR = Path(__file__).parent
 
@@ -443,7 +444,7 @@ d-f
         )
 
 
-def test_Prepare_intialize_clusters(
+def test_Prepare_intialize_calculator(
     skzcam_clusters_output, ref_oniom_layers, element_info
 ):
     prep_cluster = Prepare(
@@ -493,8 +494,8 @@ def test_Prepare_intialize_clusters(
         "core": "2",
         "geom": "xyz\n8\n\nC                       0.00000000000    0.00000000000    2.00000000000\nO                       0.00000000000    0.00000000000    3.12800000000\nMg                      0.00000000000    0.00000000000    0.00000000000\nO                      -2.12018425659    0.00000000000    0.00567209089\nO                       0.00000000000    2.12018425659    0.00567209089\nO                       2.12018425659    0.00000000000    0.00567209089\nO                       0.00000000000   -2.12018425659    0.00567209089\nO                       0.00000000000    0.00000000000   -2.14129966123\n",
         "ghost": "serialno\n3,4,5,6,7,8\n\n",
-        "genbas": "Mg:cappedECP\nINSERT_cappedECP\n\nMg:no-basis-set\nno basis set\n\n    0\n    0\n    0\n    0\n\nMg:no-basis-set-ri-jk\nno basis set\n\n    0\n    0\n    0\n    0\n\n",
-    }
+        'genbas': 'Mg:cappedECP\n\n*\n    NCORE = 12    LMAX = 3\nf\n    0.000000000  2     1.000000000\ns-f\n   14.676000000  2     1.732000000\np-f\n    5.175700000  2     1.115000000\nd-f\n   -1.816000000  2     1.203000000\n*\n\nMg:no-basis-set\nno basis set\n\n    0\n    0\n    0\n    0\n\nMg:no-basis-set-ri-jk\nno basis set\n\n    0\n    0\n    0\n    0\n\n'}
+
 
     # Confirm that the LNO-CCSD(T) default are created correctly
     oniom_layer_parameters = {
@@ -541,9 +542,7 @@ def test_Prepare_intialize_clusters(
         "core": "2",
         "geom": "xyz\n8\n\nC                       0.00000000000    0.00000000000    2.00000000000\nO                       0.00000000000    0.00000000000    3.12800000000\nMg                      0.00000000000    0.00000000000    0.00000000000\nO                      -2.12018425659    0.00000000000    0.00567209089\nO                       0.00000000000    2.12018425659    0.00567209089\nO                       2.12018425659    0.00000000000    0.00567209089\nO                       0.00000000000   -2.12018425659    0.00567209089\nO                       0.00000000000    0.00000000000   -2.14129966123\n",
         "ghost": "serialno\n3,4,5,6,7,8\n\n",
-        "genbas": "Mg:cappedECP\nINSERT_cappedECP\n\nMg:no-basis-set\nno basis set\n\n    0\n    0\n    0\n    0\n\nMg:no-basis-set-ri-jk\nno basis set\n\n    0\n    0\n    0\n    0\n\n",
-    }
-
+        'genbas': 'Mg:cappedECP\n\n*\n    NCORE = 12    LMAX = 3\nf\n    0.000000000  2     1.000000000\ns-f\n   14.676000000  2     1.732000000\np-f\n    5.175700000  2     1.115000000\nd-f\n   -1.816000000  2     1.203000000\n*\n\nMg:no-basis-set\nno basis set\n\n    0\n    0\n    0\n    0\n\nMg:no-basis-set-ri-jk\nno basis set\n\n    0\n    0\n    0\n    0\n\n'}
     # Confirm that calculations work when utilising non-default methods
     oniom_layer_parameters = {
         "method": "dRPA",
@@ -579,21 +578,7 @@ def test_Prepare_intialize_clusters(
         "core": "2",
         "geom": "xyz\n8\n\nC                       0.00000000000    0.00000000000    2.00000000000\nO                       0.00000000000    0.00000000000    3.12800000000\nMg                      0.00000000000    0.00000000000    0.00000000000\nO                      -2.12018425659    0.00000000000    0.00567209089\nO                       0.00000000000    2.12018425659    0.00567209089\nO                       2.12018425659    0.00000000000    0.00567209089\nO                       0.00000000000   -2.12018425659    0.00567209089\nO                       0.00000000000    0.00000000000   -2.14129966123\n",
         "ghost": "serialno\n3,4,5,6,7,8\n\n",
-        "genbas": "Mg:cappedECP\nINSERT_cappedECP\n\nMg:no-basis-set\nno basis set\n\n    0\n    0\n    0\n    0\n\nMg:no-basis-set-ri-jk\nno basis set\n\n    0\n    0\n    0\n    0\n\n",
-    }
-
-    assert (
-        calculators["adsorbate"].calc.parameters["genbas"]
-        == "Mg:cappedECP\nINSERT_cappedECP\n\nMg:no-basis-set\nno basis set\n\n    0\n    0\n    0\n    0\n\nMg:no-basis-set-ri-jk\nno basis set\n\n    0\n    0\n    0\n    0\n\n"
-    )
-    assert (
-        calculators["adsorbate_slab"].calc.parameters["genbas"]
-        == "Mg:cappedECP\nINSERT_cappedECP\n\nMg:no-basis-set\nno basis set\n\n    0\n    0\n    0\n    0\n\nMg:no-basis-set-ri-jk\nno basis set\n\n    0\n    0\n    0\n    0\n\n"
-    )
-    assert (
-        calculators["slab"].calc.parameters["genbas"]
-        == calculators["adsorbate_slab"].calc.parameters["genbas"]
-    )
+        'genbas': 'Mg:cappedECP\n\n*\n    NCORE = 12    LMAX = 3\nf\n    0.000000000  2     1.000000000\ns-f\n   14.676000000  2     1.732000000\np-f\n    5.175700000  2     1.115000000\nd-f\n   -1.816000000  2     1.203000000\n*\n\nMg:no-basis-set\nno basis set\n\n    0\n    0\n    0\n    0\n\nMg:no-basis-set-ri-jk\nno basis set\n\n    0\n    0\n    0\n    0\n\n'}
 
     # Now check if the ORCA calculations are created correctly
     oniom_layer_parameters = {
@@ -965,8 +950,6 @@ def test_Prepare_create_cluster_calcs(skzcam_clusters_output, element_info):
             "orca MP2 semicore TZ",
             "orca MP2 semicore QZ",
             "orca SOS_MP2 valence DZ",
-            "mrcc LMP2 valence DZ",
-            "mrcc LMP2 valence TZ",
             "mrcc LNO-CCSD(T) valence DZ",
             "mrcc LNO-CCSD(T) valence TZ",
         ],
@@ -1032,5 +1015,113 @@ def test_Prepare_create_cluster_calcs(skzcam_clusters_output, element_info):
         "core": "2",
         "geom": "xyz\n8\n\nC                       0.00000000000    0.00000000000    2.00000000000\nO                       0.00000000000    0.00000000000    3.12800000000\nMg                      0.00000000000    0.00000000000    0.00000000000\nO                      -2.12018425659    0.00000000000    0.00567209089\nO                       0.00000000000    2.12018425659    0.00567209089\nO                       2.12018425659    0.00000000000    0.00567209089\nO                       0.00000000000   -2.12018425659    0.00567209089\nO                       0.00000000000    0.00000000000   -2.14129966123\n",
         "ghost": "serialno\n3,4,5,6,7,8\n\n",
-        "genbas": "Mg:cappedECP\nINSERT_cappedECP\n\nMg:no-basis-set\nno basis set\n\n    0\n    0\n    0\n    0\n\nMg:no-basis-set-ri-jk\nno basis set\n\n    0\n    0\n    0\n    0\n\n",
+        'genbas': 'Mg:cappedECP\n\n*\n    NCORE = 12    LMAX = 3\nf\n    0.000000000  2     1.000000000\ns-f\n   14.676000000  2     1.732000000\np-f\n    5.175700000  2     1.115000000\nd-f\n   -1.816000000  2     1.203000000\n*\n\nMg:no-basis-set\nno basis set\n\n    0\n    0\n    0\n    0\n\nMg:no-basis-set-ri-jk\nno basis set\n\n    0\n    0\n    0\n    0\n\n'}
+    
+
+    # Check what happens when DeltaCC is MP2 and CCSD(T) for ORCA
+    oniom_layers = {
+        "DeltaCC": {
+            "ll": {
+                "method": "MP2",
+                "frozen_core": "valence",
+                "basis": "CBS(DZ//TZ)",
+                "max_cluster_num": 1,
+                "code": "orca",
+            },
+            "hl": {
+                "method": "CCSD(T)",
+                "frozen_core": "valence",
+                "basis": "CBS(DZ//TZ)",
+                "max_cluster_num": 1,
+                "code": "orca",
+            },
+        },
     }
+
+    prep_cluster = Prepare(
+        adsorbate_slab_embedded_cluster=skzcam_clusters_output[
+            "adsorbate_slab_embedded_cluster"
+        ],
+        quantum_cluster_indices_set=skzcam_clusters_output[
+            "quantum_cluster_indices_set"
+        ],
+        ecp_region_indices_set=skzcam_clusters_output["ecp_region_indices_set"],
+        oniom_layers=oniom_layers,
+    )
+
+    skzcam_cluster_calculators = prep_cluster.create_cluster_calcs()
+
+    assert {
+        key1: list(value1) for key1, value1 in skzcam_cluster_calculators.items()
+    } == {
+        1: [
+            "orca CCSD(T) valence DZ",
+            "orca CCSD(T) valence TZ"
+        ]
+    }
+
+    assert skzcam_cluster_calculators[1]["orca CCSD(T) valence DZ"][
+        "adsorbate"
+    ].calc.parameters['orcasimpleinput'] == "TightSCF CCSD(T) RIJCOSX DIIS"
+
+    # Check what happens when DeltaCC is MP2 and CCSD(T) for MRCC
+    oniom_layers = {
+        "Base": {
+            "ll": None,
+            "hl": {
+                "method": "LMP2",
+                "frozen_core": "semicore",
+                "basis": "TZ",
+                "max_cluster_num": 2,
+                "code": "mrcc",
+            },
+        },
+        "DeltaCC": {
+            "ll": {
+                "method": "MP2",
+                "frozen_core": "valence",
+                "basis": "CBS(DZ//TZ)",
+                "max_cluster_num": 1,
+                "code": "mrcc",
+            },
+            "hl": {
+                "method": "CCSD(T)",
+                "frozen_core": "valence",
+                "basis": "CBS(DZ//TZ)",
+                "max_cluster_num": 1,
+                "code": "mrcc",
+            },
+        },
+    }
+
+    prep_cluster = Prepare(
+        adsorbate_slab_embedded_cluster=skzcam_clusters_output[
+            "adsorbate_slab_embedded_cluster"
+        ],
+        quantum_cluster_indices_set=skzcam_clusters_output[
+            "quantum_cluster_indices_set"
+        ],
+        ecp_region_indices_set=skzcam_clusters_output["ecp_region_indices_set"],
+        oniom_layers=oniom_layers,
+    )
+
+    skzcam_cluster_calculators = prep_cluster.create_cluster_calcs()
+
+    assert {
+        key1: list(value1) for key1, value1 in skzcam_cluster_calculators.items()
+    } == {
+        1: [
+            "mrcc LMP2 semicore TZ",
+            "mrcc CCSD(T) valence DZ",
+            "mrcc CCSD(T) valence TZ"
+        ],
+        2: ["mrcc LMP2 semicore TZ"]
+    }
+
+    assert skzcam_cluster_calculators[1]["mrcc CCSD(T) valence DZ"][
+        "adsorbate"
+    ].calc.parameters ==  {'calc': 'DF-CCSD(T)', 'scftype': 'rhf', 'verbosity': 3, 'mem': '80000MB', 'symm': 'off', 'unit': 'angs', 'scfiguess': 'small', 'scfmaxit': 1000, 'ccmaxit': 400, 'ccsdalg': 'dfdirect', 'ccsdthreads': 4, 'ccsdmkl': 'thr', 'ptthreads': 4, 'basis_sm': 'special\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\ndef2-SVP\n\n', 'basis': 'special\naug-cc-pVDZ\naug-cc-pVDZ\ncc-pVDZ\naug-cc-pVDZ\naug-cc-pVDZ\naug-cc-pVDZ\naug-cc-pVDZ\naug-cc-pVDZ\n\n', 'dfbasis_scf': 'special\ndef2-QZVPP-RI-JK\ndef2-QZVPP-RI-JK\ndef2-QZVPP-RI-JK\ndef2-QZVPP-RI-JK\ndef2-QZVPP-RI-JK\ndef2-QZVPP-RI-JK\ndef2-QZVPP-RI-JK\ndef2-QZVPP-RI-JK\n\n', 'dfbasis_cor': 'special\naug-cc-pVDZ-RI\naug-cc-pVDZ-RI\ncc-pVDZ-RI\naug-cc-pVDZ-RI\naug-cc-pVDZ-RI\naug-cc-pVDZ-RI\naug-cc-pVDZ-RI\naug-cc-pVDZ-RI\n\n', 'ecp': 'special\nnone\nnone\nnone\nnone\nnone\nnone\nnone\nnone\n', 'charge': '0', 'mult': '1', 'core': '2', 'geom': 'xyz\n8\n\nC                       0.00000000000    0.00000000000    2.00000000000\nO                       0.00000000000    0.00000000000    3.12800000000\nMg                      0.00000000000    0.00000000000    0.00000000000\nO                      -2.12018425659    0.00000000000    0.00567209089\nO                       0.00000000000    2.12018425659    0.00567209089\nO                       2.12018425659    0.00000000000    0.00567209089\nO                       0.00000000000   -2.12018425659    0.00567209089\nO                       0.00000000000    0.00000000000   -2.14129966123\n', 'ghost': 'serialno\n3,4,5,6,7,8\n\n', 'genbas': 'Mg:cappedECP\n\n*\n    NCORE = 12    LMAX = 3\nf\n    0.000000000  2     1.000000000\ns-f\n   14.676000000  2     1.732000000\np-f\n    5.175700000  2     1.115000000\nd-f\n   -1.816000000  2     1.203000000\n*\n\nMg:no-basis-set\nno basis set\n\n    0\n    0\n    0\n    0\n\nMg:no-basis-set-ri-jk\nno basis set\n\n    0\n    0\n    0\n    0\n\n'}
+
+    assert skzcam_cluster_calculators[1]["mrcc LMP2 semicore TZ"][
+        "adsorbate"
+    ].calc.parameters["calc"] == "LMP2"

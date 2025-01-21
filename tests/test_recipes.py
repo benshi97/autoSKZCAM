@@ -351,6 +351,92 @@ def test_skzcam_generate_job(tmp_path):
         skzcam_cluster_xyz.get_atomic_numbers().tolist(), [6, 8, 12, 8, 8, 8, 8, 8]
     )
 
+def test_skzcam_calculate_job(tmp_path):
+    EmbeddedCluster = skzcam_initialize(
+        adsorbate_indices=[0, 1],
+        slab_center_indices=[32],
+        atom_oxi_states={"Mg": 2.0, "O": -2.0},
+        adsorbate_slab_file=Path(FILE_DIR, "skzcam_files", "CO_MgO.poscar.gz"),
+        pun_file="test.pun",
+    )
+
+    # Get quantum cluster and ECP region indices
+    EmbeddedCluster.center_position = [0, 0, 2]
+    EmbeddedCluster.pun_file = Path(
+        FILE_DIR, "skzcam_files", "ChemShell_Cluster.pun.gz"
+    )
+    EmbeddedCluster.adsorbate = Atoms(
+        "CO", positions=[[0.0, 0.0, 0.0], [0.0, 0.0, 1.128]], pbc=[False, False, False]
+    )
+    EmbeddedCluster.adsorbate_vector_from_slab = [0.0, 0.0, 2.0]
+
+
+    skzcam_generate_job(
+        EmbeddedCluster = EmbeddedCluster,
+        max_cluster_num=2,
+        ecp_dist=3.0,
+        shell_width=0.005,
+        write_clusters=True,
+        write_clusters_path=tmp_path,
+    )
+
+    oniom_layers = {
+        "Base": {
+            "ll": None,
+            "hl": {
+                "method": "MP2",
+                "frozen_core": "valence",
+                "basis": "DZ",
+                "max_cluster_num": 1,
+                "code": "orca",
+                "code_inputs": {"orcablocks": "%pal nprocs 2 end\n%maxcore 1000\n"},
+            },
+        },
+        "DeltaCC": {
+            "ll": None,
+            "hl": {
+                "method": "LNO-CCSD(T)",
+                "frozen_core": "valence",
+                "basis": "DZ",
+                "max_cluster_num": 1,
+                "code": "mrcc",
+                "code_inputs": {"mem": "1000MB"}
+            },
+        },
+    }
+
+    skzcam_calculate_job(EmbeddedCluster=EmbeddedCluster, OniomLayerInfo=oniom_layers, dryrun=True, calc_folder=tmp_path)
+
+    # Initialize an empty list to store the paths
+    paths = []
+
+    for dirpath, dirnames, filenames in os.walk(tmp_path):
+        # Add folder paths
+        paths.extend(
+            os.path.relpath(os.path.join(dirpath, dirname), tmp_path)
+            for dirname in dirnames
+        )
+
+        # Add file paths
+        paths.extend(
+            os.path.relpath(os.path.join(dirpath, filename), tmp_path)
+            for filename in filenames
+        )
+
+    # Sort the paths list
+    paths = sorted(paths)
+    # assert paths == ['1', '1/mrcc', '1/mrcc/LMP2_DZ_valence', '1/mrcc/LMP2_DZ_valence/adsorbate', '1/mrcc/LMP2_DZ_valence/adsorbate/GENBAS', '1/mrcc/LMP2_DZ_valence/adsorbate/MINP', '1/mrcc/LMP2_DZ_valence/adsorbate_slab', '1/mrcc/LMP2_DZ_valence/adsorbate_slab/GENBAS', '1/mrcc/LMP2_DZ_valence/adsorbate_slab/MINP', '1/mrcc/LMP2_DZ_valence/slab', '1/mrcc/LMP2_DZ_valence/slab/GENBAS', '1/mrcc/LMP2_DZ_valence/slab/MINP', '1/mrcc/LNO-CCSD(T)_DZ_valence', '1/mrcc/LNO-CCSD(T)_DZ_valence/adsorbate', '1/mrcc/LNO-CCSD(T)_DZ_valence/adsorbate/GENBAS', '1/mrcc/LNO-CCSD(T)_DZ_valence/adsorbate/MINP', '1/mrcc/LNO-CCSD(T)_DZ_valence/adsorbate_slab', '1/mrcc/LNO-CCSD(T)_DZ_valence/adsorbate_slab/GENBAS', '1/mrcc/LNO-CCSD(T)_DZ_valence/adsorbate_slab/MINP', '1/mrcc/LNO-CCSD(T)_DZ_valence/slab', '1/mrcc/LNO-CCSD(T)_DZ_valence/slab/GENBAS', '1/mrcc/LNO-CCSD(T)_DZ_valence/slab/MINP', '1/orca', '1/orca/MP2_DZ_valence', '1/orca/MP2_DZ_valence/adsorbate', '1/orca/MP2_DZ_valence/adsorbate/orca.inp', '1/orca/MP2_DZ_valence/adsorbate_slab', '1/orca/MP2_DZ_valence/adsorbate_slab/orca.inp', '1/orca/MP2_DZ_valence/adsorbate_slab/orca.pc', '1/orca/MP2_DZ_valence/slab', '1/orca/MP2_DZ_valence/slab/orca.inp', '1/orca/MP2_DZ_valence/slab/orca.pc', 'SKZCAM_cluster_0.xyz', 'SKZCAM_cluster_1.xyz']
+
+    skzcam_calculate_job(EmbeddedCluster=EmbeddedCluster, OniomLayerInfo=oniom_layers,dryrun=False)
+
+    # Test out running ORCA for now
+
+
+
+
+
+
+
 def test_skzcam_write_inputs(skzcam_clusters_output, ref_oniom_layers, tmp_path):
     prep_cluster = Prepare(
         skzcam_clusters_output["adsorbate_slab_embedded_cluster"],
@@ -386,26 +472,6 @@ def test_skzcam_write_inputs(skzcam_clusters_output, ref_oniom_layers, tmp_path)
     assert paths == [
         "1",
         "1/mrcc",
-        "1/mrcc/LMP2_DZ_valence",
-        "1/mrcc/LMP2_DZ_valence/adsorbate",
-        "1/mrcc/LMP2_DZ_valence/adsorbate/GENBAS",
-        "1/mrcc/LMP2_DZ_valence/adsorbate/MINP",
-        "1/mrcc/LMP2_DZ_valence/adsorbate_slab",
-        "1/mrcc/LMP2_DZ_valence/adsorbate_slab/GENBAS",
-        "1/mrcc/LMP2_DZ_valence/adsorbate_slab/MINP",
-        "1/mrcc/LMP2_DZ_valence/slab",
-        "1/mrcc/LMP2_DZ_valence/slab/GENBAS",
-        "1/mrcc/LMP2_DZ_valence/slab/MINP",
-        "1/mrcc/LMP2_TZ_valence",
-        "1/mrcc/LMP2_TZ_valence/adsorbate",
-        "1/mrcc/LMP2_TZ_valence/adsorbate/GENBAS",
-        "1/mrcc/LMP2_TZ_valence/adsorbate/MINP",
-        "1/mrcc/LMP2_TZ_valence/adsorbate_slab",
-        "1/mrcc/LMP2_TZ_valence/adsorbate_slab/GENBAS",
-        "1/mrcc/LMP2_TZ_valence/adsorbate_slab/MINP",
-        "1/mrcc/LMP2_TZ_valence/slab",
-        "1/mrcc/LMP2_TZ_valence/slab/GENBAS",
-        "1/mrcc/LMP2_TZ_valence/slab/MINP",
         "1/mrcc/LNO-CCSD(T)_DZ_valence",
         "1/mrcc/LNO-CCSD(T)_DZ_valence/adsorbate",
         "1/mrcc/LNO-CCSD(T)_DZ_valence/adsorbate/GENBAS",

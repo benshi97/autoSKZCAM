@@ -4,9 +4,10 @@ import re
 from copy import deepcopy
 from typing import TYPE_CHECKING, Literal
 
-from ase.calculators.orca import ORCA, OrcaProfile
+from ase.calculators.orca import OrcaProfile
 from quacc import get_settings
-from quacc.calculators.mrcc.mrcc import MRCC, MrccProfile
+from quacc.calculators.mrcc.mrcc import MrccProfile
+from autoSKZCAM.calculators import ORCA, MRCC
 
 from autoSKZCAM.data import (
     capped_ecp_defaults,
@@ -32,7 +33,7 @@ class Prepare:
         quantum_cluster_indices_set: list[list[int]],
         ecp_region_indices_set: list[list[int]],
         oniom_layers: dict[str, OniomLayerInfo],
-        capped_ecp: dict[Literal["mrcc", "orca"], str] = capped_ecp_defaults,
+        capped_ecp: dict[Literal["mrcc", "orca"], str] | None = None,
         multiplicities: dict[str, int] | None = None,
     ) -> None:
         """
@@ -62,7 +63,10 @@ class Prepare:
         self.quantum_cluster_indices_set = quantum_cluster_indices_set
         self.ecp_region_indices_set = ecp_region_indices_set
         self.oniom_layers = oniom_layers
-        self.capped_ecp = capped_ecp_defaults
+        if capped_ecp is None:
+            unformatted_capped_ecp = capped_ecp_defaults
+        else:
+            unformatted_capped_ecp = capped_ecp
         self.multiplicities = multiplicities
 
         # Check that the quantum_cluster_indices_set and ecp_region_indices_set are the same length
@@ -72,13 +76,15 @@ class Prepare:
             )
 
         # Raise an error if the capped_ecp dictionary is not formatted correctly
-        for code, ecp in capped_ecp.items():
+        formatted_capped_ecp = {}
+        for code, ecp in unformatted_capped_ecp.items():
             if code.lower() == "mrcc" or code.lower() == "orca":
-                self.capped_ecp[code.lower()] = ecp
+                formatted_capped_ecp[code.lower()] = ecp
             else:
                 raise ValueError(
                     "The keys in the capped_ecp dictionary must be either 'mrcc' or 'orca' in the corresponding code format."
                 )
+        self.capped_ecp = formatted_capped_ecp
 
         # Raise an error if multiplicities is not formatted correctly
         for structure in ["adsorbate_slab", "adsorbate", "slab"]:
@@ -243,7 +249,7 @@ class Prepare:
             )
 
             mrcc_skzcam_inputs = inputgenerator.generate_input()
-            genbas_file = inputgenerator.create_genbas_file()
+            genbas_file = inputgenerator.create_genbas_file().replace('INSERT_cappedECP', self.capped_ecp['mrcc'])
 
             if method.upper() == "LNO-CCSD(T)":
                 mrcc_default_method_inputs = code_calculation_defaults[code][
@@ -251,6 +257,10 @@ class Prepare:
                 ]
             elif method.upper() in ["MP2", "RI-MP2"]:
                 mrcc_default_method_inputs = code_calculation_defaults[code]["MP2"]
+            elif method.upper() == "LMP2":
+                mrcc_default_method_inputs = code_calculation_defaults[code]["LMP2"]
+            elif method.upper() == "CCSD(T)":
+                mrcc_default_method_inputs = code_calculation_defaults[code]["CCSD(T)"]
             else:
                 mrcc_default_method_inputs = code_calculation_defaults[code]["Other"]
 
@@ -309,6 +319,8 @@ class Prepare:
                 orcasimpleinput = code_calculation_defaults[code]["orcasimpleinput"][
                     "MP2"
                 ]
+            elif method.upper() == "CCSD(T)":
+                orcasimpleinput = code_calculation_defaults[code]["orcasimpleinput"]["CCSD(T)"]
             else:
                 orcasimpleinput = code_calculation_defaults[code]["orcasimpleinput"][
                     "Other"
@@ -373,6 +385,15 @@ class Prepare:
                     frozen_core = oniom_layer_parameters["frozen_core"]
                     method = oniom_layer_parameters["method"].replace(" ", "_")
                     code = oniom_layer_parameters["code"].lower()
+
+                    # Continue if the code is MRCC and the method is (L)MP2 for the low-level and (LNO-)CCSD(T) for the high-level
+                    if code == "mrcc" and level == "ll" and "MP2" in  oniom_layer['ll']["method"].upper() and "CCSD(T)" in oniom_layer['hl']["method"].upper():
+                        continue
+
+                    # Continue if the code is ORCA and the method is MP2 for the low-level and CCSD(T) for the high-level
+                    if code == "orca" and level == "ll" and "MP2" == oniom_layer['ll']["method"].upper() and "CCSD(T)" == oniom_layer['hl']["method"].upper():
+                        continue
+
                     (is_cbs, basis_1, basis_2) = _is_valid_cbs_format(
                         oniom_layer_parameters["basis"]
                     )
