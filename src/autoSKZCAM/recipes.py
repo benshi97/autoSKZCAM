@@ -11,16 +11,19 @@ from autoSKZCAM.embed import CreateSkzcamClusters
 from autoSKZCAM.oniom import Prepare
 
 if TYPE_CHECKING:
-    from autoSKZCAM.types import CalculatorInfo, EmbeddingInfo, ElementStr, SkzcamOutput, OniomLayerInfo
-
-
+    from autoSKZCAM.types import (
+        CalculatorInfo,
+        ElementStr,
+        OniomLayerInfo,
+        SkzcamOutput,
+    )
 
 
 def skzcam_eint_flow(
-        EmbeddedCluster: CreateSkzcamClusters,
-        OniomInfo: dict[str, OniomLayerInfo],
-        **kwargs
-    ):
+    EmbeddedCluster: CreateSkzcamClusters,
+    OniomInfo: dict[str, OniomLayerInfo],
+    **kwargs,
+):
     """
     The complete SKZCAM protocol to generate the embedded clusters, perform the calculations, and analyze the results.
 
@@ -48,12 +51,13 @@ def skzcam_eint_flow(
     # Analyze the results
     skzcam_analysis()
 
+
 def skzcam_initialize(
-        adsorbate_indices: list[int],
-        slab_center_indices: list[int],
-        atom_oxi_states: dict[ElementStr, int],
-        adsorbate_slab_file: str | Path,
-        pun_file: str | Path | None = None
+    adsorbate_indices: list[int],
+    slab_center_indices: list[int],
+    atom_oxi_states: dict[ElementStr, int],
+    adsorbate_slab_file: str | Path,
+    pun_file: str | Path | None = None,
 ) -> CreateSkzcamClusters:
     """
     Parameters to initialize the SKZCAM protocol to generate the embedded clusters.
@@ -75,28 +79,28 @@ def skzcam_initialize(
     """
 
     EmbeddedCluster = CreateSkzcamClusters(
-        adsorbate_indices = adsorbate_indices,
-        slab_center_indices = slab_center_indices,
-        atom_oxi_states = atom_oxi_states,
-        adsorbate_slab_file = adsorbate_slab_file,
-        pun_file = pun_file
-        )
+        adsorbate_indices=adsorbate_indices,
+        slab_center_indices=slab_center_indices,
+        atom_oxi_states=atom_oxi_states,
+        adsorbate_slab_file=adsorbate_slab_file,
+        pun_file=pun_file,
+    )
 
     EmbeddedCluster.convert_slab_to_atoms()
-    
+
     return EmbeddedCluster
 
 
 def skzcam_generate_job(
-        EmbeddedCluster: CreateSkzcamClusters,
-        max_cluster_num: int = 10,
-        shell_width: float = 0.1,
-        bond_dist: float = 2.5,
-        ecp_dist: float = 6.0,
-        write_clusters: bool = False,
-        write_clusters_path: str | Path = ".",
-        write_include_ecp: bool = False,
-    ) -> SkzcamOutput:
+    EmbeddedCluster: CreateSkzcamClusters,
+    max_cluster_num: int = 10,
+    shell_width: float = 0.1,
+    bond_dist: float = 2.5,
+    ecp_dist: float = 6.0,
+    write_clusters: bool = False,
+    write_clusters_path: str | Path = ".",
+    write_include_ecp: bool = False,
+) -> SkzcamOutput:
     """
     Generates the set of clusters for the SKZCAM protocol. It will return the embedded cluster Atoms object and the indices of the atoms in the quantum clusters and the ECP region. The number of clusters created is controlled by the max_cluster_num parameter.
 
@@ -123,24 +127,27 @@ def skzcam_generate_job(
 
     # Ensure that the pun_file has been provided in EmbeddedCluster
     if EmbeddedCluster.pun_file is None:
-        raise ValueError("The path ('pun_file') to the .pun file from ChemShell must be provided in EmbeddedCluster.")
-    
+        raise ValueError(
+            "The path ('pun_file') to the .pun file from ChemShell must be provided in EmbeddedCluster."
+        )
+
     # Generate the embedded cluster
     EmbeddedCluster.run_skzcam(
-        shell_max = max_cluster_num,
-        shell_width = shell_width,
-        bond_dist = bond_dist,
-        ecp_dist = ecp_dist,
-        write_clusters = write_clusters,
-        write_clusters_path = write_clusters_path,
-        write_include_ecp = write_include_ecp
+        shell_max=max_cluster_num,
+        shell_width=shell_width,
+        bond_dist=bond_dist,
+        ecp_dist=ecp_dist,
+        write_clusters=write_clusters,
+        write_clusters_path=write_clusters_path,
+        write_include_ecp=write_include_ecp,
     )
 
+
 def skzcam_calculate_job(
-        EmbeddedCluster: CreateSkzcamClusters,
-        OniomLayerInfo: dict[str, str],
-        dryrun: bool = False,
-        calc_folder: str | Path = "calc_dir"
+    EmbeddedCluster: CreateSkzcamClusters,
+    OniomLayerInfo: dict[str, str],
+    dryrun: bool = False,
+    calc_folder: str | Path = "calc_dir",
 ):
     """
     Perform the skzcam calculations on the embedded clusters.
@@ -160,10 +167,10 @@ def skzcam_calculate_job(
 
     # Prepare the embedded cluster for the calculations
     prep_cluster = Prepare(
-        adsorbate_slab_embedded_cluster = EmbeddedCluster.adsorbate_slab_embedded_cluster,
-        quantum_cluster_indices_set = EmbeddedCluster.quantum_cluster_indices_set,
-        ecp_region_indices_set = EmbeddedCluster.ecp_region_indices_set,
-        oniom_layers = OniomLayerInfo
+        adsorbate_slab_embedded_cluster=EmbeddedCluster.adsorbate_slab_embedded_cluster,
+        quantum_cluster_indices_set=EmbeddedCluster.quantum_cluster_indices_set,
+        ecp_region_indices_set=EmbeddedCluster.ecp_region_indices_set,
+        oniom_layers=OniomLayerInfo,
     )
 
     # Create the ASE calculators for the embedded cluster
@@ -187,8 +194,12 @@ def skzcam_calculate_job(
                         f"{method}_{basis_set}_{frozen_core}",
                         structure,
                     )
-                    skzcam_cluster_calculators[cluster_num][calculation_label][structure].calc.directory = system_path
-                    skzcam_cluster_calculators[cluster_num][calculation_label][structure].get_potential_energy()
+                    skzcam_cluster_calculators[cluster_num][calculation_label][
+                        structure
+                    ].calc.directory = system_path
+                    skzcam_cluster_calculators[cluster_num][calculation_label][
+                        structure
+                    ].get_potential_energy()
 
     return skzcam_cluster_calculators
 
@@ -198,12 +209,12 @@ def skzcam_analysis():
 
 
 def chemshell_run_job(
-        SkzcamCluster: CreateSkzcamClusters,
-        pun_filepath: str | Path = "chemshell_run",
-        chemsh_radius_active: float = 40.0,
-        chemsh_radius_cluster: float = 60.0,
-        chemsh_bq_layer: float = 6.0,
-        write_xyz_file: bool = False,
+    SkzcamCluster: CreateSkzcamClusters,
+    pun_filepath: str | Path = "chemshell_run",
+    chemsh_radius_active: float = 40.0,
+    chemsh_radius_cluster: float = 60.0,
+    chemsh_bq_layer: float = 6.0,
+    write_xyz_file: bool = False,
 ) -> None:
     """
     Recipe to run a ChemShell calculation on the adsorbate-slab system.
@@ -218,21 +229,19 @@ def chemshell_run_job(
         The radius of the total embedded cluster in Angstroms.
     chemsh_bq_layer
         The height above the surface to place some additional fitting point charges in Angstroms; simply for better reproduction of the electrostatic potential close to the adsorbate.
-    
+
     """
 
     SkzcamCluster.convert_slab_to_atoms()
 
     # Create the ChemShell input file
     SkzcamCluster.run_chemshell(
-        filepath = pun_filepath,
-        chemsh_radius_active = chemsh_radius_active,
-        chemsh_radius_cluster = chemsh_radius_cluster,
-        chemsh_bq_layer = chemsh_bq_layer,
-        write_xyz_file = write_xyz_file
+        filepath=pun_filepath,
+        chemsh_radius_active=chemsh_radius_active,
+        chemsh_radius_cluster=chemsh_radius_cluster,
+        chemsh_bq_layer=chemsh_bq_layer,
+        write_xyz_file=write_xyz_file,
     )
-
-
 
 
 def skzcam_write_inputs(

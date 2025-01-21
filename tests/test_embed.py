@@ -95,6 +95,7 @@ def element_info():
         },
     }
 
+
 def test_CreateSkzcamClusters_init():
     skzcam_clusters = CreateSkzcamClusters(
         adsorbate_indices=[0, 1],
@@ -123,6 +124,7 @@ def test_CreateSkzcamClusters_init():
             adsorbate_slab_file=Path(FILE_DIR, "skzcam_files", "CO_MgO.poscar.gz"),
             pun_file="test.pun",
         )
+
 
 def test_CreateSkzcamClusters_run_chemshell(skzcam_clusters, tmp_path):
     # Test if xyz file doesn't get written when write_xyz_file=False

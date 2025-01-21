@@ -3,8 +3,8 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typing import Literal
     from pathlib import Path
+    from typing import Literal
 
     from ase.atoms import Atoms
     from typing_extensions import TypedDict

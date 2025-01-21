@@ -6,12 +6,17 @@ from pathlib import Path
 
 import numpy as np
 import pytest
+from ase import Atoms
+from ase.io import read
+from numpy.testing import assert_allclose, assert_equal
 
 from autoSKZCAM.oniom import Prepare
-from autoSKZCAM.recipes import skzcam_write_inputs, skzcam_initialize, skzcam_generate_job, skzcam_calculate_job
-from numpy.testing import assert_allclose, assert_equal
-from ase.io import read
-from ase import Atoms
+from autoSKZCAM.recipes import (
+    skzcam_calculate_job,
+    skzcam_generate_job,
+    skzcam_initialize,
+    skzcam_write_inputs,
+)
 
 FILE_DIR = Path(__file__).parent
 
@@ -226,6 +231,7 @@ def test_skzcam_initialize():
         atol=1e-07,
     )
 
+
 def test_skzcam_generate_job(tmp_path):
     EmbeddedCluster = skzcam_initialize(
         adsorbate_indices=[0, 1],
@@ -245,9 +251,8 @@ def test_skzcam_generate_job(tmp_path):
     )
     EmbeddedCluster.adsorbate_vector_from_slab = [0.0, 0.0, 2.0]
 
-
     skzcam_generate_job(
-        EmbeddedCluster = EmbeddedCluster,
+        EmbeddedCluster=EmbeddedCluster,
         max_cluster_num=2,
         ecp_dist=3.0,
         shell_width=0.005,
@@ -351,6 +356,7 @@ def test_skzcam_generate_job(tmp_path):
         skzcam_cluster_xyz.get_atomic_numbers().tolist(), [6, 8, 12, 8, 8, 8, 8, 8]
     )
 
+
 def test_skzcam_calculate_job(tmp_path):
     EmbeddedCluster = skzcam_initialize(
         adsorbate_indices=[0, 1],
@@ -370,9 +376,8 @@ def test_skzcam_calculate_job(tmp_path):
     )
     EmbeddedCluster.adsorbate_vector_from_slab = [0.0, 0.0, 2.0]
 
-
     skzcam_generate_job(
-        EmbeddedCluster = EmbeddedCluster,
+        EmbeddedCluster=EmbeddedCluster,
         max_cluster_num=2,
         ecp_dist=3.0,
         shell_width=0.005,
@@ -400,12 +405,17 @@ def test_skzcam_calculate_job(tmp_path):
                 "basis": "DZ",
                 "max_cluster_num": 1,
                 "code": "mrcc",
-                "code_inputs": {"mem": "1000MB"}
+                "code_inputs": {"mem": "1000MB"},
             },
         },
     }
 
-    skzcam_calculate_job(EmbeddedCluster=EmbeddedCluster, OniomLayerInfo=oniom_layers, dryrun=True, calc_folder=tmp_path)
+    skzcam_calculate_job(
+        EmbeddedCluster=EmbeddedCluster,
+        OniomLayerInfo=oniom_layers,
+        dryrun=True,
+        calc_folder=tmp_path,
+    )
 
     # Initialize an empty list to store the paths
     paths = []
@@ -427,14 +437,11 @@ def test_skzcam_calculate_job(tmp_path):
     paths = sorted(paths)
     # assert paths == ['1', '1/mrcc', '1/mrcc/LMP2_DZ_valence', '1/mrcc/LMP2_DZ_valence/adsorbate', '1/mrcc/LMP2_DZ_valence/adsorbate/GENBAS', '1/mrcc/LMP2_DZ_valence/adsorbate/MINP', '1/mrcc/LMP2_DZ_valence/adsorbate_slab', '1/mrcc/LMP2_DZ_valence/adsorbate_slab/GENBAS', '1/mrcc/LMP2_DZ_valence/adsorbate_slab/MINP', '1/mrcc/LMP2_DZ_valence/slab', '1/mrcc/LMP2_DZ_valence/slab/GENBAS', '1/mrcc/LMP2_DZ_valence/slab/MINP', '1/mrcc/LNO-CCSD(T)_DZ_valence', '1/mrcc/LNO-CCSD(T)_DZ_valence/adsorbate', '1/mrcc/LNO-CCSD(T)_DZ_valence/adsorbate/GENBAS', '1/mrcc/LNO-CCSD(T)_DZ_valence/adsorbate/MINP', '1/mrcc/LNO-CCSD(T)_DZ_valence/adsorbate_slab', '1/mrcc/LNO-CCSD(T)_DZ_valence/adsorbate_slab/GENBAS', '1/mrcc/LNO-CCSD(T)_DZ_valence/adsorbate_slab/MINP', '1/mrcc/LNO-CCSD(T)_DZ_valence/slab', '1/mrcc/LNO-CCSD(T)_DZ_valence/slab/GENBAS', '1/mrcc/LNO-CCSD(T)_DZ_valence/slab/MINP', '1/orca', '1/orca/MP2_DZ_valence', '1/orca/MP2_DZ_valence/adsorbate', '1/orca/MP2_DZ_valence/adsorbate/orca.inp', '1/orca/MP2_DZ_valence/adsorbate_slab', '1/orca/MP2_DZ_valence/adsorbate_slab/orca.inp', '1/orca/MP2_DZ_valence/adsorbate_slab/orca.pc', '1/orca/MP2_DZ_valence/slab', '1/orca/MP2_DZ_valence/slab/orca.inp', '1/orca/MP2_DZ_valence/slab/orca.pc', 'SKZCAM_cluster_0.xyz', 'SKZCAM_cluster_1.xyz']
 
-    skzcam_calculate_job(EmbeddedCluster=EmbeddedCluster, OniomLayerInfo=oniom_layers,dryrun=False)
+    skzcam_calculate_job(
+        EmbeddedCluster=EmbeddedCluster, OniomLayerInfo=oniom_layers, dryrun=False
+    )
 
     # Test out running ORCA for now
-
-
-
-
-
 
 
 def test_skzcam_write_inputs(skzcam_clusters_output, ref_oniom_layers, tmp_path):

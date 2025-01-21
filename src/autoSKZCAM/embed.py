@@ -329,7 +329,6 @@ class CreateSkzcamClusters:
                     cluster_atoms,
                 )
 
-    
     def _convert_pun_to_atoms(self, pun_file: str | Path) -> Atoms:
         """
         Reads a .pun file and returns an ASE Atoms object containing the atomic coordinates,

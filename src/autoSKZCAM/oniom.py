@@ -7,8 +7,8 @@ from typing import TYPE_CHECKING, Literal
 from ase.calculators.orca import OrcaProfile
 from quacc import get_settings
 from quacc.calculators.mrcc.mrcc import MrccProfile
-from autoSKZCAM.calculators import ORCA, MRCC
 
+from autoSKZCAM.calculators import MRCC, ORCA
 from autoSKZCAM.data import (
     capped_ecp_defaults,
     code_calculation_defaults,
@@ -249,7 +249,9 @@ class Prepare:
             )
 
             mrcc_skzcam_inputs = inputgenerator.generate_input()
-            genbas_file = inputgenerator.create_genbas_file().replace('INSERT_cappedECP', self.capped_ecp['mrcc'])
+            genbas_file = inputgenerator.create_genbas_file().replace(
+                "INSERT_cappedECP", self.capped_ecp["mrcc"]
+            )
 
             if method.upper() == "LNO-CCSD(T)":
                 mrcc_default_method_inputs = code_calculation_defaults[code][
@@ -320,7 +322,9 @@ class Prepare:
                     "MP2"
                 ]
             elif method.upper() == "CCSD(T)":
-                orcasimpleinput = code_calculation_defaults[code]["orcasimpleinput"]["CCSD(T)"]
+                orcasimpleinput = code_calculation_defaults[code]["orcasimpleinput"][
+                    "CCSD(T)"
+                ]
             else:
                 orcasimpleinput = code_calculation_defaults[code]["orcasimpleinput"][
                     "Other"
@@ -387,11 +391,21 @@ class Prepare:
                     code = oniom_layer_parameters["code"].lower()
 
                     # Continue if the code is MRCC and the method is (L)MP2 for the low-level and (LNO-)CCSD(T) for the high-level
-                    if code == "mrcc" and level == "ll" and "MP2" in  oniom_layer['ll']["method"].upper() and "CCSD(T)" in oniom_layer['hl']["method"].upper():
+                    if (
+                        code == "mrcc"
+                        and level == "ll"
+                        and "MP2" in oniom_layer["ll"]["method"].upper()
+                        and "CCSD(T)" in oniom_layer["hl"]["method"].upper()
+                    ):
                         continue
 
                     # Continue if the code is ORCA and the method is MP2 for the low-level and CCSD(T) for the high-level
-                    if code == "orca" and level == "ll" and "MP2" == oniom_layer['ll']["method"].upper() and "CCSD(T)" == oniom_layer['hl']["method"].upper():
+                    if (
+                        code == "orca"
+                        and level == "ll"
+                        and oniom_layer["ll"]["method"].upper() == "MP2"
+                        and oniom_layer["hl"]["method"].upper() == "CCSD(T)"
+                    ):
                         continue
 
                     (is_cbs, basis_1, basis_2) = _is_valid_cbs_format(
