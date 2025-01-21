@@ -60,7 +60,7 @@ def skzcam_initialize(
     chemsh_radius_cluster: float = 60.0,
     chemsh_bq_layer: float = 6.0,
     write_xyz_file: bool = False,
-    **kwargs, # noqa: ARG002
+    **kwargs,
 ) -> CreateEmbeddedCluster:
     """
     Parameters to initialize the SKZCAM protocol to generate the embedded clusters.
@@ -124,7 +124,7 @@ def skzcam_generate_job(
     write_clusters: bool = False,
     write_clusters_path: str | Path = ".",
     write_include_ecp: bool = False,
-    **kwargs, # noqa: ARG002
+    **kwargs,
 ) -> SkzcamOutput:
     """
     Generates the set of clusters for the SKZCAM protocol. It will return the embedded cluster Atoms object and the indices of the atoms in the quantum clusters and the ECP region. The number of clusters created is controlled by the max_cluster_num parameter.
