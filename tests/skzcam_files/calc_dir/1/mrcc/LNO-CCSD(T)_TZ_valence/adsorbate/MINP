@@ -1,0 +1,90 @@
+calc=LNO-CCSD(T)
+scftype=rhf
+verbosity=3
+mem=200000MB
+symm=off
+unit=angs
+scfiguess=small
+scfmaxit=1000
+scfalg=locfit1
+bpedo=0.99999
+ccmaxit=400
+usedisk=0
+ccsdalg=dfdirect
+ccsdthreads=4
+ccsdmkl=thr
+ptthreads=4
+lcorthr=tight
+basis_sm=special
+def2-SVP
+def2-SVP
+def2-SVP
+def2-SVP
+def2-SVP
+def2-SVP
+def2-SVP
+def2-SVP
+
+
+basis=special
+aug-cc-pVTZ
+aug-cc-pVTZ
+cc-pVTZ
+aug-cc-pVTZ
+aug-cc-pVTZ
+aug-cc-pVTZ
+aug-cc-pVTZ
+aug-cc-pVTZ
+
+
+dfbasis_scf=special
+def2-QZVPP-RI-JK
+def2-QZVPP-RI-JK
+def2-QZVPP-RI-JK
+def2-QZVPP-RI-JK
+def2-QZVPP-RI-JK
+def2-QZVPP-RI-JK
+def2-QZVPP-RI-JK
+def2-QZVPP-RI-JK
+
+
+dfbasis_cor=special
+aug-cc-pVTZ-RI
+aug-cc-pVTZ-RI
+cc-pVTZ-RI
+aug-cc-pVTZ-RI
+aug-cc-pVTZ-RI
+aug-cc-pVTZ-RI
+aug-cc-pVTZ-RI
+aug-cc-pVTZ-RI
+
+
+ecp=special
+none
+none
+none
+none
+none
+none
+none
+none
+
+charge=0
+mult=1
+core=2
+geom=xyz
+8
+
+C                       0.00000000000    0.00000000000    2.44102235837
+O                       0.00000000000    0.00000000000    3.58784217303
+Mg                      0.00000000000    0.00000000000    0.00000000000
+O                      -2.12018425659    0.00000000000    0.00567209089
+O                       0.00000000000    2.12018425659    0.00567209089
+O                       2.12018425659    0.00000000000    0.00567209089
+O                       0.00000000000   -2.12018425659    0.00567209089
+O                       0.00000000000    0.00000000000   -2.14129966123
+
+ghost=serialno
+3,4,5,6,7,8
+
+

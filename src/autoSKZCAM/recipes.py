@@ -191,22 +191,17 @@ def skzcam_calculate_job(
     """
 
     # Prepare the embedded cluster for the calculations
-    prep_cluster = Prepare(
-        adsorbate_slab_embedded_cluster=EmbeddedCluster.adsorbate_slab_embedded_cluster,
-        quantum_cluster_indices_set=EmbeddedCluster.quantum_cluster_indices_set,
-        ecp_region_indices_set=EmbeddedCluster.ecp_region_indices_set,
-        oniom_layers=OniomLayerInfo,
-    )
-
-    # Create the ASE calculators for the embedded cluster
-    skzcam_cluster_calculators = prep_cluster.create_cluster_calcs()
+    Prepare(
+        EmbeddedCluster=EmbeddedCluster,
+        OniomInfo=OniomLayerInfo,
+    ).create_cluster_calcs()
 
     if dryrun:
-        skzcam_write_inputs(skzcam_cluster_calculators, calc_folder)
+        skzcam_write_inputs(EmbeddedCluster, calc_folder)
     else:
-        skzcam_write_inputs(skzcam_cluster_calculators, calc_folder)
-        for cluster_num in skzcam_cluster_calculators:
-            for calculation_label in skzcam_cluster_calculators[cluster_num]:
+        skzcam_write_inputs(EmbeddedCluster, calc_folder)
+        for cluster_num in EmbeddedCluster.skzcam_calcs:
+            for calculation_label in EmbeddedCluster.skzcam_calcs[cluster_num]:
                 code = calculation_label.split()[0]
                 method = calculation_label.split()[1]
                 frozen_core = calculation_label.split()[2]
@@ -219,26 +214,24 @@ def skzcam_calculate_job(
                         f"{method}_{basis_set}_{frozen_core}",
                         structure,
                     )
-                    skzcam_cluster_calculators[cluster_num][calculation_label][
+                    EmbeddedCluster.skzcam_calcs[cluster_num][calculation_label][
                         structure
                     ].calc.directory = system_path
-                    skzcam_cluster_calculators[cluster_num][calculation_label][
+                    EmbeddedCluster.skzcam_calcs[cluster_num][calculation_label][
                         structure
                     ].get_potential_energy()
 
-    return skzcam_cluster_calculators
-
 
 def skzcam_write_inputs(
-    skzcam_cluster_calculators: CalculatorInfo, input_dir: str | Path
+    EmbeddedCluster: CreateEmbeddedCluster, input_dir: str | Path
 ) -> None:
     """
     Generate the input files for the SKZCAM calculations.
 
     Parameters
     ----------
-    skzcam_cluster_calculators
-        A dictionary containing the cluster number as key and a dictionary of ASE calculators for the calculations that need to performed on each cluster.
+    EmbeddedCluster
+        The CreateEmbeddedCluster object containing the embedded cluster.
     input_dir
         The directory where the input files will be written.
 
@@ -246,6 +239,14 @@ def skzcam_write_inputs(
     -------
     None
     """
+
+    # Confirm that skzcam_calcs is not None
+    if EmbeddedCluster.skzcam_calcs is None:
+        raise ValueError(
+            "The CreateEmbeddedCluster object must have the skzcam_calcs attribute set using oniom.Prepare."
+        )
+
+    skzcam_cluster_calculators = EmbeddedCluster.skzcam_calcs
 
     for cluster_num in skzcam_cluster_calculators:
         for calculation_label in skzcam_cluster_calculators[cluster_num]:

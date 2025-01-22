@@ -15,6 +15,7 @@ from autoSKZCAM.data import (
     frozen_core_defaults,
 )
 from autoSKZCAM.io import MRCCInputGenerator, ORCAInputGenerator
+from autoSKZCAM.embed import CreateEmbeddedCluster
 
 if TYPE_CHECKING:
     from ase.atoms import Atoms
@@ -29,23 +30,17 @@ class Prepare:
 
     def __init__(
         self,
-        adsorbate_slab_embedded_cluster: Atoms,
-        quantum_cluster_indices_set: list[list[int]],
-        ecp_region_indices_set: list[list[int]],
-        oniom_layers: dict[str, OniomLayerInfo],
+        EmbeddedCluster: CreateEmbeddedCluster,
+        OniomInfo: dict[str, OniomLayerInfo],
         capped_ecp: dict[Literal["mrcc", "orca"], str] | None = None,
         multiplicities: dict[str, int] | None = None,
     ) -> None:
         """
         Parameters
         ----------
-        adsorbate_slab_embedded_cluster
-            The ASE Atoms object containing the atomic coordinates and atomic charges from the .pun file, as well as the atom type. This object is created by the [quacc.atoms.skzcam.CreateEmbeddedCluster][] class.
-        quantum_cluster_indices_set
-            A list of lists containing the indices of the atoms of a set of quantum clusters. These indices are provided by the [quacc.atoms.skzcam.CreateEmbeddedCluster][] class.
-        ecp_region_indices_set
-            A list of lists containing the indices of the atoms in the ECP region of a set of quantum clusters. These indices are provided by the [quacc.atoms.skzcam.CreateEmbeddedCluster][] class.
-        oniom_layers
+        EmbeddedCluster
+            The CreateEmbeddedCluster object containing the atomic coordinates and atomic charges from the .pun file, as well as the atom type. This assumes the run_skzcam function has been run.
+        OniomInfo
             A dictionary containing the information for each of the calculations for each of the ONIOM layers. An arbitrary number of ONIOM layers can be included.
         capped_ecp
             A dictionary containing the capped ECPs for each element in the quantum cluster. The dictionary should be in the form of {code: "capped ecp info"}. The code should be either 'mrcc' or 'orca'. Refer to the [autoSKZCAM.data.capped_ecp_defaults][] for the default values and how it should be formatted.
@@ -59,15 +54,22 @@ class Prepare:
 
         if multiplicities is None:
             multiplicities = {"adsorbate_slab": 1, "adsorbate": 1, "slab": 1}
-        self.adsorbate_slab_embedded_cluster = adsorbate_slab_embedded_cluster
-        self.quantum_cluster_indices_set = quantum_cluster_indices_set
-        self.ecp_region_indices_set = ecp_region_indices_set
-        self.oniom_layers = oniom_layers
+        self.adsorbate_slab_embedded_cluster = EmbeddedCluster.adsorbate_slab_embedded_cluster
+        self.quantum_cluster_indices_set = EmbeddedCluster.quantum_cluster_indices_set
+        self.ecp_region_indices_set = EmbeddedCluster.ecp_region_indices_set
+        self.OniomInfo = OniomInfo
         if capped_ecp is None:
             unformatted_capped_ecp = capped_ecp_defaults
         else:
             unformatted_capped_ecp = capped_ecp
         self.multiplicities = multiplicities
+        self.EmbeddedCluster = EmbeddedCluster
+
+        # Check that adso_slab_embedded_cluster, quantum_cluster_indices_set and ecp_region_indices_set are not None
+        if self.adsorbate_slab_embedded_cluster is None or self.quantum_cluster_indices_set is None or self.ecp_region_indices_set is None:
+            raise ValueError(
+                "The adsorbate_slab_embedded_cluster, quantum_cluster_indices_set and ecp_region_indices_set must be provided."
+            )
 
         # Check that the quantum_cluster_indices_set and ecp_region_indices_set are the same length
         if len(self.quantum_cluster_indices_set) != len(self.ecp_region_indices_set):
@@ -95,7 +97,7 @@ class Prepare:
 
         # Check that all of the necessary keywords are included in each oniom layer
         max_cluster = 0
-        for oniom_layer in self.oniom_layers.values():
+        for oniom_layer in self.OniomInfo.values():
             for level in ["ll", "hl"]:
                 if oniom_layer[level] is not None:
                     oniom_layer_parameters = oniom_layer[level]
@@ -167,7 +169,7 @@ class Prepare:
                                 "The keys in the element_info dictionary must be valid element symbols."
                             )
                         # If the basis set is a CBS basis set, ensure that the basis set is split into two
-                        if _is_valid_cbs_format(oniom_layer_parameters["basis"])[0]:
+                        if is_valid_cbs_format(oniom_layer_parameters["basis"])[0]:
                             for element in oniom_layer_parameters["element_info"]:
                                 for basis_type in [
                                     "basis",
@@ -179,7 +181,7 @@ class Prepare:
                                         in oniom_layer_parameters["element_info"][
                                             element
                                         ]
-                                        and not _is_valid_cbs_format(
+                                        and not is_valid_cbs_format(
                                             oniom_layer_parameters["element_info"][
                                                 element
                                             ][basis_type]
@@ -369,20 +371,24 @@ class Prepare:
 
         return calculators
 
-    def create_cluster_calcs(self) -> CalculatorInfo:
+    def create_cluster_calcs(self) -> None:
         """
         Create the set of calculations needed to be performed for each cluster from the series of clusters generated by the [quacc.atoms.skzcam.CreateEmbeddedCluster][] class.
 
+        Parameters
+        ----------
+        EmbeddedCluster
+            The CreateEmbeddedCluster object containing the atomic coordinates and atomic charges from the .pun file, as well as the atom type. This assumes the run_skzcam function has been run.
+
         Returns
         -------
-        dict[int, dict]
-            A dictionary containing the cluster number as key and a dictionary of ASE calculators for the calculations that need to performed on each cluster.
+        None
         """
         # Set up the dictionary to store the information for each cluster
-        skzcam_cluster_calculators = {
+        skzcam_cluster_calculators: dict[int,dict[str,CalculatorInfo]] = {
             cluster_num: {} for cluster_num in range(1, self.max_cluster + 1)
         }
-        for oniom_layer in self.oniom_layers.values():
+        for oniom_layer in self.OniomInfo.values():
             for level in ["ll", "hl"]:
                 if oniom_layer[level] is not None:
                     oniom_layer_parameters = oniom_layer[level]
@@ -408,13 +414,10 @@ class Prepare:
                     ):
                         continue
 
-                    (is_cbs, basis_1, basis_2) = _is_valid_cbs_format(
+                    (is_cbs, basis_1, basis_2) = is_valid_cbs_format(
                         oniom_layer_parameters["basis"]
                     )
                     if is_cbs:
-                        (_, basis_1, basis_2) = _is_valid_cbs_format(
-                            oniom_layer_parameters["basis"]
-                        )
                         basis_sets = [basis_1, basis_2]
                     else:
                         basis_sets = [oniom_layer_parameters["basis"]]
@@ -433,7 +436,7 @@ class Prepare:
                                 custom_element_info[key] = {}
                                 for subkey, subvalue in value.items():
                                     if "basis" in subkey:
-                                        is_element_basis_cbs = _is_valid_cbs_format(
+                                        is_element_basis_cbs = is_valid_cbs_format(
                                             subvalue
                                         )
                                         if is_cbs and is_element_basis_cbs[0]:
@@ -475,7 +478,7 @@ class Prepare:
                                     element_info=element_info,
                                 )
 
-        return skzcam_cluster_calculators
+        self.EmbeddedCluster.skzcam_calcs = skzcam_cluster_calculators
 
     def create_element_info(
         self,
@@ -563,7 +566,7 @@ class Prepare:
         return element_info_dict
 
 
-def _is_valid_cbs_format(string) -> list[bool, str | None, str | None]:
+def is_valid_cbs_format(string) -> list[bool, str | None, str | None]:
     """
     Returns True if the string is in the format of a CBS extrapolation when specified in element_info.
 

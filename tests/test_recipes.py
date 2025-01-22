@@ -22,20 +22,23 @@ from autoSKZCAM.recipes import (
 
 FILE_DIR = Path(__file__).parent
 
-
 @pytest.fixture
-def adsorbate_slab_embedded_cluster():
+def ref_EmbeddedCluster():
     with gzip.open(
         Path(FILE_DIR, "skzcam_files", "adsorbate_slab_embedded_cluster.npy.gz"), "r"
     ) as file:
-        return np.load(file, allow_pickle=True).item()["atoms"]
+        adsorbate_slab_embedded_cluster =  np.load(file, allow_pickle=True).item()["atoms"]
+    
+    EmbeddedCluster = CreateEmbeddedCluster(
+        adsorbate_indices=[0, 1],
+        slab_center_indices=[32],
+        atom_oxi_states={"Mg": 2.0, "O": -2.0},
+        adsorbate_slab_file=Path(FILE_DIR, "skzcam_files", "CO_MgO.poscar.gz"),
+        pun_filepath=None,
+    )
 
-
-@pytest.fixture
-def skzcam_clusters_output(adsorbate_slab_embedded_cluster):
-    return {
-        "adsorbate_slab_embedded_cluster": adsorbate_slab_embedded_cluster,
-        "quantum_cluster_indices_set": [
+    EmbeddedCluster.adsorbate_slab_embedded_cluster = adsorbate_slab_embedded_cluster
+    EmbeddedCluster.quantum_cluster_indices_set = [
             [0, 1, 2, 3, 4, 5, 6, 7],
             [
                 0,
@@ -63,8 +66,8 @@ def skzcam_clusters_output(adsorbate_slab_embedded_cluster):
                 31,
                 32,
             ],
-        ],
-        "ecp_region_indices_set": [
+        ]
+    EmbeddedCluster.ecp_region_indices_set = [
             [8, 9, 10, 11, 12, 13, 14, 15, 20, 21, 22, 23, 24],
             [
                 12,
@@ -101,8 +104,8 @@ def skzcam_clusters_output(adsorbate_slab_embedded_cluster):
                 84,
                 85,
             ],
-        ],
-    }
+        ]
+    return EmbeddedCluster
 
 
 @pytest.fixture
@@ -167,6 +170,71 @@ def ref_oniom_layers():
             },
         },
     }
+
+def test_skzcam_analysis(tmp_path):
+    
+    oniom_layer = {
+        "Base": {
+            "ll": None,
+            "hl": {
+                "method": "MP2",
+                "frozen_core": "valence",
+                "basis": "CBS(DZ//TZ)",
+                "max_cluster_num": 5,
+                "code": "orca",
+            },
+        },
+        "Delta_Basis and Delta_Core": {
+            "ll": {
+                "method": "MP2",
+                "frozen_core": "valence",
+                "basis": "CBS(DZ//TZ)",
+                "max_cluster_num": 3,
+                "code": "orca",
+            },
+            "hl": {
+                "method": "MP2",
+                "frozen_core": "semicore",
+                "basis": "CBS(TZ//QZ)",
+                "max_cluster_num": 3,
+                "code": "orca",
+            },
+        },
+        "FSE Error": {
+            "ll": {
+                "method": "MP2",
+                "frozen_core": "valence",
+                "basis": "DZ",
+                "max_cluster_num": 5,
+                "code": "orca",
+            },
+            "hl": {
+                "method": "MP2",
+                "frozen_core": "valence",
+                "basis": "DZ",
+                "max_cluster_num": 7,
+                "code": "orca",
+            },
+        },
+        "DeltaCC": {
+            "ll": {
+                "method": "LMP2",
+                "frozen_core": "valence",
+                "basis": "CBS(DZ//TZ)",
+                "max_cluster_num": 3,
+                "code": "mrcc",
+            },
+            "hl": {
+                "method": "LNO-CCSD(T)",
+                "frozen_core": "valence",
+                "basis": "CBS(DZ//TZ)",
+                "max_cluster_num": 3,
+                "code": "mrcc",
+            },
+        },
+    }
+
+    
 
 
 def test_skzcam_eint_flow(tmp_path, ref_oniom_layers):
@@ -707,19 +775,13 @@ def test_skzcam_calculate_job(tmp_path):
     ]
 
 
-def test_skzcam_write_inputs(skzcam_clusters_output, ref_oniom_layers, tmp_path):
-    prep_cluster = Prepare(
-        skzcam_clusters_output["adsorbate_slab_embedded_cluster"],
-        quantum_cluster_indices_set=skzcam_clusters_output[
-            "quantum_cluster_indices_set"
-        ],
-        ecp_region_indices_set=skzcam_clusters_output["ecp_region_indices_set"],
-        oniom_layers=ref_oniom_layers,
-    )
+def test_skzcam_write_inputs(ref_EmbeddedCluster, ref_oniom_layers, tmp_path):
+    Prepare(
+        EmbeddedCluster=ref_EmbeddedCluster,
+        OniomInfo=ref_oniom_layers,
+    ).create_cluster_calcs()
 
-    skzcam_cluster_calculators = prep_cluster.create_cluster_calcs()
-
-    skzcam_write_inputs(skzcam_cluster_calculators, tmp_path)
+    skzcam_write_inputs(ref_EmbeddedCluster, tmp_path)
 
     # Initialize an empty list to store the paths
     paths = []
