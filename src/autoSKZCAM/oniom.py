@@ -15,11 +15,9 @@ from autoSKZCAM.data import (
     frozen_core_defaults,
 )
 from autoSKZCAM.io import MRCCInputGenerator, ORCAInputGenerator
-from autoSKZCAM.embed import CreateEmbeddedCluster
 
 if TYPE_CHECKING:
-    from ase.atoms import Atoms
-
+    from autoSKZCAM.embed import CreateEmbeddedCluster
     from autoSKZCAM.types import CalculatorInfo, ElementInfo, ElementStr, OniomLayerInfo
 
 
@@ -54,7 +52,9 @@ class Prepare:
 
         if multiplicities is None:
             multiplicities = {"adsorbate_slab": 1, "adsorbate": 1, "slab": 1}
-        self.adsorbate_slab_embedded_cluster = EmbeddedCluster.adsorbate_slab_embedded_cluster
+        self.adsorbate_slab_embedded_cluster = (
+            EmbeddedCluster.adsorbate_slab_embedded_cluster
+        )
         self.quantum_cluster_indices_set = EmbeddedCluster.quantum_cluster_indices_set
         self.ecp_region_indices_set = EmbeddedCluster.ecp_region_indices_set
         self.OniomInfo = OniomInfo
@@ -66,7 +66,11 @@ class Prepare:
         self.EmbeddedCluster = EmbeddedCluster
 
         # Check that adso_slab_embedded_cluster, quantum_cluster_indices_set and ecp_region_indices_set are not None
-        if self.adsorbate_slab_embedded_cluster is None or self.quantum_cluster_indices_set is None or self.ecp_region_indices_set is None:
+        if (
+            self.adsorbate_slab_embedded_cluster is None
+            or self.quantum_cluster_indices_set is None
+            or self.ecp_region_indices_set is None
+        ):
             raise ValueError(
                 "The adsorbate_slab_embedded_cluster, quantum_cluster_indices_set and ecp_region_indices_set must be provided."
             )
@@ -385,7 +389,7 @@ class Prepare:
         None
         """
         # Set up the dictionary to store the information for each cluster
-        skzcam_cluster_calculators: dict[int,dict[str,CalculatorInfo]] = {
+        skzcam_cluster_calculators: dict[int, dict[str, CalculatorInfo]] = {
             cluster_num: {} for cluster_num in range(1, self.max_cluster + 1)
         }
         for oniom_layer in self.OniomInfo.values():

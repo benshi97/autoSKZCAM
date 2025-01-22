@@ -8,8 +8,8 @@ import numpy as np
 import pytest
 from numpy.testing import assert_allclose
 
-from autoSKZCAM.oniom import Prepare, is_valid_cbs_format
 from autoSKZCAM.embed import CreateEmbeddedCluster
+from autoSKZCAM.oniom import Prepare, is_valid_cbs_format
 
 FILE_DIR = Path(__file__).parent
 
@@ -19,8 +19,10 @@ def ref_EmbeddedCluster():
     with gzip.open(
         Path(FILE_DIR, "skzcam_files", "adsorbate_slab_embedded_cluster.npy.gz"), "r"
     ) as file:
-        adsorbate_slab_embedded_cluster =  np.load(file, allow_pickle=True).item()["atoms"]
-    
+        adsorbate_slab_embedded_cluster = np.load(file, allow_pickle=True).item()[
+            "atoms"
+        ]
+
     EmbeddedCluster = CreateEmbeddedCluster(
         adsorbate_indices=[0, 1],
         slab_center_indices=[32],
@@ -31,73 +33,74 @@ def ref_EmbeddedCluster():
 
     EmbeddedCluster.adsorbate_slab_embedded_cluster = adsorbate_slab_embedded_cluster
     EmbeddedCluster.quantum_cluster_indices_set = [
-            [0, 1, 2, 3, 4, 5, 6, 7],
-            [
-                0,
-                1,
-                2,
-                3,
-                4,
-                5,
-                6,
-                7,
-                8,
-                9,
-                10,
-                11,
-                16,
-                17,
-                18,
-                19,
-                25,
-                26,
-                27,
-                28,
-                29,
-                30,
-                31,
-                32,
-            ],
-        ]
+        [0, 1, 2, 3, 4, 5, 6, 7],
+        [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            16,
+            17,
+            18,
+            19,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+        ],
+    ]
     EmbeddedCluster.ecp_region_indices_set = [
-            [8, 9, 10, 11, 12, 13, 14, 15, 20, 21, 22, 23, 24],
-            [
-                12,
-                13,
-                14,
-                15,
-                20,
-                21,
-                22,
-                23,
-                24,
-                41,
-                42,
-                43,
-                44,
-                45,
-                46,
-                47,
-                48,
-                49,
-                50,
-                51,
-                52,
-                53,
-                54,
-                55,
-                56,
-                78,
-                79,
-                80,
-                81,
-                82,
-                83,
-                84,
-                85,
-            ],
-        ]
+        [8, 9, 10, 11, 12, 13, 14, 15, 20, 21, 22, 23, 24],
+        [
+            12,
+            13,
+            14,
+            15,
+            20,
+            21,
+            22,
+            23,
+            24,
+            41,
+            42,
+            43,
+            44,
+            45,
+            46,
+            47,
+            48,
+            49,
+            50,
+            51,
+            52,
+            53,
+            54,
+            55,
+            56,
+            78,
+            79,
+            80,
+            81,
+            82,
+            83,
+            84,
+            85,
+        ],
+    ]
     return EmbeddedCluster
+
 
 @pytest.fixture
 def element_info():
@@ -189,8 +192,7 @@ def ref_oniom_layers():
 
 def test_Prepare_init(ref_EmbeddedCluster, ref_oniom_layers, element_info):
     prep_cluster = Prepare(
-        EmbeddedCluster=ref_EmbeddedCluster,
-        OniomInfo=ref_oniom_layers,
+        EmbeddedCluster=ref_EmbeddedCluster, OniomInfo=ref_oniom_layers
     )
 
     assert prep_cluster.OniomInfo == ref_oniom_layers
@@ -282,15 +284,16 @@ d-f
 
     # Check if errors are raised if length of quantum_cluster_indices_set is different from ecp_region_indices_set
     wrong_EmbeddedCluster = deepcopy(ref_EmbeddedCluster)
-    wrong_EmbeddedCluster.ecp_region_indices_set = [ref_EmbeddedCluster.ecp_region_indices_set[0]]
+    wrong_EmbeddedCluster.ecp_region_indices_set = [
+        ref_EmbeddedCluster.ecp_region_indices_set[0]
+    ]
 
     with pytest.raises(
         ValueError,
         match="The quantum_cluster_indices_set and ecp_region_indices_set must be the same length.",
     ):
         prep_cluster = Prepare(
-            EmbeddedCluster=wrong_EmbeddedCluster,
-            OniomInfo=ref_oniom_layers,
+            EmbeddedCluster=wrong_EmbeddedCluster, OniomInfo=ref_oniom_layers
         )
 
     # Check if errors are raised if parameters in oniom_layers are not provided
@@ -303,8 +306,7 @@ d-f
             match=f"The {parameter} parameter must be provided for all ONIOM layers specified.",
         ):
             prep_cluster = Prepare(
-                EmbeddedCluster=ref_EmbeddedCluster,
-                OniomInfo=wrong_oniom_layers,
+                EmbeddedCluster=ref_EmbeddedCluster, OniomInfo=wrong_oniom_layers
             )
 
     # Check if errors are raised if too large a max_cluster_num given.
@@ -316,8 +318,7 @@ d-f
             match="The maximum cluster number for all ONIOM layers must be bigger than 0 and less than or equal to the number of quantum clusters generated by autoSKZCAM.",
         ):
             prep_cluster = Prepare(
-                EmbeddedCluster=ref_EmbeddedCluster,
-                OniomInfo=wrong_oniom_layers,
+                EmbeddedCluster=ref_EmbeddedCluster, OniomInfo=wrong_oniom_layers
             )
 
     # Check if errors are raise if wrong frozen_core parameters are given.
@@ -328,8 +329,7 @@ d-f
         match="The frozen_core must be specified as either 'valence' or 'semicore'.",
     ):
         prep_cluster = Prepare(
-            EmbeddedCluster=ref_EmbeddedCluster,
-            OniomInfo=wrong_oniom_layers,
+            EmbeddedCluster=ref_EmbeddedCluster, OniomInfo=wrong_oniom_layers
         )
 
     # Check if errors are raised when wrong code specified
@@ -339,8 +339,7 @@ d-f
         ValueError, match="The code must be specified as either 'mrcc' or 'orca'."
     ):
         prep_cluster = Prepare(
-            EmbeddedCluster=ref_EmbeddedCluster,
-            OniomInfo=wrong_oniom_layers,
+            EmbeddedCluster=ref_EmbeddedCluster, OniomInfo=wrong_oniom_layers
         )
 
     # Check if errors are raised when wrong basis specified
@@ -351,8 +350,7 @@ d-f
         match=r"The basis must be specified as either DZ, TZ, QZ, 5Z, CBS\(DZ//TZ\), CBS\(TZ//QZ\) or CBS\(QZ//5Z\)\.",
     ):
         prep_cluster = Prepare(
-            EmbeddedCluster=ref_EmbeddedCluster,
-            OniomInfo=wrong_oniom_layers,
+            EmbeddedCluster=ref_EmbeddedCluster, OniomInfo=wrong_oniom_layers
         )
 
     # Check if errors are raised when wrong element in element_info is specified
@@ -365,8 +363,7 @@ d-f
         match="The keys in the element_info dictionary must be valid element symbols.",
     ):
         prep_cluster = Prepare(
-            EmbeddedCluster=ref_EmbeddedCluster,
-            OniomInfo=wrong_oniom_layers,
+            EmbeddedCluster=ref_EmbeddedCluster, OniomInfo=wrong_oniom_layers
         )
 
     for basis_type in ["basis", "ri_scf_basis", "ri_cwft_basis"]:
@@ -380,8 +377,7 @@ d-f
             match=rf"The {basis_type} parameter must be provided in the element_info dictionary as format CBS\(X//Y\), where X and Y are the two basis sets.",
         ):
             prep_cluster = Prepare(
-                EmbeddedCluster=ref_EmbeddedCluster,
-                OniomInfo=wrong_oniom_layers,
+                EmbeddedCluster=ref_EmbeddedCluster, OniomInfo=wrong_oniom_layers
             )
 
     # Check if errors are raised when wrong code inputs are specified for ORCA
@@ -393,8 +389,7 @@ d-f
         match="If the code is orca, the code_inputs dictionary can only contain the orcasimpleinput and orcablocks keys.",
     ):
         prep_cluster = Prepare(
-            EmbeddedCluster=ref_EmbeddedCluster,
-            OniomInfo=wrong_oniom_layers,
+            EmbeddedCluster=ref_EmbeddedCluster, OniomInfo=wrong_oniom_layers
         )
 
 
@@ -402,8 +397,7 @@ def test_Prepare_intialize_calculator(
     ref_EmbeddedCluster, ref_oniom_layers, element_info
 ):
     prep_cluster = Prepare(
-        EmbeddedCluster=ref_EmbeddedCluster,
-        OniomInfo=ref_oniom_layers,
+        EmbeddedCluster=ref_EmbeddedCluster, OniomInfo=ref_oniom_layers
     )
 
     oniom_layer_parameters = {
@@ -417,9 +411,7 @@ def test_Prepare_intialize_calculator(
     # Confirm that the MP2 default are created correctly
     calculators = prep_cluster.initialize_calculator(
         oniom_layer_parameters=oniom_layer_parameters,
-        quantum_cluster_indices=ref_EmbeddedCluster.quantum_cluster_indices_set[
-            0
-        ],
+        quantum_cluster_indices=ref_EmbeddedCluster.quantum_cluster_indices_set[0],
         ecp_region_indices=ref_EmbeddedCluster.ecp_region_indices_set[0],
         element_info=element_info,
     )
@@ -457,9 +449,7 @@ def test_Prepare_intialize_calculator(
     }
     calculators = prep_cluster.initialize_calculator(
         oniom_layer_parameters=oniom_layer_parameters,
-        quantum_cluster_indices=ref_EmbeddedCluster.quantum_cluster_indices_set[
-            0
-        ],
+        quantum_cluster_indices=ref_EmbeddedCluster.quantum_cluster_indices_set[0],
         ecp_region_indices=ref_EmbeddedCluster.ecp_region_indices_set[0],
         element_info=element_info,
     )
@@ -505,9 +495,7 @@ def test_Prepare_intialize_calculator(
     }
     calculators = prep_cluster.initialize_calculator(
         oniom_layer_parameters=oniom_layer_parameters,
-        quantum_cluster_indices=ref_EmbeddedCluster.quantum_cluster_indices_set[
-            0
-        ],
+        quantum_cluster_indices=ref_EmbeddedCluster.quantum_cluster_indices_set[0],
         ecp_region_indices=ref_EmbeddedCluster.ecp_region_indices_set[0],
         element_info=element_info,
     )
@@ -542,9 +530,7 @@ def test_Prepare_intialize_calculator(
     }
     calculators = prep_cluster.initialize_calculator(
         oniom_layer_parameters=oniom_layer_parameters,
-        quantum_cluster_indices=ref_EmbeddedCluster.quantum_cluster_indices_set[
-            0
-        ],
+        quantum_cluster_indices=ref_EmbeddedCluster.quantum_cluster_indices_set[0],
         ecp_region_indices=ref_EmbeddedCluster.ecp_region_indices_set[0],
         element_info=element_info,
     )
@@ -610,9 +596,7 @@ def test_Prepare_intialize_calculator(
     }
     calculators = prep_cluster.initialize_calculator(
         oniom_layer_parameters=oniom_layer_parameters,
-        quantum_cluster_indices=ref_EmbeddedCluster.quantum_cluster_indices_set[
-            0
-        ],
+        quantum_cluster_indices=ref_EmbeddedCluster.quantum_cluster_indices_set[0],
         ecp_region_indices=ref_EmbeddedCluster.ecp_region_indices_set[0],
         element_info=element_info,
     )
@@ -629,9 +613,7 @@ def test_Prepare_intialize_calculator(
     }
     calculators = prep_cluster.initialize_calculator(
         oniom_layer_parameters=oniom_layer_parameters,
-        quantum_cluster_indices=ref_EmbeddedCluster.quantum_cluster_indices_set[
-            0
-        ],
+        quantum_cluster_indices=ref_EmbeddedCluster.quantum_cluster_indices_set[0],
         ecp_region_indices=ref_EmbeddedCluster.ecp_region_indices_set[0],
         element_info=element_info,
     )
@@ -654,9 +636,7 @@ def test_Prepare_intialize_calculator(
     }
     calculators = prep_cluster.initialize_calculator(
         oniom_layer_parameters=oniom_layer_parameters,
-        quantum_cluster_indices=ref_EmbeddedCluster.quantum_cluster_indices_set[
-            0
-        ],
+        quantum_cluster_indices=ref_EmbeddedCluster.quantum_cluster_indices_set[0],
         ecp_region_indices=ref_EmbeddedCluster.ecp_region_indices_set[0],
         element_info=element_info,
     )
@@ -676,9 +656,7 @@ def test_Prepare_intialize_calculator(
     }
     calculators = prep_cluster.initialize_calculator(
         oniom_layer_parameters=oniom_layer_parameters,
-        quantum_cluster_indices=ref_EmbeddedCluster.quantum_cluster_indices_set[
-            0
-        ],
+        quantum_cluster_indices=ref_EmbeddedCluster.quantum_cluster_indices_set[0],
         ecp_region_indices=ref_EmbeddedCluster.ecp_region_indices_set[0],
         element_info=element_info,
     )
@@ -692,8 +670,7 @@ def test_Prepare_intialize_calculator(
 def test_Prepare_create_element_info(ref_EmbeddedCluster, ref_oniom_layers):
     # First for 'DZ' and 'semicore' for MRCC
     prep_cluster = Prepare(
-        EmbeddedCluster=ref_EmbeddedCluster,
-        OniomInfo=ref_oniom_layers,
+        EmbeddedCluster=ref_EmbeddedCluster, OniomInfo=ref_oniom_layers
     )
 
     element_info = prep_cluster.create_element_info(
@@ -875,8 +852,7 @@ def test_Prepare_create_cluster_calcs(ref_EmbeddedCluster, element_info):
     }
 
     prep_cluster = Prepare(
-        EmbeddedCluster=ref_EmbeddedCluster,
-        OniomInfo=oniom_layers,
+        EmbeddedCluster=ref_EmbeddedCluster, OniomInfo=oniom_layers
     ).create_cluster_calcs()
 
     assert {
@@ -977,8 +953,7 @@ def test_Prepare_create_cluster_calcs(ref_EmbeddedCluster, element_info):
     }
 
     Prepare(
-        EmbeddedCluster=ref_EmbeddedCluster,
-        OniomInfo=oniom_layers,
+        EmbeddedCluster=ref_EmbeddedCluster, OniomInfo=oniom_layers
     ).create_cluster_calcs()
 
     assert {
@@ -1023,8 +998,7 @@ def test_Prepare_create_cluster_calcs(ref_EmbeddedCluster, element_info):
     }
 
     Prepare(
-        EmbeddedCluster=ref_EmbeddedCluster,
-        OniomInfo=oniom_layers,
+        EmbeddedCluster=ref_EmbeddedCluster, OniomInfo=oniom_layers
     ).create_cluster_calcs()
 
     assert {

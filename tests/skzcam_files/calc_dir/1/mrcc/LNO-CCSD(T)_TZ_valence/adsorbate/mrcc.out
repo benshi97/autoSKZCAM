@@ -1,29 +1,29 @@
  **********************************************************************
                           MRCC program system
  **********************************************************************
- 
+
                               Written by
      Mihaly Kallay, Peter R. Nagy, David Mester, Laszlo Gyevi-Nagy,
         Jozsef Csoka, P. Bernat Szabo, Zoltan Rolik, Gyula Samu,
      Jozsef Csontos, Bence Hegely, Adam Ganyecz, Istvan Ladjanszki,
        Lorant Szegedy, Bence Ladoczki, Klara Petrov, Mate Farkas,
                     Pal D. Mezei, and Reka A. Horvath
- 
+
         Department of Physical Chemistry and Materials Science
             Budapest University of Technology and Economics
                   Budapest P.O.Box 91, H-1521 Hungary
- 
+
                               www.mrcc.hu
- 
+
                      Release date: August 28, 2023
 
  ************************ 2024-11-25 16:09:21 *************************
  Executing minp...
 
  Reading input from MINP...
- 
+
  Input file:
- 
+
 calc=LNO-CCSD(T)
 scftype=rhf
 verbosity=3
@@ -114,12 +114,12 @@ ghost=serialno
 3,4,5,6,7,8
 
 
- 
- 
+
+
  Checking keyword combinations...
- 
+
  Keywords:
- 
+
  active=none
  agrid=ld0006-ld0590
  agrid_pssp=ld0006-ld0194
@@ -348,14 +348,14 @@ ghost=serialno
  Executing integ...
 
  Allocation of 195.3 Gbytes of memory...
- 
- 
+
+
  Number of atoms:                  8
  Charge:                           0
  Number of electrons:             14
  Number of core electrons:         4
  Spin multiplicity:                1
- 
+
                  Cartesian coordinates [bohr]      Atomic mass [AMU]  Z
    1  C     0.00000000    0.00000000    4.61286372    12.000000       6
    2  O     0.00000000    0.00000000    6.78003909    15.994915       8
@@ -365,12 +365,12 @@ ghost=serialno
    6  O     4.00656758    0.00000000    0.01071870     0.000000       0
    7  O     0.00000000   -4.00656758    0.01071870     0.000000       0
    8  O     0.00000000    0.00000000   -4.04646991     0.000000       0
- 
+
  This molecule is a prolate symmetric top.
- 
- Point group: C4v 
- Computational point group: C1  
- 
+
+ Point group: C4v
+ Computational point group: C1
+
  Cartesian coordinates in standard orientation [bohr]
    1  C     0.00000000    0.00000000    0.51301473
    2  O     0.00000000    0.00000000    2.68019010
@@ -380,20 +380,20 @@ ghost=serialno
    6  O    -4.00656758    0.00000000   -4.08913029
    7  O     0.00000000    4.00656758   -4.08913029
    8  O     0.00000000    0.00000000   -8.14631890
- 
+
  Nuclear repulsion energy [au]:         22.148646010002
- 
- 
+
+
  Basis set information:
- 
+
  Maximum angular momentum: g
  Maximum number of contracted Gaussians:   13
  Maximum number of primitive Gaussians:    16
  Spherical harmonic GTOs are used.
- 
- 
+
+
  Conventional basis set:
- 
+
    1  C  aug-cc-pvtz [ 11s 6p 3d 2f | 5s 4p 3d 2f ]
    2  O  aug-cc-pvtz [ 11s 6p 3d 2f | 5s 4p 3d 2f ]
    3  Mg cc-pvtz [ 15s 10p 2d 1f | 5s 4p 2d 1f ]
@@ -402,52 +402,52 @@ ghost=serialno
    6  O  aug-cc-pvtz [ 11s 6p 3d 2f | 5s 4p 3d 2f ]
    7  O  aug-cc-pvtz [ 11s 6p 3d 2f | 5s 4p 3d 2f ]
    8  O  aug-cc-pvtz [ 11s 6p 3d 2f | 5s 4p 3d 2f ]
- 
+
  Basis functions:
             1             2             3             4             5             6             7             8             9            10
-    0    1C1s          1C2s          1C3s          1C4s          1C5s          1C1pz         1C1py         1C1px         1C2pz         1C2py     
-    1    1C2px         1C3pz         1C3py         1C3px         1C4pz         1C4py         1C4px         1C1d-2        1C1d-1        1C1d0     
-    2    1C1d+1        1C1d+2        1C2d-2        1C2d-1        1C2d0         1C2d+1        1C2d+2        1C3d-2        1C3d-1        1C3d0     
-    3    1C3d+1        1C3d+2        1C1f-3        1C1f-2        1C1f-1        1C1f0         1C1f+1        1C1f+2        1C1f+3        1C2f-3    
-    4    1C2f-2        1C2f-1        1C2f0         1C2f+1        1C2f+2        1C2f+3        2O1s          2O2s          2O3s          2O4s      
-    5    2O5s          2O1pz         2O1py         2O1px         2O2pz         2O2py         2O2px         2O3pz         2O3py         2O3px     
-    6    2O4pz         2O4py         2O4px         2O1d-2        2O1d-1        2O1d0         2O1d+1        2O1d+2        2O2d-2        2O2d-1    
-    7    2O2d0         2O2d+1        2O2d+2        2O3d-2        2O3d-1        2O3d0         2O3d+1        2O3d+2        2O1f-3        2O1f-2    
-    8    2O1f-1        2O1f0         2O1f+1        2O1f+2        2O1f+3        2O2f-3        2O2f-2        2O2f-1        2O2f0         2O2f+1    
-    9    2O2f+2        2O2f+3        3Mg1s         3Mg2s         3Mg3s         3Mg4s         3Mg5s         3Mg1pz        3Mg1py        3Mg1px    
-   10    3Mg2pz        3Mg2py        3Mg2px        3Mg3pz        3Mg3py        3Mg3px        3Mg4pz        3Mg4py        3Mg4px        3Mg1d-2   
-   11    3Mg1d-1       3Mg1d0        3Mg1d+1       3Mg1d+2       3Mg2d-2       3Mg2d-1       3Mg2d0        3Mg2d+1       3Mg2d+2       3Mg1f-3   
-   12    3Mg1f-2       3Mg1f-1       3Mg1f0        3Mg1f+1       3Mg1f+2       3Mg1f+3       4O1s          4O2s          4O3s          4O4s      
-   13    4O5s          4O1pz         4O1py         4O1px         4O2pz         4O2py         4O2px         4O3pz         4O3py         4O3px     
-   14    4O4pz         4O4py         4O4px         4O1d-2        4O1d-1        4O1d0         4O1d+1        4O1d+2        4O2d-2        4O2d-1    
-   15    4O2d0         4O2d+1        4O2d+2        4O3d-2        4O3d-1        4O3d0         4O3d+1        4O3d+2        4O1f-3        4O1f-2    
-   16    4O1f-1        4O1f0         4O1f+1        4O1f+2        4O1f+3        4O2f-3        4O2f-2        4O2f-1        4O2f0         4O2f+1    
-   17    4O2f+2        4O2f+3        5O1s          5O2s          5O3s          5O4s          5O5s          5O1pz         5O1py         5O1px     
-   18    5O2pz         5O2py         5O2px         5O3pz         5O3py         5O3px         5O4pz         5O4py         5O4px         5O1d-2    
-   19    5O1d-1        5O1d0         5O1d+1        5O1d+2        5O2d-2        5O2d-1        5O2d0         5O2d+1        5O2d+2        5O3d-2    
-   20    5O3d-1        5O3d0         5O3d+1        5O3d+2        5O1f-3        5O1f-2        5O1f-1        5O1f0         5O1f+1        5O1f+2    
-   21    5O1f+3        5O2f-3        5O2f-2        5O2f-1        5O2f0         5O2f+1        5O2f+2        5O2f+3        6O1s          6O2s      
-   22    6O3s          6O4s          6O5s          6O1pz         6O1py         6O1px         6O2pz         6O2py         6O2px         6O3pz     
-   23    6O3py         6O3px         6O4pz         6O4py         6O4px         6O1d-2        6O1d-1        6O1d0         6O1d+1        6O1d+2    
-   24    6O2d-2        6O2d-1        6O2d0         6O2d+1        6O2d+2        6O3d-2        6O3d-1        6O3d0         6O3d+1        6O3d+2    
-   25    6O1f-3        6O1f-2        6O1f-1        6O1f0         6O1f+1        6O1f+2        6O1f+3        6O2f-3        6O2f-2        6O2f-1    
-   26    6O2f0         6O2f+1        6O2f+2        6O2f+3        7O1s          7O2s          7O3s          7O4s          7O5s          7O1pz     
-   27    7O1py         7O1px         7O2pz         7O2py         7O2px         7O3pz         7O3py         7O3px         7O4pz         7O4py     
-   28    7O4px         7O1d-2        7O1d-1        7O1d0         7O1d+1        7O1d+2        7O2d-2        7O2d-1        7O2d0         7O2d+1    
-   29    7O2d+2        7O3d-2        7O3d-1        7O3d0         7O3d+1        7O3d+2        7O1f-3        7O1f-2        7O1f-1        7O1f0     
-   30    7O1f+1        7O1f+2        7O1f+3        7O2f-3        7O2f-2        7O2f-1        7O2f0         7O2f+1        7O2f+2        7O2f+3    
-   31    8O1s          8O2s          8O3s          8O4s          8O5s          8O1pz         8O1py         8O1px         8O2pz         8O2py     
-   32    8O2px         8O3pz         8O3py         8O3px         8O4pz         8O4py         8O4px         8O1d-2        8O1d-1        8O1d0     
-   33    8O1d+1        8O1d+2        8O2d-2        8O2d-1        8O2d0         8O2d+1        8O2d+2        8O3d-2        8O3d-1        8O3d0     
-   34    8O3d+1        8O3d+2        8O1f-3        8O1f-2        8O1f-1        8O1f0         8O1f+1        8O1f+2        8O1f+3        8O2f-3    
-   35    8O2f-2        8O2f-1        8O2f0         8O2f+1        8O2f+2        8O2f+3    
- 
+    0    1C1s          1C2s          1C3s          1C4s          1C5s          1C1pz         1C1py         1C1px         1C2pz         1C2py
+    1    1C2px         1C3pz         1C3py         1C3px         1C4pz         1C4py         1C4px         1C1d-2        1C1d-1        1C1d0
+    2    1C1d+1        1C1d+2        1C2d-2        1C2d-1        1C2d0         1C2d+1        1C2d+2        1C3d-2        1C3d-1        1C3d0
+    3    1C3d+1        1C3d+2        1C1f-3        1C1f-2        1C1f-1        1C1f0         1C1f+1        1C1f+2        1C1f+3        1C2f-3
+    4    1C2f-2        1C2f-1        1C2f0         1C2f+1        1C2f+2        1C2f+3        2O1s          2O2s          2O3s          2O4s
+    5    2O5s          2O1pz         2O1py         2O1px         2O2pz         2O2py         2O2px         2O3pz         2O3py         2O3px
+    6    2O4pz         2O4py         2O4px         2O1d-2        2O1d-1        2O1d0         2O1d+1        2O1d+2        2O2d-2        2O2d-1
+    7    2O2d0         2O2d+1        2O2d+2        2O3d-2        2O3d-1        2O3d0         2O3d+1        2O3d+2        2O1f-3        2O1f-2
+    8    2O1f-1        2O1f0         2O1f+1        2O1f+2        2O1f+3        2O2f-3        2O2f-2        2O2f-1        2O2f0         2O2f+1
+    9    2O2f+2        2O2f+3        3Mg1s         3Mg2s         3Mg3s         3Mg4s         3Mg5s         3Mg1pz        3Mg1py        3Mg1px
+   10    3Mg2pz        3Mg2py        3Mg2px        3Mg3pz        3Mg3py        3Mg3px        3Mg4pz        3Mg4py        3Mg4px        3Mg1d-2
+   11    3Mg1d-1       3Mg1d0        3Mg1d+1       3Mg1d+2       3Mg2d-2       3Mg2d-1       3Mg2d0        3Mg2d+1       3Mg2d+2       3Mg1f-3
+   12    3Mg1f-2       3Mg1f-1       3Mg1f0        3Mg1f+1       3Mg1f+2       3Mg1f+3       4O1s          4O2s          4O3s          4O4s
+   13    4O5s          4O1pz         4O1py         4O1px         4O2pz         4O2py         4O2px         4O3pz         4O3py         4O3px
+   14    4O4pz         4O4py         4O4px         4O1d-2        4O1d-1        4O1d0         4O1d+1        4O1d+2        4O2d-2        4O2d-1
+   15    4O2d0         4O2d+1        4O2d+2        4O3d-2        4O3d-1        4O3d0         4O3d+1        4O3d+2        4O1f-3        4O1f-2
+   16    4O1f-1        4O1f0         4O1f+1        4O1f+2        4O1f+3        4O2f-3        4O2f-2        4O2f-1        4O2f0         4O2f+1
+   17    4O2f+2        4O2f+3        5O1s          5O2s          5O3s          5O4s          5O5s          5O1pz         5O1py         5O1px
+   18    5O2pz         5O2py         5O2px         5O3pz         5O3py         5O3px         5O4pz         5O4py         5O4px         5O1d-2
+   19    5O1d-1        5O1d0         5O1d+1        5O1d+2        5O2d-2        5O2d-1        5O2d0         5O2d+1        5O2d+2        5O3d-2
+   20    5O3d-1        5O3d0         5O3d+1        5O3d+2        5O1f-3        5O1f-2        5O1f-1        5O1f0         5O1f+1        5O1f+2
+   21    5O1f+3        5O2f-3        5O2f-2        5O2f-1        5O2f0         5O2f+1        5O2f+2        5O2f+3        6O1s          6O2s
+   22    6O3s          6O4s          6O5s          6O1pz         6O1py         6O1px         6O2pz         6O2py         6O2px         6O3pz
+   23    6O3py         6O3px         6O4pz         6O4py         6O4px         6O1d-2        6O1d-1        6O1d0         6O1d+1        6O1d+2
+   24    6O2d-2        6O2d-1        6O2d0         6O2d+1        6O2d+2        6O3d-2        6O3d-1        6O3d0         6O3d+1        6O3d+2
+   25    6O1f-3        6O1f-2        6O1f-1        6O1f0         6O1f+1        6O1f+2        6O1f+3        6O2f-3        6O2f-2        6O2f-1
+   26    6O2f0         6O2f+1        6O2f+2        6O2f+3        7O1s          7O2s          7O3s          7O4s          7O5s          7O1pz
+   27    7O1py         7O1px         7O2pz         7O2py         7O2px         7O3pz         7O3py         7O3px         7O4pz         7O4py
+   28    7O4px         7O1d-2        7O1d-1        7O1d0         7O1d+1        7O1d+2        7O2d-2        7O2d-1        7O2d0         7O2d+1
+   29    7O2d+2        7O3d-2        7O3d-1        7O3d0         7O3d+1        7O3d+2        7O1f-3        7O1f-2        7O1f-1        7O1f0
+   30    7O1f+1        7O1f+2        7O1f+3        7O2f-3        7O2f-2        7O2f-1        7O2f0         7O2f+1        7O2f+2        7O2f+3
+   31    8O1s          8O2s          8O3s          8O4s          8O5s          8O1pz         8O1py         8O1px         8O2pz         8O2py
+   32    8O2px         8O3pz         8O3py         8O3px         8O4pz         8O4py         8O4px         8O1d-2        8O1d-1        8O1d0
+   33    8O1d+1        8O1d+2        8O2d-2        8O2d-1        8O2d0         8O2d+1        8O2d+2        8O3d-2        8O3d-1        8O3d0
+   34    8O3d+1        8O3d+2        8O1f-3        8O1f-2        8O1f-1        8O1f0         8O1f+1        8O1f+2        8O1f+3        8O2f-3
+   35    8O2f-2        8O2f-1        8O2f0         8O2f+1        8O2f+2        8O2f+3
+
  Maximum number of basis functions per shell:   15
  Total number of basis functions:    356
- 
- 
+
+
  Fitting basis set for the SCF calculation:
- 
+
    1  C  def2-qzvpp-ri-jk [ 14s 10p 6d 2f 1g | 10s 8p 5d 1f 1g ]
    2  O  def2-qzvpp-ri-jk [ 14s 10p 6d 2f 1g | 10s 8p 4d 2f 1g ]
    3  Mg def2-qzvpp-ri-jk [ 16s 12p 9d 4f 1g | 13s 9p 7d 4f 1g ]
@@ -456,81 +456,81 @@ ghost=serialno
    6  O  def2-qzvpp-ri-jk [ 14s 10p 6d 2f 1g | 10s 8p 4d 2f 1g ]
    7  O  def2-qzvpp-ri-jk [ 14s 10p 6d 2f 1g | 10s 8p 4d 2f 1g ]
    8  O  def2-qzvpp-ri-jk [ 14s 10p 6d 2f 1g | 10s 8p 4d 2f 1g ]
- 
+
  Basis functions:
             1             2             3             4             5             6             7             8             9            10
-    0    1C1s          1C2s          1C3s          1C4s          1C5s          1C6s          1C7s          1C8s          1C9s          1C10s     
-    1    1C1pz         1C1py         1C1px         1C2pz         1C2py         1C2px         1C3pz         1C3py         1C3px         1C4pz     
-    2    1C4py         1C4px         1C5pz         1C5py         1C5px         1C6pz         1C6py         1C6px         1C7pz         1C7py     
-    3    1C7px         1C8pz         1C8py         1C8px         1C1d-2        1C1d-1        1C1d0         1C1d+1        1C1d+2        1C2d-2    
-    4    1C2d-1        1C2d0         1C2d+1        1C2d+2        1C3d-2        1C3d-1        1C3d0         1C3d+1        1C3d+2        1C4d-2    
-    5    1C4d-1        1C4d0         1C4d+1        1C4d+2        1C5d-2        1C5d-1        1C5d0         1C5d+1        1C5d+2        1C1f-3    
-    6    1C1f-2        1C1f-1        1C1f0         1C1f+1        1C1f+2        1C1f+3        1C1g-4        1C1g-3        1C1g-2        1C1g-1    
-    7    1C1g0         1C1g+1        1C1g+2        1C1g+3        1C1g+4        2O1s          2O2s          2O3s          2O4s          2O5s      
-    8    2O6s          2O7s          2O8s          2O9s          2O10s         2O1pz         2O1py         2O1px         2O2pz         2O2py     
-    9    2O2px         2O3pz         2O3py         2O3px         2O4pz         2O4py         2O4px         2O5pz         2O5py         2O5px     
-   10    2O6pz         2O6py         2O6px         2O7pz         2O7py         2O7px         2O8pz         2O8py         2O8px         2O1d-2    
-   11    2O1d-1        2O1d0         2O1d+1        2O1d+2        2O2d-2        2O2d-1        2O2d0         2O2d+1        2O2d+2        2O3d-2    
-   12    2O3d-1        2O3d0         2O3d+1        2O3d+2        2O4d-2        2O4d-1        2O4d0         2O4d+1        2O4d+2        2O1f-3    
-   13    2O1f-2        2O1f-1        2O1f0         2O1f+1        2O1f+2        2O1f+3        2O2f-3        2O2f-2        2O2f-1        2O2f0     
-   14    2O2f+1        2O2f+2        2O2f+3        2O1g-4        2O1g-3        2O1g-2        2O1g-1        2O1g0         2O1g+1        2O1g+2    
-   15    2O1g+3        2O1g+4        3Mg1s         3Mg2s         3Mg3s         3Mg4s         3Mg5s         3Mg6s         3Mg7s         3Mg8s     
-   16    3Mg9s         3Mg10s        3Mg11s        3Mg12s        3Mg13s        3Mg1pz        3Mg1py        3Mg1px        3Mg2pz        3Mg2py    
-   17    3Mg2px        3Mg3pz        3Mg3py        3Mg3px        3Mg4pz        3Mg4py        3Mg4px        3Mg5pz        3Mg5py        3Mg5px    
-   18    3Mg6pz        3Mg6py        3Mg6px        3Mg7pz        3Mg7py        3Mg7px        3Mg8pz        3Mg8py        3Mg8px        3Mg9pz    
-   19    3Mg9py        3Mg9px        3Mg1d-2       3Mg1d-1       3Mg1d0        3Mg1d+1       3Mg1d+2       3Mg2d-2       3Mg2d-1       3Mg2d0    
-   20    3Mg2d+1       3Mg2d+2       3Mg3d-2       3Mg3d-1       3Mg3d0        3Mg3d+1       3Mg3d+2       3Mg4d-2       3Mg4d-1       3Mg4d0    
-   21    3Mg4d+1       3Mg4d+2       3Mg5d-2       3Mg5d-1       3Mg5d0        3Mg5d+1       3Mg5d+2       3Mg6d-2       3Mg6d-1       3Mg6d0    
-   22    3Mg6d+1       3Mg6d+2       3Mg7d-2       3Mg7d-1       3Mg7d0        3Mg7d+1       3Mg7d+2       3Mg1f-3       3Mg1f-2       3Mg1f-1   
-   23    3Mg1f0        3Mg1f+1       3Mg1f+2       3Mg1f+3       3Mg2f-3       3Mg2f-2       3Mg2f-1       3Mg2f0        3Mg2f+1       3Mg2f+2   
-   24    3Mg2f+3       3Mg3f-3       3Mg3f-2       3Mg3f-1       3Mg3f0        3Mg3f+1       3Mg3f+2       3Mg3f+3       3Mg4f-3       3Mg4f-2   
-   25    3Mg4f-1       3Mg4f0        3Mg4f+1       3Mg4f+2       3Mg4f+3       3Mg1g-4       3Mg1g-3       3Mg1g-2       3Mg1g-1       3Mg1g0    
-   26    3Mg1g+1       3Mg1g+2       3Mg1g+3       3Mg1g+4       4O1s          4O2s          4O3s          4O4s          4O5s          4O6s      
-   27    4O7s          4O8s          4O9s          4O10s         4O1pz         4O1py         4O1px         4O2pz         4O2py         4O2px     
-   28    4O3pz         4O3py         4O3px         4O4pz         4O4py         4O4px         4O5pz         4O5py         4O5px         4O6pz     
-   29    4O6py         4O6px         4O7pz         4O7py         4O7px         4O8pz         4O8py         4O8px         4O1d-2        4O1d-1    
-   30    4O1d0         4O1d+1        4O1d+2        4O2d-2        4O2d-1        4O2d0         4O2d+1        4O2d+2        4O3d-2        4O3d-1    
-   31    4O3d0         4O3d+1        4O3d+2        4O4d-2        4O4d-1        4O4d0         4O4d+1        4O4d+2        4O1f-3        4O1f-2    
-   32    4O1f-1        4O1f0         4O1f+1        4O1f+2        4O1f+3        4O2f-3        4O2f-2        4O2f-1        4O2f0         4O2f+1    
-   33    4O2f+2        4O2f+3        4O1g-4        4O1g-3        4O1g-2        4O1g-1        4O1g0         4O1g+1        4O1g+2        4O1g+3    
-   34    4O1g+4        5O1s          5O2s          5O3s          5O4s          5O5s          5O6s          5O7s          5O8s          5O9s      
-   35    5O10s         5O1pz         5O1py         5O1px         5O2pz         5O2py         5O2px         5O3pz         5O3py         5O3px     
-   36    5O4pz         5O4py         5O4px         5O5pz         5O5py         5O5px         5O6pz         5O6py         5O6px         5O7pz     
-   37    5O7py         5O7px         5O8pz         5O8py         5O8px         5O1d-2        5O1d-1        5O1d0         5O1d+1        5O1d+2    
-   38    5O2d-2        5O2d-1        5O2d0         5O2d+1        5O2d+2        5O3d-2        5O3d-1        5O3d0         5O3d+1        5O3d+2    
-   39    5O4d-2        5O4d-1        5O4d0         5O4d+1        5O4d+2        5O1f-3        5O1f-2        5O1f-1        5O1f0         5O1f+1    
-   40    5O1f+2        5O1f+3        5O2f-3        5O2f-2        5O2f-1        5O2f0         5O2f+1        5O2f+2        5O2f+3        5O1g-4    
-   41    5O1g-3        5O1g-2        5O1g-1        5O1g0         5O1g+1        5O1g+2        5O1g+3        5O1g+4        6O1s          6O2s      
-   42    6O3s          6O4s          6O5s          6O6s          6O7s          6O8s          6O9s          6O10s         6O1pz         6O1py     
-   43    6O1px         6O2pz         6O2py         6O2px         6O3pz         6O3py         6O3px         6O4pz         6O4py         6O4px     
-   44    6O5pz         6O5py         6O5px         6O6pz         6O6py         6O6px         6O7pz         6O7py         6O7px         6O8pz     
-   45    6O8py         6O8px         6O1d-2        6O1d-1        6O1d0         6O1d+1        6O1d+2        6O2d-2        6O2d-1        6O2d0     
-   46    6O2d+1        6O2d+2        6O3d-2        6O3d-1        6O3d0         6O3d+1        6O3d+2        6O4d-2        6O4d-1        6O4d0     
-   47    6O4d+1        6O4d+2        6O1f-3        6O1f-2        6O1f-1        6O1f0         6O1f+1        6O1f+2        6O1f+3        6O2f-3    
-   48    6O2f-2        6O2f-1        6O2f0         6O2f+1        6O2f+2        6O2f+3        6O1g-4        6O1g-3        6O1g-2        6O1g-1    
-   49    6O1g0         6O1g+1        6O1g+2        6O1g+3        6O1g+4        7O1s          7O2s          7O3s          7O4s          7O5s      
-   50    7O6s          7O7s          7O8s          7O9s          7O10s         7O1pz         7O1py         7O1px         7O2pz         7O2py     
-   51    7O2px         7O3pz         7O3py         7O3px         7O4pz         7O4py         7O4px         7O5pz         7O5py         7O5px     
-   52    7O6pz         7O6py         7O6px         7O7pz         7O7py         7O7px         7O8pz         7O8py         7O8px         7O1d-2    
-   53    7O1d-1        7O1d0         7O1d+1        7O1d+2        7O2d-2        7O2d-1        7O2d0         7O2d+1        7O2d+2        7O3d-2    
-   54    7O3d-1        7O3d0         7O3d+1        7O3d+2        7O4d-2        7O4d-1        7O4d0         7O4d+1        7O4d+2        7O1f-3    
-   55    7O1f-2        7O1f-1        7O1f0         7O1f+1        7O1f+2        7O1f+3        7O2f-3        7O2f-2        7O2f-1        7O2f0     
-   56    7O2f+1        7O2f+2        7O2f+3        7O1g-4        7O1g-3        7O1g-2        7O1g-1        7O1g0         7O1g+1        7O1g+2    
-   57    7O1g+3        7O1g+4        8O1s          8O2s          8O3s          8O4s          8O5s          8O6s          8O7s          8O8s      
-   58    8O9s          8O10s         8O1pz         8O1py         8O1px         8O2pz         8O2py         8O2px         8O3pz         8O3py     
-   59    8O3px         8O4pz         8O4py         8O4px         8O5pz         8O5py         8O5px         8O6pz         8O6py         8O6px     
-   60    8O7pz         8O7py         8O7px         8O8pz         8O8py         8O8px         8O1d-2        8O1d-1        8O1d0         8O1d+1    
-   61    8O1d+2        8O2d-2        8O2d-1        8O2d0         8O2d+1        8O2d+2        8O3d-2        8O3d-1        8O3d0         8O3d+1    
-   62    8O3d+2        8O4d-2        8O4d-1        8O4d0         8O4d+1        8O4d+2        8O1f-3        8O1f-2        8O1f-1        8O1f0     
-   63    8O1f+1        8O1f+2        8O1f+3        8O2f-3        8O2f-2        8O2f-1        8O2f0         8O2f+1        8O2f+2        8O2f+3    
-   64    8O1g-4        8O1g-3        8O1g-2        8O1g-1        8O1g0         8O1g+1        8O1g+2        8O1g+3        8O1g+4    
- 
+    0    1C1s          1C2s          1C3s          1C4s          1C5s          1C6s          1C7s          1C8s          1C9s          1C10s
+    1    1C1pz         1C1py         1C1px         1C2pz         1C2py         1C2px         1C3pz         1C3py         1C3px         1C4pz
+    2    1C4py         1C4px         1C5pz         1C5py         1C5px         1C6pz         1C6py         1C6px         1C7pz         1C7py
+    3    1C7px         1C8pz         1C8py         1C8px         1C1d-2        1C1d-1        1C1d0         1C1d+1        1C1d+2        1C2d-2
+    4    1C2d-1        1C2d0         1C2d+1        1C2d+2        1C3d-2        1C3d-1        1C3d0         1C3d+1        1C3d+2        1C4d-2
+    5    1C4d-1        1C4d0         1C4d+1        1C4d+2        1C5d-2        1C5d-1        1C5d0         1C5d+1        1C5d+2        1C1f-3
+    6    1C1f-2        1C1f-1        1C1f0         1C1f+1        1C1f+2        1C1f+3        1C1g-4        1C1g-3        1C1g-2        1C1g-1
+    7    1C1g0         1C1g+1        1C1g+2        1C1g+3        1C1g+4        2O1s          2O2s          2O3s          2O4s          2O5s
+    8    2O6s          2O7s          2O8s          2O9s          2O10s         2O1pz         2O1py         2O1px         2O2pz         2O2py
+    9    2O2px         2O3pz         2O3py         2O3px         2O4pz         2O4py         2O4px         2O5pz         2O5py         2O5px
+   10    2O6pz         2O6py         2O6px         2O7pz         2O7py         2O7px         2O8pz         2O8py         2O8px         2O1d-2
+   11    2O1d-1        2O1d0         2O1d+1        2O1d+2        2O2d-2        2O2d-1        2O2d0         2O2d+1        2O2d+2        2O3d-2
+   12    2O3d-1        2O3d0         2O3d+1        2O3d+2        2O4d-2        2O4d-1        2O4d0         2O4d+1        2O4d+2        2O1f-3
+   13    2O1f-2        2O1f-1        2O1f0         2O1f+1        2O1f+2        2O1f+3        2O2f-3        2O2f-2        2O2f-1        2O2f0
+   14    2O2f+1        2O2f+2        2O2f+3        2O1g-4        2O1g-3        2O1g-2        2O1g-1        2O1g0         2O1g+1        2O1g+2
+   15    2O1g+3        2O1g+4        3Mg1s         3Mg2s         3Mg3s         3Mg4s         3Mg5s         3Mg6s         3Mg7s         3Mg8s
+   16    3Mg9s         3Mg10s        3Mg11s        3Mg12s        3Mg13s        3Mg1pz        3Mg1py        3Mg1px        3Mg2pz        3Mg2py
+   17    3Mg2px        3Mg3pz        3Mg3py        3Mg3px        3Mg4pz        3Mg4py        3Mg4px        3Mg5pz        3Mg5py        3Mg5px
+   18    3Mg6pz        3Mg6py        3Mg6px        3Mg7pz        3Mg7py        3Mg7px        3Mg8pz        3Mg8py        3Mg8px        3Mg9pz
+   19    3Mg9py        3Mg9px        3Mg1d-2       3Mg1d-1       3Mg1d0        3Mg1d+1       3Mg1d+2       3Mg2d-2       3Mg2d-1       3Mg2d0
+   20    3Mg2d+1       3Mg2d+2       3Mg3d-2       3Mg3d-1       3Mg3d0        3Mg3d+1       3Mg3d+2       3Mg4d-2       3Mg4d-1       3Mg4d0
+   21    3Mg4d+1       3Mg4d+2       3Mg5d-2       3Mg5d-1       3Mg5d0        3Mg5d+1       3Mg5d+2       3Mg6d-2       3Mg6d-1       3Mg6d0
+   22    3Mg6d+1       3Mg6d+2       3Mg7d-2       3Mg7d-1       3Mg7d0        3Mg7d+1       3Mg7d+2       3Mg1f-3       3Mg1f-2       3Mg1f-1
+   23    3Mg1f0        3Mg1f+1       3Mg1f+2       3Mg1f+3       3Mg2f-3       3Mg2f-2       3Mg2f-1       3Mg2f0        3Mg2f+1       3Mg2f+2
+   24    3Mg2f+3       3Mg3f-3       3Mg3f-2       3Mg3f-1       3Mg3f0        3Mg3f+1       3Mg3f+2       3Mg3f+3       3Mg4f-3       3Mg4f-2
+   25    3Mg4f-1       3Mg4f0        3Mg4f+1       3Mg4f+2       3Mg4f+3       3Mg1g-4       3Mg1g-3       3Mg1g-2       3Mg1g-1       3Mg1g0
+   26    3Mg1g+1       3Mg1g+2       3Mg1g+3       3Mg1g+4       4O1s          4O2s          4O3s          4O4s          4O5s          4O6s
+   27    4O7s          4O8s          4O9s          4O10s         4O1pz         4O1py         4O1px         4O2pz         4O2py         4O2px
+   28    4O3pz         4O3py         4O3px         4O4pz         4O4py         4O4px         4O5pz         4O5py         4O5px         4O6pz
+   29    4O6py         4O6px         4O7pz         4O7py         4O7px         4O8pz         4O8py         4O8px         4O1d-2        4O1d-1
+   30    4O1d0         4O1d+1        4O1d+2        4O2d-2        4O2d-1        4O2d0         4O2d+1        4O2d+2        4O3d-2        4O3d-1
+   31    4O3d0         4O3d+1        4O3d+2        4O4d-2        4O4d-1        4O4d0         4O4d+1        4O4d+2        4O1f-3        4O1f-2
+   32    4O1f-1        4O1f0         4O1f+1        4O1f+2        4O1f+3        4O2f-3        4O2f-2        4O2f-1        4O2f0         4O2f+1
+   33    4O2f+2        4O2f+3        4O1g-4        4O1g-3        4O1g-2        4O1g-1        4O1g0         4O1g+1        4O1g+2        4O1g+3
+   34    4O1g+4        5O1s          5O2s          5O3s          5O4s          5O5s          5O6s          5O7s          5O8s          5O9s
+   35    5O10s         5O1pz         5O1py         5O1px         5O2pz         5O2py         5O2px         5O3pz         5O3py         5O3px
+   36    5O4pz         5O4py         5O4px         5O5pz         5O5py         5O5px         5O6pz         5O6py         5O6px         5O7pz
+   37    5O7py         5O7px         5O8pz         5O8py         5O8px         5O1d-2        5O1d-1        5O1d0         5O1d+1        5O1d+2
+   38    5O2d-2        5O2d-1        5O2d0         5O2d+1        5O2d+2        5O3d-2        5O3d-1        5O3d0         5O3d+1        5O3d+2
+   39    5O4d-2        5O4d-1        5O4d0         5O4d+1        5O4d+2        5O1f-3        5O1f-2        5O1f-1        5O1f0         5O1f+1
+   40    5O1f+2        5O1f+3        5O2f-3        5O2f-2        5O2f-1        5O2f0         5O2f+1        5O2f+2        5O2f+3        5O1g-4
+   41    5O1g-3        5O1g-2        5O1g-1        5O1g0         5O1g+1        5O1g+2        5O1g+3        5O1g+4        6O1s          6O2s
+   42    6O3s          6O4s          6O5s          6O6s          6O7s          6O8s          6O9s          6O10s         6O1pz         6O1py
+   43    6O1px         6O2pz         6O2py         6O2px         6O3pz         6O3py         6O3px         6O4pz         6O4py         6O4px
+   44    6O5pz         6O5py         6O5px         6O6pz         6O6py         6O6px         6O7pz         6O7py         6O7px         6O8pz
+   45    6O8py         6O8px         6O1d-2        6O1d-1        6O1d0         6O1d+1        6O1d+2        6O2d-2        6O2d-1        6O2d0
+   46    6O2d+1        6O2d+2        6O3d-2        6O3d-1        6O3d0         6O3d+1        6O3d+2        6O4d-2        6O4d-1        6O4d0
+   47    6O4d+1        6O4d+2        6O1f-3        6O1f-2        6O1f-1        6O1f0         6O1f+1        6O1f+2        6O1f+3        6O2f-3
+   48    6O2f-2        6O2f-1        6O2f0         6O2f+1        6O2f+2        6O2f+3        6O1g-4        6O1g-3        6O1g-2        6O1g-1
+   49    6O1g0         6O1g+1        6O1g+2        6O1g+3        6O1g+4        7O1s          7O2s          7O3s          7O4s          7O5s
+   50    7O6s          7O7s          7O8s          7O9s          7O10s         7O1pz         7O1py         7O1px         7O2pz         7O2py
+   51    7O2px         7O3pz         7O3py         7O3px         7O4pz         7O4py         7O4px         7O5pz         7O5py         7O5px
+   52    7O6pz         7O6py         7O6px         7O7pz         7O7py         7O7px         7O8pz         7O8py         7O8px         7O1d-2
+   53    7O1d-1        7O1d0         7O1d+1        7O1d+2        7O2d-2        7O2d-1        7O2d0         7O2d+1        7O2d+2        7O3d-2
+   54    7O3d-1        7O3d0         7O3d+1        7O3d+2        7O4d-2        7O4d-1        7O4d0         7O4d+1        7O4d+2        7O1f-3
+   55    7O1f-2        7O1f-1        7O1f0         7O1f+1        7O1f+2        7O1f+3        7O2f-3        7O2f-2        7O2f-1        7O2f0
+   56    7O2f+1        7O2f+2        7O2f+3        7O1g-4        7O1g-3        7O1g-2        7O1g-1        7O1g0         7O1g+1        7O1g+2
+   57    7O1g+3        7O1g+4        8O1s          8O2s          8O3s          8O4s          8O5s          8O6s          8O7s          8O8s
+   58    8O9s          8O10s         8O1pz         8O1py         8O1px         8O2pz         8O2py         8O2px         8O3pz         8O3py
+   59    8O3px         8O4pz         8O4py         8O4px         8O5pz         8O5py         8O5px         8O6pz         8O6py         8O6px
+   60    8O7pz         8O7py         8O7px         8O8pz         8O8py         8O8px         8O1d-2        8O1d-1        8O1d0         8O1d+1
+   61    8O1d+2        8O2d-2        8O2d-1        8O2d0         8O2d+1        8O2d+2        8O3d-2        8O3d-1        8O3d0         8O3d+1
+   62    8O3d+2        8O4d-2        8O4d-1        8O4d0         8O4d+1        8O4d+2        8O1f-3        8O1f-2        8O1f-1        8O1f0
+   63    8O1f+1        8O1f+2        8O1f+3        8O2f-3        8O2f-2        8O2f-1        8O2f0         8O2f+1        8O2f+2        8O2f+3
+   64    8O1g-4        8O1g-3        8O1g-2        8O1g-1        8O1g0         8O1g+1        8O1g+2        8O1g+3        8O1g+4
+
  Maximum number of basis functions per shell:   35
  Total number of basis functions:    649
- 
- 
+
+
  Fitting basis set for the correlation calculation:
- 
+
    1  C  aug-cc-pvtz-ri [ 9s 7p 6d 4f 2g | 9s 7p 6d 4f 2g ]
    2  O  aug-cc-pvtz-ri [ 9s 7p 6d 4f 2g | 9s 7p 6d 4f 2g ]
    3  Mg cc-pvtz-ri [ 10s 8p 7d 5f 2g | 10s 8p 7d 5f 2g ]
@@ -539,103 +539,103 @@ ghost=serialno
    6  O  aug-cc-pvtz-ri [ 9s 7p 6d 4f 2g | 9s 7p 6d 4f 2g ]
    7  O  aug-cc-pvtz-ri [ 9s 7p 6d 4f 2g | 9s 7p 6d 4f 2g ]
    8  O  aug-cc-pvtz-ri [ 9s 7p 6d 4f 2g | 9s 7p 6d 4f 2g ]
- 
+
  Basis functions:
             1             2             3             4             5             6             7             8             9            10
-    0    1C1s          1C2s          1C3s          1C4s          1C5s          1C6s          1C7s          1C8s          1C9s          1C1pz     
-    1    1C1py         1C1px         1C2pz         1C2py         1C2px         1C3pz         1C3py         1C3px         1C4pz         1C4py     
-    2    1C4px         1C5pz         1C5py         1C5px         1C6pz         1C6py         1C6px         1C7pz         1C7py         1C7px     
-    3    1C1d-2        1C1d-1        1C1d0         1C1d+1        1C1d+2        1C2d-2        1C2d-1        1C2d0         1C2d+1        1C2d+2    
-    4    1C3d-2        1C3d-1        1C3d0         1C3d+1        1C3d+2        1C4d-2        1C4d-1        1C4d0         1C4d+1        1C4d+2    
-    5    1C5d-2        1C5d-1        1C5d0         1C5d+1        1C5d+2        1C6d-2        1C6d-1        1C6d0         1C6d+1        1C6d+2    
-    6    1C1f-3        1C1f-2        1C1f-1        1C1f0         1C1f+1        1C1f+2        1C1f+3        1C2f-3        1C2f-2        1C2f-1    
-    7    1C2f0         1C2f+1        1C2f+2        1C2f+3        1C3f-3        1C3f-2        1C3f-1        1C3f0         1C3f+1        1C3f+2    
-    8    1C3f+3        1C4f-3        1C4f-2        1C4f-1        1C4f0         1C4f+1        1C4f+2        1C4f+3        1C1g-4        1C1g-3    
-    9    1C1g-2        1C1g-1        1C1g0         1C1g+1        1C1g+2        1C1g+3        1C1g+4        1C2g-4        1C2g-3        1C2g-2    
-   10    1C2g-1        1C2g0         1C2g+1        1C2g+2        1C2g+3        1C2g+4        2O1s          2O2s          2O3s          2O4s      
-   11    2O5s          2O6s          2O7s          2O8s          2O9s          2O1pz         2O1py         2O1px         2O2pz         2O2py     
-   12    2O2px         2O3pz         2O3py         2O3px         2O4pz         2O4py         2O4px         2O5pz         2O5py         2O5px     
-   13    2O6pz         2O6py         2O6px         2O7pz         2O7py         2O7px         2O1d-2        2O1d-1        2O1d0         2O1d+1    
-   14    2O1d+2        2O2d-2        2O2d-1        2O2d0         2O2d+1        2O2d+2        2O3d-2        2O3d-1        2O3d0         2O3d+1    
-   15    2O3d+2        2O4d-2        2O4d-1        2O4d0         2O4d+1        2O4d+2        2O5d-2        2O5d-1        2O5d0         2O5d+1    
-   16    2O5d+2        2O6d-2        2O6d-1        2O6d0         2O6d+1        2O6d+2        2O1f-3        2O1f-2        2O1f-1        2O1f0     
-   17    2O1f+1        2O1f+2        2O1f+3        2O2f-3        2O2f-2        2O2f-1        2O2f0         2O2f+1        2O2f+2        2O2f+3    
-   18    2O3f-3        2O3f-2        2O3f-1        2O3f0         2O3f+1        2O3f+2        2O3f+3        2O4f-3        2O4f-2        2O4f-1    
-   19    2O4f0         2O4f+1        2O4f+2        2O4f+3        2O1g-4        2O1g-3        2O1g-2        2O1g-1        2O1g0         2O1g+1    
-   20    2O1g+2        2O1g+3        2O1g+4        2O2g-4        2O2g-3        2O2g-2        2O2g-1        2O2g0         2O2g+1        2O2g+2    
-   21    2O2g+3        2O2g+4        3Mg1s         3Mg2s         3Mg3s         3Mg4s         3Mg5s         3Mg6s         3Mg7s         3Mg8s     
-   22    3Mg9s         3Mg10s        3Mg1pz        3Mg1py        3Mg1px        3Mg2pz        3Mg2py        3Mg2px        3Mg3pz        3Mg3py    
-   23    3Mg3px        3Mg4pz        3Mg4py        3Mg4px        3Mg5pz        3Mg5py        3Mg5px        3Mg6pz        3Mg6py        3Mg6px    
-   24    3Mg7pz        3Mg7py        3Mg7px        3Mg8pz        3Mg8py        3Mg8px        3Mg1d-2       3Mg1d-1       3Mg1d0        3Mg1d+1   
-   25    3Mg1d+2       3Mg2d-2       3Mg2d-1       3Mg2d0        3Mg2d+1       3Mg2d+2       3Mg3d-2       3Mg3d-1       3Mg3d0        3Mg3d+1   
-   26    3Mg3d+2       3Mg4d-2       3Mg4d-1       3Mg4d0        3Mg4d+1       3Mg4d+2       3Mg5d-2       3Mg5d-1       3Mg5d0        3Mg5d+1   
-   27    3Mg5d+2       3Mg6d-2       3Mg6d-1       3Mg6d0        3Mg6d+1       3Mg6d+2       3Mg7d-2       3Mg7d-1       3Mg7d0        3Mg7d+1   
-   28    3Mg7d+2       3Mg1f-3       3Mg1f-2       3Mg1f-1       3Mg1f0        3Mg1f+1       3Mg1f+2       3Mg1f+3       3Mg2f-3       3Mg2f-2   
-   29    3Mg2f-1       3Mg2f0        3Mg2f+1       3Mg2f+2       3Mg2f+3       3Mg3f-3       3Mg3f-2       3Mg3f-1       3Mg3f0        3Mg3f+1   
-   30    3Mg3f+2       3Mg3f+3       3Mg4f-3       3Mg4f-2       3Mg4f-1       3Mg4f0        3Mg4f+1       3Mg4f+2       3Mg4f+3       3Mg5f-3   
-   31    3Mg5f-2       3Mg5f-1       3Mg5f0        3Mg5f+1       3Mg5f+2       3Mg5f+3       3Mg1g-4       3Mg1g-3       3Mg1g-2       3Mg1g-1   
-   32    3Mg1g0        3Mg1g+1       3Mg1g+2       3Mg1g+3       3Mg1g+4       3Mg2g-4       3Mg2g-3       3Mg2g-2       3Mg2g-1       3Mg2g0    
-   33    3Mg2g+1       3Mg2g+2       3Mg2g+3       3Mg2g+4       4O1s          4O2s          4O3s          4O4s          4O5s          4O6s      
-   34    4O7s          4O8s          4O9s          4O1pz         4O1py         4O1px         4O2pz         4O2py         4O2px         4O3pz     
-   35    4O3py         4O3px         4O4pz         4O4py         4O4px         4O5pz         4O5py         4O5px         4O6pz         4O6py     
-   36    4O6px         4O7pz         4O7py         4O7px         4O1d-2        4O1d-1        4O1d0         4O1d+1        4O1d+2        4O2d-2    
-   37    4O2d-1        4O2d0         4O2d+1        4O2d+2        4O3d-2        4O3d-1        4O3d0         4O3d+1        4O3d+2        4O4d-2    
-   38    4O4d-1        4O4d0         4O4d+1        4O4d+2        4O5d-2        4O5d-1        4O5d0         4O5d+1        4O5d+2        4O6d-2    
-   39    4O6d-1        4O6d0         4O6d+1        4O6d+2        4O1f-3        4O1f-2        4O1f-1        4O1f0         4O1f+1        4O1f+2    
-   40    4O1f+3        4O2f-3        4O2f-2        4O2f-1        4O2f0         4O2f+1        4O2f+2        4O2f+3        4O3f-3        4O3f-2    
-   41    4O3f-1        4O3f0         4O3f+1        4O3f+2        4O3f+3        4O4f-3        4O4f-2        4O4f-1        4O4f0         4O4f+1    
-   42    4O4f+2        4O4f+3        4O1g-4        4O1g-3        4O1g-2        4O1g-1        4O1g0         4O1g+1        4O1g+2        4O1g+3    
-   43    4O1g+4        4O2g-4        4O2g-3        4O2g-2        4O2g-1        4O2g0         4O2g+1        4O2g+2        4O2g+3        4O2g+4    
-   44    5O1s          5O2s          5O3s          5O4s          5O5s          5O6s          5O7s          5O8s          5O9s          5O1pz     
-   45    5O1py         5O1px         5O2pz         5O2py         5O2px         5O3pz         5O3py         5O3px         5O4pz         5O4py     
-   46    5O4px         5O5pz         5O5py         5O5px         5O6pz         5O6py         5O6px         5O7pz         5O7py         5O7px     
-   47    5O1d-2        5O1d-1        5O1d0         5O1d+1        5O1d+2        5O2d-2        5O2d-1        5O2d0         5O2d+1        5O2d+2    
-   48    5O3d-2        5O3d-1        5O3d0         5O3d+1        5O3d+2        5O4d-2        5O4d-1        5O4d0         5O4d+1        5O4d+2    
-   49    5O5d-2        5O5d-1        5O5d0         5O5d+1        5O5d+2        5O6d-2        5O6d-1        5O6d0         5O6d+1        5O6d+2    
-   50    5O1f-3        5O1f-2        5O1f-1        5O1f0         5O1f+1        5O1f+2        5O1f+3        5O2f-3        5O2f-2        5O2f-1    
-   51    5O2f0         5O2f+1        5O2f+2        5O2f+3        5O3f-3        5O3f-2        5O3f-1        5O3f0         5O3f+1        5O3f+2    
-   52    5O3f+3        5O4f-3        5O4f-2        5O4f-1        5O4f0         5O4f+1        5O4f+2        5O4f+3        5O1g-4        5O1g-3    
-   53    5O1g-2        5O1g-1        5O1g0         5O1g+1        5O1g+2        5O1g+3        5O1g+4        5O2g-4        5O2g-3        5O2g-2    
-   54    5O2g-1        5O2g0         5O2g+1        5O2g+2        5O2g+3        5O2g+4        6O1s          6O2s          6O3s          6O4s      
-   55    6O5s          6O6s          6O7s          6O8s          6O9s          6O1pz         6O1py         6O1px         6O2pz         6O2py     
-   56    6O2px         6O3pz         6O3py         6O3px         6O4pz         6O4py         6O4px         6O5pz         6O5py         6O5px     
-   57    6O6pz         6O6py         6O6px         6O7pz         6O7py         6O7px         6O1d-2        6O1d-1        6O1d0         6O1d+1    
-   58    6O1d+2        6O2d-2        6O2d-1        6O2d0         6O2d+1        6O2d+2        6O3d-2        6O3d-1        6O3d0         6O3d+1    
-   59    6O3d+2        6O4d-2        6O4d-1        6O4d0         6O4d+1        6O4d+2        6O5d-2        6O5d-1        6O5d0         6O5d+1    
-   60    6O5d+2        6O6d-2        6O6d-1        6O6d0         6O6d+1        6O6d+2        6O1f-3        6O1f-2        6O1f-1        6O1f0     
-   61    6O1f+1        6O1f+2        6O1f+3        6O2f-3        6O2f-2        6O2f-1        6O2f0         6O2f+1        6O2f+2        6O2f+3    
-   62    6O3f-3        6O3f-2        6O3f-1        6O3f0         6O3f+1        6O3f+2        6O3f+3        6O4f-3        6O4f-2        6O4f-1    
-   63    6O4f0         6O4f+1        6O4f+2        6O4f+3        6O1g-4        6O1g-3        6O1g-2        6O1g-1        6O1g0         6O1g+1    
-   64    6O1g+2        6O1g+3        6O1g+4        6O2g-4        6O2g-3        6O2g-2        6O2g-1        6O2g0         6O2g+1        6O2g+2    
-   65    6O2g+3        6O2g+4        7O1s          7O2s          7O3s          7O4s          7O5s          7O6s          7O7s          7O8s      
-   66    7O9s          7O1pz         7O1py         7O1px         7O2pz         7O2py         7O2px         7O3pz         7O3py         7O3px     
-   67    7O4pz         7O4py         7O4px         7O5pz         7O5py         7O5px         7O6pz         7O6py         7O6px         7O7pz     
-   68    7O7py         7O7px         7O1d-2        7O1d-1        7O1d0         7O1d+1        7O1d+2        7O2d-2        7O2d-1        7O2d0     
-   69    7O2d+1        7O2d+2        7O3d-2        7O3d-1        7O3d0         7O3d+1        7O3d+2        7O4d-2        7O4d-1        7O4d0     
-   70    7O4d+1        7O4d+2        7O5d-2        7O5d-1        7O5d0         7O5d+1        7O5d+2        7O6d-2        7O6d-1        7O6d0     
-   71    7O6d+1        7O6d+2        7O1f-3        7O1f-2        7O1f-1        7O1f0         7O1f+1        7O1f+2        7O1f+3        7O2f-3    
-   72    7O2f-2        7O2f-1        7O2f0         7O2f+1        7O2f+2        7O2f+3        7O3f-3        7O3f-2        7O3f-1        7O3f0     
-   73    7O3f+1        7O3f+2        7O3f+3        7O4f-3        7O4f-2        7O4f-1        7O4f0         7O4f+1        7O4f+2        7O4f+3    
-   74    7O1g-4        7O1g-3        7O1g-2        7O1g-1        7O1g0         7O1g+1        7O1g+2        7O1g+3        7O1g+4        7O2g-4    
-   75    7O2g-3        7O2g-2        7O2g-1        7O2g0         7O2g+1        7O2g+2        7O2g+3        7O2g+4        8O1s          8O2s      
-   76    8O3s          8O4s          8O5s          8O6s          8O7s          8O8s          8O9s          8O1pz         8O1py         8O1px     
-   77    8O2pz         8O2py         8O2px         8O3pz         8O3py         8O3px         8O4pz         8O4py         8O4px         8O5pz     
-   78    8O5py         8O5px         8O6pz         8O6py         8O6px         8O7pz         8O7py         8O7px         8O1d-2        8O1d-1    
-   79    8O1d0         8O1d+1        8O1d+2        8O2d-2        8O2d-1        8O2d0         8O2d+1        8O2d+2        8O3d-2        8O3d-1    
-   80    8O3d0         8O3d+1        8O3d+2        8O4d-2        8O4d-1        8O4d0         8O4d+1        8O4d+2        8O5d-2        8O5d-1    
-   81    8O5d0         8O5d+1        8O5d+2        8O6d-2        8O6d-1        8O6d0         8O6d+1        8O6d+2        8O1f-3        8O1f-2    
-   82    8O1f-1        8O1f0         8O1f+1        8O1f+2        8O1f+3        8O2f-3        8O2f-2        8O2f-1        8O2f0         8O2f+1    
-   83    8O2f+2        8O2f+3        8O3f-3        8O3f-2        8O3f-1        8O3f0         8O3f+1        8O3f+2        8O3f+3        8O4f-3    
-   84    8O4f-2        8O4f-1        8O4f0         8O4f+1        8O4f+2        8O4f+3        8O1g-4        8O1g-3        8O1g-2        8O1g-1    
-   85    8O1g0         8O1g+1        8O1g+2        8O1g+3        8O1g+4        8O2g-4        8O2g-3        8O2g-2        8O2g-1        8O2g0     
-   86    8O2g+1        8O2g+2        8O2g+3        8O2g+4    
- 
+    0    1C1s          1C2s          1C3s          1C4s          1C5s          1C6s          1C7s          1C8s          1C9s          1C1pz
+    1    1C1py         1C1px         1C2pz         1C2py         1C2px         1C3pz         1C3py         1C3px         1C4pz         1C4py
+    2    1C4px         1C5pz         1C5py         1C5px         1C6pz         1C6py         1C6px         1C7pz         1C7py         1C7px
+    3    1C1d-2        1C1d-1        1C1d0         1C1d+1        1C1d+2        1C2d-2        1C2d-1        1C2d0         1C2d+1        1C2d+2
+    4    1C3d-2        1C3d-1        1C3d0         1C3d+1        1C3d+2        1C4d-2        1C4d-1        1C4d0         1C4d+1        1C4d+2
+    5    1C5d-2        1C5d-1        1C5d0         1C5d+1        1C5d+2        1C6d-2        1C6d-1        1C6d0         1C6d+1        1C6d+2
+    6    1C1f-3        1C1f-2        1C1f-1        1C1f0         1C1f+1        1C1f+2        1C1f+3        1C2f-3        1C2f-2        1C2f-1
+    7    1C2f0         1C2f+1        1C2f+2        1C2f+3        1C3f-3        1C3f-2        1C3f-1        1C3f0         1C3f+1        1C3f+2
+    8    1C3f+3        1C4f-3        1C4f-2        1C4f-1        1C4f0         1C4f+1        1C4f+2        1C4f+3        1C1g-4        1C1g-3
+    9    1C1g-2        1C1g-1        1C1g0         1C1g+1        1C1g+2        1C1g+3        1C1g+4        1C2g-4        1C2g-3        1C2g-2
+   10    1C2g-1        1C2g0         1C2g+1        1C2g+2        1C2g+3        1C2g+4        2O1s          2O2s          2O3s          2O4s
+   11    2O5s          2O6s          2O7s          2O8s          2O9s          2O1pz         2O1py         2O1px         2O2pz         2O2py
+   12    2O2px         2O3pz         2O3py         2O3px         2O4pz         2O4py         2O4px         2O5pz         2O5py         2O5px
+   13    2O6pz         2O6py         2O6px         2O7pz         2O7py         2O7px         2O1d-2        2O1d-1        2O1d0         2O1d+1
+   14    2O1d+2        2O2d-2        2O2d-1        2O2d0         2O2d+1        2O2d+2        2O3d-2        2O3d-1        2O3d0         2O3d+1
+   15    2O3d+2        2O4d-2        2O4d-1        2O4d0         2O4d+1        2O4d+2        2O5d-2        2O5d-1        2O5d0         2O5d+1
+   16    2O5d+2        2O6d-2        2O6d-1        2O6d0         2O6d+1        2O6d+2        2O1f-3        2O1f-2        2O1f-1        2O1f0
+   17    2O1f+1        2O1f+2        2O1f+3        2O2f-3        2O2f-2        2O2f-1        2O2f0         2O2f+1        2O2f+2        2O2f+3
+   18    2O3f-3        2O3f-2        2O3f-1        2O3f0         2O3f+1        2O3f+2        2O3f+3        2O4f-3        2O4f-2        2O4f-1
+   19    2O4f0         2O4f+1        2O4f+2        2O4f+3        2O1g-4        2O1g-3        2O1g-2        2O1g-1        2O1g0         2O1g+1
+   20    2O1g+2        2O1g+3        2O1g+4        2O2g-4        2O2g-3        2O2g-2        2O2g-1        2O2g0         2O2g+1        2O2g+2
+   21    2O2g+3        2O2g+4        3Mg1s         3Mg2s         3Mg3s         3Mg4s         3Mg5s         3Mg6s         3Mg7s         3Mg8s
+   22    3Mg9s         3Mg10s        3Mg1pz        3Mg1py        3Mg1px        3Mg2pz        3Mg2py        3Mg2px        3Mg3pz        3Mg3py
+   23    3Mg3px        3Mg4pz        3Mg4py        3Mg4px        3Mg5pz        3Mg5py        3Mg5px        3Mg6pz        3Mg6py        3Mg6px
+   24    3Mg7pz        3Mg7py        3Mg7px        3Mg8pz        3Mg8py        3Mg8px        3Mg1d-2       3Mg1d-1       3Mg1d0        3Mg1d+1
+   25    3Mg1d+2       3Mg2d-2       3Mg2d-1       3Mg2d0        3Mg2d+1       3Mg2d+2       3Mg3d-2       3Mg3d-1       3Mg3d0        3Mg3d+1
+   26    3Mg3d+2       3Mg4d-2       3Mg4d-1       3Mg4d0        3Mg4d+1       3Mg4d+2       3Mg5d-2       3Mg5d-1       3Mg5d0        3Mg5d+1
+   27    3Mg5d+2       3Mg6d-2       3Mg6d-1       3Mg6d0        3Mg6d+1       3Mg6d+2       3Mg7d-2       3Mg7d-1       3Mg7d0        3Mg7d+1
+   28    3Mg7d+2       3Mg1f-3       3Mg1f-2       3Mg1f-1       3Mg1f0        3Mg1f+1       3Mg1f+2       3Mg1f+3       3Mg2f-3       3Mg2f-2
+   29    3Mg2f-1       3Mg2f0        3Mg2f+1       3Mg2f+2       3Mg2f+3       3Mg3f-3       3Mg3f-2       3Mg3f-1       3Mg3f0        3Mg3f+1
+   30    3Mg3f+2       3Mg3f+3       3Mg4f-3       3Mg4f-2       3Mg4f-1       3Mg4f0        3Mg4f+1       3Mg4f+2       3Mg4f+3       3Mg5f-3
+   31    3Mg5f-2       3Mg5f-1       3Mg5f0        3Mg5f+1       3Mg5f+2       3Mg5f+3       3Mg1g-4       3Mg1g-3       3Mg1g-2       3Mg1g-1
+   32    3Mg1g0        3Mg1g+1       3Mg1g+2       3Mg1g+3       3Mg1g+4       3Mg2g-4       3Mg2g-3       3Mg2g-2       3Mg2g-1       3Mg2g0
+   33    3Mg2g+1       3Mg2g+2       3Mg2g+3       3Mg2g+4       4O1s          4O2s          4O3s          4O4s          4O5s          4O6s
+   34    4O7s          4O8s          4O9s          4O1pz         4O1py         4O1px         4O2pz         4O2py         4O2px         4O3pz
+   35    4O3py         4O3px         4O4pz         4O4py         4O4px         4O5pz         4O5py         4O5px         4O6pz         4O6py
+   36    4O6px         4O7pz         4O7py         4O7px         4O1d-2        4O1d-1        4O1d0         4O1d+1        4O1d+2        4O2d-2
+   37    4O2d-1        4O2d0         4O2d+1        4O2d+2        4O3d-2        4O3d-1        4O3d0         4O3d+1        4O3d+2        4O4d-2
+   38    4O4d-1        4O4d0         4O4d+1        4O4d+2        4O5d-2        4O5d-1        4O5d0         4O5d+1        4O5d+2        4O6d-2
+   39    4O6d-1        4O6d0         4O6d+1        4O6d+2        4O1f-3        4O1f-2        4O1f-1        4O1f0         4O1f+1        4O1f+2
+   40    4O1f+3        4O2f-3        4O2f-2        4O2f-1        4O2f0         4O2f+1        4O2f+2        4O2f+3        4O3f-3        4O3f-2
+   41    4O3f-1        4O3f0         4O3f+1        4O3f+2        4O3f+3        4O4f-3        4O4f-2        4O4f-1        4O4f0         4O4f+1
+   42    4O4f+2        4O4f+3        4O1g-4        4O1g-3        4O1g-2        4O1g-1        4O1g0         4O1g+1        4O1g+2        4O1g+3
+   43    4O1g+4        4O2g-4        4O2g-3        4O2g-2        4O2g-1        4O2g0         4O2g+1        4O2g+2        4O2g+3        4O2g+4
+   44    5O1s          5O2s          5O3s          5O4s          5O5s          5O6s          5O7s          5O8s          5O9s          5O1pz
+   45    5O1py         5O1px         5O2pz         5O2py         5O2px         5O3pz         5O3py         5O3px         5O4pz         5O4py
+   46    5O4px         5O5pz         5O5py         5O5px         5O6pz         5O6py         5O6px         5O7pz         5O7py         5O7px
+   47    5O1d-2        5O1d-1        5O1d0         5O1d+1        5O1d+2        5O2d-2        5O2d-1        5O2d0         5O2d+1        5O2d+2
+   48    5O3d-2        5O3d-1        5O3d0         5O3d+1        5O3d+2        5O4d-2        5O4d-1        5O4d0         5O4d+1        5O4d+2
+   49    5O5d-2        5O5d-1        5O5d0         5O5d+1        5O5d+2        5O6d-2        5O6d-1        5O6d0         5O6d+1        5O6d+2
+   50    5O1f-3        5O1f-2        5O1f-1        5O1f0         5O1f+1        5O1f+2        5O1f+3        5O2f-3        5O2f-2        5O2f-1
+   51    5O2f0         5O2f+1        5O2f+2        5O2f+3        5O3f-3        5O3f-2        5O3f-1        5O3f0         5O3f+1        5O3f+2
+   52    5O3f+3        5O4f-3        5O4f-2        5O4f-1        5O4f0         5O4f+1        5O4f+2        5O4f+3        5O1g-4        5O1g-3
+   53    5O1g-2        5O1g-1        5O1g0         5O1g+1        5O1g+2        5O1g+3        5O1g+4        5O2g-4        5O2g-3        5O2g-2
+   54    5O2g-1        5O2g0         5O2g+1        5O2g+2        5O2g+3        5O2g+4        6O1s          6O2s          6O3s          6O4s
+   55    6O5s          6O6s          6O7s          6O8s          6O9s          6O1pz         6O1py         6O1px         6O2pz         6O2py
+   56    6O2px         6O3pz         6O3py         6O3px         6O4pz         6O4py         6O4px         6O5pz         6O5py         6O5px
+   57    6O6pz         6O6py         6O6px         6O7pz         6O7py         6O7px         6O1d-2        6O1d-1        6O1d0         6O1d+1
+   58    6O1d+2        6O2d-2        6O2d-1        6O2d0         6O2d+1        6O2d+2        6O3d-2        6O3d-1        6O3d0         6O3d+1
+   59    6O3d+2        6O4d-2        6O4d-1        6O4d0         6O4d+1        6O4d+2        6O5d-2        6O5d-1        6O5d0         6O5d+1
+   60    6O5d+2        6O6d-2        6O6d-1        6O6d0         6O6d+1        6O6d+2        6O1f-3        6O1f-2        6O1f-1        6O1f0
+   61    6O1f+1        6O1f+2        6O1f+3        6O2f-3        6O2f-2        6O2f-1        6O2f0         6O2f+1        6O2f+2        6O2f+3
+   62    6O3f-3        6O3f-2        6O3f-1        6O3f0         6O3f+1        6O3f+2        6O3f+3        6O4f-3        6O4f-2        6O4f-1
+   63    6O4f0         6O4f+1        6O4f+2        6O4f+3        6O1g-4        6O1g-3        6O1g-2        6O1g-1        6O1g0         6O1g+1
+   64    6O1g+2        6O1g+3        6O1g+4        6O2g-4        6O2g-3        6O2g-2        6O2g-1        6O2g0         6O2g+1        6O2g+2
+   65    6O2g+3        6O2g+4        7O1s          7O2s          7O3s          7O4s          7O5s          7O6s          7O7s          7O8s
+   66    7O9s          7O1pz         7O1py         7O1px         7O2pz         7O2py         7O2px         7O3pz         7O3py         7O3px
+   67    7O4pz         7O4py         7O4px         7O5pz         7O5py         7O5px         7O6pz         7O6py         7O6px         7O7pz
+   68    7O7py         7O7px         7O1d-2        7O1d-1        7O1d0         7O1d+1        7O1d+2        7O2d-2        7O2d-1        7O2d0
+   69    7O2d+1        7O2d+2        7O3d-2        7O3d-1        7O3d0         7O3d+1        7O3d+2        7O4d-2        7O4d-1        7O4d0
+   70    7O4d+1        7O4d+2        7O5d-2        7O5d-1        7O5d0         7O5d+1        7O5d+2        7O6d-2        7O6d-1        7O6d0
+   71    7O6d+1        7O6d+2        7O1f-3        7O1f-2        7O1f-1        7O1f0         7O1f+1        7O1f+2        7O1f+3        7O2f-3
+   72    7O2f-2        7O2f-1        7O2f0         7O2f+1        7O2f+2        7O2f+3        7O3f-3        7O3f-2        7O3f-1        7O3f0
+   73    7O3f+1        7O3f+2        7O3f+3        7O4f-3        7O4f-2        7O4f-1        7O4f0         7O4f+1        7O4f+2        7O4f+3
+   74    7O1g-4        7O1g-3        7O1g-2        7O1g-1        7O1g0         7O1g+1        7O1g+2        7O1g+3        7O1g+4        7O2g-4
+   75    7O2g-3        7O2g-2        7O2g-1        7O2g0         7O2g+1        7O2g+2        7O2g+3        7O2g+4        8O1s          8O2s
+   76    8O3s          8O4s          8O5s          8O6s          8O7s          8O8s          8O9s          8O1pz         8O1py         8O1px
+   77    8O2pz         8O2py         8O2px         8O3pz         8O3py         8O3px         8O4pz         8O4py         8O4px         8O5pz
+   78    8O5py         8O5px         8O6pz         8O6py         8O6px         8O7pz         8O7py         8O7px         8O1d-2        8O1d-1
+   79    8O1d0         8O1d+1        8O1d+2        8O2d-2        8O2d-1        8O2d0         8O2d+1        8O2d+2        8O3d-2        8O3d-1
+   80    8O3d0         8O3d+1        8O3d+2        8O4d-2        8O4d-1        8O4d0         8O4d+1        8O4d+2        8O5d-2        8O5d-1
+   81    8O5d0         8O5d+1        8O5d+2        8O6d-2        8O6d-1        8O6d0         8O6d+1        8O6d+2        8O1f-3        8O1f-2
+   82    8O1f-1        8O1f0         8O1f+1        8O1f+2        8O1f+3        8O2f-3        8O2f-2        8O2f-1        8O2f0         8O2f+1
+   83    8O2f+2        8O2f+3        8O3f-3        8O3f-2        8O3f-1        8O3f0         8O3f+1        8O3f+2        8O3f+3        8O4f-3
+   84    8O4f-2        8O4f-1        8O4f0         8O4f+1        8O4f+2        8O4f+3        8O1g-4        8O1g-3        8O1g-2        8O1g-1
+   85    8O1g0         8O1g+1        8O1g+2        8O1g+3        8O1g+4        8O2g-4        8O2g-3        8O2g-2        8O2g-1        8O2g0
+   86    8O2g+1        8O2g+2        8O2g+3        8O2g+4
+
  Maximum number of basis functions per shell:   35
  Total number of basis functions:    864
- 
- 
+
+
  Old basis set for SCF restart
- 
+
    1  C  aug-cc-pvdz [ 10s 5p 2d | 4s 3p 2d ]
    2  O  aug-cc-pvdz [ 10s 5p 2d | 4s 3p 2d ]
    3  Mg cc-pvdz [ 12s 8p 1d | 4s 3p 1d ]
@@ -644,48 +644,48 @@ ghost=serialno
    6  O  aug-cc-pvdz [ 10s 5p 2d | 4s 3p 2d ]
    7  O  aug-cc-pvdz [ 10s 5p 2d | 4s 3p 2d ]
    8  O  aug-cc-pvdz [ 10s 5p 2d | 4s 3p 2d ]
- 
+
  Basis functions:
             1             2             3             4             5             6             7             8             9            10
-    0    1C1s          1C2s          1C3s          1C4s          1C1pz         1C1py         1C1px         1C2pz         1C2py         1C2px     
-    1    1C3pz         1C3py         1C3px         1C1d-2        1C1d-1        1C1d0         1C1d+1        1C1d+2        1C2d-2        1C2d-1    
-    2    1C2d0         1C2d+1        1C2d+2        2O1s          2O2s          2O3s          2O4s          2O1pz         2O1py         2O1px     
-    3    2O2pz         2O2py         2O2px         2O3pz         2O3py         2O3px         2O1d-2        2O1d-1        2O1d0         2O1d+1    
-    4    2O1d+2        2O2d-2        2O2d-1        2O2d0         2O2d+1        2O2d+2        3Mg1s         3Mg2s         3Mg3s         3Mg4s     
-    5    3Mg1pz        3Mg1py        3Mg1px        3Mg2pz        3Mg2py        3Mg2px        3Mg3pz        3Mg3py        3Mg3px        3Mg1d-2   
-    6    3Mg1d-1       3Mg1d0        3Mg1d+1       3Mg1d+2       4O1s          4O2s          4O3s          4O4s          4O1pz         4O1py     
-    7    4O1px         4O2pz         4O2py         4O2px         4O3pz         4O3py         4O3px         4O1d-2        4O1d-1        4O1d0     
-    8    4O1d+1        4O1d+2        4O2d-2        4O2d-1        4O2d0         4O2d+1        4O2d+2        5O1s          5O2s          5O3s      
-    9    5O4s          5O1pz         5O1py         5O1px         5O2pz         5O2py         5O2px         5O3pz         5O3py         5O3px     
-   10    5O1d-2        5O1d-1        5O1d0         5O1d+1        5O1d+2        5O2d-2        5O2d-1        5O2d0         5O2d+1        5O2d+2    
-   11    6O1s          6O2s          6O3s          6O4s          6O1pz         6O1py         6O1px         6O2pz         6O2py         6O2px     
-   12    6O3pz         6O3py         6O3px         6O1d-2        6O1d-1        6O1d0         6O1d+1        6O1d+2        6O2d-2        6O2d-1    
-   13    6O2d0         6O2d+1        6O2d+2        7O1s          7O2s          7O3s          7O4s          7O1pz         7O1py         7O1px     
-   14    7O2pz         7O2py         7O2px         7O3pz         7O3py         7O3px         7O1d-2        7O1d-1        7O1d0         7O1d+1    
-   15    7O1d+2        7O2d-2        7O2d-1        7O2d0         7O2d+1        7O2d+2        8O1s          8O2s          8O3s          8O4s      
-   16    8O1pz         8O1py         8O1px         8O2pz         8O2py         8O2px         8O3pz         8O3py         8O3px         8O1d-2    
-   17    8O1d-1        8O1d0         8O1d+1        8O1d+2        8O2d-2        8O2d-1        8O2d0         8O2d+1        8O2d+2    
- 
+    0    1C1s          1C2s          1C3s          1C4s          1C1pz         1C1py         1C1px         1C2pz         1C2py         1C2px
+    1    1C3pz         1C3py         1C3px         1C1d-2        1C1d-1        1C1d0         1C1d+1        1C1d+2        1C2d-2        1C2d-1
+    2    1C2d0         1C2d+1        1C2d+2        2O1s          2O2s          2O3s          2O4s          2O1pz         2O1py         2O1px
+    3    2O2pz         2O2py         2O2px         2O3pz         2O3py         2O3px         2O1d-2        2O1d-1        2O1d0         2O1d+1
+    4    2O1d+2        2O2d-2        2O2d-1        2O2d0         2O2d+1        2O2d+2        3Mg1s         3Mg2s         3Mg3s         3Mg4s
+    5    3Mg1pz        3Mg1py        3Mg1px        3Mg2pz        3Mg2py        3Mg2px        3Mg3pz        3Mg3py        3Mg3px        3Mg1d-2
+    6    3Mg1d-1       3Mg1d0        3Mg1d+1       3Mg1d+2       4O1s          4O2s          4O3s          4O4s          4O1pz         4O1py
+    7    4O1px         4O2pz         4O2py         4O2px         4O3pz         4O3py         4O3px         4O1d-2        4O1d-1        4O1d0
+    8    4O1d+1        4O1d+2        4O2d-2        4O2d-1        4O2d0         4O2d+1        4O2d+2        5O1s          5O2s          5O3s
+    9    5O4s          5O1pz         5O1py         5O1px         5O2pz         5O2py         5O2px         5O3pz         5O3py         5O3px
+   10    5O1d-2        5O1d-1        5O1d0         5O1d+1        5O1d+2        5O2d-2        5O2d-1        5O2d0         5O2d+1        5O2d+2
+   11    6O1s          6O2s          6O3s          6O4s          6O1pz         6O1py         6O1px         6O2pz         6O2py         6O2px
+   12    6O3pz         6O3py         6O3px         6O1d-2        6O1d-1        6O1d0         6O1d+1        6O1d+2        6O2d-2        6O2d-1
+   13    6O2d0         6O2d+1        6O2d+2        7O1s          7O2s          7O3s          7O4s          7O1pz         7O1py         7O1px
+   14    7O2pz         7O2py         7O2px         7O3pz         7O3py         7O3px         7O1d-2        7O1d-1        7O1d0         7O1d+1
+   15    7O1d+2        7O2d-2        7O2d-1        7O2d0         7O2d+1        7O2d+2        8O1s          8O2s          8O3s          8O4s
+   16    8O1pz         8O1py         8O1px         8O2pz         8O2py         8O2px         8O3pz         8O3py         8O3px         8O1d-2
+   17    8O1d-1        8O1d0         8O1d+1        8O1d+2        8O2d-2        8O2d-1        8O2d0         8O2d+1        8O2d+2
+
  Maximum number of basis functions per shell:   35
  Total number of basis functions:    179
- 
- 
+
+
  Character table for point group C1:
- 
-          E  
+
+          E
     A     1
- 
+
  Number of basis functions per irrep:
     A     356
- 
- 
+
+
  Calculation of overlap integrals...
  CPU time [min]:     0.028                   Wall time [min]:     0.009
- 
+
  Calculation of the square root of the overlap matrix...
  Minimum eigenvalue of the overlap matrix: 0.118673E-03
  CPU time [min]:     0.036                   Wall time [min]:     0.011
- 
+
  Calculation of kinetic energy integrals...
  CPU time [min]:     0.036                   Wall time [min]:     0.011
  Calculation of dipole moment integrals...
@@ -694,10 +694,10 @@ ghost=serialno
  CPU time [min]:     0.037                   Wall time [min]:     0.011
  Calculation of overlap integrals...
  CPU time [min]:     0.038                   Wall time [min]:     0.011
- 
+
  Calculation of prescreening integrals...
  CPU time [min]:     0.170                   Wall time [min]:     0.027
- 
+
  Calculation of two-center Coulomb integrals...
    1% done.
   12% done.
@@ -709,11 +709,11 @@ ghost=serialno
   87% done.
  100% done.
  CPU time [min]:     0.172                   Wall time [min]:     0.028
- 
+
  Cholesky decomposition of the two-center matrix...
  Reciprocal of the condition number:  0.536328E-05
  CPU time [min]:     0.175                   Wall time [min]:     0.028
- 
+
 
  ************************ 2024-11-25 16:09:25 *************************
  Executing scf...
@@ -735,7 +735,7 @@ ghost=serialno
  @scfsetup: diis runs from iteration:   2
  @scfsetup: diis runs to iteration:1000
  @scfsetup: diis runs in every iteration
- @scfsetup: diiswatch is disabled                   
+ @scfsetup: diiswatch is disabled
  @scfsetup: diis dtol criteria to switch on:      0.0000E+00
            (or the iteration number below is reached)
  @scfsetup: static damping scheme
@@ -748,7 +748,7 @@ ghost=serialno
  ======================================================================
  ITERATION STEP   1
  CPU time [min]:     0.012                   Wall time [min]:     0.008
- 
+
 
  SCF control                  : initial
  Damping factor/level shift   : 0.000/0.200
@@ -756,7 +756,7 @@ ghost=serialno
 
  Constructing Fock-matrix...
  Inverse square root: The matrix is not positive definite!
- 
+
  Pipek-Mezey localization...
  Step  Convergence
    1   1.172436403234
@@ -764,11 +764,11 @@ ghost=serialno
    3   0.002736264429
    4   0.000000905821
  CPU time [min]:     0.016                   Wall time [min]:     0.009
- 
+
  Constructing local fitting domains...
  Maximum number of atoms in fitting domains:    8
  Average number of atoms in fitting domains:    7.9
- 
+
  First step of Coulomb + first step of exchange...
  Exchange contribution is evaluated for MOs 1 to 7.
    1% done.
@@ -782,7 +782,7 @@ ghost=serialno
  100% done.
  Fitting and assembly step of exchange...
  CPU time [min]:     0.058                   Wall time [min]:     0.015
- 
+
  Second step of Coulomb...
    1% done.
   13% done.
@@ -794,26 +794,26 @@ ghost=serialno
   92% done.
  100% done.
  CPU time [min]:     0.074                   Wall time [min]:     0.017
- 
+
  Gradient norm:      2.2473E-01
  RMS of [F,P]:                                         0.00133602914124
  RMS of difference density:                            0.00239545107585
  Gap [au]:  0.59364560
  ALPHA OCC:   7
  BETA  OCC:   7
- 
+
  ***HARTREE-FOCK ENERGY IN STEP   1 IS       -112.7690138455575806 [AU]
  ======================================================================
  ITERATION STEP   2
  CPU time [min]:     0.081                   Wall time [min]:     0.018
- 
+
 
  SCF control                  : diis
  Damping factor/level shift   : 0.000/0.000
  DIIS [start/end/frequency]   :   2 /*** /  1
 
  Constructing Fock-matrix...
- 
+
  Pipek-Mezey localization...
  Step  Convergence
    1   0.061945207904
@@ -821,11 +821,11 @@ ghost=serialno
    3   0.000186840500
    4   0.000000746014
  CPU time [min]:     0.085                   Wall time [min]:     0.019
- 
+
  Constructing local fitting domains...
  Maximum number of atoms in fitting domains:    8
  Average number of atoms in fitting domains:    7.9
- 
+
  First step of Coulomb + first step of exchange...
  Exchange contribution is evaluated for MOs 1 to 7.
    1% done.
@@ -839,7 +839,7 @@ ghost=serialno
  100% done.
  Fitting and assembly step of exchange...
  CPU time [min]:     0.126                   Wall time [min]:     0.024
- 
+
  Second step of Coulomb...
    1% done.
   13% done.
@@ -851,7 +851,7 @@ ghost=serialno
   92% done.
  100% done.
  CPU time [min]:     0.142                   Wall time [min]:     0.026
- 
+
  Gradient norm:      1.6416E-02
  DIIS is running in this iteration step.
  RMS of [F,P]:                                         0.00009810703990
@@ -859,23 +859,23 @@ ghost=serialno
  Gap [au]:  0.59132391
  ALPHA OCC:   7
  BETA  OCC:   7
- 
+
  ***HARTREE-FOCK ENERGY IN STEP   2 IS       -112.7785441338013896 [AU]
- 
+
  Step comparison  Energy Drift [au]  DIIS error drift  Gradient drift
         1            9.5303E-03         1.2379E-03       2.0831E-01
         2            1.1278E+02         1.0000E-07       2.0831E-01
  ======================================================================
  ITERATION STEP   3
  CPU time [min]:     0.148                   Wall time [min]:     0.027
- 
+
 
  SCF control                  : diis
  Damping factor/level shift   : 0.000/0.000
  DIIS [start/end/frequency]   :   2 /*** /  1
 
  Constructing Fock-matrix...
- 
+
  Pipek-Mezey localization...
  Step  Convergence
    1   0.574117721949
@@ -886,10 +886,10 @@ ghost=serialno
    6   0.000000000003
    7   0.000000000000
  CPU time [min]:     0.153                   Wall time [min]:     0.027
- 
+
  Constructing local fitting domains...
  Local fitting domains are unchanged.
- 
+
  First step of Coulomb + first step of exchange...
  Exchange contribution is evaluated for MOs 1 to 7.
    1% done.
@@ -903,7 +903,7 @@ ghost=serialno
  100% done.
  Fitting and assembly step of exchange...
  CPU time [min]:     0.193                   Wall time [min]:     0.032
- 
+
  Second step of Coulomb...
    1% done.
   13% done.
@@ -915,7 +915,7 @@ ghost=serialno
   92% done.
  100% done.
  CPU time [min]:     0.209                   Wall time [min]:     0.034
- 
+
  Gradient norm:      2.1975E-03
  DIIS is running in this iteration step.
  RMS of [F,P]:                                         0.00002148161493
@@ -923,22 +923,22 @@ ghost=serialno
  Gap [au]:  0.59217424
  ALPHA OCC:   7
  BETA  OCC:   7
- 
+
  ***HARTREE-FOCK ENERGY IN STEP   3 IS       -112.7786194345540309 [AU]
- 
+
  Step comparison  Energy Drift [au]  DIIS error drift  Gradient drift
         2            7.5301E-05         7.6625E-05       1.4218E-02
  ======================================================================
  ITERATION STEP   4
  CPU time [min]:     0.215                   Wall time [min]:     0.035
- 
+
 
  SCF control                  : diis
  Damping factor/level shift   : 0.000/0.000
  DIIS [start/end/frequency]   :   2 /*** /  1
 
  Constructing Fock-matrix...
- 
+
  Pipek-Mezey localization...
  Step  Convergence
    1   0.573777272899
@@ -949,10 +949,10 @@ ghost=serialno
    6   0.000000000001
    7   0.000000000000
  CPU time [min]:     0.220                   Wall time [min]:     0.036
- 
+
  Constructing local fitting domains...
  Local fitting domains are unchanged.
- 
+
  First step of Coulomb + first step of exchange...
  Exchange contribution is evaluated for MOs 1 to 7.
    1% done.
@@ -966,7 +966,7 @@ ghost=serialno
  100% done.
  Fitting and assembly step of exchange...
  CPU time [min]:     0.260                   Wall time [min]:     0.041
- 
+
  Second step of Coulomb...
    1% done.
   13% done.
@@ -978,7 +978,7 @@ ghost=serialno
   92% done.
  100% done.
  CPU time [min]:     0.276                   Wall time [min]:     0.043
- 
+
  Gradient norm:      1.3076E-03
  DIIS is running in this iteration step.
  RMS of [F,P]:                                         0.00001449850049
@@ -986,22 +986,22 @@ ghost=serialno
  Gap [au]:  0.59232978
  ALPHA OCC:   7
  BETA  OCC:   7
- 
+
  ***HARTREE-FOCK ENERGY IN STEP   4 IS       -112.7786221924658889 [AU]
- 
+
  Step comparison  Energy Drift [au]  DIIS error drift  Gradient drift
         3            2.7579E-06         6.9831E-06       8.8989E-04
  ======================================================================
  ITERATION STEP   5
  CPU time [min]:     0.283                   Wall time [min]:     0.043
- 
+
 
  SCF control                  : diis
  Damping factor/level shift   : 0.000/0.000
  DIIS [start/end/frequency]   :   2 /*** /  1
 
  Constructing Fock-matrix...
- 
+
  Pipek-Mezey localization...
  Step  Convergence
    1   0.595481149261
@@ -1012,10 +1012,10 @@ ghost=serialno
    6   0.000000000003
    7   0.000000000000
  CPU time [min]:     0.287                   Wall time [min]:     0.044
- 
+
  Constructing local fitting domains...
  Local fitting domains are unchanged.
- 
+
  First step of Coulomb + first step of exchange...
  Exchange contribution is evaluated for MOs 1 to 7.
    1% done.
@@ -1029,7 +1029,7 @@ ghost=serialno
  100% done.
  Fitting and assembly step of exchange...
  CPU time [min]:     0.327                   Wall time [min]:     0.049
- 
+
  Second step of Coulomb...
    1% done.
   13% done.
@@ -1041,7 +1041,7 @@ ghost=serialno
   92% done.
  100% done.
  CPU time [min]:     0.343                   Wall time [min]:     0.051
- 
+
  Gradient norm:      2.3646E-04
  DIIS is running in this iteration step.
  RMS of [F,P]:                                         0.00000167459587
@@ -1049,22 +1049,22 @@ ghost=serialno
  Gap [au]:  0.59220133
  ALPHA OCC:   7
  BETA  OCC:   7
- 
+
  ***HARTREE-FOCK ENERGY IN STEP   5 IS       -112.7786242295759251 [AU]
- 
+
  Step comparison  Energy Drift [au]  DIIS error drift  Gradient drift
         4            2.0371E-06         1.2824E-05       1.0711E-03
  ======================================================================
  ITERATION STEP   6
  CPU time [min]:     0.349                   Wall time [min]:     0.052
- 
+
 
  SCF control                  : diis
  Damping factor/level shift   : 0.000/0.000
  DIIS [start/end/frequency]   :   2 /*** /  1
 
  Constructing Fock-matrix...
- 
+
  Pipek-Mezey localization...
  Step  Convergence
    1   0.573754605650
@@ -1075,10 +1075,10 @@ ghost=serialno
    6   0.000000000002
    7   0.000000000000
  CPU time [min]:     0.353                   Wall time [min]:     0.052
- 
+
  Constructing local fitting domains...
  Local fitting domains are unchanged.
- 
+
  First step of Coulomb + first step of exchange...
  Exchange contribution is evaluated for MOs 1 to 7.
    1% done.
@@ -1092,7 +1092,7 @@ ghost=serialno
  100% done.
  Fitting and assembly step of exchange...
  CPU time [min]:     0.394                   Wall time [min]:     0.057
- 
+
  Second step of Coulomb...
    1% done.
   13% done.
@@ -1104,7 +1104,7 @@ ghost=serialno
   92% done.
  100% done.
  CPU time [min]:     0.410                   Wall time [min]:     0.059
- 
+
  Gradient norm:      6.6290E-05
  DIIS is running in this iteration step.
  RMS of [F,P]:                                         0.00000044364767
@@ -1112,22 +1112,22 @@ ghost=serialno
  Gap [au]:  0.59221794
  ALPHA OCC:   7
  BETA  OCC:   7
- 
+
  ***HARTREE-FOCK ENERGY IN STEP   6 IS       -112.7786242752668500 [AU]
- 
+
  Step comparison  Energy Drift [au]  DIIS error drift  Gradient drift
         5            4.5691E-08         1.2309E-06       1.7017E-04
  ======================================================================
  ITERATION STEP   7
  CPU time [min]:     0.416                   Wall time [min]:     0.060
- 
+
 
  SCF control                  : diis
  Damping factor/level shift   : 0.000/0.000
  DIIS [start/end/frequency]   :   2 /*** /  1
 
  Constructing Fock-matrix...
- 
+
  Pipek-Mezey localization...
  Step  Convergence
    1   0.592742964074
@@ -1138,10 +1138,10 @@ ghost=serialno
    6   0.000000000003
    7   0.000000000000
  CPU time [min]:     0.421                   Wall time [min]:     0.061
- 
+
  Constructing local fitting domains...
  Local fitting domains are unchanged.
- 
+
  First step of Coulomb + first step of exchange...
  Exchange contribution is evaluated for MOs 1 to 7.
    1% done.
@@ -1155,7 +1155,7 @@ ghost=serialno
  100% done.
  Fitting and assembly step of exchange...
  CPU time [min]:     0.461                   Wall time [min]:     0.066
- 
+
  Second step of Coulomb...
    1% done.
   13% done.
@@ -1167,7 +1167,7 @@ ghost=serialno
   92% done.
  100% done.
  CPU time [min]:     0.477                   Wall time [min]:     0.068
- 
+
  Gradient norm:      1.1403E-05
  DIIS is running in this iteration step.
  RMS of [F,P]:                                         0.00000008472663
@@ -1175,22 +1175,22 @@ ghost=serialno
  Gap [au]:  0.59221798
  ALPHA OCC:   7
  BETA  OCC:   7
- 
+
  ***HARTREE-FOCK ENERGY IN STEP   7 IS       -112.7786242792981000 [AU]
- 
+
  Step comparison  Energy Drift [au]  DIIS error drift  Gradient drift
         6            4.0313E-09         3.5892E-07       5.4887E-05
  ======================================================================
  ITERATION STEP   8
  CPU time [min]:     0.483                   Wall time [min]:     0.069
- 
+
 
  SCF control                  : diis
  Damping factor/level shift   : 0.000/0.000
  DIIS [start/end/frequency]   :   2 /*** /  1
 
  Constructing Fock-matrix...
- 
+
  Pipek-Mezey localization...
  Step  Convergence
    1   0.559215512635
@@ -1201,10 +1201,10 @@ ghost=serialno
    6   0.000000000003
    7   0.000000000000
  CPU time [min]:     0.487                   Wall time [min]:     0.069
- 
+
  Constructing local fitting domains...
  Local fitting domains are unchanged.
- 
+
  First step of Coulomb + first step of exchange...
  Exchange contribution is evaluated for MOs 1 to 7.
    1% done.
@@ -1218,7 +1218,7 @@ ghost=serialno
  100% done.
  Fitting and assembly step of exchange...
  CPU time [min]:     0.527                   Wall time [min]:     0.074
- 
+
  Second step of Coulomb...
    1% done.
   13% done.
@@ -1230,7 +1230,7 @@ ghost=serialno
   92% done.
  100% done.
  CPU time [min]:     0.543                   Wall time [min]:     0.076
- 
+
  Gradient norm:      2.4316E-06
  DIIS is running in this iteration step.
  RMS of [F,P]:                                         0.00000001447063
@@ -1238,26 +1238,26 @@ ghost=serialno
  Gap [au]:  0.59221837
  ALPHA OCC:   7
  BETA  OCC:   7
- 
+
  ***HARTREE-FOCK ENERGY IN STEP   8 IS       -112.7786242794905718 [AU]
- 
+
  Step comparison  Energy Drift [au]  DIIS error drift  Gradient drift
         7            1.9247E-10         7.0256E-08       8.9712E-06
- 
+
  The SCF iteration has converged.
  An extra iteration will be performed to calculate accurate SCF energy.
- 
+
  ======================================================================
  ITERATION STEP   9
  CPU time [min]:     0.550                   Wall time [min]:     0.077
- 
+
 
  SCF control                  : diis
  Damping factor/level shift   : 0.000/0.000
  DIIS [start/end/frequency]   :   2 /*** /  1
 
  Constructing Fock-matrix...
- 
+
  Pipek-Mezey localization...
  Step  Convergence
    1   0.584897750532
@@ -1268,11 +1268,11 @@ ghost=serialno
    6   0.000000000002
    7   0.000000000000
  CPU time [min]:     0.554                   Wall time [min]:     0.078
- 
+
  Constructing local fitting domains...
  Maximum number of atoms in fitting domains:    8
  Average number of atoms in fitting domains:    8.0
- 
+
  First step of Coulomb + first step of exchange...
  Exchange contribution is evaluated for MOs 1 to 7.
    1% done.
@@ -1286,7 +1286,7 @@ ghost=serialno
  100% done.
  Fitting and assembly step of exchange...
  CPU time [min]:     0.595                   Wall time [min]:     0.083
- 
+
  Second step of Coulomb...
    1% done.
   13% done.
@@ -1298,29 +1298,29 @@ ghost=serialno
   92% done.
  100% done.
  CPU time [min]:     0.611                   Wall time [min]:     0.085
- 
+
  Gradient norm:      1.6475E-07
  RMS of [F,P]:                                         0.00000000144756
  RMS of difference density:                            0.00000000250411
  Gap [au]:  0.59221828
  ALPHA OCC:   7
  BETA  OCC:   7
- 
+
  ***HARTREE-FOCK ENERGY IN STEP   9 IS       -112.7786242799602974 [AU]
- 
+
  Step comparison  Energy Drift [au]  DIIS error drift  Gradient drift
         8            4.6973E-10         1.3023E-08       2.2669E-06
  ======================================================================
- 
+
  SUCCESS...
  THE SCF ITERATION HAS CONVERGED!
- 
-                   A   
+
+                   A
  FINAL ALPHA OCC:   7
  FINAL BETA  OCC:   7
- 
+
  ***FINAL HARTREE-FOCK ENERGY:       -112.7786242799602974 [AU]
- 
+
  Orbital energies [au]:
       Irrep         Alpha          Beta
     1   A        -20.668580     -20.668580
@@ -1330,7 +1330,7 @@ ghost=serialno
     5   A         -0.632366      -0.632366
     6   A         -0.632366      -0.632366
     7   A         -0.556901      -0.556901
- 
+
     8   A          0.035317       0.035317
     9   A          0.053150       0.053150
    10   A          0.053150       0.053150
@@ -1680,7 +1680,7 @@ ghost=serialno
   354   A         57.683620      57.683620
   355   A         58.465861      58.465861
   356   A         77.271291      77.271291
- 
+
  RETURNING FROM SCF ALGORITHM
  ======================================================================
 
@@ -1692,7 +1692,7 @@ ghost=serialno
  Localization of occupied orbitals...
  Localization type: Boys
  Localization algorithm: Jacobi
- 
+
  Step   Convergence
    1   1.585169912135
    2   1.154558044476
@@ -1709,25 +1709,25 @@ ghost=serialno
  Localization succeeded.
 
  File MOCOEF is overwritten with localized orbitals.
- 
+
  CPU time [min]:     0.036                   Wall time [min]:     0.013
 
  ************************ 2024-11-25 16:09:33 *************************
  Executing integ...
 
  Allocation of 195.3 Gbytes of memory...
- 
- 
+
+
  Basis set information:
- 
+
  Maximum angular momentum: g
  Maximum number of contracted Gaussians:   13
  Maximum number of primitive Gaussians:    16
  Spherical harmonic GTOs are used.
- 
- 
+
+
  Conventional basis set:
- 
+
    1  C  aug-cc-pvtz [ 11s 6p 3d 2f | 5s 4p 3d 2f ]
    2  O  aug-cc-pvtz [ 11s 6p 3d 2f | 5s 4p 3d 2f ]
    3  Mg cc-pvtz [ 15s 10p 2d 1f | 5s 4p 2d 1f ]
@@ -1736,52 +1736,52 @@ ghost=serialno
    6  O  aug-cc-pvtz [ 11s 6p 3d 2f | 5s 4p 3d 2f ]
    7  O  aug-cc-pvtz [ 11s 6p 3d 2f | 5s 4p 3d 2f ]
    8  O  aug-cc-pvtz [ 11s 6p 3d 2f | 5s 4p 3d 2f ]
- 
+
  Basis functions:
             1             2             3             4             5             6             7             8             9            10
-    0    1C1s          1C2s          1C3s          1C4s          1C5s          1C1pz         1C1py         1C1px         1C2pz         1C2py     
-    1    1C2px         1C3pz         1C3py         1C3px         1C4pz         1C4py         1C4px         1C1d-2        1C1d-1        1C1d0     
-    2    1C1d+1        1C1d+2        1C2d-2        1C2d-1        1C2d0         1C2d+1        1C2d+2        1C3d-2        1C3d-1        1C3d0     
-    3    1C3d+1        1C3d+2        1C1f-3        1C1f-2        1C1f-1        1C1f0         1C1f+1        1C1f+2        1C1f+3        1C2f-3    
-    4    1C2f-2        1C2f-1        1C2f0         1C2f+1        1C2f+2        1C2f+3        2O1s          2O2s          2O3s          2O4s      
-    5    2O5s          2O1pz         2O1py         2O1px         2O2pz         2O2py         2O2px         2O3pz         2O3py         2O3px     
-    6    2O4pz         2O4py         2O4px         2O1d-2        2O1d-1        2O1d0         2O1d+1        2O1d+2        2O2d-2        2O2d-1    
-    7    2O2d0         2O2d+1        2O2d+2        2O3d-2        2O3d-1        2O3d0         2O3d+1        2O3d+2        2O1f-3        2O1f-2    
-    8    2O1f-1        2O1f0         2O1f+1        2O1f+2        2O1f+3        2O2f-3        2O2f-2        2O2f-1        2O2f0         2O2f+1    
-    9    2O2f+2        2O2f+3        3Mg1s         3Mg2s         3Mg3s         3Mg4s         3Mg5s         3Mg1pz        3Mg1py        3Mg1px    
-   10    3Mg2pz        3Mg2py        3Mg2px        3Mg3pz        3Mg3py        3Mg3px        3Mg4pz        3Mg4py        3Mg4px        3Mg1d-2   
-   11    3Mg1d-1       3Mg1d0        3Mg1d+1       3Mg1d+2       3Mg2d-2       3Mg2d-1       3Mg2d0        3Mg2d+1       3Mg2d+2       3Mg1f-3   
-   12    3Mg1f-2       3Mg1f-1       3Mg1f0        3Mg1f+1       3Mg1f+2       3Mg1f+3       4O1s          4O2s          4O3s          4O4s      
-   13    4O5s          4O1pz         4O1py         4O1px         4O2pz         4O2py         4O2px         4O3pz         4O3py         4O3px     
-   14    4O4pz         4O4py         4O4px         4O1d-2        4O1d-1        4O1d0         4O1d+1        4O1d+2        4O2d-2        4O2d-1    
-   15    4O2d0         4O2d+1        4O2d+2        4O3d-2        4O3d-1        4O3d0         4O3d+1        4O3d+2        4O1f-3        4O1f-2    
-   16    4O1f-1        4O1f0         4O1f+1        4O1f+2        4O1f+3        4O2f-3        4O2f-2        4O2f-1        4O2f0         4O2f+1    
-   17    4O2f+2        4O2f+3        5O1s          5O2s          5O3s          5O4s          5O5s          5O1pz         5O1py         5O1px     
-   18    5O2pz         5O2py         5O2px         5O3pz         5O3py         5O3px         5O4pz         5O4py         5O4px         5O1d-2    
-   19    5O1d-1        5O1d0         5O1d+1        5O1d+2        5O2d-2        5O2d-1        5O2d0         5O2d+1        5O2d+2        5O3d-2    
-   20    5O3d-1        5O3d0         5O3d+1        5O3d+2        5O1f-3        5O1f-2        5O1f-1        5O1f0         5O1f+1        5O1f+2    
-   21    5O1f+3        5O2f-3        5O2f-2        5O2f-1        5O2f0         5O2f+1        5O2f+2        5O2f+3        6O1s          6O2s      
-   22    6O3s          6O4s          6O5s          6O1pz         6O1py         6O1px         6O2pz         6O2py         6O2px         6O3pz     
-   23    6O3py         6O3px         6O4pz         6O4py         6O4px         6O1d-2        6O1d-1        6O1d0         6O1d+1        6O1d+2    
-   24    6O2d-2        6O2d-1        6O2d0         6O2d+1        6O2d+2        6O3d-2        6O3d-1        6O3d0         6O3d+1        6O3d+2    
-   25    6O1f-3        6O1f-2        6O1f-1        6O1f0         6O1f+1        6O1f+2        6O1f+3        6O2f-3        6O2f-2        6O2f-1    
-   26    6O2f0         6O2f+1        6O2f+2        6O2f+3        7O1s          7O2s          7O3s          7O4s          7O5s          7O1pz     
-   27    7O1py         7O1px         7O2pz         7O2py         7O2px         7O3pz         7O3py         7O3px         7O4pz         7O4py     
-   28    7O4px         7O1d-2        7O1d-1        7O1d0         7O1d+1        7O1d+2        7O2d-2        7O2d-1        7O2d0         7O2d+1    
-   29    7O2d+2        7O3d-2        7O3d-1        7O3d0         7O3d+1        7O3d+2        7O1f-3        7O1f-2        7O1f-1        7O1f0     
-   30    7O1f+1        7O1f+2        7O1f+3        7O2f-3        7O2f-2        7O2f-1        7O2f0         7O2f+1        7O2f+2        7O2f+3    
-   31    8O1s          8O2s          8O3s          8O4s          8O5s          8O1pz         8O1py         8O1px         8O2pz         8O2py     
-   32    8O2px         8O3pz         8O3py         8O3px         8O4pz         8O4py         8O4px         8O1d-2        8O1d-1        8O1d0     
-   33    8O1d+1        8O1d+2        8O2d-2        8O2d-1        8O2d0         8O2d+1        8O2d+2        8O3d-2        8O3d-1        8O3d0     
-   34    8O3d+1        8O3d+2        8O1f-3        8O1f-2        8O1f-1        8O1f0         8O1f+1        8O1f+2        8O1f+3        8O2f-3    
-   35    8O2f-2        8O2f-1        8O2f0         8O2f+1        8O2f+2        8O2f+3    
- 
+    0    1C1s          1C2s          1C3s          1C4s          1C5s          1C1pz         1C1py         1C1px         1C2pz         1C2py
+    1    1C2px         1C3pz         1C3py         1C3px         1C4pz         1C4py         1C4px         1C1d-2        1C1d-1        1C1d0
+    2    1C1d+1        1C1d+2        1C2d-2        1C2d-1        1C2d0         1C2d+1        1C2d+2        1C3d-2        1C3d-1        1C3d0
+    3    1C3d+1        1C3d+2        1C1f-3        1C1f-2        1C1f-1        1C1f0         1C1f+1        1C1f+2        1C1f+3        1C2f-3
+    4    1C2f-2        1C2f-1        1C2f0         1C2f+1        1C2f+2        1C2f+3        2O1s          2O2s          2O3s          2O4s
+    5    2O5s          2O1pz         2O1py         2O1px         2O2pz         2O2py         2O2px         2O3pz         2O3py         2O3px
+    6    2O4pz         2O4py         2O4px         2O1d-2        2O1d-1        2O1d0         2O1d+1        2O1d+2        2O2d-2        2O2d-1
+    7    2O2d0         2O2d+1        2O2d+2        2O3d-2        2O3d-1        2O3d0         2O3d+1        2O3d+2        2O1f-3        2O1f-2
+    8    2O1f-1        2O1f0         2O1f+1        2O1f+2        2O1f+3        2O2f-3        2O2f-2        2O2f-1        2O2f0         2O2f+1
+    9    2O2f+2        2O2f+3        3Mg1s         3Mg2s         3Mg3s         3Mg4s         3Mg5s         3Mg1pz        3Mg1py        3Mg1px
+   10    3Mg2pz        3Mg2py        3Mg2px        3Mg3pz        3Mg3py        3Mg3px        3Mg4pz        3Mg4py        3Mg4px        3Mg1d-2
+   11    3Mg1d-1       3Mg1d0        3Mg1d+1       3Mg1d+2       3Mg2d-2       3Mg2d-1       3Mg2d0        3Mg2d+1       3Mg2d+2       3Mg1f-3
+   12    3Mg1f-2       3Mg1f-1       3Mg1f0        3Mg1f+1       3Mg1f+2       3Mg1f+3       4O1s          4O2s          4O3s          4O4s
+   13    4O5s          4O1pz         4O1py         4O1px         4O2pz         4O2py         4O2px         4O3pz         4O3py         4O3px
+   14    4O4pz         4O4py         4O4px         4O1d-2        4O1d-1        4O1d0         4O1d+1        4O1d+2        4O2d-2        4O2d-1
+   15    4O2d0         4O2d+1        4O2d+2        4O3d-2        4O3d-1        4O3d0         4O3d+1        4O3d+2        4O1f-3        4O1f-2
+   16    4O1f-1        4O1f0         4O1f+1        4O1f+2        4O1f+3        4O2f-3        4O2f-2        4O2f-1        4O2f0         4O2f+1
+   17    4O2f+2        4O2f+3        5O1s          5O2s          5O3s          5O4s          5O5s          5O1pz         5O1py         5O1px
+   18    5O2pz         5O2py         5O2px         5O3pz         5O3py         5O3px         5O4pz         5O4py         5O4px         5O1d-2
+   19    5O1d-1        5O1d0         5O1d+1        5O1d+2        5O2d-2        5O2d-1        5O2d0         5O2d+1        5O2d+2        5O3d-2
+   20    5O3d-1        5O3d0         5O3d+1        5O3d+2        5O1f-3        5O1f-2        5O1f-1        5O1f0         5O1f+1        5O1f+2
+   21    5O1f+3        5O2f-3        5O2f-2        5O2f-1        5O2f0         5O2f+1        5O2f+2        5O2f+3        6O1s          6O2s
+   22    6O3s          6O4s          6O5s          6O1pz         6O1py         6O1px         6O2pz         6O2py         6O2px         6O3pz
+   23    6O3py         6O3px         6O4pz         6O4py         6O4px         6O1d-2        6O1d-1        6O1d0         6O1d+1        6O1d+2
+   24    6O2d-2        6O2d-1        6O2d0         6O2d+1        6O2d+2        6O3d-2        6O3d-1        6O3d0         6O3d+1        6O3d+2
+   25    6O1f-3        6O1f-2        6O1f-1        6O1f0         6O1f+1        6O1f+2        6O1f+3        6O2f-3        6O2f-2        6O2f-1
+   26    6O2f0         6O2f+1        6O2f+2        6O2f+3        7O1s          7O2s          7O3s          7O4s          7O5s          7O1pz
+   27    7O1py         7O1px         7O2pz         7O2py         7O2px         7O3pz         7O3py         7O3px         7O4pz         7O4py
+   28    7O4px         7O1d-2        7O1d-1        7O1d0         7O1d+1        7O1d+2        7O2d-2        7O2d-1        7O2d0         7O2d+1
+   29    7O2d+2        7O3d-2        7O3d-1        7O3d0         7O3d+1        7O3d+2        7O1f-3        7O1f-2        7O1f-1        7O1f0
+   30    7O1f+1        7O1f+2        7O1f+3        7O2f-3        7O2f-2        7O2f-1        7O2f0         7O2f+1        7O2f+2        7O2f+3
+   31    8O1s          8O2s          8O3s          8O4s          8O5s          8O1pz         8O1py         8O1px         8O2pz         8O2py
+   32    8O2px         8O3pz         8O3py         8O3px         8O4pz         8O4py         8O4px         8O1d-2        8O1d-1        8O1d0
+   33    8O1d+1        8O1d+2        8O2d-2        8O2d-1        8O2d0         8O2d+1        8O2d+2        8O3d-2        8O3d-1        8O3d0
+   34    8O3d+1        8O3d+2        8O1f-3        8O1f-2        8O1f-1        8O1f0         8O1f+1        8O1f+2        8O1f+3        8O2f-3
+   35    8O2f-2        8O2f-1        8O2f0         8O2f+1        8O2f+2        8O2f+3
+
  Maximum number of basis functions per shell:   15
  Total number of basis functions:    356
- 
- 
+
+
  Fitting basis set for the SCF calculation:
- 
+
    1  C  def2-qzvpp-ri-jk [ 14s 10p 6d 2f 1g | 10s 8p 5d 1f 1g ]
    2  O  def2-qzvpp-ri-jk [ 14s 10p 6d 2f 1g | 10s 8p 4d 2f 1g ]
    3  Mg def2-qzvpp-ri-jk [ 16s 12p 9d 4f 1g | 13s 9p 7d 4f 1g ]
@@ -1790,81 +1790,81 @@ ghost=serialno
    6  O  def2-qzvpp-ri-jk [ 14s 10p 6d 2f 1g | 10s 8p 4d 2f 1g ]
    7  O  def2-qzvpp-ri-jk [ 14s 10p 6d 2f 1g | 10s 8p 4d 2f 1g ]
    8  O  def2-qzvpp-ri-jk [ 14s 10p 6d 2f 1g | 10s 8p 4d 2f 1g ]
- 
+
  Basis functions:
             1             2             3             4             5             6             7             8             9            10
-    0    1C1s          1C2s          1C3s          1C4s          1C5s          1C6s          1C7s          1C8s          1C9s          1C10s     
-    1    1C1pz         1C1py         1C1px         1C2pz         1C2py         1C2px         1C3pz         1C3py         1C3px         1C4pz     
-    2    1C4py         1C4px         1C5pz         1C5py         1C5px         1C6pz         1C6py         1C6px         1C7pz         1C7py     
-    3    1C7px         1C8pz         1C8py         1C8px         1C1d-2        1C1d-1        1C1d0         1C1d+1        1C1d+2        1C2d-2    
-    4    1C2d-1        1C2d0         1C2d+1        1C2d+2        1C3d-2        1C3d-1        1C3d0         1C3d+1        1C3d+2        1C4d-2    
-    5    1C4d-1        1C4d0         1C4d+1        1C4d+2        1C5d-2        1C5d-1        1C5d0         1C5d+1        1C5d+2        1C1f-3    
-    6    1C1f-2        1C1f-1        1C1f0         1C1f+1        1C1f+2        1C1f+3        1C1g-4        1C1g-3        1C1g-2        1C1g-1    
-    7    1C1g0         1C1g+1        1C1g+2        1C1g+3        1C1g+4        2O1s          2O2s          2O3s          2O4s          2O5s      
-    8    2O6s          2O7s          2O8s          2O9s          2O10s         2O1pz         2O1py         2O1px         2O2pz         2O2py     
-    9    2O2px         2O3pz         2O3py         2O3px         2O4pz         2O4py         2O4px         2O5pz         2O5py         2O5px     
-   10    2O6pz         2O6py         2O6px         2O7pz         2O7py         2O7px         2O8pz         2O8py         2O8px         2O1d-2    
-   11    2O1d-1        2O1d0         2O1d+1        2O1d+2        2O2d-2        2O2d-1        2O2d0         2O2d+1        2O2d+2        2O3d-2    
-   12    2O3d-1        2O3d0         2O3d+1        2O3d+2        2O4d-2        2O4d-1        2O4d0         2O4d+1        2O4d+2        2O1f-3    
-   13    2O1f-2        2O1f-1        2O1f0         2O1f+1        2O1f+2        2O1f+3        2O2f-3        2O2f-2        2O2f-1        2O2f0     
-   14    2O2f+1        2O2f+2        2O2f+3        2O1g-4        2O1g-3        2O1g-2        2O1g-1        2O1g0         2O1g+1        2O1g+2    
-   15    2O1g+3        2O1g+4        3Mg1s         3Mg2s         3Mg3s         3Mg4s         3Mg5s         3Mg6s         3Mg7s         3Mg8s     
-   16    3Mg9s         3Mg10s        3Mg11s        3Mg12s        3Mg13s        3Mg1pz        3Mg1py        3Mg1px        3Mg2pz        3Mg2py    
-   17    3Mg2px        3Mg3pz        3Mg3py        3Mg3px        3Mg4pz        3Mg4py        3Mg4px        3Mg5pz        3Mg5py        3Mg5px    
-   18    3Mg6pz        3Mg6py        3Mg6px        3Mg7pz        3Mg7py        3Mg7px        3Mg8pz        3Mg8py        3Mg8px        3Mg9pz    
-   19    3Mg9py        3Mg9px        3Mg1d-2       3Mg1d-1       3Mg1d0        3Mg1d+1       3Mg1d+2       3Mg2d-2       3Mg2d-1       3Mg2d0    
-   20    3Mg2d+1       3Mg2d+2       3Mg3d-2       3Mg3d-1       3Mg3d0        3Mg3d+1       3Mg3d+2       3Mg4d-2       3Mg4d-1       3Mg4d0    
-   21    3Mg4d+1       3Mg4d+2       3Mg5d-2       3Mg5d-1       3Mg5d0        3Mg5d+1       3Mg5d+2       3Mg6d-2       3Mg6d-1       3Mg6d0    
-   22    3Mg6d+1       3Mg6d+2       3Mg7d-2       3Mg7d-1       3Mg7d0        3Mg7d+1       3Mg7d+2       3Mg1f-3       3Mg1f-2       3Mg1f-1   
-   23    3Mg1f0        3Mg1f+1       3Mg1f+2       3Mg1f+3       3Mg2f-3       3Mg2f-2       3Mg2f-1       3Mg2f0        3Mg2f+1       3Mg2f+2   
-   24    3Mg2f+3       3Mg3f-3       3Mg3f-2       3Mg3f-1       3Mg3f0        3Mg3f+1       3Mg3f+2       3Mg3f+3       3Mg4f-3       3Mg4f-2   
-   25    3Mg4f-1       3Mg4f0        3Mg4f+1       3Mg4f+2       3Mg4f+3       3Mg1g-4       3Mg1g-3       3Mg1g-2       3Mg1g-1       3Mg1g0    
-   26    3Mg1g+1       3Mg1g+2       3Mg1g+3       3Mg1g+4       4O1s          4O2s          4O3s          4O4s          4O5s          4O6s      
-   27    4O7s          4O8s          4O9s          4O10s         4O1pz         4O1py         4O1px         4O2pz         4O2py         4O2px     
-   28    4O3pz         4O3py         4O3px         4O4pz         4O4py         4O4px         4O5pz         4O5py         4O5px         4O6pz     
-   29    4O6py         4O6px         4O7pz         4O7py         4O7px         4O8pz         4O8py         4O8px         4O1d-2        4O1d-1    
-   30    4O1d0         4O1d+1        4O1d+2        4O2d-2        4O2d-1        4O2d0         4O2d+1        4O2d+2        4O3d-2        4O3d-1    
-   31    4O3d0         4O3d+1        4O3d+2        4O4d-2        4O4d-1        4O4d0         4O4d+1        4O4d+2        4O1f-3        4O1f-2    
-   32    4O1f-1        4O1f0         4O1f+1        4O1f+2        4O1f+3        4O2f-3        4O2f-2        4O2f-1        4O2f0         4O2f+1    
-   33    4O2f+2        4O2f+3        4O1g-4        4O1g-3        4O1g-2        4O1g-1        4O1g0         4O1g+1        4O1g+2        4O1g+3    
-   34    4O1g+4        5O1s          5O2s          5O3s          5O4s          5O5s          5O6s          5O7s          5O8s          5O9s      
-   35    5O10s         5O1pz         5O1py         5O1px         5O2pz         5O2py         5O2px         5O3pz         5O3py         5O3px     
-   36    5O4pz         5O4py         5O4px         5O5pz         5O5py         5O5px         5O6pz         5O6py         5O6px         5O7pz     
-   37    5O7py         5O7px         5O8pz         5O8py         5O8px         5O1d-2        5O1d-1        5O1d0         5O1d+1        5O1d+2    
-   38    5O2d-2        5O2d-1        5O2d0         5O2d+1        5O2d+2        5O3d-2        5O3d-1        5O3d0         5O3d+1        5O3d+2    
-   39    5O4d-2        5O4d-1        5O4d0         5O4d+1        5O4d+2        5O1f-3        5O1f-2        5O1f-1        5O1f0         5O1f+1    
-   40    5O1f+2        5O1f+3        5O2f-3        5O2f-2        5O2f-1        5O2f0         5O2f+1        5O2f+2        5O2f+3        5O1g-4    
-   41    5O1g-3        5O1g-2        5O1g-1        5O1g0         5O1g+1        5O1g+2        5O1g+3        5O1g+4        6O1s          6O2s      
-   42    6O3s          6O4s          6O5s          6O6s          6O7s          6O8s          6O9s          6O10s         6O1pz         6O1py     
-   43    6O1px         6O2pz         6O2py         6O2px         6O3pz         6O3py         6O3px         6O4pz         6O4py         6O4px     
-   44    6O5pz         6O5py         6O5px         6O6pz         6O6py         6O6px         6O7pz         6O7py         6O7px         6O8pz     
-   45    6O8py         6O8px         6O1d-2        6O1d-1        6O1d0         6O1d+1        6O1d+2        6O2d-2        6O2d-1        6O2d0     
-   46    6O2d+1        6O2d+2        6O3d-2        6O3d-1        6O3d0         6O3d+1        6O3d+2        6O4d-2        6O4d-1        6O4d0     
-   47    6O4d+1        6O4d+2        6O1f-3        6O1f-2        6O1f-1        6O1f0         6O1f+1        6O1f+2        6O1f+3        6O2f-3    
-   48    6O2f-2        6O2f-1        6O2f0         6O2f+1        6O2f+2        6O2f+3        6O1g-4        6O1g-3        6O1g-2        6O1g-1    
-   49    6O1g0         6O1g+1        6O1g+2        6O1g+3        6O1g+4        7O1s          7O2s          7O3s          7O4s          7O5s      
-   50    7O6s          7O7s          7O8s          7O9s          7O10s         7O1pz         7O1py         7O1px         7O2pz         7O2py     
-   51    7O2px         7O3pz         7O3py         7O3px         7O4pz         7O4py         7O4px         7O5pz         7O5py         7O5px     
-   52    7O6pz         7O6py         7O6px         7O7pz         7O7py         7O7px         7O8pz         7O8py         7O8px         7O1d-2    
-   53    7O1d-1        7O1d0         7O1d+1        7O1d+2        7O2d-2        7O2d-1        7O2d0         7O2d+1        7O2d+2        7O3d-2    
-   54    7O3d-1        7O3d0         7O3d+1        7O3d+2        7O4d-2        7O4d-1        7O4d0         7O4d+1        7O4d+2        7O1f-3    
-   55    7O1f-2        7O1f-1        7O1f0         7O1f+1        7O1f+2        7O1f+3        7O2f-3        7O2f-2        7O2f-1        7O2f0     
-   56    7O2f+1        7O2f+2        7O2f+3        7O1g-4        7O1g-3        7O1g-2        7O1g-1        7O1g0         7O1g+1        7O1g+2    
-   57    7O1g+3        7O1g+4        8O1s          8O2s          8O3s          8O4s          8O5s          8O6s          8O7s          8O8s      
-   58    8O9s          8O10s         8O1pz         8O1py         8O1px         8O2pz         8O2py         8O2px         8O3pz         8O3py     
-   59    8O3px         8O4pz         8O4py         8O4px         8O5pz         8O5py         8O5px         8O6pz         8O6py         8O6px     
-   60    8O7pz         8O7py         8O7px         8O8pz         8O8py         8O8px         8O1d-2        8O1d-1        8O1d0         8O1d+1    
-   61    8O1d+2        8O2d-2        8O2d-1        8O2d0         8O2d+1        8O2d+2        8O3d-2        8O3d-1        8O3d0         8O3d+1    
-   62    8O3d+2        8O4d-2        8O4d-1        8O4d0         8O4d+1        8O4d+2        8O1f-3        8O1f-2        8O1f-1        8O1f0     
-   63    8O1f+1        8O1f+2        8O1f+3        8O2f-3        8O2f-2        8O2f-1        8O2f0         8O2f+1        8O2f+2        8O2f+3    
-   64    8O1g-4        8O1g-3        8O1g-2        8O1g-1        8O1g0         8O1g+1        8O1g+2        8O1g+3        8O1g+4    
- 
+    0    1C1s          1C2s          1C3s          1C4s          1C5s          1C6s          1C7s          1C8s          1C9s          1C10s
+    1    1C1pz         1C1py         1C1px         1C2pz         1C2py         1C2px         1C3pz         1C3py         1C3px         1C4pz
+    2    1C4py         1C4px         1C5pz         1C5py         1C5px         1C6pz         1C6py         1C6px         1C7pz         1C7py
+    3    1C7px         1C8pz         1C8py         1C8px         1C1d-2        1C1d-1        1C1d0         1C1d+1        1C1d+2        1C2d-2
+    4    1C2d-1        1C2d0         1C2d+1        1C2d+2        1C3d-2        1C3d-1        1C3d0         1C3d+1        1C3d+2        1C4d-2
+    5    1C4d-1        1C4d0         1C4d+1        1C4d+2        1C5d-2        1C5d-1        1C5d0         1C5d+1        1C5d+2        1C1f-3
+    6    1C1f-2        1C1f-1        1C1f0         1C1f+1        1C1f+2        1C1f+3        1C1g-4        1C1g-3        1C1g-2        1C1g-1
+    7    1C1g0         1C1g+1        1C1g+2        1C1g+3        1C1g+4        2O1s          2O2s          2O3s          2O4s          2O5s
+    8    2O6s          2O7s          2O8s          2O9s          2O10s         2O1pz         2O1py         2O1px         2O2pz         2O2py
+    9    2O2px         2O3pz         2O3py         2O3px         2O4pz         2O4py         2O4px         2O5pz         2O5py         2O5px
+   10    2O6pz         2O6py         2O6px         2O7pz         2O7py         2O7px         2O8pz         2O8py         2O8px         2O1d-2
+   11    2O1d-1        2O1d0         2O1d+1        2O1d+2        2O2d-2        2O2d-1        2O2d0         2O2d+1        2O2d+2        2O3d-2
+   12    2O3d-1        2O3d0         2O3d+1        2O3d+2        2O4d-2        2O4d-1        2O4d0         2O4d+1        2O4d+2        2O1f-3
+   13    2O1f-2        2O1f-1        2O1f0         2O1f+1        2O1f+2        2O1f+3        2O2f-3        2O2f-2        2O2f-1        2O2f0
+   14    2O2f+1        2O2f+2        2O2f+3        2O1g-4        2O1g-3        2O1g-2        2O1g-1        2O1g0         2O1g+1        2O1g+2
+   15    2O1g+3        2O1g+4        3Mg1s         3Mg2s         3Mg3s         3Mg4s         3Mg5s         3Mg6s         3Mg7s         3Mg8s
+   16    3Mg9s         3Mg10s        3Mg11s        3Mg12s        3Mg13s        3Mg1pz        3Mg1py        3Mg1px        3Mg2pz        3Mg2py
+   17    3Mg2px        3Mg3pz        3Mg3py        3Mg3px        3Mg4pz        3Mg4py        3Mg4px        3Mg5pz        3Mg5py        3Mg5px
+   18    3Mg6pz        3Mg6py        3Mg6px        3Mg7pz        3Mg7py        3Mg7px        3Mg8pz        3Mg8py        3Mg8px        3Mg9pz
+   19    3Mg9py        3Mg9px        3Mg1d-2       3Mg1d-1       3Mg1d0        3Mg1d+1       3Mg1d+2       3Mg2d-2       3Mg2d-1       3Mg2d0
+   20    3Mg2d+1       3Mg2d+2       3Mg3d-2       3Mg3d-1       3Mg3d0        3Mg3d+1       3Mg3d+2       3Mg4d-2       3Mg4d-1       3Mg4d0
+   21    3Mg4d+1       3Mg4d+2       3Mg5d-2       3Mg5d-1       3Mg5d0        3Mg5d+1       3Mg5d+2       3Mg6d-2       3Mg6d-1       3Mg6d0
+   22    3Mg6d+1       3Mg6d+2       3Mg7d-2       3Mg7d-1       3Mg7d0        3Mg7d+1       3Mg7d+2       3Mg1f-3       3Mg1f-2       3Mg1f-1
+   23    3Mg1f0        3Mg1f+1       3Mg1f+2       3Mg1f+3       3Mg2f-3       3Mg2f-2       3Mg2f-1       3Mg2f0        3Mg2f+1       3Mg2f+2
+   24    3Mg2f+3       3Mg3f-3       3Mg3f-2       3Mg3f-1       3Mg3f0        3Mg3f+1       3Mg3f+2       3Mg3f+3       3Mg4f-3       3Mg4f-2
+   25    3Mg4f-1       3Mg4f0        3Mg4f+1       3Mg4f+2       3Mg4f+3       3Mg1g-4       3Mg1g-3       3Mg1g-2       3Mg1g-1       3Mg1g0
+   26    3Mg1g+1       3Mg1g+2       3Mg1g+3       3Mg1g+4       4O1s          4O2s          4O3s          4O4s          4O5s          4O6s
+   27    4O7s          4O8s          4O9s          4O10s         4O1pz         4O1py         4O1px         4O2pz         4O2py         4O2px
+   28    4O3pz         4O3py         4O3px         4O4pz         4O4py         4O4px         4O5pz         4O5py         4O5px         4O6pz
+   29    4O6py         4O6px         4O7pz         4O7py         4O7px         4O8pz         4O8py         4O8px         4O1d-2        4O1d-1
+   30    4O1d0         4O1d+1        4O1d+2        4O2d-2        4O2d-1        4O2d0         4O2d+1        4O2d+2        4O3d-2        4O3d-1
+   31    4O3d0         4O3d+1        4O3d+2        4O4d-2        4O4d-1        4O4d0         4O4d+1        4O4d+2        4O1f-3        4O1f-2
+   32    4O1f-1        4O1f0         4O1f+1        4O1f+2        4O1f+3        4O2f-3        4O2f-2        4O2f-1        4O2f0         4O2f+1
+   33    4O2f+2        4O2f+3        4O1g-4        4O1g-3        4O1g-2        4O1g-1        4O1g0         4O1g+1        4O1g+2        4O1g+3
+   34    4O1g+4        5O1s          5O2s          5O3s          5O4s          5O5s          5O6s          5O7s          5O8s          5O9s
+   35    5O10s         5O1pz         5O1py         5O1px         5O2pz         5O2py         5O2px         5O3pz         5O3py         5O3px
+   36    5O4pz         5O4py         5O4px         5O5pz         5O5py         5O5px         5O6pz         5O6py         5O6px         5O7pz
+   37    5O7py         5O7px         5O8pz         5O8py         5O8px         5O1d-2        5O1d-1        5O1d0         5O1d+1        5O1d+2
+   38    5O2d-2        5O2d-1        5O2d0         5O2d+1        5O2d+2        5O3d-2        5O3d-1        5O3d0         5O3d+1        5O3d+2
+   39    5O4d-2        5O4d-1        5O4d0         5O4d+1        5O4d+2        5O1f-3        5O1f-2        5O1f-1        5O1f0         5O1f+1
+   40    5O1f+2        5O1f+3        5O2f-3        5O2f-2        5O2f-1        5O2f0         5O2f+1        5O2f+2        5O2f+3        5O1g-4
+   41    5O1g-3        5O1g-2        5O1g-1        5O1g0         5O1g+1        5O1g+2        5O1g+3        5O1g+4        6O1s          6O2s
+   42    6O3s          6O4s          6O5s          6O6s          6O7s          6O8s          6O9s          6O10s         6O1pz         6O1py
+   43    6O1px         6O2pz         6O2py         6O2px         6O3pz         6O3py         6O3px         6O4pz         6O4py         6O4px
+   44    6O5pz         6O5py         6O5px         6O6pz         6O6py         6O6px         6O7pz         6O7py         6O7px         6O8pz
+   45    6O8py         6O8px         6O1d-2        6O1d-1        6O1d0         6O1d+1        6O1d+2        6O2d-2        6O2d-1        6O2d0
+   46    6O2d+1        6O2d+2        6O3d-2        6O3d-1        6O3d0         6O3d+1        6O3d+2        6O4d-2        6O4d-1        6O4d0
+   47    6O4d+1        6O4d+2        6O1f-3        6O1f-2        6O1f-1        6O1f0         6O1f+1        6O1f+2        6O1f+3        6O2f-3
+   48    6O2f-2        6O2f-1        6O2f0         6O2f+1        6O2f+2        6O2f+3        6O1g-4        6O1g-3        6O1g-2        6O1g-1
+   49    6O1g0         6O1g+1        6O1g+2        6O1g+3        6O1g+4        7O1s          7O2s          7O3s          7O4s          7O5s
+   50    7O6s          7O7s          7O8s          7O9s          7O10s         7O1pz         7O1py         7O1px         7O2pz         7O2py
+   51    7O2px         7O3pz         7O3py         7O3px         7O4pz         7O4py         7O4px         7O5pz         7O5py         7O5px
+   52    7O6pz         7O6py         7O6px         7O7pz         7O7py         7O7px         7O8pz         7O8py         7O8px         7O1d-2
+   53    7O1d-1        7O1d0         7O1d+1        7O1d+2        7O2d-2        7O2d-1        7O2d0         7O2d+1        7O2d+2        7O3d-2
+   54    7O3d-1        7O3d0         7O3d+1        7O3d+2        7O4d-2        7O4d-1        7O4d0         7O4d+1        7O4d+2        7O1f-3
+   55    7O1f-2        7O1f-1        7O1f0         7O1f+1        7O1f+2        7O1f+3        7O2f-3        7O2f-2        7O2f-1        7O2f0
+   56    7O2f+1        7O2f+2        7O2f+3        7O1g-4        7O1g-3        7O1g-2        7O1g-1        7O1g0         7O1g+1        7O1g+2
+   57    7O1g+3        7O1g+4        8O1s          8O2s          8O3s          8O4s          8O5s          8O6s          8O7s          8O8s
+   58    8O9s          8O10s         8O1pz         8O1py         8O1px         8O2pz         8O2py         8O2px         8O3pz         8O3py
+   59    8O3px         8O4pz         8O4py         8O4px         8O5pz         8O5py         8O5px         8O6pz         8O6py         8O6px
+   60    8O7pz         8O7py         8O7px         8O8pz         8O8py         8O8px         8O1d-2        8O1d-1        8O1d0         8O1d+1
+   61    8O1d+2        8O2d-2        8O2d-1        8O2d0         8O2d+1        8O2d+2        8O3d-2        8O3d-1        8O3d0         8O3d+1
+   62    8O3d+2        8O4d-2        8O4d-1        8O4d0         8O4d+1        8O4d+2        8O1f-3        8O1f-2        8O1f-1        8O1f0
+   63    8O1f+1        8O1f+2        8O1f+3        8O2f-3        8O2f-2        8O2f-1        8O2f0         8O2f+1        8O2f+2        8O2f+3
+   64    8O1g-4        8O1g-3        8O1g-2        8O1g-1        8O1g0         8O1g+1        8O1g+2        8O1g+3        8O1g+4
+
  Maximum number of basis functions per shell:   35
  Total number of basis functions:    649
- 
- 
+
+
  Fitting basis set for the correlation calculation:
- 
+
    1  C  aug-cc-pvtz-ri [ 9s 7p 6d 4f 2g | 9s 7p 6d 4f 2g ]
    2  O  aug-cc-pvtz-ri [ 9s 7p 6d 4f 2g | 9s 7p 6d 4f 2g ]
    3  Mg cc-pvtz-ri [ 10s 8p 7d 5f 2g | 10s 8p 7d 5f 2g ]
@@ -1873,103 +1873,103 @@ ghost=serialno
    6  O  aug-cc-pvtz-ri [ 9s 7p 6d 4f 2g | 9s 7p 6d 4f 2g ]
    7  O  aug-cc-pvtz-ri [ 9s 7p 6d 4f 2g | 9s 7p 6d 4f 2g ]
    8  O  aug-cc-pvtz-ri [ 9s 7p 6d 4f 2g | 9s 7p 6d 4f 2g ]
- 
+
  Basis functions:
             1             2             3             4             5             6             7             8             9            10
-    0    1C1s          1C2s          1C3s          1C4s          1C5s          1C6s          1C7s          1C8s          1C9s          1C1pz     
-    1    1C1py         1C1px         1C2pz         1C2py         1C2px         1C3pz         1C3py         1C3px         1C4pz         1C4py     
-    2    1C4px         1C5pz         1C5py         1C5px         1C6pz         1C6py         1C6px         1C7pz         1C7py         1C7px     
-    3    1C1d-2        1C1d-1        1C1d0         1C1d+1        1C1d+2        1C2d-2        1C2d-1        1C2d0         1C2d+1        1C2d+2    
-    4    1C3d-2        1C3d-1        1C3d0         1C3d+1        1C3d+2        1C4d-2        1C4d-1        1C4d0         1C4d+1        1C4d+2    
-    5    1C5d-2        1C5d-1        1C5d0         1C5d+1        1C5d+2        1C6d-2        1C6d-1        1C6d0         1C6d+1        1C6d+2    
-    6    1C1f-3        1C1f-2        1C1f-1        1C1f0         1C1f+1        1C1f+2        1C1f+3        1C2f-3        1C2f-2        1C2f-1    
-    7    1C2f0         1C2f+1        1C2f+2        1C2f+3        1C3f-3        1C3f-2        1C3f-1        1C3f0         1C3f+1        1C3f+2    
-    8    1C3f+3        1C4f-3        1C4f-2        1C4f-1        1C4f0         1C4f+1        1C4f+2        1C4f+3        1C1g-4        1C1g-3    
-    9    1C1g-2        1C1g-1        1C1g0         1C1g+1        1C1g+2        1C1g+3        1C1g+4        1C2g-4        1C2g-3        1C2g-2    
-   10    1C2g-1        1C2g0         1C2g+1        1C2g+2        1C2g+3        1C2g+4        2O1s          2O2s          2O3s          2O4s      
-   11    2O5s          2O6s          2O7s          2O8s          2O9s          2O1pz         2O1py         2O1px         2O2pz         2O2py     
-   12    2O2px         2O3pz         2O3py         2O3px         2O4pz         2O4py         2O4px         2O5pz         2O5py         2O5px     
-   13    2O6pz         2O6py         2O6px         2O7pz         2O7py         2O7px         2O1d-2        2O1d-1        2O1d0         2O1d+1    
-   14    2O1d+2        2O2d-2        2O2d-1        2O2d0         2O2d+1        2O2d+2        2O3d-2        2O3d-1        2O3d0         2O3d+1    
-   15    2O3d+2        2O4d-2        2O4d-1        2O4d0         2O4d+1        2O4d+2        2O5d-2        2O5d-1        2O5d0         2O5d+1    
-   16    2O5d+2        2O6d-2        2O6d-1        2O6d0         2O6d+1        2O6d+2        2O1f-3        2O1f-2        2O1f-1        2O1f0     
-   17    2O1f+1        2O1f+2        2O1f+3        2O2f-3        2O2f-2        2O2f-1        2O2f0         2O2f+1        2O2f+2        2O2f+3    
-   18    2O3f-3        2O3f-2        2O3f-1        2O3f0         2O3f+1        2O3f+2        2O3f+3        2O4f-3        2O4f-2        2O4f-1    
-   19    2O4f0         2O4f+1        2O4f+2        2O4f+3        2O1g-4        2O1g-3        2O1g-2        2O1g-1        2O1g0         2O1g+1    
-   20    2O1g+2        2O1g+3        2O1g+4        2O2g-4        2O2g-3        2O2g-2        2O2g-1        2O2g0         2O2g+1        2O2g+2    
-   21    2O2g+3        2O2g+4        3Mg1s         3Mg2s         3Mg3s         3Mg4s         3Mg5s         3Mg6s         3Mg7s         3Mg8s     
-   22    3Mg9s         3Mg10s        3Mg1pz        3Mg1py        3Mg1px        3Mg2pz        3Mg2py        3Mg2px        3Mg3pz        3Mg3py    
-   23    3Mg3px        3Mg4pz        3Mg4py        3Mg4px        3Mg5pz        3Mg5py        3Mg5px        3Mg6pz        3Mg6py        3Mg6px    
-   24    3Mg7pz        3Mg7py        3Mg7px        3Mg8pz        3Mg8py        3Mg8px        3Mg1d-2       3Mg1d-1       3Mg1d0        3Mg1d+1   
-   25    3Mg1d+2       3Mg2d-2       3Mg2d-1       3Mg2d0        3Mg2d+1       3Mg2d+2       3Mg3d-2       3Mg3d-1       3Mg3d0        3Mg3d+1   
-   26    3Mg3d+2       3Mg4d-2       3Mg4d-1       3Mg4d0        3Mg4d+1       3Mg4d+2       3Mg5d-2       3Mg5d-1       3Mg5d0        3Mg5d+1   
-   27    3Mg5d+2       3Mg6d-2       3Mg6d-1       3Mg6d0        3Mg6d+1       3Mg6d+2       3Mg7d-2       3Mg7d-1       3Mg7d0        3Mg7d+1   
-   28    3Mg7d+2       3Mg1f-3       3Mg1f-2       3Mg1f-1       3Mg1f0        3Mg1f+1       3Mg1f+2       3Mg1f+3       3Mg2f-3       3Mg2f-2   
-   29    3Mg2f-1       3Mg2f0        3Mg2f+1       3Mg2f+2       3Mg2f+3       3Mg3f-3       3Mg3f-2       3Mg3f-1       3Mg3f0        3Mg3f+1   
-   30    3Mg3f+2       3Mg3f+3       3Mg4f-3       3Mg4f-2       3Mg4f-1       3Mg4f0        3Mg4f+1       3Mg4f+2       3Mg4f+3       3Mg5f-3   
-   31    3Mg5f-2       3Mg5f-1       3Mg5f0        3Mg5f+1       3Mg5f+2       3Mg5f+3       3Mg1g-4       3Mg1g-3       3Mg1g-2       3Mg1g-1   
-   32    3Mg1g0        3Mg1g+1       3Mg1g+2       3Mg1g+3       3Mg1g+4       3Mg2g-4       3Mg2g-3       3Mg2g-2       3Mg2g-1       3Mg2g0    
-   33    3Mg2g+1       3Mg2g+2       3Mg2g+3       3Mg2g+4       4O1s          4O2s          4O3s          4O4s          4O5s          4O6s      
-   34    4O7s          4O8s          4O9s          4O1pz         4O1py         4O1px         4O2pz         4O2py         4O2px         4O3pz     
-   35    4O3py         4O3px         4O4pz         4O4py         4O4px         4O5pz         4O5py         4O5px         4O6pz         4O6py     
-   36    4O6px         4O7pz         4O7py         4O7px         4O1d-2        4O1d-1        4O1d0         4O1d+1        4O1d+2        4O2d-2    
-   37    4O2d-1        4O2d0         4O2d+1        4O2d+2        4O3d-2        4O3d-1        4O3d0         4O3d+1        4O3d+2        4O4d-2    
-   38    4O4d-1        4O4d0         4O4d+1        4O4d+2        4O5d-2        4O5d-1        4O5d0         4O5d+1        4O5d+2        4O6d-2    
-   39    4O6d-1        4O6d0         4O6d+1        4O6d+2        4O1f-3        4O1f-2        4O1f-1        4O1f0         4O1f+1        4O1f+2    
-   40    4O1f+3        4O2f-3        4O2f-2        4O2f-1        4O2f0         4O2f+1        4O2f+2        4O2f+3        4O3f-3        4O3f-2    
-   41    4O3f-1        4O3f0         4O3f+1        4O3f+2        4O3f+3        4O4f-3        4O4f-2        4O4f-1        4O4f0         4O4f+1    
-   42    4O4f+2        4O4f+3        4O1g-4        4O1g-3        4O1g-2        4O1g-1        4O1g0         4O1g+1        4O1g+2        4O1g+3    
-   43    4O1g+4        4O2g-4        4O2g-3        4O2g-2        4O2g-1        4O2g0         4O2g+1        4O2g+2        4O2g+3        4O2g+4    
-   44    5O1s          5O2s          5O3s          5O4s          5O5s          5O6s          5O7s          5O8s          5O9s          5O1pz     
-   45    5O1py         5O1px         5O2pz         5O2py         5O2px         5O3pz         5O3py         5O3px         5O4pz         5O4py     
-   46    5O4px         5O5pz         5O5py         5O5px         5O6pz         5O6py         5O6px         5O7pz         5O7py         5O7px     
-   47    5O1d-2        5O1d-1        5O1d0         5O1d+1        5O1d+2        5O2d-2        5O2d-1        5O2d0         5O2d+1        5O2d+2    
-   48    5O3d-2        5O3d-1        5O3d0         5O3d+1        5O3d+2        5O4d-2        5O4d-1        5O4d0         5O4d+1        5O4d+2    
-   49    5O5d-2        5O5d-1        5O5d0         5O5d+1        5O5d+2        5O6d-2        5O6d-1        5O6d0         5O6d+1        5O6d+2    
-   50    5O1f-3        5O1f-2        5O1f-1        5O1f0         5O1f+1        5O1f+2        5O1f+3        5O2f-3        5O2f-2        5O2f-1    
-   51    5O2f0         5O2f+1        5O2f+2        5O2f+3        5O3f-3        5O3f-2        5O3f-1        5O3f0         5O3f+1        5O3f+2    
-   52    5O3f+3        5O4f-3        5O4f-2        5O4f-1        5O4f0         5O4f+1        5O4f+2        5O4f+3        5O1g-4        5O1g-3    
-   53    5O1g-2        5O1g-1        5O1g0         5O1g+1        5O1g+2        5O1g+3        5O1g+4        5O2g-4        5O2g-3        5O2g-2    
-   54    5O2g-1        5O2g0         5O2g+1        5O2g+2        5O2g+3        5O2g+4        6O1s          6O2s          6O3s          6O4s      
-   55    6O5s          6O6s          6O7s          6O8s          6O9s          6O1pz         6O1py         6O1px         6O2pz         6O2py     
-   56    6O2px         6O3pz         6O3py         6O3px         6O4pz         6O4py         6O4px         6O5pz         6O5py         6O5px     
-   57    6O6pz         6O6py         6O6px         6O7pz         6O7py         6O7px         6O1d-2        6O1d-1        6O1d0         6O1d+1    
-   58    6O1d+2        6O2d-2        6O2d-1        6O2d0         6O2d+1        6O2d+2        6O3d-2        6O3d-1        6O3d0         6O3d+1    
-   59    6O3d+2        6O4d-2        6O4d-1        6O4d0         6O4d+1        6O4d+2        6O5d-2        6O5d-1        6O5d0         6O5d+1    
-   60    6O5d+2        6O6d-2        6O6d-1        6O6d0         6O6d+1        6O6d+2        6O1f-3        6O1f-2        6O1f-1        6O1f0     
-   61    6O1f+1        6O1f+2        6O1f+3        6O2f-3        6O2f-2        6O2f-1        6O2f0         6O2f+1        6O2f+2        6O2f+3    
-   62    6O3f-3        6O3f-2        6O3f-1        6O3f0         6O3f+1        6O3f+2        6O3f+3        6O4f-3        6O4f-2        6O4f-1    
-   63    6O4f0         6O4f+1        6O4f+2        6O4f+3        6O1g-4        6O1g-3        6O1g-2        6O1g-1        6O1g0         6O1g+1    
-   64    6O1g+2        6O1g+3        6O1g+4        6O2g-4        6O2g-3        6O2g-2        6O2g-1        6O2g0         6O2g+1        6O2g+2    
-   65    6O2g+3        6O2g+4        7O1s          7O2s          7O3s          7O4s          7O5s          7O6s          7O7s          7O8s      
-   66    7O9s          7O1pz         7O1py         7O1px         7O2pz         7O2py         7O2px         7O3pz         7O3py         7O3px     
-   67    7O4pz         7O4py         7O4px         7O5pz         7O5py         7O5px         7O6pz         7O6py         7O6px         7O7pz     
-   68    7O7py         7O7px         7O1d-2        7O1d-1        7O1d0         7O1d+1        7O1d+2        7O2d-2        7O2d-1        7O2d0     
-   69    7O2d+1        7O2d+2        7O3d-2        7O3d-1        7O3d0         7O3d+1        7O3d+2        7O4d-2        7O4d-1        7O4d0     
-   70    7O4d+1        7O4d+2        7O5d-2        7O5d-1        7O5d0         7O5d+1        7O5d+2        7O6d-2        7O6d-1        7O6d0     
-   71    7O6d+1        7O6d+2        7O1f-3        7O1f-2        7O1f-1        7O1f0         7O1f+1        7O1f+2        7O1f+3        7O2f-3    
-   72    7O2f-2        7O2f-1        7O2f0         7O2f+1        7O2f+2        7O2f+3        7O3f-3        7O3f-2        7O3f-1        7O3f0     
-   73    7O3f+1        7O3f+2        7O3f+3        7O4f-3        7O4f-2        7O4f-1        7O4f0         7O4f+1        7O4f+2        7O4f+3    
-   74    7O1g-4        7O1g-3        7O1g-2        7O1g-1        7O1g0         7O1g+1        7O1g+2        7O1g+3        7O1g+4        7O2g-4    
-   75    7O2g-3        7O2g-2        7O2g-1        7O2g0         7O2g+1        7O2g+2        7O2g+3        7O2g+4        8O1s          8O2s      
-   76    8O3s          8O4s          8O5s          8O6s          8O7s          8O8s          8O9s          8O1pz         8O1py         8O1px     
-   77    8O2pz         8O2py         8O2px         8O3pz         8O3py         8O3px         8O4pz         8O4py         8O4px         8O5pz     
-   78    8O5py         8O5px         8O6pz         8O6py         8O6px         8O7pz         8O7py         8O7px         8O1d-2        8O1d-1    
-   79    8O1d0         8O1d+1        8O1d+2        8O2d-2        8O2d-1        8O2d0         8O2d+1        8O2d+2        8O3d-2        8O3d-1    
-   80    8O3d0         8O3d+1        8O3d+2        8O4d-2        8O4d-1        8O4d0         8O4d+1        8O4d+2        8O5d-2        8O5d-1    
-   81    8O5d0         8O5d+1        8O5d+2        8O6d-2        8O6d-1        8O6d0         8O6d+1        8O6d+2        8O1f-3        8O1f-2    
-   82    8O1f-1        8O1f0         8O1f+1        8O1f+2        8O1f+3        8O2f-3        8O2f-2        8O2f-1        8O2f0         8O2f+1    
-   83    8O2f+2        8O2f+3        8O3f-3        8O3f-2        8O3f-1        8O3f0         8O3f+1        8O3f+2        8O3f+3        8O4f-3    
-   84    8O4f-2        8O4f-1        8O4f0         8O4f+1        8O4f+2        8O4f+3        8O1g-4        8O1g-3        8O1g-2        8O1g-1    
-   85    8O1g0         8O1g+1        8O1g+2        8O1g+3        8O1g+4        8O2g-4        8O2g-3        8O2g-2        8O2g-1        8O2g0     
-   86    8O2g+1        8O2g+2        8O2g+3        8O2g+4    
- 
+    0    1C1s          1C2s          1C3s          1C4s          1C5s          1C6s          1C7s          1C8s          1C9s          1C1pz
+    1    1C1py         1C1px         1C2pz         1C2py         1C2px         1C3pz         1C3py         1C3px         1C4pz         1C4py
+    2    1C4px         1C5pz         1C5py         1C5px         1C6pz         1C6py         1C6px         1C7pz         1C7py         1C7px
+    3    1C1d-2        1C1d-1        1C1d0         1C1d+1        1C1d+2        1C2d-2        1C2d-1        1C2d0         1C2d+1        1C2d+2
+    4    1C3d-2        1C3d-1        1C3d0         1C3d+1        1C3d+2        1C4d-2        1C4d-1        1C4d0         1C4d+1        1C4d+2
+    5    1C5d-2        1C5d-1        1C5d0         1C5d+1        1C5d+2        1C6d-2        1C6d-1        1C6d0         1C6d+1        1C6d+2
+    6    1C1f-3        1C1f-2        1C1f-1        1C1f0         1C1f+1        1C1f+2        1C1f+3        1C2f-3        1C2f-2        1C2f-1
+    7    1C2f0         1C2f+1        1C2f+2        1C2f+3        1C3f-3        1C3f-2        1C3f-1        1C3f0         1C3f+1        1C3f+2
+    8    1C3f+3        1C4f-3        1C4f-2        1C4f-1        1C4f0         1C4f+1        1C4f+2        1C4f+3        1C1g-4        1C1g-3
+    9    1C1g-2        1C1g-1        1C1g0         1C1g+1        1C1g+2        1C1g+3        1C1g+4        1C2g-4        1C2g-3        1C2g-2
+   10    1C2g-1        1C2g0         1C2g+1        1C2g+2        1C2g+3        1C2g+4        2O1s          2O2s          2O3s          2O4s
+   11    2O5s          2O6s          2O7s          2O8s          2O9s          2O1pz         2O1py         2O1px         2O2pz         2O2py
+   12    2O2px         2O3pz         2O3py         2O3px         2O4pz         2O4py         2O4px         2O5pz         2O5py         2O5px
+   13    2O6pz         2O6py         2O6px         2O7pz         2O7py         2O7px         2O1d-2        2O1d-1        2O1d0         2O1d+1
+   14    2O1d+2        2O2d-2        2O2d-1        2O2d0         2O2d+1        2O2d+2        2O3d-2        2O3d-1        2O3d0         2O3d+1
+   15    2O3d+2        2O4d-2        2O4d-1        2O4d0         2O4d+1        2O4d+2        2O5d-2        2O5d-1        2O5d0         2O5d+1
+   16    2O5d+2        2O6d-2        2O6d-1        2O6d0         2O6d+1        2O6d+2        2O1f-3        2O1f-2        2O1f-1        2O1f0
+   17    2O1f+1        2O1f+2        2O1f+3        2O2f-3        2O2f-2        2O2f-1        2O2f0         2O2f+1        2O2f+2        2O2f+3
+   18    2O3f-3        2O3f-2        2O3f-1        2O3f0         2O3f+1        2O3f+2        2O3f+3        2O4f-3        2O4f-2        2O4f-1
+   19    2O4f0         2O4f+1        2O4f+2        2O4f+3        2O1g-4        2O1g-3        2O1g-2        2O1g-1        2O1g0         2O1g+1
+   20    2O1g+2        2O1g+3        2O1g+4        2O2g-4        2O2g-3        2O2g-2        2O2g-1        2O2g0         2O2g+1        2O2g+2
+   21    2O2g+3        2O2g+4        3Mg1s         3Mg2s         3Mg3s         3Mg4s         3Mg5s         3Mg6s         3Mg7s         3Mg8s
+   22    3Mg9s         3Mg10s        3Mg1pz        3Mg1py        3Mg1px        3Mg2pz        3Mg2py        3Mg2px        3Mg3pz        3Mg3py
+   23    3Mg3px        3Mg4pz        3Mg4py        3Mg4px        3Mg5pz        3Mg5py        3Mg5px        3Mg6pz        3Mg6py        3Mg6px
+   24    3Mg7pz        3Mg7py        3Mg7px        3Mg8pz        3Mg8py        3Mg8px        3Mg1d-2       3Mg1d-1       3Mg1d0        3Mg1d+1
+   25    3Mg1d+2       3Mg2d-2       3Mg2d-1       3Mg2d0        3Mg2d+1       3Mg2d+2       3Mg3d-2       3Mg3d-1       3Mg3d0        3Mg3d+1
+   26    3Mg3d+2       3Mg4d-2       3Mg4d-1       3Mg4d0        3Mg4d+1       3Mg4d+2       3Mg5d-2       3Mg5d-1       3Mg5d0        3Mg5d+1
+   27    3Mg5d+2       3Mg6d-2       3Mg6d-1       3Mg6d0        3Mg6d+1       3Mg6d+2       3Mg7d-2       3Mg7d-1       3Mg7d0        3Mg7d+1
+   28    3Mg7d+2       3Mg1f-3       3Mg1f-2       3Mg1f-1       3Mg1f0        3Mg1f+1       3Mg1f+2       3Mg1f+3       3Mg2f-3       3Mg2f-2
+   29    3Mg2f-1       3Mg2f0        3Mg2f+1       3Mg2f+2       3Mg2f+3       3Mg3f-3       3Mg3f-2       3Mg3f-1       3Mg3f0        3Mg3f+1
+   30    3Mg3f+2       3Mg3f+3       3Mg4f-3       3Mg4f-2       3Mg4f-1       3Mg4f0        3Mg4f+1       3Mg4f+2       3Mg4f+3       3Mg5f-3
+   31    3Mg5f-2       3Mg5f-1       3Mg5f0        3Mg5f+1       3Mg5f+2       3Mg5f+3       3Mg1g-4       3Mg1g-3       3Mg1g-2       3Mg1g-1
+   32    3Mg1g0        3Mg1g+1       3Mg1g+2       3Mg1g+3       3Mg1g+4       3Mg2g-4       3Mg2g-3       3Mg2g-2       3Mg2g-1       3Mg2g0
+   33    3Mg2g+1       3Mg2g+2       3Mg2g+3       3Mg2g+4       4O1s          4O2s          4O3s          4O4s          4O5s          4O6s
+   34    4O7s          4O8s          4O9s          4O1pz         4O1py         4O1px         4O2pz         4O2py         4O2px         4O3pz
+   35    4O3py         4O3px         4O4pz         4O4py         4O4px         4O5pz         4O5py         4O5px         4O6pz         4O6py
+   36    4O6px         4O7pz         4O7py         4O7px         4O1d-2        4O1d-1        4O1d0         4O1d+1        4O1d+2        4O2d-2
+   37    4O2d-1        4O2d0         4O2d+1        4O2d+2        4O3d-2        4O3d-1        4O3d0         4O3d+1        4O3d+2        4O4d-2
+   38    4O4d-1        4O4d0         4O4d+1        4O4d+2        4O5d-2        4O5d-1        4O5d0         4O5d+1        4O5d+2        4O6d-2
+   39    4O6d-1        4O6d0         4O6d+1        4O6d+2        4O1f-3        4O1f-2        4O1f-1        4O1f0         4O1f+1        4O1f+2
+   40    4O1f+3        4O2f-3        4O2f-2        4O2f-1        4O2f0         4O2f+1        4O2f+2        4O2f+3        4O3f-3        4O3f-2
+   41    4O3f-1        4O3f0         4O3f+1        4O3f+2        4O3f+3        4O4f-3        4O4f-2        4O4f-1        4O4f0         4O4f+1
+   42    4O4f+2        4O4f+3        4O1g-4        4O1g-3        4O1g-2        4O1g-1        4O1g0         4O1g+1        4O1g+2        4O1g+3
+   43    4O1g+4        4O2g-4        4O2g-3        4O2g-2        4O2g-1        4O2g0         4O2g+1        4O2g+2        4O2g+3        4O2g+4
+   44    5O1s          5O2s          5O3s          5O4s          5O5s          5O6s          5O7s          5O8s          5O9s          5O1pz
+   45    5O1py         5O1px         5O2pz         5O2py         5O2px         5O3pz         5O3py         5O3px         5O4pz         5O4py
+   46    5O4px         5O5pz         5O5py         5O5px         5O6pz         5O6py         5O6px         5O7pz         5O7py         5O7px
+   47    5O1d-2        5O1d-1        5O1d0         5O1d+1        5O1d+2        5O2d-2        5O2d-1        5O2d0         5O2d+1        5O2d+2
+   48    5O3d-2        5O3d-1        5O3d0         5O3d+1        5O3d+2        5O4d-2        5O4d-1        5O4d0         5O4d+1        5O4d+2
+   49    5O5d-2        5O5d-1        5O5d0         5O5d+1        5O5d+2        5O6d-2        5O6d-1        5O6d0         5O6d+1        5O6d+2
+   50    5O1f-3        5O1f-2        5O1f-1        5O1f0         5O1f+1        5O1f+2        5O1f+3        5O2f-3        5O2f-2        5O2f-1
+   51    5O2f0         5O2f+1        5O2f+2        5O2f+3        5O3f-3        5O3f-2        5O3f-1        5O3f0         5O3f+1        5O3f+2
+   52    5O3f+3        5O4f-3        5O4f-2        5O4f-1        5O4f0         5O4f+1        5O4f+2        5O4f+3        5O1g-4        5O1g-3
+   53    5O1g-2        5O1g-1        5O1g0         5O1g+1        5O1g+2        5O1g+3        5O1g+4        5O2g-4        5O2g-3        5O2g-2
+   54    5O2g-1        5O2g0         5O2g+1        5O2g+2        5O2g+3        5O2g+4        6O1s          6O2s          6O3s          6O4s
+   55    6O5s          6O6s          6O7s          6O8s          6O9s          6O1pz         6O1py         6O1px         6O2pz         6O2py
+   56    6O2px         6O3pz         6O3py         6O3px         6O4pz         6O4py         6O4px         6O5pz         6O5py         6O5px
+   57    6O6pz         6O6py         6O6px         6O7pz         6O7py         6O7px         6O1d-2        6O1d-1        6O1d0         6O1d+1
+   58    6O1d+2        6O2d-2        6O2d-1        6O2d0         6O2d+1        6O2d+2        6O3d-2        6O3d-1        6O3d0         6O3d+1
+   59    6O3d+2        6O4d-2        6O4d-1        6O4d0         6O4d+1        6O4d+2        6O5d-2        6O5d-1        6O5d0         6O5d+1
+   60    6O5d+2        6O6d-2        6O6d-1        6O6d0         6O6d+1        6O6d+2        6O1f-3        6O1f-2        6O1f-1        6O1f0
+   61    6O1f+1        6O1f+2        6O1f+3        6O2f-3        6O2f-2        6O2f-1        6O2f0         6O2f+1        6O2f+2        6O2f+3
+   62    6O3f-3        6O3f-2        6O3f-1        6O3f0         6O3f+1        6O3f+2        6O3f+3        6O4f-3        6O4f-2        6O4f-1
+   63    6O4f0         6O4f+1        6O4f+2        6O4f+3        6O1g-4        6O1g-3        6O1g-2        6O1g-1        6O1g0         6O1g+1
+   64    6O1g+2        6O1g+3        6O1g+4        6O2g-4        6O2g-3        6O2g-2        6O2g-1        6O2g0         6O2g+1        6O2g+2
+   65    6O2g+3        6O2g+4        7O1s          7O2s          7O3s          7O4s          7O5s          7O6s          7O7s          7O8s
+   66    7O9s          7O1pz         7O1py         7O1px         7O2pz         7O2py         7O2px         7O3pz         7O3py         7O3px
+   67    7O4pz         7O4py         7O4px         7O5pz         7O5py         7O5px         7O6pz         7O6py         7O6px         7O7pz
+   68    7O7py         7O7px         7O1d-2        7O1d-1        7O1d0         7O1d+1        7O1d+2        7O2d-2        7O2d-1        7O2d0
+   69    7O2d+1        7O2d+2        7O3d-2        7O3d-1        7O3d0         7O3d+1        7O3d+2        7O4d-2        7O4d-1        7O4d0
+   70    7O4d+1        7O4d+2        7O5d-2        7O5d-1        7O5d0         7O5d+1        7O5d+2        7O6d-2        7O6d-1        7O6d0
+   71    7O6d+1        7O6d+2        7O1f-3        7O1f-2        7O1f-1        7O1f0         7O1f+1        7O1f+2        7O1f+3        7O2f-3
+   72    7O2f-2        7O2f-1        7O2f0         7O2f+1        7O2f+2        7O2f+3        7O3f-3        7O3f-2        7O3f-1        7O3f0
+   73    7O3f+1        7O3f+2        7O3f+3        7O4f-3        7O4f-2        7O4f-1        7O4f0         7O4f+1        7O4f+2        7O4f+3
+   74    7O1g-4        7O1g-3        7O1g-2        7O1g-1        7O1g0         7O1g+1        7O1g+2        7O1g+3        7O1g+4        7O2g-4
+   75    7O2g-3        7O2g-2        7O2g-1        7O2g0         7O2g+1        7O2g+2        7O2g+3        7O2g+4        8O1s          8O2s
+   76    8O3s          8O4s          8O5s          8O6s          8O7s          8O8s          8O9s          8O1pz         8O1py         8O1px
+   77    8O2pz         8O2py         8O2px         8O3pz         8O3py         8O3px         8O4pz         8O4py         8O4px         8O5pz
+   78    8O5py         8O5px         8O6pz         8O6py         8O6px         8O7pz         8O7py         8O7px         8O1d-2        8O1d-1
+   79    8O1d0         8O1d+1        8O1d+2        8O2d-2        8O2d-1        8O2d0         8O2d+1        8O2d+2        8O3d-2        8O3d-1
+   80    8O3d0         8O3d+1        8O3d+2        8O4d-2        8O4d-1        8O4d0         8O4d+1        8O4d+2        8O5d-2        8O5d-1
+   81    8O5d0         8O5d+1        8O5d+2        8O6d-2        8O6d-1        8O6d0         8O6d+1        8O6d+2        8O1f-3        8O1f-2
+   82    8O1f-1        8O1f0         8O1f+1        8O1f+2        8O1f+3        8O2f-3        8O2f-2        8O2f-1        8O2f0         8O2f+1
+   83    8O2f+2        8O2f+3        8O3f-3        8O3f-2        8O3f-1        8O3f0         8O3f+1        8O3f+2        8O3f+3        8O4f-3
+   84    8O4f-2        8O4f-1        8O4f0         8O4f+1        8O4f+2        8O4f+3        8O1g-4        8O1g-3        8O1g-2        8O1g-1
+   85    8O1g0         8O1g+1        8O1g+2        8O1g+3        8O1g+4        8O2g-4        8O2g-3        8O2g-2        8O2g-1        8O2g0
+   86    8O2g+1        8O2g+2        8O2g+3        8O2g+4
+
  Maximum number of basis functions per shell:   35
  Total number of basis functions:    864
- 
- 
+
+
  Old basis set for SCF restart
- 
+
    1  C  aug-cc-pvdz [ 10s 5p 2d | 4s 3p 2d ]
    2  O  aug-cc-pvdz [ 10s 5p 2d | 4s 3p 2d ]
    3  Mg cc-pvdz [ 12s 8p 1d | 4s 3p 1d ]
@@ -1978,32 +1978,32 @@ ghost=serialno
    6  O  aug-cc-pvdz [ 10s 5p 2d | 4s 3p 2d ]
    7  O  aug-cc-pvdz [ 10s 5p 2d | 4s 3p 2d ]
    8  O  aug-cc-pvdz [ 10s 5p 2d | 4s 3p 2d ]
- 
+
  Basis functions:
             1             2             3             4             5             6             7             8             9            10
-    0    1C1s          1C2s          1C3s          1C4s          1C1pz         1C1py         1C1px         1C2pz         1C2py         1C2px     
-    1    1C3pz         1C3py         1C3px         1C1d-2        1C1d-1        1C1d0         1C1d+1        1C1d+2        1C2d-2        1C2d-1    
-    2    1C2d0         1C2d+1        1C2d+2        2O1s          2O2s          2O3s          2O4s          2O1pz         2O1py         2O1px     
-    3    2O2pz         2O2py         2O2px         2O3pz         2O3py         2O3px         2O1d-2        2O1d-1        2O1d0         2O1d+1    
-    4    2O1d+2        2O2d-2        2O2d-1        2O2d0         2O2d+1        2O2d+2        3Mg1s         3Mg2s         3Mg3s         3Mg4s     
-    5    3Mg1pz        3Mg1py        3Mg1px        3Mg2pz        3Mg2py        3Mg2px        3Mg3pz        3Mg3py        3Mg3px        3Mg1d-2   
-    6    3Mg1d-1       3Mg1d0        3Mg1d+1       3Mg1d+2       4O1s          4O2s          4O3s          4O4s          4O1pz         4O1py     
-    7    4O1px         4O2pz         4O2py         4O2px         4O3pz         4O3py         4O3px         4O1d-2        4O1d-1        4O1d0     
-    8    4O1d+1        4O1d+2        4O2d-2        4O2d-1        4O2d0         4O2d+1        4O2d+2        5O1s          5O2s          5O3s      
-    9    5O4s          5O1pz         5O1py         5O1px         5O2pz         5O2py         5O2px         5O3pz         5O3py         5O3px     
-   10    5O1d-2        5O1d-1        5O1d0         5O1d+1        5O1d+2        5O2d-2        5O2d-1        5O2d0         5O2d+1        5O2d+2    
-   11    6O1s          6O2s          6O3s          6O4s          6O1pz         6O1py         6O1px         6O2pz         6O2py         6O2px     
-   12    6O3pz         6O3py         6O3px         6O1d-2        6O1d-1        6O1d0         6O1d+1        6O1d+2        6O2d-2        6O2d-1    
-   13    6O2d0         6O2d+1        6O2d+2        7O1s          7O2s          7O3s          7O4s          7O1pz         7O1py         7O1px     
-   14    7O2pz         7O2py         7O2px         7O3pz         7O3py         7O3px         7O1d-2        7O1d-1        7O1d0         7O1d+1    
-   15    7O1d+2        7O2d-2        7O2d-1        7O2d0         7O2d+1        7O2d+2        8O1s          8O2s          8O3s          8O4s      
-   16    8O1pz         8O1py         8O1px         8O2pz         8O2py         8O2px         8O3pz         8O3py         8O3px         8O1d-2    
-   17    8O1d-1        8O1d0         8O1d+1        8O1d+2        8O2d-2        8O2d-1        8O2d0         8O2d+1        8O2d+2    
- 
+    0    1C1s          1C2s          1C3s          1C4s          1C1pz         1C1py         1C1px         1C2pz         1C2py         1C2px
+    1    1C3pz         1C3py         1C3px         1C1d-2        1C1d-1        1C1d0         1C1d+1        1C1d+2        1C2d-2        1C2d-1
+    2    1C2d0         1C2d+1        1C2d+2        2O1s          2O2s          2O3s          2O4s          2O1pz         2O1py         2O1px
+    3    2O2pz         2O2py         2O2px         2O3pz         2O3py         2O3px         2O1d-2        2O1d-1        2O1d0         2O1d+1
+    4    2O1d+2        2O2d-2        2O2d-1        2O2d0         2O2d+1        2O2d+2        3Mg1s         3Mg2s         3Mg3s         3Mg4s
+    5    3Mg1pz        3Mg1py        3Mg1px        3Mg2pz        3Mg2py        3Mg2px        3Mg3pz        3Mg3py        3Mg3px        3Mg1d-2
+    6    3Mg1d-1       3Mg1d0        3Mg1d+1       3Mg1d+2       4O1s          4O2s          4O3s          4O4s          4O1pz         4O1py
+    7    4O1px         4O2pz         4O2py         4O2px         4O3pz         4O3py         4O3px         4O1d-2        4O1d-1        4O1d0
+    8    4O1d+1        4O1d+2        4O2d-2        4O2d-1        4O2d0         4O2d+1        4O2d+2        5O1s          5O2s          5O3s
+    9    5O4s          5O1pz         5O1py         5O1px         5O2pz         5O2py         5O2px         5O3pz         5O3py         5O3px
+   10    5O1d-2        5O1d-1        5O1d0         5O1d+1        5O1d+2        5O2d-2        5O2d-1        5O2d0         5O2d+1        5O2d+2
+   11    6O1s          6O2s          6O3s          6O4s          6O1pz         6O1py         6O1px         6O2pz         6O2py         6O2px
+   12    6O3pz         6O3py         6O3px         6O1d-2        6O1d-1        6O1d0         6O1d+1        6O1d+2        6O2d-2        6O2d-1
+   13    6O2d0         6O2d+1        6O2d+2        7O1s          7O2s          7O3s          7O4s          7O1pz         7O1py         7O1px
+   14    7O2pz         7O2py         7O2px         7O3pz         7O3py         7O3px         7O1d-2        7O1d-1        7O1d0         7O1d+1
+   15    7O1d+2        7O2d-2        7O2d-1        7O2d0         7O2d+1        7O2d+2        8O1s          8O2s          8O3s          8O4s
+   16    8O1pz         8O1py         8O1px         8O2pz         8O2py         8O2px         8O3pz         8O3py         8O3px         8O1d-2
+   17    8O1d-1        8O1d0         8O1d+1        8O1d+2        8O2d-2        8O2d-1        8O2d0         8O2d+1        8O2d+2
+
  Maximum number of basis functions per shell:   35
  Total number of basis functions:    179
- 
- 
+
+
  Calculation of two-center Coulomb integrals...
    1% done.
   13% done.
@@ -2015,30 +2015,30 @@ ghost=serialno
   90% done.
  100% done.
  CPU time [min]:     0.005                   Wall time [min]:     0.008
- 
+
 
  ************************ 2024-11-25 16:09:34 *************************
  Executing drpa...
 
  Three-index integral transformation
  Allocation of 195.3 Gbytes of memory...
- 
- 
+
+
  Constructing PAOs...
  PAO norm tolerance:     1.0000E-05
  Kept PAOs:    354   349  101.4327
  CPU time [min]:     0.004                   Wall time [min]:     0.004
- 
+
  Executing the Boughton-Pulay algorithm...
   with occ/virt MO completeness:    0.9990000000    0.9800000000
- 
+
    MO  Natoms  Completeness   Atoms
     1    2     0.999984        1    2
     2    3     0.999998        1    2    3
     3    2     0.999994        1    2
     4    2     0.999984        1    2
     5    2     0.999984        1    2
- 
+
     6    2     0.999746        1    2
     7    2     0.999978        1    2
     8    2     0.999952        1    2
@@ -2394,36 +2394,36 @@ ghost=serialno
   358    1     1.000000        8
   359    1     1.000000        8
  CPU time [min]:     0.013                   Wall time [min]:     0.005
- 
+
  Warning: point group symmetry was detected, but localcorrsymm=off
   The local correlation calculation will not exploit the symmetry
- 
+
  Constructing orbital domains...
  CPU time [min]:     0.023                   Wall time [min]:     0.006
- 
+
  Dimensions of the primary domains:     Minimum / Average / Maximum
- 
+
  Number of atoms in domain:                   3       3.0         3
  Number of atoms in occ BP domain:            2       2.2         3
  Number of atoms in PAO BP domain:            1       1.1         2
  Number of atomic orbitals:                 126     126.0       126
  Number of PAOs:                             90      95.8       119
- 
+
  Prescreening pairs...
  CPU time [min]:     0.026                   Wall time [min]:     0.007
- 
+
  Occupied LMO domain definition with Boughton-Pulay completeness:    0.9999900000
- 
+
    MO  Natoms  Completeness   Atoms
     1    5     0.999998        1    2    3    6    7
     2    8     1.000000        1    2    3    4    5    6    7    8
     3    3     1.000000        1    2    3
     4    5     0.999999        1    2    3    4    7
     5    5     0.999998        1    2    3    4    5
- 
+
  Executing the Boughton-Pulay algorithm...
   with occ MO completeness:    0.9850000000
- 
+
    MO  Natoms  Completeness   Atoms
     1    2     0.999984        1    2
     2    1     0.995329        1
@@ -2431,23 +2431,23 @@ ghost=serialno
     4    2     0.999984        1    2
     5    2     0.999984        1    2
  CPU time [min]:     0.032                   Wall time [min]:     0.007
- 
+
  Dimensions of the occupied LMO domains:  Minimum / Average / Maximum
- 
+
  Number of atoms in domain:                   3       5.2         8
  Number of atomic orbitals:                 126     227.2       356
- 
+
  Total number of pairs:   10
  Number of distant pairs: 0 (0.0%)
  Sum of multipole based pair energies:      0.0000000000
- 
+
  CPU time [min]:     0.033                   Wall time [min]:     0.007
  Number of strong pairs: 10 (100.0%)
         3.40 MB memory is used for domain independent quantities
- 
+
  Calculating the contribution of occupied LMOs...
     using local fitting domains
- 
+
  MO:     1
  Number of atoms in domain:       8
  Number of atomic orbitals:     356
@@ -2464,25 +2464,25 @@ ghost=serialno
  Correction for frozen LNO [au]: -0.000031181586     (0.037%)
  Number of NAFs:                177  (20.49%)
  CPU time [min]:     0.448                   Wall time [min]:     0.079
- 
+
 
  Direct DF-CCSD(T) calculation
- 
+
  Convergence criterion:  1.0E-05
- 
+
  Number of occupied/virtual/auxiliary orbitals:     5    70   177
      50.80 MB is the minimal memory requirement for (T)
      23.58 MB is the minimal memory requirement for CCSD
- 
+
  MP2 correlation energy [au]:       -0.362926398490
- 
+
  LMP2 domain correlation energy contribution [au]:       -0.083293411124
- 
+
  CPU time [min]:     0.457                   Wall time [min]:     0.080
- 
- 
+
+
  Starting CCSD iterations...
- 
+
                      Residual norm       Correlation Energy
  Iteration  1        0.216536612918       -0.349177721154
  Iteration  2        0.072509771307       -0.361783507873
@@ -2492,32 +2492,32 @@ ghost=serialno
  Iteration  6        0.000468787191       -0.364919051968
  Iteration  7        0.000116660063       -0.364917319379
  Iteration  8        0.000031949888       -0.364917777150
- 
+
  CCSD iteration has converged in  8 steps.
       114.89 MB memory was utilized by CCSD
- 
+
  T1 diagnostic:      1.911E-02            D1 diagnostic:      4.028E-02
- 
+
  T1 contribution [au]:                         0.000000000000
  CCSD correlation energy [au]:                -0.081000883357
- 
+
  CPU time [min]:     0.524                   Wall time [min]:     0.088
- 
+
  Calculation of (T) correction...
- 
+
  Laplace threshold, nquadmin:  1.00E-03   4
  Number of quadrature points:    4
- 
+
        52.23 MB memory is utilized for (T)
 
  0%       25%       50%       75%       100%
- |---------|---------|---------|---------| 
- 
+ |---------|---------|---------|---------|
+
  (T) correction [au]:                   -0.004326330265
  CCSD(T) correlation energy [au]:       -0.085327213622
- 
+
  CPU time [min]:     0.568                   Wall time [min]:     0.094
- 
+
  MO:     2
  Number of atoms in domain:       8
  Number of atomic orbitals:     356
@@ -2534,25 +2534,25 @@ ghost=serialno
  Correction for frozen LNO [au]: -0.000051614536     (0.105%)
  Number of NAFs:                189  (21.88%)
  CPU time [min]:     0.930                   Wall time [min]:     0.158
- 
+
 
  Direct DF-CCSD(T) calculation
- 
+
  Convergence criterion:  1.0E-05
- 
+
  Number of occupied/virtual/auxiliary orbitals:     5    69   189
      50.31 MB is the minimal memory requirement for (T)
      23.90 MB is the minimal memory requirement for CCSD
- 
+
  MP2 correlation energy [au]:       -0.352355409521
- 
+
  LMP2 domain correlation energy contribution [au]:       -0.049173928033
- 
+
  CPU time [min]:     0.938                   Wall time [min]:     0.159
- 
- 
+
+
  Starting CCSD iterations...
- 
+
                      Residual norm       Correlation Energy
  Iteration  1        0.210134365512       -0.339045171003
  Iteration  2        0.073543819479       -0.351714095319
@@ -2562,32 +2562,32 @@ ghost=serialno
  Iteration  6        0.000469158587       -0.354894075973
  Iteration  7        0.000115855823       -0.354893259191
  Iteration  8        0.000032030103       -0.354893765627
- 
+
  CCSD iteration has converged in  8 steps.
       109.94 MB memory was utilized by CCSD
- 
+
  T1 diagnostic:      1.996E-02            D1 diagnostic:      4.189E-02
- 
+
  T1 contribution [au]:                         0.000000000000
  CCSD correlation energy [au]:                -0.057559589785
- 
+
  CPU time [min]:     1.007                   Wall time [min]:     0.168
- 
+
  Calculation of (T) correction...
- 
+
  Laplace threshold, nquadmin:  1.00E-03   4
  Number of quadrature points:    4
- 
+
        51.15 MB memory is utilized for (T)
 
  0%       25%       50%       75%       100%
- |---------|---------|---------|---------| 
- 
+ |---------|---------|---------|---------|
+
  (T) correction [au]:                   -0.002570678275
  CCSD(T) correlation energy [au]:       -0.060130268060
- 
+
  CPU time [min]:     1.048                   Wall time [min]:     0.173
- 
+
  MO:     3
  Number of atoms in domain:       8
  Number of atomic orbitals:     356
@@ -2604,25 +2604,25 @@ ghost=serialno
  Correction for frozen LNO [au]: -0.000017777613     (0.027%)
  Number of NAFs:                173  (20.02%)
  CPU time [min]:     1.400                   Wall time [min]:     0.236
- 
+
 
  Direct DF-CCSD(T) calculation
- 
+
  Convergence criterion:  1.0E-05
- 
+
  Number of occupied/virtual/auxiliary orbitals:     5    66   173
      43.96 MB is the minimal memory requirement for (T)
      21.63 MB is the minimal memory requirement for CCSD
- 
+
  MP2 correlation energy [au]:       -0.361902258615
- 
+
  LMP2 domain correlation energy contribution [au]:       -0.065126467014
- 
+
  CPU time [min]:     1.408                   Wall time [min]:     0.237
- 
- 
+
+
  Starting CCSD iterations...
- 
+
                      Residual norm       Correlation Energy
  Iteration  1        0.216320493539       -0.348237902763
  Iteration  2        0.071971653035       -0.360768178310
@@ -2632,32 +2632,32 @@ ghost=serialno
  Iteration  6        0.000452103026       -0.363863315671
  Iteration  7        0.000110806473       -0.363862194752
  Iteration  8        0.000030423041       -0.363862637009
- 
+
  CCSD iteration has converged in  8 steps.
        93.55 MB memory was utilized by CCSD
- 
+
  T1 diagnostic:      1.860E-02            D1 diagnostic:      3.893E-02
- 
+
  T1 contribution [au]:                         0.000000000000
  CCSD correlation energy [au]:                -0.065409102174
- 
+
  CPU time [min]:     1.467                   Wall time [min]:     0.245
- 
+
  Calculation of (T) correction...
- 
+
  Laplace threshold, nquadmin:  1.00E-03   4
  Number of quadrature points:    4
- 
+
        44.96 MB memory is utilized for (T)
 
  0%       25%       50%       75%       100%
- |---------|---------|---------|---------| 
- 
+ |---------|---------|---------|---------|
+
  (T) correction [au]:                   -0.002545650109
  CCSD(T) correlation energy [au]:       -0.067954752283
- 
+
  CPU time [min]:     1.504                   Wall time [min]:     0.249
- 
+
  MO:     4
  Number of atoms in domain:       8
  Number of atomic orbitals:     356
@@ -2674,25 +2674,25 @@ ghost=serialno
  Correction for frozen LNO [au]: -0.000030562355     (0.037%)
  Number of NAFs:                177  (20.49%)
  CPU time [min]:     1.870                   Wall time [min]:     0.314
- 
+
 
  Direct DF-CCSD(T) calculation
- 
+
  Convergence criterion:  1.0E-05
- 
+
  Number of occupied/virtual/auxiliary orbitals:     5    70   177
      50.80 MB is the minimal memory requirement for (T)
      23.58 MB is the minimal memory requirement for CCSD
- 
+
  MP2 correlation energy [au]:       -0.362944725614
- 
+
  LMP2 domain correlation energy contribution [au]:       -0.083294033104
- 
+
  CPU time [min]:     1.879                   Wall time [min]:     0.315
- 
- 
+
+
  Starting CCSD iterations...
- 
+
                      Residual norm       Correlation Energy
  Iteration  1        0.216543286682       -0.349194582864
  Iteration  2        0.072517805752       -0.361800430188
@@ -2702,32 +2702,32 @@ ghost=serialno
  Iteration  6        0.000468863855       -0.364935720126
  Iteration  7        0.000116682039       -0.364933983103
  Iteration  8        0.000031950717       -0.364934441579
- 
+
  CCSD iteration has converged in  8 steps.
       114.89 MB memory was utilized by CCSD
- 
+
  T1 diagnostic:      1.911E-02            D1 diagnostic:      4.027E-02
- 
+
  T1 contribution [au]:                         0.000000000000
  CCSD correlation energy [au]:                -0.081001248886
- 
+
  CPU time [min]:     1.947                   Wall time [min]:     0.324
- 
+
  Calculation of (T) correction...
- 
+
  Laplace threshold, nquadmin:  1.00E-03   4
  Number of quadrature points:    4
- 
+
        52.23 MB memory is utilized for (T)
 
  0%       25%       50%       75%       100%
- |---------|---------|---------|---------| 
- 
+ |---------|---------|---------|---------|
+
  (T) correction [au]:                   -0.004326415880
  CCSD(T) correlation energy [au]:       -0.085327664766
- 
+
  CPU time [min]:     1.990                   Wall time [min]:     0.329
- 
+
  MO:     5
  Number of atoms in domain:       8
  Number of atomic orbitals:     356
@@ -2744,25 +2744,25 @@ ghost=serialno
  Correction for frozen LNO [au]: -0.000030789913     (0.037%)
  Number of NAFs:                177  (20.49%)
  CPU time [min]:     2.355                   Wall time [min]:     0.394
- 
+
 
  Direct DF-CCSD(T) calculation
- 
+
  Convergence criterion:  1.0E-05
- 
+
  Number of occupied/virtual/auxiliary orbitals:     5    70   177
      50.80 MB is the minimal memory requirement for (T)
      23.58 MB is the minimal memory requirement for CCSD
- 
+
  MP2 correlation energy [au]:       -0.362941982396
- 
+
  LMP2 domain correlation energy contribution [au]:       -0.083293825745
- 
+
  CPU time [min]:     2.363                   Wall time [min]:     0.395
- 
- 
+
+
  Starting CCSD iterations...
- 
+
                      Residual norm       Correlation Energy
  Iteration  1        0.216543775725       -0.349191593444
  Iteration  2        0.072512821937       -0.361797285491
@@ -2772,35 +2772,35 @@ ghost=serialno
  Iteration  6        0.000468829675       -0.364932470277
  Iteration  7        0.000116677150       -0.364930734301
  Iteration  8        0.000031954435       -0.364931192499
- 
+
  CCSD iteration has converged in  8 steps.
       114.89 MB memory was utilized by CCSD
- 
+
  T1 diagnostic:      1.911E-02            D1 diagnostic:      4.027E-02
- 
+
  T1 contribution [au]:                         0.000000000000
  CCSD correlation energy [au]:                -0.081001060819
- 
+
  CPU time [min]:     2.432                   Wall time [min]:     0.403
- 
+
  Calculation of (T) correction...
- 
+
  Laplace threshold, nquadmin:  1.00E-03   4
  Number of quadrature points:    4
- 
+
        52.23 MB memory is utilized for (T)
 
  0%       25%       50%       75%       100%
- |---------|---------|---------|---------| 
- 
+ |---------|---------|---------|---------|
+
  (T) correction [au]:                   -0.004326405106
  CCSD(T) correlation energy [au]:       -0.085327465925
- 
+
  CPU time [min]:     2.477                   Wall time [min]:     0.409
- 
+
  **********************************************************************
  Dimensions of the extended domains:    Minimum / Average / Maximum
- 
+
  Number of atoms in domain:                   8       8.0         8
  Number of atomic orbitals:                 356     356.0       356
  Number of fitting functions:               864     864.0       864
@@ -2809,18 +2809,18 @@ ghost=serialno
  Number of occupied LNOs:                     5       5.0         5
  Number of virtual  LNOs:                    66      69.0        70
  Number of NAFs:                            173     178.6       189
- 
+
  **********************************************************************
  Distant (and weak) pair contributions, corrections
- 
+
  Sum of pair energies [au]:                     0.000000000000    (0.000%)
  Sum of energy corrections [au]:               -0.000161926004    (0.044%)
  Pair energies + LNO corrections [au]:         -0.000161926004
  Sum of LMP2 contributions [au]:               -0.364353114278
- 
+
  **********************************************************************
   Time of manipulations in the EDs:      max CPU/Wall [s]  all CPU/Wall [min]
- 
+
  PD construction & multipole pair E       1.83     0.29     0.03     0.00
  Construct MO basis of the ED             0.71     0.09     0.06     0.01
  (mu,nu|P) evaluation & trf 2 (ai|P)      4.42     0.59     0.23     0.03
@@ -2830,10 +2830,10 @@ ghost=serialno
  Evaluate MP2 energy of the LIS           0.02     0.00     0.00     0.00
  (mu,nu|P) evaluation & trf 2 J(abQ)     17.36     3.28     1.40     0.27
  Total of the above for all EDs          23.55     4.10     1.77     0.31
- 
+
  **********************************************************************
- Maximum memory requirement [MB]:       
- 
+ Maximum memory requirement [MB]:
+
  PD construction & multipole pair E          7.3
  AO integral evaluation in the EDs         213.4
  (mu,nu|P) evaluation & trf 2 (aI|P)       251.7
@@ -2845,69 +2845,69 @@ ghost=serialno
  Actually allocated  for LIS CCSD          114.9
  Minimum requirement for LIS (T)            50.8
  Actually allocated  for LIS (T)            52.2
- 
+
  ======================================================================
  ======================================================================
- 
- 
- 
+
+
+
  ======================================================================
  ======================================================================
- 
+
  Final local CC results:
- 
+
  Minimum number of correlated electrons:        10       (100.0%)
  Maximum number of correlated electrons:        10       (100.0%)
  Average number of correlated electrons:        10.0     (100.0%)
  Minimum number of correlated orbitals:         71       ( 20.1%)
  Maximum number of correlated orbitals:         75       ( 21.2%)
  Average number of correlated orbitals:         74.0     ( 20.9%)
- 
+
  CPU time for integral calculations [min]:                  0.176
  Wall time for integral calculations [min]:                 0.028
- 
+
  CPU time for SCF calculation [min]:                        0.650
  Wall time for SCF calculation [min]:                       0.097
- 
+
  CPU time for orbital localization [min]:                   0.036
  Wall time for orbital localization [min]:                  0.013
- 
+
  CPU time for integral transformations [min]:               1.902
  Wall time for integral transformations [min]:              0.335
- 
+
  Reference energy [au]:                                  -112.778624279960
- 
+
  LMP2 correlation energy [au]:                             -0.364353114278
  Total LMP2 energy [au]:                                 -113.142977394238
- 
+
  Total MP2 correction for dropped NAFs [au]:               -0.000009523256
  Total MP2 correction [au]:                                -0.000171449259
- 
+
  CPU time for CCSD calculations [min]:                      0.368
  Total CPU time for CCSD [min]:                             3.133
  Wall time for CCSD calculations [min]:                     0.047
  Total wall time for CCSD [min]:                            0.521
- 
+
  CCSD correlation energy [au]:                             -0.365971885020
  Total CCSD energy [au]:                                 -113.144596164981
  CCSD correlation energy + 0.5 MP2 corrections [au]:       -0.366057609650
  Total LNO-CCSD energy with MP2 corrections [au]:        -113.144681889610
- 
+
  CPU time for (T) corrections [min]:                        0.209
  Total CPU time for CCSD(T) [min]:                          3.342
  Wall time for (T) corrections [min]:                       0.027
  Total wall time for CCSD(T) [min]:                         0.548
- 
+
  Total (T) correlation energy contribution [au]:           -0.018095479635
  Total (T) correlation energy+0.5 MP2 correction [au]:     -0.018181204264
  CCSD(T) correlation energy [au]:                          -0.384067364655
  Total CCSD(T) energy [au]:                              -113.162691644615
  CCSD(T) correlation energy + MP2 corrections [au]:        -0.384238813914
  Total LNO-CCSD(T) energy with MP2 corrections [au]:     -113.162863093874
- 
+
  ======================================================================
  ======================================================================
- 
+
  ************************ 2024-11-25 16:09:59 *************************
                       Normal termination of mrcc.
  **********************************************************************

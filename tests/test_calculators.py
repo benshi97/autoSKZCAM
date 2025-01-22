@@ -56,6 +56,7 @@ def test_SkzcamOrca(tmp_path):
     # Check that the orca.pc file exists
     assert os.path.exists(tmp_path / "orca.pc")
 
+
 def test_read_orca_outputs(tmp_path):
     # Test if it can read RI-MP2 energy from ORCA output file
     output_file = """
@@ -76,7 +77,7 @@ Total Energy       :         -816.16626703 Eh          -22209.01321 eV
 
     generated_outputs = read_orca_outputs(tmp_path / "mrcc.out")
 
-    assert generated_outputs['mp2_corr_energy'] == pytest.approx(-41.95118209459777)
+    assert generated_outputs["mp2_corr_energy"] == pytest.approx(-41.95118209459777)
 
     # Test if it can read DLPNO-MP2 energy
 
@@ -86,7 +87,7 @@ TOTAL SCF ENERGY
 ----------------
 
 Total Energy       :        -1326.89463821 Eh          -36106.63873 eV
-    
+
 ------------------------------------------------------
  DLPNO-MP2 CORRELATION ENERGY:      -2.150230458791 Eh
 ------------------------------------------------------
@@ -97,7 +98,7 @@ Total Energy       :        -1326.89463821 Eh          -36106.63873 eV
 
     generated_outputs = read_orca_outputs(tmp_path / "mrcc.out")
 
-    assert generated_outputs['mp2_corr_energy'] == pytest.approx(-58.510751055514184)
+    assert generated_outputs["mp2_corr_energy"] == pytest.approx(-58.510751055514184)
 
     # Test if it can read DFT energy
 
@@ -115,9 +116,8 @@ Total Energy       :      -4662.88849808501800 Eh         -126883.64667 eV
 
     generated_outputs = read_orca_outputs(tmp_path / "mrcc.out")
 
-
-    assert generated_outputs['scf_energy'] == pytest.approx(-126883.64667)
-    assert generated_outputs['energy'] == pytest.approx(-126883.64667)
+    assert generated_outputs["scf_energy"] == pytest.approx(-126883.64667)
+    assert generated_outputs["energy"] == pytest.approx(-126883.64667)
 
     # Test if it can read DLPNO-CCSD(T) energy
     output_file = """
@@ -161,18 +161,24 @@ E(CCSD(T))                                 ...   -113.074594451
     with pytest.raises(ValueError, match="SCF energy not found in ORCA output file"):
         generated_outputs = read_orca_outputs(tmp_path / "mrcc.out")
 
-
     with open(tmp_path / "mrcc.out", "w") as fd:
-        fd.write("Total Energy       :       -112.75292494747633 Eh           -3068.16307 eV\n" + output_file)
+        fd.write(
+            "Total Energy       :       -112.75292494747633 Eh           -3068.16307 eV\n"
+            + output_file
+        )
 
     generated_outputs = read_orca_outputs(tmp_path / "mrcc.out")
 
-    reference_outputs =  {'energy': -3076.916439167897, 'scf_energy': -3068.1633661222863, 'mp2_corr_energy': -7.751356564304554, 'ccsd_corr_energy': -8.429690185747175, 'ccsdt_corr_energy': -8.753073045610742}
+    reference_outputs = {
+        "energy": -3076.916439167897,
+        "scf_energy": -3068.1633661222863,
+        "mp2_corr_energy": -7.751356564304554,
+        "ccsd_corr_energy": -8.429690185747175,
+        "ccsdt_corr_energy": -8.753073045610742,
+    }
 
-
-    for key,value in reference_outputs.items():
+    for key, value in reference_outputs.items():
         assert generated_outputs[key] == pytest.approx(value)
-
 
     # Test if it can read RI-CCSD energy
     output_file = """
@@ -231,4 +237,10 @@ T1 diagnostic                              ...      0.020049398
 
     generated_outputs = read_orca_outputs(tmp_path / "mrcc.out")
 
-    reference_outputs =  {'energy': -3076.5967631240987, 'scf_energy': -3068.1633661217134, 'mp2_corr_energy': -8.257410873541774, 'ccsd_corr_energy': -8.433397002385572, 'ccsdt_corr_energy': None}
+    reference_outputs = {
+        "energy": -3076.5967631240987,
+        "scf_energy": -3068.1633661217134,
+        "mp2_corr_energy": -8.257410873541774,
+        "ccsd_corr_energy": -8.433397002385572,
+        "ccsdt_corr_energy": None,
+    }

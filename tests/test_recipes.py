@@ -22,13 +22,16 @@ from autoSKZCAM.recipes import (
 
 FILE_DIR = Path(__file__).parent
 
+
 @pytest.fixture
 def ref_EmbeddedCluster():
     with gzip.open(
         Path(FILE_DIR, "skzcam_files", "adsorbate_slab_embedded_cluster.npy.gz"), "r"
     ) as file:
-        adsorbate_slab_embedded_cluster =  np.load(file, allow_pickle=True).item()["atoms"]
-    
+        adsorbate_slab_embedded_cluster = np.load(file, allow_pickle=True).item()[
+            "atoms"
+        ]
+
     EmbeddedCluster = CreateEmbeddedCluster(
         adsorbate_indices=[0, 1],
         slab_center_indices=[32],
@@ -39,72 +42,72 @@ def ref_EmbeddedCluster():
 
     EmbeddedCluster.adsorbate_slab_embedded_cluster = adsorbate_slab_embedded_cluster
     EmbeddedCluster.quantum_cluster_indices_set = [
-            [0, 1, 2, 3, 4, 5, 6, 7],
-            [
-                0,
-                1,
-                2,
-                3,
-                4,
-                5,
-                6,
-                7,
-                8,
-                9,
-                10,
-                11,
-                16,
-                17,
-                18,
-                19,
-                25,
-                26,
-                27,
-                28,
-                29,
-                30,
-                31,
-                32,
-            ],
-        ]
+        [0, 1, 2, 3, 4, 5, 6, 7],
+        [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            16,
+            17,
+            18,
+            19,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+        ],
+    ]
     EmbeddedCluster.ecp_region_indices_set = [
-            [8, 9, 10, 11, 12, 13, 14, 15, 20, 21, 22, 23, 24],
-            [
-                12,
-                13,
-                14,
-                15,
-                20,
-                21,
-                22,
-                23,
-                24,
-                41,
-                42,
-                43,
-                44,
-                45,
-                46,
-                47,
-                48,
-                49,
-                50,
-                51,
-                52,
-                53,
-                54,
-                55,
-                56,
-                78,
-                79,
-                80,
-                81,
-                82,
-                83,
-                84,
-                85,
-            ],
-        ]
+        [8, 9, 10, 11, 12, 13, 14, 15, 20, 21, 22, 23, 24],
+        [
+            12,
+            13,
+            14,
+            15,
+            20,
+            21,
+            22,
+            23,
+            24,
+            41,
+            42,
+            43,
+            44,
+            45,
+            46,
+            47,
+            48,
+            49,
+            50,
+            51,
+            52,
+            53,
+            54,
+            55,
+            56,
+            78,
+            79,
+            80,
+            81,
+            82,
+            83,
+            84,
+            85,
+        ],
+    ]
     return EmbeddedCluster
 
 
@@ -171,8 +174,8 @@ def ref_oniom_layers():
         },
     }
 
+
 def test_skzcam_analysis(tmp_path):
-    
     oniom_layer = {
         "Base": {
             "ll": None,
@@ -233,8 +236,6 @@ def test_skzcam_analysis(tmp_path):
             },
         },
     }
-
-    
 
 
 def test_skzcam_eint_flow(tmp_path, ref_oniom_layers):
@@ -777,8 +778,7 @@ def test_skzcam_calculate_job(tmp_path):
 
 def test_skzcam_write_inputs(ref_EmbeddedCluster, ref_oniom_layers, tmp_path):
     Prepare(
-        EmbeddedCluster=ref_EmbeddedCluster,
-        OniomInfo=ref_oniom_layers,
+        EmbeddedCluster=ref_EmbeddedCluster, OniomInfo=ref_oniom_layers
     ).create_cluster_calcs()
 
     skzcam_write_inputs(ref_EmbeddedCluster, tmp_path)

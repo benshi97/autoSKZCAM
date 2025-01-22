@@ -1,18 +1,15 @@
 from __future__ import annotations
 
 from pathlib import Path
-
+from typing import TYPE_CHECKING
 
 import numpy as np
-from ase.units import Hartree
-from typing import TYPE_CHECKING, Literal
 from quacc.calculators.mrcc.io import read_mrcc_outputs
+
 from autoSKZCAM.calculators import read_orca_outputs
-from autoSKZCAM.embed import CreateEmbeddedCluster
-from autoSKZCAM.oniom import is_valid_cbs_format
 
 if TYPE_CHECKING:
-    from autoSKZCAM.types import OniomLayerInfo, EnergyInfo
+    from autoSKZCAM.embed import CreateEmbeddedCluster
 
 # def compute_skzcam_int_ene(
 #         skzcam_calcs_analysis: dict[int, list[str]],
@@ -68,7 +65,7 @@ if TYPE_CHECKING:
 #                     basis_set_scf_int_ene_list = []
 #                     basis_set_corr_int_ene_list = []
 #                     for basis_idx, basis_set in enumerate(basis_sets):
-#                         # Use the 
+#                         # Use the
 #                         if (
 #                             code == "mrcc"
 #                             and level == "ll"
@@ -98,7 +95,7 @@ if TYPE_CHECKING:
 
 #         elif 'extrapolate' in layer_name:
 
-#         elif 
+#         elif
 
 
 # def _get_method_int_ene(
@@ -107,14 +104,14 @@ if TYPE_CHECKING:
 # ) -> float:
 #     """
 #     Get the interaction energy for a given method.
-    
+
 #     Parameters
 #     ----------
 #     energy_dict
 #         The dictionary containing the energy information.
 #     method_type
 #         The method to extract the interaction energy from.
-        
+
 #     Returns
 #     -------
 #     float
@@ -135,12 +132,10 @@ if TYPE_CHECKING:
 #     pass
 
 
-
-
 def analyze_calculations(
-        calc_dir: Path | str,
-        embedded_cluster_path: Path | str | None = None,
-        EmbeddedCluster: CreateEmbeddedCluster | None = None,
+    calc_dir: Path | str,
+    embedded_cluster_path: Path | str | None = None,
+    EmbeddedCluster: CreateEmbeddedCluster | None = None,
 ) -> dict[int, list[str]]:
     """
     Analyze the calculations performed in the calc_dir folder
@@ -157,7 +152,7 @@ def analyze_calculations(
     Returns
     -------
     None
-    
+
     """
 
     # If EmbeddedCluster is None, check that embedded_cluster_path is not None
@@ -165,18 +160,24 @@ def analyze_calculations(
         embedded_cluster_path = Path(calc_dir, "embedded_cluster.npy")
         # Check that the embedded_cluster_path exists
         if not embedded_cluster_path.exists():
-            raise ValueError("The embedded_cluster_path or EmbeddedCluster object must be provided.")
-        else:
-            EmbeddedCluster = np.load(embedded_cluster_path, allow_pickle=True).item()
+            raise ValueError(
+                "The embedded_cluster_path or EmbeddedCluster object must be provided."
+            )
+        EmbeddedCluster = np.load(embedded_cluster_path, allow_pickle=True).item()
     elif EmbeddedCluster is None and embedded_cluster_path is not None:
         EmbeddedCluster = np.load(embedded_cluster_path, allow_pickle=True).item()
 
     # Check that EmbeddedCluster.skzcam_calcs is not None
     if EmbeddedCluster.skzcam_calcs is None:
-        raise ValueError("The skzcam_calcs attribute of the EmbeddedCluster object is None.")
-    
-    skzcam_calcs_analysis = {cluster_num: {calculation_label: {} for calculation_label in calculation_labels.keys()} for cluster_num, calculation_labels in EmbeddedCluster.skzcam_calcs.items()}
-    
+        raise ValueError(
+            "The skzcam_calcs attribute of the EmbeddedCluster object is None."
+        )
+
+    skzcam_calcs_analysis = {
+        cluster_num: {calculation_label: {} for calculation_label in calculation_labels}
+        for cluster_num, calculation_labels in EmbeddedCluster.skzcam_calcs.items()
+    }
+
     for cluster_num, calculations_list in EmbeddedCluster.skzcam_calcs.items():
         for calculation_label in calculations_list:
             code = calculation_label.split(" ")[0]
@@ -190,30 +191,51 @@ def analyze_calculations(
                     code,
                     f"{method}_{basis_set}_{frozen_core}",
                     structure,
-                    f"{code}.out"
+                    f"{code}.out",
                 )
-                skzcam_calcs_analysis[cluster_num][calculation_label][structure] = parse_energy(filename=system_path, code=code)
+                skzcam_calcs_analysis[cluster_num][calculation_label][structure] = (
+                    parse_energy(filename=system_path, code=code)
+                )
             energy_dict = {}
-            for method in skzcam_calcs_analysis[cluster_num][calculation_label]['adsorbate'].keys():
-                if skzcam_calcs_analysis[cluster_num][calculation_label]['adsorbate'][method] is not None:
-                    energy_dict[method] = skzcam_calcs_analysis[cluster_num][calculation_label]['adsorbate_slab'][method] - skzcam_calcs_analysis[cluster_num][calculation_label]['slab'][method] - skzcam_calcs_analysis[cluster_num][calculation_label]['adsorbate'][method]
+            for method in skzcam_calcs_analysis[cluster_num][calculation_label][
+                "adsorbate"
+            ]:
+                if (
+                    skzcam_calcs_analysis[cluster_num][calculation_label]["adsorbate"][
+                        method
+                    ]
+                    is not None
+                ):
+                    energy_dict[method] = (
+                        skzcam_calcs_analysis[cluster_num][calculation_label][
+                            "adsorbate_slab"
+                        ][method]
+                        - skzcam_calcs_analysis[cluster_num][calculation_label]["slab"][
+                            method
+                        ]
+                        - skzcam_calcs_analysis[cluster_num][calculation_label][
+                            "adsorbate"
+                        ][method]
+                    )
                 else:
                     energy_dict[method] = None
-            skzcam_calcs_analysis[cluster_num][calculation_label]['int_ene'] = energy_dict
+            skzcam_calcs_analysis[cluster_num][calculation_label]["int_ene"] = (
+                energy_dict
+            )
     return skzcam_calcs_analysis
 
 
 def parse_energy(filename, code="mrcc"):
     """
     Function to parse the energy from a MRCC or ORCA output file.
-    
+
     Parameters
     ----------
     filename : str
         The location of the output file to read from.
     code : str
         The code format. Options are 'mrcc' and 'orca'
-        
+
     Returns
     -------
     float

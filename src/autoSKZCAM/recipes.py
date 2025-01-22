@@ -11,12 +11,7 @@ from autoSKZCAM.embed import CreateEmbeddedCluster
 from autoSKZCAM.oniom import Prepare
 
 if TYPE_CHECKING:
-    from autoSKZCAM.types import (
-        CalculatorInfo,
-        ElementStr,
-        OniomLayerInfo,
-        SkzcamOutput,
-    )
+    from autoSKZCAM.types import ElementStr, OniomLayerInfo, SkzcamOutput
 
 
 def skzcam_eint_flow(
@@ -192,8 +187,7 @@ def skzcam_calculate_job(
 
     # Prepare the embedded cluster for the calculations
     Prepare(
-        EmbeddedCluster=EmbeddedCluster,
-        OniomInfo=OniomLayerInfo,
+        EmbeddedCluster=EmbeddedCluster, OniomInfo=OniomLayerInfo
     ).create_cluster_calcs()
 
     if dryrun:

@@ -6,13 +6,12 @@ from typing import TYPE_CHECKING
 from ase.calculators.genericfileio import GenericFileIOCalculator
 from ase.calculators.orca import OrcaProfile, OrcaTemplate
 from ase.io.orca import write_orca
+from ase.units import Hartree
 from quacc.calculators.mrcc.io import write_mrcc
 from quacc.calculators.mrcc.mrcc import MrccProfile, MrccTemplate
-from ase.units import Hartree
 
 if TYPE_CHECKING:
     from typing import Any
-    from autoSKZCAM.types import EnergyInfo
 
     from ase.atoms import Atoms
 
@@ -247,8 +246,16 @@ def read_orca_energy(lines: list[str]) -> OrcaEnergyInfo:
     for line in lines:
         if "Total Energy       :" in line:
             energy_dict["scf_energy"] = float(line.split()[-4]) * Hartree
-        elif "MP2 CORRELATION ENERGY:" in line or "E(MP2)" in line or "E(RI-MP2)" in line or "E(L-MP2)" in line or "E(SL-MP2)" in line:
-            energy_dict["mp2_corr_energy"] = float(line.replace("Eh","").split()[-1]) * Hartree
+        elif (
+            "MP2 CORRELATION ENERGY:" in line
+            or "E(MP2)" in line
+            or "E(RI-MP2)" in line
+            or "E(L-MP2)" in line
+            or "E(SL-MP2)" in line
+        ):
+            energy_dict["mp2_corr_energy"] = (
+                float(line.replace("Eh", "").split()[-1]) * Hartree
+            )
         elif "E(CORR)" in line:
             energy_dict["ccsd_corr_energy"] = float(line.split()[-1]) * Hartree
         elif "Final correlation energy" in line:
