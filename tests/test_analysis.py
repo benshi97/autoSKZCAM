@@ -290,11 +290,7 @@ def test_extrapolate_to_bulk():
     assert bulk_int_ene == pytest.approx(-0.10723242133702465)
 
 
-def test_get_cbs_extrapolation(ref_EmbeddedCluster):
-    skzcam_calcs_analysis = analyze_calculations(
-        calc_dir=Path(FILE_DIR, "skzcam_files", "calc_dir"),
-        EmbeddedCluster=ref_EmbeddedCluster,
-    )
+def test_get_cbs_extrapolation():
 
     cbs_extrapolated_ene = get_cbs_extrapolation(
         0.05710643952079408,
