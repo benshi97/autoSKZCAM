@@ -12,7 +12,7 @@ from quacc.calculators.mrcc.mrcc import MrccProfile, MrccTemplate
 
 if TYPE_CHECKING:
     from typing import Any
-
+    from autoSKZCAM.types import EnergyInfo
     from ase.atoms import Atoms
 
 
