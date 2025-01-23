@@ -851,7 +851,7 @@ def test_Prepare_create_cluster_calcs(ref_EmbeddedCluster, element_info):
         },
     }
 
-    prep_cluster = Prepare(
+    Prepare(
         EmbeddedCluster=ref_EmbeddedCluster, OniomInfo=oniom_layers
     ).create_cluster_calcs()
 

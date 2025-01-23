@@ -175,67 +175,67 @@ def ref_oniom_layers():
     }
 
 
-def test_skzcam_analysis(tmp_path):
-    oniom_layer = {
-        "Base": {
-            "ll": None,
-            "hl": {
-                "method": "MP2",
-                "frozen_core": "valence",
-                "basis": "CBS(DZ//TZ)",
-                "max_cluster_num": 5,
-                "code": "orca",
-            },
-        },
-        "Delta_Basis and Delta_Core": {
-            "ll": {
-                "method": "MP2",
-                "frozen_core": "valence",
-                "basis": "CBS(DZ//TZ)",
-                "max_cluster_num": 3,
-                "code": "orca",
-            },
-            "hl": {
-                "method": "MP2",
-                "frozen_core": "semicore",
-                "basis": "CBS(TZ//QZ)",
-                "max_cluster_num": 3,
-                "code": "orca",
-            },
-        },
-        "FSE Error": {
-            "ll": {
-                "method": "MP2",
-                "frozen_core": "valence",
-                "basis": "DZ",
-                "max_cluster_num": 5,
-                "code": "orca",
-            },
-            "hl": {
-                "method": "MP2",
-                "frozen_core": "valence",
-                "basis": "DZ",
-                "max_cluster_num": 7,
-                "code": "orca",
-            },
-        },
-        "DeltaCC": {
-            "ll": {
-                "method": "LMP2",
-                "frozen_core": "valence",
-                "basis": "CBS(DZ//TZ)",
-                "max_cluster_num": 3,
-                "code": "mrcc",
-            },
-            "hl": {
-                "method": "LNO-CCSD(T)",
-                "frozen_core": "valence",
-                "basis": "CBS(DZ//TZ)",
-                "max_cluster_num": 3,
-                "code": "mrcc",
-            },
-        },
-    }
+# def test_skzcam_analysis(tmp_path):
+#     oniom_layer = {
+#         "Base": {
+#             "ll": None,
+#             "hl": {
+#                 "method": "MP2",
+#                 "frozen_core": "valence",
+#                 "basis": "CBS(DZ//TZ)",
+#                 "max_cluster_num": 5,
+#                 "code": "orca",
+#             },
+#         },
+#         "Delta_Basis and Delta_Core": {
+#             "ll": {
+#                 "method": "MP2",
+#                 "frozen_core": "valence",
+#                 "basis": "CBS(DZ//TZ)",
+#                 "max_cluster_num": 3,
+#                 "code": "orca",
+#             },
+#             "hl": {
+#                 "method": "MP2",
+#                 "frozen_core": "semicore",
+#                 "basis": "CBS(TZ//QZ)",
+#                 "max_cluster_num": 3,
+#                 "code": "orca",
+#             },
+#         },
+#         "FSE Error": {
+#             "ll": {
+#                 "method": "MP2",
+#                 "frozen_core": "valence",
+#                 "basis": "DZ",
+#                 "max_cluster_num": 5,
+#                 "code": "orca",
+#             },
+#             "hl": {
+#                 "method": "MP2",
+#                 "frozen_core": "valence",
+#                 "basis": "DZ",
+#                 "max_cluster_num": 7,
+#                 "code": "orca",
+#             },
+#         },
+#         "DeltaCC": {
+#             "ll": {
+#                 "method": "LMP2",
+#                 "frozen_core": "valence",
+#                 "basis": "CBS(DZ//TZ)",
+#                 "max_cluster_num": 3,
+#                 "code": "mrcc",
+#             },
+#             "hl": {
+#                 "method": "LNO-CCSD(T)",
+#                 "frozen_core": "valence",
+#                 "basis": "CBS(DZ//TZ)",
+#                 "max_cluster_num": 3,
+#                 "code": "mrcc",
+#             },
+#         },
+#     }
 
 
 def test_skzcam_eint_flow(tmp_path, ref_oniom_layers):

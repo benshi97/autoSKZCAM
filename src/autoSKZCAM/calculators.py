@@ -215,7 +215,7 @@ class ORCA(GenericFileIOCalculator):
         )
 
 
-def read_orca_energy(lines: list[str]) -> OrcaEnergyInfo:
+def read_orca_energy(lines: list[str]) -> EnergyInfo:
     """
     Reads the energy components (SCF energy, MP2 correlation energy, CCSD correlation energy, CCSD(T) correlation energy) from the ORCA output file where available.
 
@@ -226,7 +226,7 @@ def read_orca_energy(lines: list[str]) -> OrcaEnergyInfo:
 
     Returns
     -------
-    OrcaEnergyInfo
+    EnergyInfo
         Dictionary with the energy components. The keys are the following:
         - energy : float <-- Total energy which will not be computed in this function.
         - scf_energy : float <-- SCF energy.
@@ -264,7 +264,7 @@ def read_orca_energy(lines: list[str]) -> OrcaEnergyInfo:
     return energy_dict
 
 
-def read_orca_outputs(output_file_path: Path | str) -> OrcaEnergyInfo:
+def read_orca_outputs(output_file_path: Path | str) -> EnergyInfo:
     """
     Reads the energy components (SCF energy, MP2 correlation energy, CCSD correlation energy, CCSD(T) correlation energy) from the ORCA output file where available and calculates the total energy (based on the highest level of theory)
 
@@ -275,7 +275,7 @@ def read_orca_outputs(output_file_path: Path | str) -> OrcaEnergyInfo:
 
     Returns
     -------
-    OrcaEnergyInfo
+    EnergyInfo
         Dictionary with the energy components. The keys are the following:
         - energy : float | None <-- Total energy of highest available level.
         - scf_energy : float | None <-- SCF energy.
