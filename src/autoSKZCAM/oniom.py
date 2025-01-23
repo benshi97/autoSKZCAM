@@ -210,23 +210,34 @@ class Prepare:
             if "bulk" in layer_name.lower():
                 if OniomInfo[layer_name]['hl'] is None or OniomInfo[layer_name]['ll'] is not None:
                     raise ValueError(
-                        "For calculations to estimate the bulk limit, only high-level portion should be supplied."
+                        f"For the {layer_name} layer, only high-level portion should be supplied."
                     )
-            elif 'fse' in layer_name():
-                # Ensure that the only parameter different between hl and ll is the max_cluster_num
+            elif 'fse' in layer_name.lower():
+                # Ensure both hl and ll are provided
                 if OniomInfo[layer_name]['hl'] is None or OniomInfo[layer_name]['ll'] is None:
                     raise ValueError(
-                        "For calculations to estimate the finite size error, both high-level and low-level portions should be supplied."
+                        f"For the {layer_name} layer, both high-level and low-level portions should be supplied."
                     )
                 # Ensure that the only parameter which is different is the max_cluster_num
-                if [OniomInfo[layer_name]['hl'][key] == OniomInfo[layer_name]['ll'][key] for key in OniomInfo[layer_name]['hl'] if key != 'max_cluster_num']
-                if OniomInfo[layer_name]['hl']['method'] != OniomInfo[layer_name]['ll']['method']:
+                if not all([OniomInfo[layer_name]['hl'][key] == OniomInfo[layer_name]['ll'][key] for key in OniomInfo[layer_name]['hl'] if key != 'max_cluster_num'] + [OniomInfo[layer_name]['hl']["max_cluster_num"] > OniomInfo[layer_name]['ll']["max_cluster_num"]]):
                     raise ValueError(
-                        "The method for the high-level and low-level calculations must be the same for finite size error calculations."
+                        f"The only parameter which should be different between the high-level and low-level calculations is the max_cluster_num, which should be the high-level for the {layer_name} layer."
                     )
-
             elif 'delta' in layer_name.lower():
-                skzcam_int_ene[layer_name] = [np.mean(cluster_level_int_ene['hl'] - cluster_level_int_ene['ll']),2*np.std(cluster_level_int_ene['hl'] - cluster_level_int_ene['ll'])]
+                # Ensure both hl and ll are provided
+                if OniomInfo[layer_name]['hl'] is None or OniomInfo[layer_name]['ll'] is None:
+                    raise ValueError(
+                        f"Both high-level and low-level portions should be supplied for the {layer_name} layer."
+                    )
+                # Ensure that max_cluster_num is the same for both hl and ll
+                if OniomInfo[layer_name]['hl']["max_cluster_num"] != OniomInfo[layer_name]['ll']["max_cluster_num"]:
+                    raise ValueError(
+                        f"The {layer_name} layer should have max_cluster_num that is same for both the high-level and low-level calculations."
+                    )
+            else:
+                raise ValueError(
+                    f"The {layer_name} layer should contain the keywords: 'bulk', 'fse' or 'delta'."
+                )
         self.max_cluster = max_cluster
 
     def initialize_calculator(
