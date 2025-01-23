@@ -10,13 +10,13 @@ from autoSKZCAM.calculators import read_orca_outputs
 from autoSKZCAM.oniom import is_valid_cbs_format
 
 if TYPE_CHECKING:
-    from autoSKZCAM.types import EnergyInfo, OniomLayerInfo
     from autoSKZCAM.embed import CreateEmbeddedCluster
+    from autoSKZCAM.types import EnergyInfo, OniomLayerInfo
+
 
 def compute_skzcam_int_ene(
-        skzcam_calcs_analysis: dict[int, list[str]],
-        OniomInfo: dict[str, OniomLayerInfo]
-) -> dict[str,list[float]]:
+    skzcam_calcs_analysis: dict[int, list[str]], OniomInfo: dict[str, OniomLayerInfo]
+) -> dict[str, list[float]]:
     """
     Computes the interaction energy contributions for each ONIOM layer in the SKZCAM protocol.
 
@@ -33,13 +33,10 @@ def compute_skzcam_int_ene(
         The interaction energy and error contributions for each ONIOM layer in the SKZCAM protocol.
     """
 
-    skzcam_int_ene = {layer_name: [0,0] for layer_name in OniomInfo.keys()}
+    skzcam_int_ene = {layer_name: [0, 0] for layer_name in OniomInfo}
 
     for layer_name, oniom_layer in OniomInfo.items():
-        cluster_level_int_ene = {
-            'll': [],
-            'hl': []
-        }
+        cluster_level_int_ene = {"ll": [], "hl": []}
         for level in ["ll", "hl"]:
             if oniom_layer[level] is not None:
                 oniom_layer_parameters = oniom_layer[level]
@@ -49,11 +46,14 @@ def compute_skzcam_int_ene(
                 max_cluster_num = oniom_layer_parameters["max_cluster_num"]
 
                 # Check the basis set family
-                basis_set_family = 'mixcc'
+                basis_set_family = "mixcc"
                 if oniom_layer_parameters["element_info"] is not None:
                     for element in oniom_layer_parameters["element_info"]:
-                        if 'def2' in oniom_layer_parameters["element_info"][element]["basis"]:
-                            basis_set_family = 'def2'
+                        if (
+                            "def2"
+                            in oniom_layer_parameters["element_info"][element]["basis"]
+                        ):
+                            basis_set_family = "def2"
 
                 if "mp2" in method.lower():
                     method_type = "mp2"
@@ -73,7 +73,7 @@ def compute_skzcam_int_ene(
                 for cluster_num in range(1, max_cluster_num + 1):
                     basis_set_scf_int_ene_list = []
                     basis_set_corr_int_ene_list = []
-                    for basis_idx, basis_set in enumerate(basis_sets):
+                    for _basis_idx, basis_set in enumerate(basis_sets):
                         # Use the
                         if (
                             code == "mrcc"
@@ -88,31 +88,94 @@ def compute_skzcam_int_ene(
                         ):
                             calculation_label = f"{code} {oniom_layer['hl']['method']} {frozen_core} {basis_set}"
                         else:
-                            calculation_label = f"{code} {method} {frozen_core} {basis_set}"
+                            calculation_label = (
+                                f"{code} {method} {frozen_core} {basis_set}"
+                            )
 
-                        if calculation_label in skzcam_calcs_analysis.keys():
-                            basis_set_scf_int_ene_list += [skzcam_calcs_analysis[cluster_num][calculation_label]["int_ene"]["scf_energy"]]
-                            basis_set_corr_int_ene_list += [_get_method_int_ene(energy_dict = skzcam_calcs_analysis[cluster_num][calculation_label]["int_ene"], method_type = method_type)]
+                        if calculation_label in skzcam_calcs_analysis:
+                            basis_set_scf_int_ene_list += [
+                                skzcam_calcs_analysis[cluster_num][calculation_label][
+                                    "int_ene"
+                                ]["scf_energy"]
+                            ]
+                            basis_set_corr_int_ene_list += [
+                                _get_method_int_ene(
+                                    energy_dict=skzcam_calcs_analysis[cluster_num][
+                                        calculation_label
+                                    ]["int_ene"],
+                                    method_type=method_type,
+                                )
+                            ]
                     if is_cbs:
-                        cluster_level_int_ene[level] += [get_cbs_extrapolation(basis_set_scf_int_ene_list[0], basis_set_corr_int_ene_list[0], basis_set_scf_int_ene_list[1], basis_set_corr_int_ene_list[1], X=basis_sets[0], Y=basis_sets[1], family=basis_set_family)]
+                        cluster_level_int_ene[level] += [
+                            get_cbs_extrapolation(
+                                basis_set_scf_int_ene_list[0],
+                                basis_set_corr_int_ene_list[0],
+                                basis_set_scf_int_ene_list[1],
+                                basis_set_corr_int_ene_list[1],
+                                X=basis_sets[0],
+                                Y=basis_sets[1],
+                                family=basis_set_family,
+                            )
+                        ]
                     else:
-                        cluster_level_int_ene[level] += [basis_set_corr_int_ene_list[0] + basis_set_scf_int_ene_list[0]]
+                        cluster_level_int_ene[level] += [
+                            basis_set_corr_int_ene_list[0]
+                            + basis_set_scf_int_ene_list[0]
+                        ]
 
-        cluster_level_int_ene['ll'] = np.array(cluster_level_int_ene['ll'])
-        cluster_level_int_ene['hl'] = np.array(cluster_level_int_ene['hl'])
+        cluster_level_int_ene["ll"] = np.array(cluster_level_int_ene["ll"])
+        cluster_level_int_ene["hl"] = np.array(cluster_level_int_ene["hl"])
 
         if "extrapolate" in layer_name.lower() and "bulk" in layer_name.lower():
-            skzcam_int_ene[layer_name] = [extrapolate_to_bulk([skzcam_calcs_analysis[cluster_num]["cluster_size"] for cluster_num in range(1,cluster_level_int_ene['hl']["max_cluster_num"]+1)], cluster_level_int_ene['hl']),0]
-        elif 'fse' in layer_name():
-            skzcam_int_ene[layer_name] = [0,abs(extrapolate_to_bulk([skzcam_calcs_analysis[cluster_num]["cluster_size"] for cluster_num in range(1,cluster_level_int_ene['hl']["max_cluster_num"]+1)], cluster_level_int_ene['hl']) - extrapolate_to_bulk([skzcam_calcs_analysis[cluster_num]["cluster_size"] for cluster_num in range(1,cluster_level_int_ene['ll']["max_cluster_num"]+1)], cluster_level_int_ene['ll']) )] 
-        elif 'delta' in layer_name.lower():
-            skzcam_int_ene[layer_name] = [np.mean(cluster_level_int_ene['hl'] - cluster_level_int_ene['ll']),2*np.std(cluster_level_int_ene['hl'] - cluster_level_int_ene['ll'])]
+            skzcam_int_ene[layer_name] = [
+                extrapolate_to_bulk(
+                    [
+                        skzcam_calcs_analysis[cluster_num]["cluster_size"]
+                        for cluster_num in range(
+                            1, cluster_level_int_ene["hl"]["max_cluster_num"] + 1
+                        )
+                    ],
+                    cluster_level_int_ene["hl"],
+                ),
+                0,
+            ]
+        elif "fse" in layer_name():
+            skzcam_int_ene[layer_name] = [
+                0,
+                abs(
+                    extrapolate_to_bulk(
+                        [
+                            skzcam_calcs_analysis[cluster_num]["cluster_size"]
+                            for cluster_num in range(
+                                1, cluster_level_int_ene["hl"]["max_cluster_num"] + 1
+                            )
+                        ],
+                        cluster_level_int_ene["hl"],
+                    )
+                    - extrapolate_to_bulk(
+                        [
+                            skzcam_calcs_analysis[cluster_num]["cluster_size"]
+                            for cluster_num in range(
+                                1, cluster_level_int_ene["ll"]["max_cluster_num"] + 1
+                            )
+                        ],
+                        cluster_level_int_ene["ll"],
+                    )
+                ),
+            ]
+        elif "delta" in layer_name.lower():
+            skzcam_int_ene[layer_name] = [
+                np.mean(cluster_level_int_ene["hl"] - cluster_level_int_ene["ll"]),
+                2 * np.std(cluster_level_int_ene["hl"] - cluster_level_int_ene["ll"]),
+            ]
 
         return skzcam_int_ene
+    return None
+
 
 def _get_method_int_ene(
-        energy_dict: EnergyInfo,
-        method_type: Literal["mp2","ccsd","ccsd(t)","scf"]
+    energy_dict: EnergyInfo, method_type: Literal["mp2", "ccsd", "ccsd(t)", "scf"]
 ) -> float:
     """
     Get the interaction energy for a given method.
@@ -138,12 +201,10 @@ def _get_method_int_ene(
         return energy_dict["ccsd_corr_energy"]
     elif method_type == "ccsd(t)":
         return energy_dict["ccsdt_corr_energy"]
+    return None
 
 
-def extrapolate_to_bulk(
-        x_data: list[float],
-        y_data: list[float]
-        ) -> float:
+def extrapolate_to_bulk(x_data: list[float], y_data: list[float]) -> float:
     """
     Function to perform a linear fit of 1/x_data vs y_data to extrapolate to the bulk limit.
 
@@ -160,7 +221,7 @@ def extrapolate_to_bulk(
         The bulk limit, which is the zero intercept of the linear fit.
     """
 
-    x_transformed_data = np.array([1/x for x in x_data])
+    x_transformed_data = np.array([1 / x for x in x_data])
 
     # Degree of the polynomial
     degree = 1  # You can change the degree based on your requirement
@@ -171,18 +232,19 @@ def extrapolate_to_bulk(
     # Print the coefficients of the polynomial
     return coefficients[1]
 
+
 def get_cbs_extrapolation(
     hf_X: float,
     corr_X: float,
     hf_Y: float,
     corr_Y: float,
-    X_size: Literal['DZ','TZ','QZ'] = 'DZ' ,
-    Y_size: Literal['TZ','QZ','5Z'] ='TZ',
-    family : Literal['def2','cc','acc','mixcc'] = "mixcc",
+    X_size: Literal["DZ", "TZ", "QZ"] = "DZ",
+    Y_size: Literal["TZ", "QZ", "5Z"] = "TZ",
+    family: Literal["def2", "cc", "acc", "mixcc"] = "mixcc",
 ):
     """
     Function to perform basis set extrapolation of HF and correlation energies for both the cc-pVXZ and def2-XZVP basis sets
-    
+
     Parameters
     ----------
     hf_X : float
@@ -239,12 +301,7 @@ def get_cbs_extrapolation(
         "mixcc_4_5": 3.05,
     }
 
-    size_to_num = {
-        'DZ': 2,
-        'TZ': 3,
-        'QZ': 4,
-        '5Z': 5
-    }
+    size_to_num = {"DZ": 2, "TZ": 3, "QZ": 4, "5Z": 5}
 
     X = size_to_num[X_size]
     Y = size_to_num[Y_size]
@@ -254,8 +311,8 @@ def get_cbs_extrapolation(
         raise ValueError("The cardinal number of Y does not equal X+1")
 
     # Get the corresponding alpha and beta parameters depending on the basis set family
-    alpha = alpha_dict["{0}_{1}_{2}".format(family, X, Y)]
-    beta = beta_dict["{0}_{1}_{2}".format(family, X, Y)]
+    alpha = alpha_dict[f"{family}_{X}_{Y}"]
+    beta = beta_dict[f"{family}_{X}_{Y}"]
 
     # Perform CBS extrapolation for HF and correlation components
     hf_cbs = hf_X - np.exp(-alpha * np.sqrt(X)) * (hf_Y - hf_X) / (
@@ -265,7 +322,7 @@ def get_cbs_extrapolation(
         X ** (beta) - Y ** (beta)
     )
 
-    return hf_cbs , corr_cbs, (hf_cbs + corr_cbs)
+    return hf_cbs, corr_cbs, (hf_cbs + corr_cbs)
 
 
 def analyze_calculations(
@@ -315,7 +372,9 @@ def analyze_calculations(
     }
 
     for cluster_num, calculations_list in EmbeddedCluster.skzcam_calcs.items():
-        cluster_size = len(EmbeddedCluster.quantum_cluster_indices_set[cluster_num - 1]) - len(EmbeddedCluster.adsorbate)
+        cluster_size = len(
+            EmbeddedCluster.quantum_cluster_indices_set[cluster_num - 1]
+        ) - len(EmbeddedCluster.adsorbate)
         for calculation_label in calculations_list:
             code = calculation_label.split(" ")[0]
             method = calculation_label.split(" ")[1]
