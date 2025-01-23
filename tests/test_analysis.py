@@ -25,7 +25,7 @@ def ref_EmbeddedCluster():
 def test_analyze_calculations(ref_EmbeddedCluster, tmp_path):
     # Analyse the calculations
     skzcam_calcs_analysis = analyze_calculations(
-        calc_dir=Path("skzcam_files", "calc_dir"), EmbeddedCluster=ref_EmbeddedCluster
+        calc_dir=Path(FILE_DIR,"skzcam_files", "calc_dir"), EmbeddedCluster=ref_EmbeddedCluster
     )
     int_ene_list = [
         skzcam_calcs_analysis[cluster_num][calculation_label]["int_ene"]["energy"]
