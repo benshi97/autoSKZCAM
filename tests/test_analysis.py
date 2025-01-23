@@ -31,7 +31,8 @@ def test_analyze_calculations(ref_EmbeddedCluster, tmp_path):
     int_ene_list = [
         skzcam_calcs_analysis[cluster_num][calculation_label]["int_ene"]["energy"]
         for cluster_num in skzcam_calcs_analysis
-        for calculation_label in skzcam_calcs_analysis[cluster_num] if calculation_label != "cluster_size"
+        for calculation_label in skzcam_calcs_analysis[cluster_num]
+        if calculation_label != "cluster_size"
     ]
 
     assert_allclose(
@@ -76,7 +77,8 @@ def test_analyze_calculations(ref_EmbeddedCluster, tmp_path):
     int_ene_list = [
         skzcam_calcs_analysis[cluster_num][calculation_label]["int_ene"]["energy"]
         for cluster_num in skzcam_calcs_analysis
-        for calculation_label in skzcam_calcs_analysis[cluster_num] if calculation_label != "cluster_size"
+        for calculation_label in skzcam_calcs_analysis[cluster_num]
+        if calculation_label != "cluster_size"
     ]
 
     assert_allclose(
@@ -127,7 +129,8 @@ def test_analyze_calculations(ref_EmbeddedCluster, tmp_path):
     int_ene_list = [
         skzcam_calcs_analysis[cluster_num][calculation_label]["int_ene"]["energy"]
         for cluster_num in skzcam_calcs_analysis
-        for calculation_label in skzcam_calcs_analysis[cluster_num] if calculation_label != "cluster_size"
+        for calculation_label in skzcam_calcs_analysis[cluster_num]
+        if calculation_label != "cluster_size"
     ]
 
     assert_allclose(
