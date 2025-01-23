@@ -6,6 +6,8 @@ from pathlib import Path
 
 import numpy as np
 import pytest
+import shutil
+from copy import deepcopy
 from ase import Atoms
 from ase.io import read
 from numpy.testing import assert_allclose, assert_equal
@@ -18,6 +20,7 @@ from autoSKZCAM.recipes import (
     skzcam_generate_job,
     skzcam_initialize,
     skzcam_write_inputs,
+    skzcam_analyse_eint
 )
 
 FILE_DIR = Path(__file__).parent
@@ -174,6 +177,125 @@ def ref_oniom_layers():
         },
     }
 
+@pytest.fixture
+def ref_EmbeddedCluster1():
+    with gzip.open(
+        Path(FILE_DIR, "skzcam_files", "embedded_cluster.npy.gz"), "r"
+    ) as file:
+        EmbeddedCluster = np.load(file, allow_pickle=True).item()
+    EmbeddedCluster.OniomInfo = None
+    return EmbeddedCluster
+
+def test_skzcam_analyse_eint(tmp_path, ref_EmbeddedCluster1):
+    OniomInfo = {
+        "Extrapolated Bulk MP2": {
+            "ll": None,
+            "hl": {
+                "method": "MP2",
+                "frozen_core": "valence",
+                "basis": "CBS(DZ//TZ)",
+                "max_cluster_num": 5,
+                "code": "orca",
+            },
+        },
+        "Delta_Basis and Delta_Core": {
+            "ll": {
+                "method": "MP2",
+                "frozen_core": "valence",
+                "basis": "CBS(DZ//TZ)",
+                "max_cluster_num": 3,
+                "code": "orca",
+            },
+            "hl": {
+                "method": "MP2",
+                "frozen_core": "semicore",
+                "basis": "CBS(TZ//QZ)",
+                "max_cluster_num": 3,
+                "code": "orca",
+            },
+        },
+        "FSE Error": {
+            "ll": {
+                "method": "MP2",
+                "frozen_core": "valence",
+                "basis": "DZ",
+                "max_cluster_num": 5,
+                "code": "orca",
+            },
+            "hl": {
+                "method": "MP2",
+                "frozen_core": "valence",
+                "basis": "DZ",
+                "max_cluster_num": 7,
+                "code": "orca",
+            },
+        },
+        "DeltaCC": {
+            "ll": {
+                "method": "LMP2",
+                "frozen_core": "valence",
+                "basis": "CBS(DZ//TZ)",
+                "max_cluster_num": 3,
+                "code": "mrcc",
+            },
+            "hl": {
+                "method": "LNO-CCSD(T)",
+                "frozen_core": "valence",
+                "basis": "CBS(DZ//TZ)",
+                "max_cluster_num": 3,
+                "code": "mrcc",
+            },
+        },
+    }
+
+    skzcam_int_ene = skzcam_analyse_eint(calc_dir = Path(FILE_DIR, "skzcam_files", "calc_dir"), OniomInfo = OniomInfo, EmbeddedCluster = ref_EmbeddedCluster1)
+
+    ref_skzcam_int_ene = {
+        "Extrapolated Bulk MP2": [-0.16764139187528543, 0],
+        "Delta_Basis and Delta_Core": [-0.02731886802347076, 0.0061532110649601636],
+        "FSE Error": [0, 0.002993648282250169],
+        "DeltaCC": [-0.010131662669145438, 0.0010088038275787748],
+        "Total": [-0.20509192256790162, 0.006916763810504532],
+    }
+
+    for key, value in ref_skzcam_int_ene.items():
+        assert_allclose(skzcam_int_ene[key], value, rtol=1e-05, atol=1e-07)
+
+    # Check for errors if the calc_dir does not exist
+    with pytest.raises(
+        ValueError,
+        match = "Either the EmbeddedCluster object must be provided or embedded_cluster_npy_path is set or embedded_cluster.npy is provided in calc_dir."):
+        skzcam_int_ene = skzcam_analyse_eint(calc_dir = Path(FILE_DIR, "skzcam_files", "calc_dir"), OniomInfo = None, EmbeddedCluster = None)
+    
+    # Check for errors if EmbeddedCluster does not contain OniomInfo
+    wrong_EmbeddedCluster = deepcopy(ref_EmbeddedCluster1)
+    wrong_EmbeddedCluster.OniomInfo = None
+    with pytest.raises(
+        ValueError,
+        match = "The OniomInfo dictionary must be provided in EmbeddedCluster or as an argument."):
+        skzcam_int_ene = skzcam_analyse_eint(calc_dir = Path(FILE_DIR, "skzcam_files", "calc_dir"), OniomInfo = None, EmbeddedCluster = wrong_EmbeddedCluster)
+
+    ref_EmbeddedCluster2 = deepcopy(ref_EmbeddedCluster1)
+    ref_EmbeddedCluster2.OniomInfo = OniomInfo
+    skzcam_int_ene = skzcam_analyse_eint(calc_dir = Path(FILE_DIR, "skzcam_files", "calc_dir"), OniomInfo = None, EmbeddedCluster = ref_EmbeddedCluster2)
+
+    for key, value in ref_skzcam_int_ene.items():
+        assert_allclose(skzcam_int_ene[key], value, rtol=1e-05, atol=1e-07)
+
+    # Copy calc_dir folder to tmp_path and embeded_cluster.npy.gz to tmp_path/calc_dir
+    calc_dir = Path(tmp_path, "calc_dir")
+    shutil.copytree(Path(FILE_DIR, "skzcam_files", "calc_dir"), calc_dir)
+    np.save(Path(calc_dir, "embedded_cluster.npy"), ref_EmbeddedCluster2)
+    skzcam_int_ene = skzcam_analyse_eint(calc_dir=calc_dir)
+
+    for key, value in ref_skzcam_int_ene.items():
+        assert_allclose(skzcam_int_ene[key], value, rtol=1e-05, atol=1e-07)
+
+
+    skzcam_int_ene = skzcam_analyse_eint(calc_dir=Path(FILE_DIR, "skzcam_files", "calc_dir"), embedded_cluster_npy_path=Path(calc_dir, "embedded_cluster.npy"))
+
+    for key, value in ref_skzcam_int_ene.items():
+        assert_allclose(skzcam_int_ene[key], value, rtol=1e-05, atol=1e-07)
 
 def test_skzcam_eint_flow(tmp_path, ref_oniom_layers):
     EmbeddedCluster = skzcam_initialize(
@@ -186,7 +308,7 @@ def test_skzcam_eint_flow(tmp_path, ref_oniom_layers):
     skzcam_eint_flow(
         EmbeddedCluster=EmbeddedCluster,
         OniomInfo=ref_oniom_layers,
-        calc_folder=tmp_path,
+        calc_dir=tmp_path,
         dryrun=True,
     )
 
@@ -206,6 +328,7 @@ def test_skzcam_eint_flow(tmp_path, ref_oniom_layers):
         )
 
     paths = sorted(paths)
+    print(paths)
     assert paths == [
         "1",
         "1/mrcc",
@@ -286,6 +409,7 @@ def test_skzcam_eint_flow(tmp_path, ref_oniom_layers):
         "2/orca/MP2_TZ_valence/slab",
         "2/orca/MP2_TZ_valence/slab/orca.inp",
         "2/orca/MP2_TZ_valence/slab/orca.pc",
+        "embedded_cluster.npy",
     ]
 
 
@@ -619,16 +743,16 @@ def test_skzcam_calculate_job(tmp_path):
 
     skzcam_calculate_job(
         EmbeddedCluster=EmbeddedCluster,
-        OniomLayerInfo=oniom_layers,
+        OniomInfo=oniom_layers,
         dryrun=True,
-        calc_folder=tmp_path,
+        calc_dir=tmp_path,
     )
 
     skzcam_calculate_job(
         EmbeddedCluster=EmbeddedCluster,
-        OniomLayerInfo=oniom_layers,
+        OniomInfo=oniom_layers,
         dryrun=False,
-        calc_folder=tmp_path,
+        calc_dir=tmp_path,
     )
 
     # Check that "****ORCA TERMINATED NORMALLY****" is in the output file
@@ -671,9 +795,9 @@ def test_skzcam_calculate_job(tmp_path):
 
     skzcam_calculate_job(
         EmbeddedCluster=EmbeddedCluster,
-        OniomLayerInfo=oniom_layers,
+        OniomInfo=oniom_layers,
         dryrun=True,
-        calc_folder=Path(tmp_path, "inputs"),
+        calc_dir=Path(tmp_path, "inputs"),
     )
 
     # Initialize an empty list to store the paths
@@ -717,6 +841,7 @@ def test_skzcam_calculate_job(tmp_path):
         "1/orca/MP2_DZ_valence/slab",
         "1/orca/MP2_DZ_valence/slab/orca.inp",
         "1/orca/MP2_DZ_valence/slab/orca.pc",
+        "embedded_cluster.npy",
     ]
 
 
@@ -825,4 +950,14 @@ def test_skzcam_write_inputs(ref_EmbeddedCluster, ref_oniom_layers, tmp_path):
         "2/orca/MP2_TZ_valence/slab",
         "2/orca/MP2_TZ_valence/slab/orca.inp",
         "2/orca/MP2_TZ_valence/slab/orca.pc",
+        "embedded_cluster.npy",
     ]
+
+    wrong_EmbeddedCluster = deepcopy(ref_EmbeddedCluster)
+    wrong_EmbeddedCluster.skzcam_calcs = None
+
+    with pytest.raises(
+        ValueError,
+        match="The EmbeddedCluster object must have the skzcam_calcs attribute set using oniom.Prepare.",
+    ):
+        skzcam_write_inputs(wrong_EmbeddedCluster, tmp_path)

@@ -202,7 +202,7 @@ def compute_skzcam_int_ene(
         np.sum([skzcam_int_ene[layer_name][1] ** 2 for layer_name in skzcam_int_ene])
     )
 
-    skzcam_int_ene["final"] = [final_int_ene, final_int_ene_error]
+    skzcam_int_ene["Total"] = [final_int_ene, final_int_ene_error]
 
     return skzcam_int_ene
 
