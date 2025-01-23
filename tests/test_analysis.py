@@ -114,11 +114,13 @@ def test_analyze_calculations(ref_EmbeddedCluster, tmp_path):
     calc_dir = Path(tmp_path, "calc_dir")
     shutil.copytree(Path("skzcam_files", "calc_dir"), calc_dir)
 
-    with gzip.open(
-        Path(FILE_DIR, "skzcam_files", "embedded_cluster.npy.gz"), "rb"
-    ) as file_in:
-        with open(Path(calc_dir, "embedded_cluster.npy"), "wb") as file_out:
-            shutil.copyfileobj(file_in, file_out)
+    with (
+        gzip.open(
+            Path(FILE_DIR, "skzcam_files", "embedded_cluster.npy.gz"), "rb"
+        ) as file_in,
+        open(Path(calc_dir, "embedded_cluster.npy"), "wb") as file_out,
+    ):
+        shutil.copyfileobj(file_in, file_out)
     skzcam_calcs_analysis = analyze_calculations(calc_dir=calc_dir)
 
     int_ene_list = [
