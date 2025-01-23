@@ -3,9 +3,11 @@ from __future__ import annotations
 from copy import deepcopy
 from pathlib import Path
 from typing import TYPE_CHECKING
+import logging
 
 import numpy as np
 from ase.io.orca import write_orca
+import logging
 from quacc.calculators.mrcc.io import write_mrcc
 
 from autoSKZCAM.analysis import analyze_calculations, compute_skzcam_int_ene
@@ -14,6 +16,16 @@ from autoSKZCAM.oniom import Prepare
 
 if TYPE_CHECKING:
     from autoSKZCAM.types import ElementStr, OniomLayerInfo, SkzcamOutput
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)  # Set the level explicitly
+
+# Add a stream handler to ensure output to console
+stream_handler = logging.StreamHandler()
+stream_handler.setLevel(logging.INFO)
+formatter = logging.Formatter('%(message)s')
+stream_handler.setFormatter(formatter)
+logger.addHandler(stream_handler)
 
 
 def skzcam_analyse_eint(
@@ -47,15 +59,16 @@ def skzcam_analyse_eint(
 
     # Initialize the EmbeddedCluster object if it is not provided
     if EmbeddedCluster is None and embedded_cluster_npy_path is None:
-        # Try loading default in calc_dir
-        try:
-            EmbeddedCluster = np.load(
-                Path(calc_dir, "embedded_cluster.npy"), allow_pickle=True
-            ).item()
-        except FileNotFoundError:
+        # Check if the embedded_cluster.npy file exists in the calc_dir
+        if not Path(calc_dir, "embedded_cluster.npy").exists():
             raise ValueError(
                 "Either the EmbeddedCluster object must be provided or embedded_cluster_npy_path is set or embedded_cluster.npy is provided in calc_dir."
             )
+        else:
+            EmbeddedCluster = np.load(
+                Path(calc_dir, "embedded_cluster.npy"), allow_pickle=True
+            ).item()
+
     elif EmbeddedCluster is None and embedded_cluster_npy_path is not None:
         EmbeddedCluster = np.load(embedded_cluster_npy_path, allow_pickle=True).item()
 
@@ -77,16 +90,28 @@ def skzcam_analyse_eint(
         skzcam_calcs_analysis=skzcam_calcs_analysis, OniomInfo=OniomInfo
     )
 
+    # if print_results:
+    #     print("-" * 42)
+    #     for key, value in skzcam_int_ene.items():
+    #         energy = int(round(value[0] * 1000))
+    #         error = int(round(value[1] * 1000))
+    #         formatted_key = key[:15].ljust(10)
+    #         if key == "Total":
+    #             print("-" * 42)
+    #         print(f"{formatted_key:<15}  : {energy:^8} ± {error:<8} meV")
+    #     print("-" * 42)
+
+    # Updated code block with logger
     if print_results:
-        print("-" * 42)
+        logger.info("-" * 42)
         for key, value in skzcam_int_ene.items():
             energy = int(round(value[0] * 1000))
             error = int(round(value[1] * 1000))
             formatted_key = key[:15].ljust(10)
             if key == "Total":
-                print("-" * 42)
-            print(f"{formatted_key:<15}  : {energy:^8} ± {error:<8} meV")
-        print("-" * 42)
+                logger.info("-" * 42)
+            logger.info(f"{formatted_key:<15}  : {energy:^8} ± {error:<8} meV")
+        logger.info("-" * 42)
 
     return skzcam_int_ene
 

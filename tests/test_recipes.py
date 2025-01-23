@@ -351,7 +351,6 @@ def test_skzcam_eint_flow(tmp_path, ref_oniom_layers):
         )
 
     paths = sorted(paths)
-    print(paths)
     assert paths == [
         "1",
         "1/mrcc",
