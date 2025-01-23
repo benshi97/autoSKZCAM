@@ -1,0 +1,43 @@
+! TightSCF RI-MP2 RIJCOSX SlowConv DIIS
+%pal nprocs 8 end
+%maxcore 25000
+%method
+Method hf
+RI on
+RunTyp Energy
+NewNCore C 2 end
+NewNCore Mg 2 end
+NewNCore O 2 end
+end
+%basis
+NewGTO C "aug-cc-pVQZ" end
+NewGTO Mg "cc-pwCVQZ" end
+NewGTO O "aug-cc-pVQZ" end
+Aux "def2/J"
+NewAuxCGTO C "aug-cc-pVQZ/C" end
+NewAuxCGTO Mg "AutoAux" end
+NewAuxCGTO O "aug-cc-pVQZ/C" end
+end
+%scf
+HFTyp rhf
+SCFMode Direct
+sthresh 1e-6
+AutoTRAHIter 60
+MaxIter 1000
+end
+%coords
+CTyp xyz
+Mult 1
+Units angs
+Charge 0
+coords
+C                       0.00000000000    0.00000000000    2.44102235837
+O                       0.00000000000    0.00000000000    3.58784217303
+Mg:                     0.00000000000    0.00000000000    0.00000000000
+O:                     -2.12018425659    0.00000000000    0.00567209089
+O:                      0.00000000000    2.12018425659    0.00567209089
+O:                      2.12018425659    0.00000000000    0.00567209089
+O:                      0.00000000000   -2.12018425659    0.00567209089
+O:                      0.00000000000    0.00000000000   -2.14129966123
+end
+end

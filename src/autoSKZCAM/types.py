@@ -178,3 +178,16 @@ if TYPE_CHECKING:
         adsorbate_slab: Atoms
         adsorbate: Atoms
         slab: Atoms
+
+    class EnergyInfo(TypedDict):
+        energy: float | None
+        scf_energy: float | None
+        mp2_corr_energy: float | None
+        ccsd_corr_energy: float | None
+        ccsdt_corr_energy: float | None
+
+    class SkzcamAnalysisInfo(TypedDict):
+        adsorbate_slab: EnergyInfo
+        adsorbate: EnergyInfo
+        slab: EnergyInfo
+        int_ene: EnergyInfo
