@@ -4,13 +4,13 @@ from copy import deepcopy
 from pathlib import Path
 from typing import TYPE_CHECKING
 
+import numpy as np
 from ase.io.orca import write_orca
 from quacc.calculators.mrcc.io import write_mrcc
-import numpy as np
 
+from autoSKZCAM.analysis import analyze_calculations, compute_skzcam_int_ene
 from autoSKZCAM.embed import CreateEmbeddedCluster
 from autoSKZCAM.oniom import Prepare
-from autoSKZCAM.analysis import compute_skzcam_int_ene, analyze_calculations
 
 if TYPE_CHECKING:
     from autoSKZCAM.types import ElementStr, OniomLayerInfo, SkzcamOutput
@@ -42,17 +42,20 @@ def skzcam_analyse_eint(
     Returns
     -------
     dict[str, tuple[float, float]]
-        A dictionary containing the ONIOM layer as key and a tuple containing the contribution to the final interaction energy as well as its error.    
+        A dictionary containing the ONIOM layer as key and a tuple containing the contribution to the final interaction energy as well as its error.
     """
 
     # Initialize the EmbeddedCluster object if it is not provided
     if EmbeddedCluster is None and embedded_cluster_npy_path is None:
         # Try loading default in calc_dir
         try:
-            EmbeddedCluster = np.load(Path(calc_dir, "embedded_cluster.npy"), allow_pickle=True).item()
+            EmbeddedCluster = np.load(
+                Path(calc_dir, "embedded_cluster.npy"), allow_pickle=True
+            ).item()
         except FileNotFoundError:
             raise ValueError(
-                "Either the EmbeddedCluster object must be provided or embedded_cluster_npy_path is set or embedded_cluster.npy is provided in calc_dir.")
+                "Either the EmbeddedCluster object must be provided or embedded_cluster_npy_path is set or embedded_cluster.npy is provided in calc_dir."
+            )
     elif EmbeddedCluster is None and embedded_cluster_npy_path is not None:
         EmbeddedCluster = np.load(embedded_cluster_npy_path, allow_pickle=True).item()
 
@@ -61,12 +64,18 @@ def skzcam_analyse_eint(
         raise ValueError(
             "The OniomInfo dictionary must be provided in EmbeddedCluster or as an argument."
         )
-    elif EmbeddedCluster.OniomInfo is not None and OniomInfo is None:
+    if EmbeddedCluster.OniomInfo is not None and OniomInfo is None:
         OniomInfo = EmbeddedCluster.OniomInfo
-    
-    skzcam_calcs_analysis = analyze_calculations(calc_dir=calc_dir, embedded_cluster_path=embedded_cluster_npy_path, EmbeddedCluster=EmbeddedCluster)
 
-    skzcam_int_ene = compute_skzcam_int_ene(skzcam_calcs_analysis=skzcam_calcs_analysis, OniomInfo=OniomInfo)
+    skzcam_calcs_analysis = analyze_calculations(
+        calc_dir=calc_dir,
+        embedded_cluster_path=embedded_cluster_npy_path,
+        EmbeddedCluster=EmbeddedCluster,
+    )
+
+    skzcam_int_ene = compute_skzcam_int_ene(
+        skzcam_calcs_analysis=skzcam_calcs_analysis, OniomInfo=OniomInfo
+    )
 
     if print_results:
         print("-" * 42)
@@ -74,12 +83,13 @@ def skzcam_analyse_eint(
             energy = int(round(value[0] * 1000))
             error = int(round(value[1] * 1000))
             formatted_key = key[:15].ljust(10)
-            if key == 'Total':
+            if key == "Total":
                 print("-" * 42)
             print(f"{formatted_key:<15}  : {energy:^8} ± {error:<8} meV")
         print("-" * 42)
 
     return skzcam_int_ene
+
 
 def skzcam_eint_flow(
     EmbeddedCluster: CreateEmbeddedCluster,
@@ -253,9 +263,7 @@ def skzcam_calculate_job(
     """
 
     # Prepare the embedded cluster for the calculations
-    Prepare(
-        EmbeddedCluster=EmbeddedCluster, OniomInfo=OniomInfo
-    ).create_cluster_calcs()
+    Prepare(EmbeddedCluster=EmbeddedCluster, OniomInfo=OniomInfo).create_cluster_calcs()
 
     # Set the OniomInfo attribute
     EmbeddedCluster.OniomInfo = OniomInfo
@@ -284,7 +292,6 @@ def skzcam_calculate_job(
                     EmbeddedCluster.skzcam_calcs[cluster_num][calculation_label][
                         structure
                     ].get_potential_energy()
-
 
 
 def skzcam_write_inputs(

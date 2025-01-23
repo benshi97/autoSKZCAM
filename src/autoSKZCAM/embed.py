@@ -16,7 +16,7 @@ from monty.os.path import zpath
 if TYPE_CHECKING:
     from numpy.typing import NDArray
 
-    from autoSKZCAM.types import CalculatorInfo, SkzcamOutput, OniomLayerInfo
+    from autoSKZCAM.types import CalculatorInfo, OniomLayerInfo, SkzcamOutput
 
 has_chemshell = find_spec("chemsh") is not None
 
@@ -93,7 +93,9 @@ class CreateEmbeddedCluster:
         self.skzcam_calcs: dict[int, dict[str, CalculatorInfo]] | None = None
 
         # Initialize the OniomInfo dictionary to store the information for each ONIOM layer
-        self.OniomInfo: dict[str, dict[Literal['ll','hl'], OniomLayerInfo]] | None = None
+        self.OniomInfo: dict[str, dict[Literal["ll", "hl"], OniomLayerInfo]] | None = (
+            None
+        )
 
         # Check that the adsorbate_indices and slab_center_indices are not the same
         if any(x in self.adsorbate_indices for x in self.slab_center_indices):
