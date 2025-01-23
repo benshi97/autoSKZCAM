@@ -104,7 +104,7 @@ def test_compute_skzcam_int_ene(ref_EmbeddedCluster):
         "Delta_Basis and Delta_Core": [-0.02731886802347076, 0.0061532110649601636],
         "FSE Error": [0, 0.002993648282250169],
         "DeltaCC": [-0.010131662669145438, 0.0010088038275787748],
-        "final": [-0.20509192256790162, 0.006916763810504532],
+        "Total": [-0.20509192256790162, 0.006916763810504532],
     }
 
     for key, value in ref_skzcam_int_ene.items():
@@ -163,7 +163,7 @@ def test_compute_skzcam_int_ene(ref_EmbeddedCluster):
         skzcam_calcs_analysis=skzcam_calcs_analysis, OniomInfo=OniomInfo
     )
     assert_allclose(
-        skzcam_int_ene["final"],
+        skzcam_int_ene["Total"],
         [-0.03847792236925364, 0.01283915060710039],
         rtol=1e-05,
         atol=1e-07,
@@ -222,7 +222,7 @@ def test_compute_skzcam_int_ene(ref_EmbeddedCluster):
     skzcam_int_ene = compute_skzcam_int_ene(
         skzcam_calcs_analysis=skzcam_calcs_analysis, OniomInfo=OniomInfo
     )
-    assert skzcam_int_ene["final"][0] == pytest.approx(
+    assert skzcam_int_ene["Total"][0] == pytest.approx(
         skzcam_calcs_analysis[5]["orca MP2 valence DZ"]["int_ene"]["energy"]
     )
 
@@ -253,7 +253,7 @@ def test_compute_skzcam_int_ene(ref_EmbeddedCluster):
     skzcam_int_ene = compute_skzcam_int_ene(
         skzcam_calcs_analysis=skzcam_calcs_analysis, OniomInfo=OniomInfo
     )
-    assert skzcam_int_ene["final"][1] == pytest.approx(0)
+    assert skzcam_int_ene["Total"][1] == pytest.approx(0)
 
 
 def test_get_method_int_ene():
