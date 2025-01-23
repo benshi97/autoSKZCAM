@@ -101,7 +101,7 @@ class Prepare:
 
         # Check that all of the necessary keywords are included in each oniom layer
         max_cluster = 0
-        for oniom_layer in self.OniomInfo.values():
+        for layer_name, oniom_layer in self.OniomInfo.items():
             for level in ["ll", "hl"]:
                 if oniom_layer[level] is not None:
                     oniom_layer_parameters = oniom_layer[level]
@@ -207,6 +207,26 @@ class Prepare:
                                     "If the code is orca, the code_inputs dictionary can only contain the orcasimpleinput and orcablocks keys."
                                 )
 
+            if "bulk" in layer_name.lower():
+                if OniomInfo[layer_name]['hl'] is None or OniomInfo[layer_name]['ll'] is not None:
+                    raise ValueError(
+                        "For calculations to estimate the bulk limit, only high-level portion should be supplied."
+                    )
+            elif 'fse' in layer_name():
+                # Ensure that the only parameter different between hl and ll is the max_cluster_num
+                if OniomInfo[layer_name]['hl'] is None or OniomInfo[layer_name]['ll'] is None:
+                    raise ValueError(
+                        "For calculations to estimate the finite size error, both high-level and low-level portions should be supplied."
+                    )
+                # Ensure that the only parameter which is different is the max_cluster_num
+                if [OniomInfo[layer_name]['hl'][key] == OniomInfo[layer_name]['ll'][key] for key in OniomInfo[layer_name]['hl'] if key != 'max_cluster_num']
+                if OniomInfo[layer_name]['hl']['method'] != OniomInfo[layer_name]['ll']['method']:
+                    raise ValueError(
+                        "The method for the high-level and low-level calculations must be the same for finite size error calculations."
+                    )
+
+            elif 'delta' in layer_name.lower():
+                skzcam_int_ene[layer_name] = [np.mean(cluster_level_int_ene['hl'] - cluster_level_int_ene['ll']),2*np.std(cluster_level_int_ene['hl'] - cluster_level_int_ene['ll'])]
         self.max_cluster = max_cluster
 
     def initialize_calculator(

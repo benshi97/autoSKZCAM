@@ -71,7 +71,7 @@ def test_analyze_calculations(ref_EmbeddedCluster, tmp_path):
         Path(FILE_DIR, "skzcam_files", "embedded_cluster.npy.gz"), "r"
     ) as file:
         skzcam_calcs_analysis = analyze_calculations(
-            calc_dir=Path("skzcam_files", "calc_dir"), embedded_cluster_path=file
+            calc_dir=Path(FILE_DIR, "skzcam_files", "calc_dir"), embedded_cluster_path=file
         )
 
     int_ene_list = [
@@ -115,13 +115,13 @@ def test_analyze_calculations(ref_EmbeddedCluster, tmp_path):
 
     # Copy calc_dir folder to tmp_path and embeded_cluster.npy.gz to tmp_path/calc_dir
     calc_dir = Path(tmp_path, "calc_dir")
-    shutil.copytree(Path("skzcam_files", "calc_dir"), calc_dir)
+    shutil.copytree(Path(FILE_DIR, "skzcam_files", "calc_dir"), calc_dir)
 
     with (
         gzip.open(
             Path(FILE_DIR, "skzcam_files", "embedded_cluster.npy.gz"), "rb"
         ) as file_in,
-        open(Path(calc_dir, "embedded_cluster.npy"), "wb") as file_out,
+        open(Path(FILE_DIR, calc_dir, "embedded_cluster.npy"), "wb") as file_out,
     ):
         shutil.copyfileobj(file_in, file_out)
     skzcam_calcs_analysis = analyze_calculations(calc_dir=calc_dir)
@@ -170,7 +170,7 @@ def test_analyze_calculations(ref_EmbeddedCluster, tmp_path):
         ValueError,
         match="The embedded_cluster_path or EmbeddedCluster object must be provided.",
     ):
-        analyze_calculations(calc_dir=Path("skzcam_files", "calc_dir"))
+        analyze_calculations(calc_dir=Path(FILE_DIR,"skzcam_files", "calc_dir"))
 
     test_EmbeddedCluster = deepcopy(ref_EmbeddedCluster)
     test_EmbeddedCluster.skzcam_calcs = None
@@ -179,6 +179,6 @@ def test_analyze_calculations(ref_EmbeddedCluster, tmp_path):
         match="The skzcam_calcs attribute of the EmbeddedCluster object is None.",
     ):
         analyze_calculations(
-            calc_dir=Path("skzcam_files", "calc_dir"),
+            calc_dir=Path(FILE_DIR, "skzcam_files", "calc_dir"),
             EmbeddedCluster=test_EmbeddedCluster,
         )
