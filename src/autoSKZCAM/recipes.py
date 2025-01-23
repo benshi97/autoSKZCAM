@@ -1,13 +1,12 @@
 from __future__ import annotations
 
+import logging
 from copy import deepcopy
 from pathlib import Path
 from typing import TYPE_CHECKING
-import logging
 
 import numpy as np
 from ase.io.orca import write_orca
-import logging
 from quacc.calculators.mrcc.io import write_mrcc
 
 from autoSKZCAM.analysis import analyze_calculations, compute_skzcam_int_ene
@@ -23,7 +22,7 @@ logger.setLevel(logging.INFO)  # Set the level explicitly
 # Add a stream handler to ensure output to console
 stream_handler = logging.StreamHandler()
 stream_handler.setLevel(logging.INFO)
-formatter = logging.Formatter('%(message)s')
+formatter = logging.Formatter("%(message)s")
 stream_handler.setFormatter(formatter)
 logger.addHandler(stream_handler)
 
@@ -64,10 +63,9 @@ def skzcam_analyse_eint(
             raise ValueError(
                 "Either the EmbeddedCluster object must be provided or embedded_cluster_npy_path is set or embedded_cluster.npy is provided in calc_dir."
             )
-        else:
-            EmbeddedCluster = np.load(
-                Path(calc_dir, "embedded_cluster.npy"), allow_pickle=True
-            ).item()
+        EmbeddedCluster = np.load(
+            Path(calc_dir, "embedded_cluster.npy"), allow_pickle=True
+        ).item()
 
     elif EmbeddedCluster is None and embedded_cluster_npy_path is not None:
         EmbeddedCluster = np.load(embedded_cluster_npy_path, allow_pickle=True).item()
