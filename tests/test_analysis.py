@@ -71,7 +71,8 @@ def test_analyze_calculations(ref_EmbeddedCluster, tmp_path):
         Path(FILE_DIR, "skzcam_files", "embedded_cluster.npy.gz"), "r"
     ) as file:
         skzcam_calcs_analysis = analyze_calculations(
-            calc_dir=Path(FILE_DIR, "skzcam_files", "calc_dir"), embedded_cluster_path=file
+            calc_dir=Path(FILE_DIR, "skzcam_files", "calc_dir"),
+            embedded_cluster_path=file,
         )
 
     int_ene_list = [
@@ -170,7 +171,7 @@ def test_analyze_calculations(ref_EmbeddedCluster, tmp_path):
         ValueError,
         match="The embedded_cluster_path or EmbeddedCluster object must be provided.",
     ):
-        analyze_calculations(calc_dir=Path(FILE_DIR,"skzcam_files", "calc_dir"))
+        analyze_calculations(calc_dir=Path(FILE_DIR, "skzcam_files", "calc_dir"))
 
     test_EmbeddedCluster = deepcopy(ref_EmbeddedCluster)
     test_EmbeddedCluster.skzcam_calcs = None
