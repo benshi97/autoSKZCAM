@@ -47,7 +47,10 @@ def compute_skzcam_int_ene(
 
                 # Check the basis set family
                 basis_set_family = "mixcc"
-                if "element_info" in oniom_layer_parameters and oniom_layer_parameters["element_info"] is not None:
+                if (
+                    "element_info" in oniom_layer_parameters
+                    and oniom_layer_parameters["element_info"] is not None
+                ):
                     for element in oniom_layer_parameters["element_info"]:
                         if (
                             "def2"
@@ -62,9 +65,7 @@ def compute_skzcam_int_ene(
                 elif "ccsd" in method.lower():
                     method_type = "ccsd"
                 else:
-                    raise ValueError(
-                        "The method cannot be analysed automatically."
-                    )
+                    raise ValueError("The method cannot be analysed automatically.")
                 (is_cbs, basis_1, basis_2) = is_valid_cbs_format(
                     oniom_layer_parameters["basis"]
                 )
@@ -79,27 +80,34 @@ def compute_skzcam_int_ene(
                     for _basis_idx, basis_set in enumerate(basis_sets):
                         # Use the
                         if (
-                            code == "mrcc"
-                            and level == "ll"
-                            and "MP2" in oniom_layer["ll"]["method"].upper()
-                            and "CCSD(T)" in oniom_layer["hl"]["method"].upper()
-                        ) or (
-                            code == "mrcc"
-                            and level == "ll"
-                            and "CCSD" in oniom_layer["ll"]["method"].upper()
-                            and "CCSD(T)" in oniom_layer["hl"]["method"].upper()
-                        ) or (
-                            code == "orca"
-                            and level == "ll"
-                            and oniom_layer["ll"]["method"].upper() == "MP2"
-                            and oniom_layer["hl"]["method"].upper() == "CCSD(T)"
+                            (
+                                code == "mrcc"
+                                and level == "ll"
+                                and "MP2" in oniom_layer["ll"]["method"].upper()
+                                and "CCSD(T)" in oniom_layer["hl"]["method"].upper()
+                            )
+                            or (
+                                code == "mrcc"
+                                and level == "ll"
+                                and "CCSD" in oniom_layer["ll"]["method"].upper()
+                                and "CCSD(T)" in oniom_layer["hl"]["method"].upper()
+                            )
+                            or (
+                                code == "orca"
+                                and level == "ll"
+                                and oniom_layer["ll"]["method"].upper() == "MP2"
+                                and oniom_layer["hl"]["method"].upper() == "CCSD(T)"
+                            )
                         ):
                             calculation_label = f"{code} {oniom_layer['hl']['method']} {frozen_core} {basis_set}"
                         else:
                             calculation_label = (
                                 f"{code} {method} {frozen_core} {basis_set}"
                             )
-                        if calculation_label in skzcam_calcs_analysis[cluster_num] and calculation_label != "cluster_size":
+                        if (
+                            calculation_label in skzcam_calcs_analysis[cluster_num]
+                            and calculation_label != "cluster_size"
+                        ):
                             basis_set_scf_int_ene_list += [
                                 skzcam_calcs_analysis[cluster_num][calculation_label][
                                     "int_ene"
@@ -148,10 +156,7 @@ def compute_skzcam_int_ene(
                 0,
             ]
         elif "bulk" in layer_name.lower():
-            skzcam_int_ene[layer_name] = [
-                    cluster_level_int_ene["hl"][-1],
-                0,
-            ]            
+            skzcam_int_ene[layer_name] = [cluster_level_int_ene["hl"][-1], 0]
         elif "fse" in layer_name.lower():
             skzcam_int_ene[layer_name] = [
                 0,
@@ -184,18 +189,23 @@ def compute_skzcam_int_ene(
                 ]
             else:
                 skzcam_int_ene[layer_name] = [
-                np.mean(cluster_level_int_ene["hl"] - cluster_level_int_ene["ll"]),
-                2 * np.std(cluster_level_int_ene["hl"] - cluster_level_int_ene["ll"]),
-            ]
+                    np.mean(cluster_level_int_ene["hl"] - cluster_level_int_ene["ll"]),
+                    2
+                    * np.std(cluster_level_int_ene["hl"] - cluster_level_int_ene["ll"]),
+                ]
 
     # Compute the final SKZCAM interaction energy
-    final_int_ene = np.sum([skzcam_int_ene[layer_name][0] for layer_name in skzcam_int_ene])
-    final_int_ene_error = np.sqrt(np.sum([skzcam_int_ene[layer_name][1] ** 2 for layer_name in skzcam_int_ene]))
-
+    final_int_ene = np.sum(
+        [skzcam_int_ene[layer_name][0] for layer_name in skzcam_int_ene]
+    )
+    final_int_ene_error = np.sqrt(
+        np.sum([skzcam_int_ene[layer_name][1] ** 2 for layer_name in skzcam_int_ene])
+    )
 
     skzcam_int_ene["final"] = [final_int_ene, final_int_ene_error]
 
     return skzcam_int_ene
+
 
 def _get_method_int_ene(
     energy_dict: EnergyInfo, method_type: Literal["mp2", "ccsd", "ccsd(t)", "scf"]
@@ -224,9 +234,8 @@ def _get_method_int_ene(
     }
 
     if energy_dict[type_to_energy_label[method_type]] is None:
-        raise ValueError(f"The energy is None.")
-    else:
-        return energy_dict[type_to_energy_label[method_type]]
+        raise ValueError("The energy is None.")
+    return energy_dict[type_to_energy_label[method_type]]
 
 
 def extrapolate_to_bulk(x_data: list[float], y_data: list[float]) -> float:

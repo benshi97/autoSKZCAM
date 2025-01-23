@@ -242,12 +242,11 @@ d-f
 *""",
     }
 
-
     wrong_EmbeddedCluster = deepcopy(ref_EmbeddedCluster)
     wrong_EmbeddedCluster.adsorbate_slab_embedded_cluster = None
     with pytest.raises(
         ValueError,
-        match = "The adsorbate_slab_embedded_cluster, quantum_cluster_indices_set and ecp_region_indices_set must be provided."
+        match="The adsorbate_slab_embedded_cluster, quantum_cluster_indices_set and ecp_region_indices_set must be provided.",
     ):
         prep_cluster = Prepare(
             EmbeddedCluster=wrong_EmbeddedCluster, OniomInfo=ref_oniom_layers
@@ -421,12 +420,12 @@ d-f
                 "max_cluster_num": 2,
                 "code": "orca",
             },
-        },
+        }
     }
 
     with pytest.raises(
         ValueError,
-        match="For the Bulk MP2 layer, only high-level portion should be supplied."
+        match="For the Bulk MP2 layer, only high-level portion should be supplied.",
     ):
         prep_cluster = Prepare(
             EmbeddedCluster=ref_EmbeddedCluster, OniomInfo=wrong_oniom_layers
@@ -442,12 +441,12 @@ d-f
                 "max_cluster_num": 2,
                 "code": "orca",
             },
-            "hl": None
-        },
+            "hl": None,
+        }
     }
     with pytest.raises(
         ValueError,
-        match="For the FSE layer, both high-level and low-level portions should be supplied."
+        match="For the FSE layer, both high-level and low-level portions should be supplied.",
     ):
         prep_cluster = Prepare(
             EmbeddedCluster=ref_EmbeddedCluster, OniomInfo=wrong_oniom_layers
@@ -468,12 +467,12 @@ d-f
                 "basis": "CBS(DZ//TZ)",
                 "max_cluster_num": 2,
                 "code": "orca",
-            }
-        },
+            },
+        }
     }
     with pytest.raises(
         ValueError,
-        match="The only parameter which should be different between the high-level and low-level calculations is the max_cluster_num, which should be the high-level for the FSE layer."
+        match="The only parameter which should be different between the high-level and low-level calculations is the max_cluster_num, which should be the high-level for the FSE layer.",
     ):
         prep_cluster = Prepare(
             EmbeddedCluster=ref_EmbeddedCluster, OniomInfo=wrong_oniom_layers
@@ -489,12 +488,12 @@ d-f
                 "max_cluster_num": 2,
                 "code": "orca",
             },
-            "hl": None
-        },
+            "hl": None,
+        }
     }
     with pytest.raises(
         ValueError,
-        match="Both high-level and low-level portions should be supplied for the DeltaCC layer."
+        match="Both high-level and low-level portions should be supplied for the DeltaCC layer.",
     ):
         prep_cluster = Prepare(
             EmbeddedCluster=ref_EmbeddedCluster, OniomInfo=wrong_oniom_layers
@@ -515,17 +514,17 @@ d-f
                 "basis": "CBS(DZ//TZ)",
                 "max_cluster_num": 2,
                 "code": "orca",
-            }
-        },
+            },
+        }
     }
     with pytest.raises(
         ValueError,
-        match="The DeltaCC layer should have max_cluster_num that is same for both the high-level and low-level calculations."
+        match="The DeltaCC layer should have max_cluster_num that is same for both the high-level and low-level calculations.",
     ):
         prep_cluster = Prepare(
             EmbeddedCluster=ref_EmbeddedCluster, OniomInfo=wrong_oniom_layers
         )
-    
+
     # Check if errors are raised when wrong layer name is given
     wrong_oniom_layers = {
         "Onion": {
@@ -542,16 +541,17 @@ d-f
                 "basis": "CBS(DZ//TZ)",
                 "max_cluster_num": 2,
                 "code": "orca",
-            }
-        },
+            },
+        }
     }
     with pytest.raises(
         ValueError,
-        match="The Onion layer should contain the keywords: 'bulk', 'fse' or 'delta'."
+        match="The Onion layer should contain the keywords: 'bulk', 'fse' or 'delta'.",
     ):
         prep_cluster = Prepare(
             EmbeddedCluster=ref_EmbeddedCluster, OniomInfo=wrong_oniom_layers
         )
+
 
 def test_Prepare_intialize_calculator(
     ref_EmbeddedCluster, ref_oniom_layers, element_info
