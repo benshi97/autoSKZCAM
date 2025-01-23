@@ -291,7 +291,6 @@ def test_extrapolate_to_bulk():
 
 
 def test_get_cbs_extrapolation():
-
     cbs_extrapolated_ene = get_cbs_extrapolation(
         0.05710643952079408,
         -0.0899534679109486,
