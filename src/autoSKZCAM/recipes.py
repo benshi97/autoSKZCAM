@@ -88,17 +88,6 @@ def skzcam_analyse_eint(
         skzcam_calcs_analysis=skzcam_calcs_analysis, OniomInfo=OniomInfo
     )
 
-    # if print_results:
-    #     print("-" * 42)
-    #     for key, value in skzcam_int_ene.items():
-    #         energy = int(round(value[0] * 1000))
-    #         error = int(round(value[1] * 1000))
-    #         formatted_key = key[:15].ljust(10)
-    #         if key == "Total":
-    #             print("-" * 42)
-    #         print(f"{formatted_key:<15}  : {energy:^8} ± {error:<8} meV")
-    #     print("-" * 42)
-
     # Updated code block with logger
     if print_results:
         logger.info("-" * 42)
