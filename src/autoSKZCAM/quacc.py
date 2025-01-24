@@ -65,8 +65,8 @@ def static_job_mrcc(
 @job
 def static_job_orca(
     atoms: Atoms,
-    orcasimpleinput: str | None = None,
-    orcablocks: str | None = None,
+    orcasimpleinput: str = '',
+    orcablocks: str = '',
     pointcharges: str | None = None,
     copy_files: SourceDirectory | dict[SourceDirectory, Filenames] | None = None,
 ) -> RunSchema:
