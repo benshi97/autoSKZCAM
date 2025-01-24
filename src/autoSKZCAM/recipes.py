@@ -8,7 +8,10 @@ from typing import TYPE_CHECKING
 import numpy as np
 from ase.io.orca import write_orca
 from quacc.calculators.mrcc.io import write_mrcc
+from quacc import change_settings
 
+
+from autoSKZCAM.quacc import static_job_mrcc, static_job_orca
 from autoSKZCAM.analysis import analyze_calculations, compute_skzcam_int_ene
 from autoSKZCAM.embed import CreateEmbeddedCluster
 from autoSKZCAM.oniom import Prepare
@@ -256,6 +259,7 @@ def skzcam_calculate_job(
     EmbeddedCluster: CreateEmbeddedCluster,
     OniomInfo: dict[str, str],
     dryrun: bool = False,
+    use_quacc: bool = False,
     calc_dir: str | Path = "calc_dir",
 ):
     """
@@ -301,7 +305,19 @@ def skzcam_calculate_job(
                     EmbeddedCluster.skzcam_calcs[cluster_num][calculation_label][
                         structure
                     ].calc.directory = system_path
-                    EmbeddedCluster.skzcam_calcs[cluster_num][calculation_label][
+                    if use_quacc:
+                        calc_parameters = EmbeddedCluster.skzcam_calcs[cluster_num][calculation_label][
+                                structure
+                            ].calc.parameters
+                        with change_settings({"RESULTS_DIR": system_path, "CREATE_UNIQUE_DIR": False, "GZIP_FILES": False}):
+                            if code == "mrcc":
+                                static_job_mrcc(EmbeddedCluster.skzcam_calcs[cluster_num][calculation_label][
+                        structure
+                    ], **calc_parameters)
+                            elif code == 'orca':
+                                static_job_orca(EmbeddedCluster.skzcam_calcs[cluster_num][calculation_label][structure], **calc_parameters)
+                    else:
+                        EmbeddedCluster.skzcam_calcs[cluster_num][calculation_label][
                         structure
                     ].get_potential_energy()
 
