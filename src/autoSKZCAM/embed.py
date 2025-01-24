@@ -190,7 +190,9 @@ class CreateEmbeddedCluster:
         from chemsh.io.tools import convert_atoms_to_frag
 
         # Convert ASE Atoms to ChemShell Fragment object
-        slab_frag = convert_atoms_to_frag(self.slab, connect_mode="ionic", dim="2D",ndimensions=2)
+        slab_frag = convert_atoms_to_frag(
+            self.slab, connect_mode="ionic", dim="2D", ndimensions=2
+        )
 
         # Add the atomic charges to the fragment
         slab_frag.addCharges(self.atom_oxi_states)

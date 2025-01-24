@@ -2,16 +2,13 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Literal
+from typing import TYPE_CHECKING
 
-import psutil
 from ase.calculators.orca import OrcaProfile
 from quacc import get_settings, job
 from quacc.calculators.mrcc.mrcc import MrccProfile
 from quacc.runners.ase import Runner
 from quacc.schemas.ase import Summarize
-from quacc.utils.dicts import recursive_dict_merge
-from quacc.utils.lists import merge_list_params
 
 from autoSKZCAM.calculators import MRCC, ORCA
 
@@ -61,8 +58,7 @@ def static_job_mrcc(
     final_atoms = Runner(atoms, calc, copy_files=copy_files).run_calc()
 
     return Summarize(
-        charge_and_multiplicity=(0,1),
-        additional_fields={"name": "MRCC Static"},
+        charge_and_multiplicity=(0, 1), additional_fields={"name": "MRCC Static"}
     ).run(final_atoms, atoms)
 
 
@@ -112,6 +108,5 @@ def static_job_orca(
     final_atoms = Runner(atoms, calc, copy_files=copy_files).run_calc()
 
     return Summarize(
-        charge_and_multiplicity=(0, 1),
-        additional_fields={"name": "ORCA Static"},
+        charge_and_multiplicity=(0, 1), additional_fields={"name": "ORCA Static"}
     ).run(final_atoms, atoms)
