@@ -776,21 +776,20 @@ def test_skzcam_calculate_job(tmp_path):
     ) as f:
         assert "****ORCA TERMINATED NORMALLY****" in f.read()
 
-
     # Check whether quacc works as well
     skzcam_calculate_job(
         EmbeddedCluster=EmbeddedCluster,
         OniomInfo=oniom_layers,
         dryrun=False,
         use_quacc=True,
-        calc_dir=Path(tmp_path,'quacc'),
+        calc_dir=Path(tmp_path, "quacc"),
     )
 
     # Check that "****ORCA TERMINATED NORMALLY****" is in the output file
     with open(
-        tmp_path / 'quacc' / "1" / "orca" / "MP2_DZ_valence" / "adsorbate" / "orca.out"
+        tmp_path / "quacc" / "1" / "orca" / "MP2_DZ_valence" / "adsorbate" / "orca.out"
     ) as f:
-        assert "****ORCA TERMINATED NORMALLY****" in f.read() 
+        assert "****ORCA TERMINATED NORMALLY****" in f.read()
 
     oniom_layers = {
         "Bulk MP2": {
@@ -800,7 +799,7 @@ def test_skzcam_calculate_job(tmp_path):
                 "frozen_core": "valence",
                 "basis": "DZ",
                 "max_cluster_num": 1,
-                "code": "mrcc"
+                "code": "mrcc",
             },
         }
     }
@@ -809,14 +808,14 @@ def test_skzcam_calculate_job(tmp_path):
         OniomInfo=oniom_layers,
         dryrun=False,
         use_quacc=True,
-        calc_dir=Path(tmp_path,'quacc'),
+        calc_dir=Path(tmp_path, "quacc"),
     )
 
     # Check that "****ORCA TERMINATED NORMALLY****" is in the output file
     with open(
-        tmp_path / 'quacc' / "1" / "mrcc" / "MP2_DZ_valence" / "adsorbate" / "mrcc.out"
+        tmp_path / "quacc" / "1" / "mrcc" / "MP2_DZ_valence" / "adsorbate" / "mrcc.out"
     ) as f:
-        assert "Normal termination of mrcc" in f.read() 
+        assert "Normal termination of mrcc" in f.read()
 
     oniom_layers = {
         "Bulk MP2": {

@@ -7,10 +7,7 @@ from ase import Atoms
 from ase.build import molecule
 from quacc import change_settings
 
-from autoSKZCAM.quacc import (
-    static_job_mrcc,
-    static_job_orca,
-)
+from autoSKZCAM.quacc import static_job_mrcc, static_job_orca
 
 FILE_DIR = Path(__file__).parent
 
@@ -25,7 +22,7 @@ def test_static_job_mrcc(tmp_path):
             method="SCAN",
             basis="def2-TZVP",
             calc="PBE",
-            symm="off"
+            symm="off",
         )
     assert output["natoms"] == len(atoms)
     assert output["parameters"]["basis"] == "def2-TZVP"
@@ -47,7 +44,9 @@ def test_static_job_mrcc(tmp_path):
 def test_static_job_orca(tmp_path):
     atoms = molecule("H2")
     with change_settings({"RESULTS_DIR": tmp_path}):
-        output = static_job_orca(atoms, orcasimpleinput="def2-tzvp engrad normalprint wb97x-d3bj xyzfile")
+        output = static_job_orca(
+            atoms, orcasimpleinput="def2-tzvp engrad normalprint wb97x-d3bj xyzfile"
+        )
     assert output["natoms"] == len(atoms)
     assert (
         output["parameters"]["orcasimpleinput"]
