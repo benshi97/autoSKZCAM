@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Any, Literal
 
 import psutil
-from ase.calculators.orca import ORCA, OrcaProfile
+from ase.calculators.orca import OrcaProfile
 from quacc import get_settings, job
 from quacc.calculators.mrcc.mrcc import MrccProfile
 from quacc.runners.ase import Runner
