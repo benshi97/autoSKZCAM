@@ -96,7 +96,7 @@ code_calculation_defaults = {
             "calc": "LNO-CCSD(T)",
             "scftype": "rhf",
             "verbosity": 3,
-            "mem": "80000MB",
+            "mem": "2000MB",
             "symm": "off",
             "unit": "angs",
             "scfiguess": "small",
@@ -115,7 +115,7 @@ code_calculation_defaults = {
             "calc": "DF-CCSD(T)",
             "scftype": "rhf",
             "verbosity": 3,
-            "mem": "80000MB",
+            "mem": "2000MB",
             "symm": "off",
             "unit": "angs",
             "scfiguess": "small",
@@ -130,7 +130,7 @@ code_calculation_defaults = {
             "calc": "DF-MP2",
             "scftype": "rhf",
             "verbosity": 3,
-            "mem": "80000MB",
+            "mem": "2000MB",
             "symm": "off",
             "unit": "angs",
             "scfiguess": "small",
@@ -141,7 +141,7 @@ code_calculation_defaults = {
             "calc": "LMP2",
             "scftype": "rhf",
             "verbosity": 3,
-            "mem": "80000MB",
+            "mem": "2000MB",
             "symm": "off",
             "unit": "angs",
             "lcorthr": "tight",
@@ -152,7 +152,7 @@ code_calculation_defaults = {
         },
         "Other": {
             "verbosity": 3,
-            "mem": "80000MB",
+            "mem": "2000MB",
             "symm": "off",
             "unit": "angs",
             "scfiguess": "small",
@@ -167,8 +167,8 @@ code_calculation_defaults = {
             "Other": "TightSCF RIJCOSX DIIS",
         },
         "orcablocks": """
-%pal nprocs 8 end
-%maxcore 25000
+%pal nprocs 1 end
+%maxcore 2000
 %method
 Method hf
 RI on
