@@ -291,9 +291,26 @@ class Prepare:
         """
         code = oniom_layer_parameters["code"]
         method = oniom_layer_parameters["method"]
+
+        atom_type_list = self.adsorbate_slab_embedded_cluster.arrays["atom_type"]
+        adsorbate_slab_idx = quantum_cluster_indices
+        slab_idx = [i for i in adsorbate_slab_idx if atom_type_list[i] != "adsorbate"]
+        adsorbate_idx = [
+            i for i in adsorbate_slab_idx if atom_type_list[i] == "adsorbate"
+        ]
+
+        adsorbate_slab_quantum_cluster = deepcopy(
+            self.adsorbate_slab_embedded_cluster[adsorbate_slab_idx]
+        )
+        slab_quantum_cluster = deepcopy(self.adsorbate_slab_embedded_cluster[slab_idx])
+        adsorbate_quantum_cluster = deepcopy(
+            self.adsorbate_slab_embedded_cluster[adsorbate_idx]
+        )
+
         calculators = {
-            structure: deepcopy(self.adsorbate_slab_embedded_cluster)
-            for structure in ["adsorbate", "slab", "adsorbate_slab"]
+            "adsorbate_slab": adsorbate_slab_quantum_cluster,
+            "slab": slab_quantum_cluster,
+            "adsorbate": adsorbate_quantum_cluster,
         }
 
         # Depending on the code, set the calculator and inputs
@@ -417,10 +434,6 @@ class Prepare:
             inputs["slab"]["pointcharges"] = pc_file
             inputs["adsorbate"]["pointcharges"] = None
 
-            calculators = {
-                structure: deepcopy(self.adsorbate_slab_embedded_cluster)
-                for structure in inputs
-            }
             for structure, calculator in calculators.items():
                 calculator.calc = ORCA(
                     profile=OrcaProfile(command=get_settings().ORCA_CMD),
