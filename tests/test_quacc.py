@@ -5,12 +5,17 @@ from pathlib import Path
 import pytest
 from ase import Atoms
 from ase.build import molecule
-
 from quacc import change_settings
 
-from autoSKZCAM.quacc import static_job_mrcc, static_job_orca, prep_calculator_mrcc, run_and_summarize_mrcc
+from autoSKZCAM.quacc import (
+    prep_calculator_mrcc,
+    run_and_summarize_mrcc,
+    static_job_mrcc,
+    static_job_orca,
+)
 
 FILE_DIR = Path(__file__).parent
+
 
 def test_static_job_mrcc(tmp_path):
     atoms = Atoms("H2O", positions=[[1.0, 0.0, 0.0], [2.0, 0.0, 0.0], [3.0, 0.0, 0.0]])
@@ -107,8 +112,8 @@ O: def2-SVP""",
 
     assert calc.parameters == ref_parameters
 
-def test_static_job_orca(tmp_path):
 
+def test_static_job_orca(tmp_path):
     atoms = molecule("H2")
     with change_settings({"RESULTS_DIR": tmp_path}):
         output = static_job_orca(atoms, charge=0, spin_multiplicity=1, nprocs=1)

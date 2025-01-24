@@ -2,22 +2,23 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Literal, Any
-from quacc.calculators.mrcc.mrcc import MrccProfile
-from ase.calculators.orca import ORCA, OrcaProfile
+from typing import TYPE_CHECKING, Any, Literal
+
 import psutil
+from ase.calculators.orca import ORCA, OrcaProfile
+from quacc import get_settings, job
+from quacc.calculators.mrcc.mrcc import MrccProfile
+from quacc.runners.ase import Runner
+from quacc.schemas.ase import Summarize
 from quacc.utils.dicts import recursive_dict_merge
 from quacc.utils.lists import merge_list_params
-from quacc.runners.ase import Runner
-from quacc import job, get_settings
-from quacc.schemas.ase import Summarize
 
-from autoSKZCAM.calculators import ORCA, MRCC
+from autoSKZCAM.calculators import MRCC, ORCA
 
 if TYPE_CHECKING:
     from ase.atoms import Atoms
-
     from quacc.types import Filenames, RunSchema, SourceDirectory
+
 
 @job
 def static_job_mrcc(
@@ -133,6 +134,7 @@ def static_job_orca(
         copy_files=copy_files,
     )
 
+
 def run_and_summarize_orca(
     atoms: Atoms,
     charge: int = 0,
@@ -195,6 +197,7 @@ def run_and_summarize_orca(
         additional_fields=additional_fields,
     ).run(final_atoms, atoms)
 
+
 def prep_calculator_orca(
     charge: int = 0,
     spin_multiplicity: int = 1,
@@ -247,6 +250,7 @@ def prep_calculator_orca(
         orcablocks=orcablocks,
         **calc_kwargs,
     )
+
 
 def run_and_summarize_mrcc(
     atoms: Atoms,
