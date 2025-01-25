@@ -1,4 +1,4 @@
- vasp.6.3.0 20Jan22 (build Apr  1 2022 16:44:48) complex                         
+ vasp.6.3.0 20Jan22 (build Apr  1 2022 16:44:48) complex
  executed on        HPECrayEX_GCC date 2022.09.24  12:35:25
  running  768 mpi-ranks, with    1 threads/rank
  distrk:  each k-point on  384 cores,    2 groups
@@ -35,8 +35,8 @@
    LWAVE = .FALSE.
    LCHARG = .FALSE.
 
- POTCAR:    PAW_PBE Mg_pv 13Apr2007               
- POTCAR:    PAW_PBE O 08Apr2002                   
+ POTCAR:    PAW_PBE Mg_pv 13Apr2007
+ POTCAR:    PAW_PBE O 08Apr2002
  -----------------------------------------------------------------------------
 |                                                                             |
 |               ----> ADVICE to this user running VASP <----                  |
@@ -52,48 +52,48 @@
 |                                                                             |
  -----------------------------------------------------------------------------
 
- POTCAR:    PAW_PBE Mg_pv 13Apr2007               
-   SHA256 =  f474ac0dd33840b9ae76c01d57fea79fdf77cdfbb07d5ade72c65f83c709b62b Mg_pv/POTCAR          
-   COPYR  = (c) Copyright 13Apr2007 Georg Kresse                                                    
+ POTCAR:    PAW_PBE Mg_pv 13Apr2007
+   SHA256 =  f474ac0dd33840b9ae76c01d57fea79fdf77cdfbb07d5ade72c65f83c709b62b Mg_pv/POTCAR
+   COPYR  = (c) Copyright 13Apr2007 Georg Kresse
    COPYR  = This file is part of the software VASP. Any use, copying, and all other rights are regul
-   COPYR  = If you do not have a valid VASP license, you may not use, copy or distribute this file. 
-   VRHFIN =Mg: p6s2                                                                                 
-   LEXCH  = PE                                                                                      
-   EATOM  =  1056.7344 eV,   77.6678 Ry                                                             
-                                                                                                    
-   TITEL  = PAW_PBE Mg_pv 13Apr2007                                                                 
-   LULTRA =        F    use ultrasoft PP ?                                                          
-   IUNSCR =        1    unscreen: 0-lin 1-nonlin 2-no                                               
-   RPACOR =    1.500    partial core radius                                                         
-   POMASS =   24.305; ZVAL   =    8.000    mass and valenz                                          
-   RCORE  =    2.000    outmost cutoff radius                                                       
-   RWIGS  =    2.000; RWIGS  =    1.058    wigner-seitz radius (au A)                               
-   ENMAX  =  403.929; ENMIN  =  302.947 eV                                                          
-   RCLOC  =    1.506    cutoff for local pot                                                        
-   LCOR   =        T    correct aug charges                                                         
-   LPAW   =        T    paw PP                                                                      
-   EAUG   =  758.780                                                                                
-   DEXC   =    0.000                                                                                
-   RMAX   =    2.045    core radius for proj-oper                                                   
-   RAUG   =    1.300    factor for augmentation sphere                                              
-   RDEP   =    2.025    radius for radial grids                                                     
-   RDEPT  =    1.557    core radius for aug-charge                                                  
-                                                                                                    
-   Atomic configuration                                                                             
-    5 entries                                                                                       
-     n  l   j            E        occ.                                                              
-     1  0  0.50     -1259.6230   2.0000                                                             
-     2  0  0.50       -79.8442   2.0000                                                             
-     2  1  1.50       -46.6121   6.0000                                                             
-     3  0  0.50        -4.7055   2.0000                                                             
-     3  2  1.50        -1.3606   0.0000                                                             
-   Description                                                                                      
-     l       E           TYP  RCUT    TYP  RCUT                                                     
-     1    -46.6121073     23  1.600                                                                 
-     1      2.7211652     23  1.600                                                                 
-     0     -4.7054661     23  2.000                                                                 
-     0     61.2262170     23  2.000                                                                 
-     2     -1.3605826     23  2.000                                                                 
+   COPYR  = If you do not have a valid VASP license, you may not use, copy or distribute this file.
+   VRHFIN =Mg: p6s2
+   LEXCH  = PE
+   EATOM  =  1056.7344 eV,   77.6678 Ry
+
+   TITEL  = PAW_PBE Mg_pv 13Apr2007
+   LULTRA =        F    use ultrasoft PP ?
+   IUNSCR =        1    unscreen: 0-lin 1-nonlin 2-no
+   RPACOR =    1.500    partial core radius
+   POMASS =   24.305; ZVAL   =    8.000    mass and valenz
+   RCORE  =    2.000    outmost cutoff radius
+   RWIGS  =    2.000; RWIGS  =    1.058    wigner-seitz radius (au A)
+   ENMAX  =  403.929; ENMIN  =  302.947 eV
+   RCLOC  =    1.506    cutoff for local pot
+   LCOR   =        T    correct aug charges
+   LPAW   =        T    paw PP
+   EAUG   =  758.780
+   DEXC   =    0.000
+   RMAX   =    2.045    core radius for proj-oper
+   RAUG   =    1.300    factor for augmentation sphere
+   RDEP   =    2.025    radius for radial grids
+   RDEPT  =    1.557    core radius for aug-charge
+
+   Atomic configuration
+    5 entries
+     n  l   j            E        occ.
+     1  0  0.50     -1259.6230   2.0000
+     2  0  0.50       -79.8442   2.0000
+     2  1  1.50       -46.6121   6.0000
+     3  0  0.50        -4.7055   2.0000
+     3  2  1.50        -1.3606   0.0000
+   Description
+     l       E           TYP  RCUT    TYP  RCUT
+     1    -46.6121073     23  1.600
+     1      2.7211652     23  1.600
+     0     -4.7054661     23  2.000
+     0     61.2262170     23  2.000
+     2     -1.3605826     23  2.000
   local pseudopotential read in
   partial core-charges read in
   partial kinetic energy density read in
@@ -113,47 +113,47 @@
    number of l-projection  operators is LMAX  =           5
    number of lm-projection operators is LMMAX =          13
 
- POTCAR:    PAW_PBE O 08Apr2002                   
-   SHA256 =  818f92134a0a090dccd8ba1447fa70422a3b330e708bb4f08108d8ae51209ddf O/POTCAR              
-   COPYR  = (c) Copyright 08Apr2002 Georg Kresse                                                    
+ POTCAR:    PAW_PBE O 08Apr2002
+   SHA256 =  818f92134a0a090dccd8ba1447fa70422a3b330e708bb4f08108d8ae51209ddf O/POTCAR
+   COPYR  = (c) Copyright 08Apr2002 Georg Kresse
    COPYR  = This file is part of the software VASP. Any use, copying, and all other rights are regul
-   COPYR  = If you do not have a valid VASP license, you may not use, copy or distribute this file. 
-   VRHFIN =O: s2p4                                                                                  
-   LEXCH  = PE                                                                                      
-   EATOM  =   432.3788 eV,   31.7789 Ry                                                             
-                                                                                                    
-   TITEL  = PAW_PBE O 08Apr2002                                                                     
-   LULTRA =        F    use ultrasoft PP ?                                                          
-   IUNSCR =        1    unscreen: 0-lin 1-nonlin 2-no                                               
-   RPACOR =    1.200    partial core radius                                                         
-   POMASS =   16.000; ZVAL   =    6.000    mass and valenz                                          
-   RCORE  =    1.520    outmost cutoff radius                                                       
-   RWIGS  =    1.550; RWIGS  =    0.820    wigner-seitz radius (au A)                               
-   ENMAX  =  400.000; ENMIN  =  300.000 eV                                                          
-   ICORE  =        2    local potential                                                             
-   LCOR   =        T    correct aug charges                                                         
-   LPAW   =        T    paw PP                                                                      
-   EAUG   =  605.392                                                                                
-   DEXC   =    0.000                                                                                
-   RMAX   =    1.553    core radius for proj-oper                                                   
-   RAUG   =    1.300    factor for augmentation sphere                                              
-   RDEP   =    1.550    radius for radial grids                                                     
-   RDEPT  =    1.329    core radius for aug-charge                                                  
-                                                                                                    
-   Atomic configuration                                                                             
-    4 entries                                                                                       
-     n  l   j            E        occ.                                                              
-     1  0  0.50      -514.6923   2.0000                                                             
-     2  0  0.50       -23.9615   2.0000                                                             
-     2  1  0.50        -9.0305   4.0000                                                             
-     3  2  1.50        -9.5241   0.0000                                                             
-   Description                                                                                      
-     l       E           TYP  RCUT    TYP  RCUT                                                     
-     0    -23.9615318     23  1.200                                                                 
-     0     -9.5240782     23  1.200                                                                 
-     1     -9.0304911     23  1.520                                                                 
-     1      8.1634956     23  1.520                                                                 
-     2     -9.5240782      7  1.500                                                                 
+   COPYR  = If you do not have a valid VASP license, you may not use, copy or distribute this file.
+   VRHFIN =O: s2p4
+   LEXCH  = PE
+   EATOM  =   432.3788 eV,   31.7789 Ry
+
+   TITEL  = PAW_PBE O 08Apr2002
+   LULTRA =        F    use ultrasoft PP ?
+   IUNSCR =        1    unscreen: 0-lin 1-nonlin 2-no
+   RPACOR =    1.200    partial core radius
+   POMASS =   16.000; ZVAL   =    6.000    mass and valenz
+   RCORE  =    1.520    outmost cutoff radius
+   RWIGS  =    1.550; RWIGS  =    0.820    wigner-seitz radius (au A)
+   ENMAX  =  400.000; ENMIN  =  300.000 eV
+   ICORE  =        2    local potential
+   LCOR   =        T    correct aug charges
+   LPAW   =        T    paw PP
+   EAUG   =  605.392
+   DEXC   =    0.000
+   RMAX   =    1.553    core radius for proj-oper
+   RAUG   =    1.300    factor for augmentation sphere
+   RDEP   =    1.550    radius for radial grids
+   RDEPT  =    1.329    core radius for aug-charge
+
+   Atomic configuration
+    4 entries
+     n  l   j            E        occ.
+     1  0  0.50      -514.6923   2.0000
+     2  0  0.50       -23.9615   2.0000
+     2  1  0.50        -9.0305   4.0000
+     3  2  1.50        -9.5241   0.0000
+   Description
+     l       E           TYP  RCUT    TYP  RCUT
+     0    -23.9615318     23  1.200
+     0     -9.5240782     23  1.200
+     1     -9.0304911     23  1.520
+     1      8.1634956     23  1.520
+     2     -9.5240782      7  1.500
   local pseudopotential read in
   partial core-charges read in
   partial kinetic energy density read in
@@ -214,9 +214,9 @@
 
   LATTYP: Found a simple cubic cell.
  ALAT       =     4.2730568129
-  
+
   Lattice vectors:
-  
+
  A1 = (   4.2730568129,  -0.0000000000,   0.0000000000)
  A2 = (  -0.0000000000,   4.2730568129,   0.0000000000)
  A3 = (   0.0000000000,  -0.0000000000,   4.2730568129)
@@ -225,20 +225,20 @@
 Analysis of symmetry for initial positions (statically):
 =====================================================================
  Subroutine PRICEL returns following result:
- 
+
   LATTYP: Found a face centered cubic cell.
  ALAT       =     4.2730568129
-  
+
   Lattice vectors:
-  
+
  A1 = (   2.1365284064,  -2.1365284064,   0.0000000000)
  A2 = (   2.1365284064,   0.0000000000,   2.1365284064)
  A3 = (   0.0000000000,  -2.1365284064,   2.1365284064)
- 
-   4 primitive cells build up your supercell.
- 
 
- Routine SETGRP: Setting up the symmetry group for a 
+   4 primitive cells build up your supercell.
+
+
+ Routine SETGRP: Setting up the symmetry group for a
  simple cubic supercell.
 
 
@@ -253,20 +253,20 @@ The static configuration has the point symmetry O_h .
 Analysis of symmetry for dynamics (positions and initial velocities):
 =====================================================================
  Subroutine PRICEL returns following result:
- 
+
   LATTYP: Found a face centered cubic cell.
  ALAT       =     4.2730568129
-  
+
   Lattice vectors:
-  
+
  A1 = (   2.1365284064,  -2.1365284064,   0.0000000000)
  A2 = (   2.1365284064,   0.0000000000,   2.1365284064)
  A3 = (   0.0000000000,  -2.1365284064,   2.1365284064)
- 
-   4 primitive cells build up your supercell.
- 
 
- Routine SETGRP: Setting up the symmetry group for a 
+   4 primitive cells build up your supercell.
+
+
+ Routine SETGRP: Setting up the symmetry group for a
  simple cubic supercell.
 
 
@@ -285,7 +285,7 @@ The dynamic configuration has the point symmetry O_h .
 
 ----------------------------------------------------------------------------------------
 
-                                     Primitive cell                                     
+                                     Primitive cell
 
   volume of cell :      19.5055
 
@@ -310,7 +310,7 @@ The dynamic configuration has the point symmetry O_h .
 
 
 
- KPOINTS: pymatgen v2020.8.13 with grid density = 
+ KPOINTS: pymatgen v2020.8.13 with grid density =
 
 Automatic generation of k-mesh.
  Grid dimensions read from file:
@@ -329,12 +329,12 @@ Automatic generation of k-mesh.
   Shift w.r.t. Gamma in fractional coordinates (k-lattice)
      0.000000000  0.000000000  0.000000000
 
- 
+
  Subroutine IBZKPT returns following result:
  ===========================================
- 
+
  Found     35 irreducible k-points:
- 
+
  Following reciprocal coordinates:
             Coordinates               Weight
   0.000000  0.000000  0.000000      1.000000
@@ -372,7 +372,7 @@ Automatic generation of k-mesh.
   0.500000  0.375000  0.375000     12.000000
   0.500000  0.500000  0.375000      6.000000
   0.500000  0.500000  0.500000      1.000000
- 
+
  Following cartesian coordinates:
             Coordinates               Weight
   0.000000  0.000000  0.000000      1.000000
@@ -410,7 +410,7 @@ Automatic generation of k-mesh.
   0.117012  0.087759  0.087759     12.000000
   0.117012  0.117012  0.087759      6.000000
   0.117012  0.117012  0.117012      1.000000
- 
+
 
 
 --------------------------------------------------------------------------------------------------------
@@ -431,8 +431,8 @@ Automatic generation of k-mesh.
    NGX,Y,Z   is equivalent  to a cutoff of  10.89, 10.89, 10.89 a.u.
    NGXF,Y,Z  is equivalent  to a cutoff of  21.79, 21.79, 21.79 a.u.
 
- SYSTEM =  MgO-rocksalt                            
- POSCAR =  Mg4 O4                                  
+ SYSTEM =  MgO-rocksalt
+ POSCAR =  Mg4 O4
 
  Startparameter for this run:
    NWRITE =      2    write-flag & timer
@@ -448,7 +448,7 @@ Automatic generation of k-mesh.
    ENCUT  =  600.0 eV  44.10 Ry    6.64 a.u.   8.53  8.53  8.53*2*pi/ulx,y,z
    ENINI  =  600.0     initial cutoff
    ENAUG  =  758.8 eV  augmentation charge cutoff
-   NELM   =    200;   NELMIN=  8; NELMDL= -5     # of ELM steps 
+   NELM   =    200;   NELMIN=  8; NELMDL= -5     # of ELM steps
    EDIFF  = 0.1E-06   stopping-criterion for ELM
    LREAL  =      F    real-space projection
    NLSPLINE    = F    spline interpolate recip. space projectors
@@ -461,7 +461,7 @@ Automatic generation of k-mesh.
  Ionic relaxation
    EDIFFG = -.5E-02   stopping-criterion for IOM
    NSW    =   1000    number of steps for IOM
-   NBLOCK =      1;   KBLOCK =   1000    inner block; outer block 
+   NBLOCK =      1;   KBLOCK =   1000    inner block; outer block
    IBRION =      2    ionic relax: 0-MD 1-quasi-New 2-CG
    NFREE  =      1    steps in history (QN), initial steepest desc. (CG)
    ISIF   =      3    stress and relaxation
@@ -484,7 +484,7 @@ Automatic generation of k-mesh.
    ZVAL   =   8.00  6.00
   Atomic Wigner-Seitz radii
    RWIGS  =  -1.00 -1.00
-  virtual crystal weights 
+  virtual crystal weights
    VCA    =   1.00  1.00
    NELECT =      56.0000    total number of electrons
    NUPDOWN=      -1.0000    fix difference up-down
@@ -512,7 +512,7 @@ Automatic generation of k-mesh.
  Intra band minimization:
    WEIMIN = 0.0010     energy-eigenvalue tresh-hold
    EBREAK =  0.26E-09  absolut break condition
-   DEPER  =   0.30     relativ break condition  
+   DEPER  =   0.30     relativ break condition
 
    TIME   =   0.40     timestep for ELM
 
@@ -533,13 +533,13 @@ Automatic generation of k-mesh.
  Dipole corrections
    LMONO  =      F    monopole corrections only (constant potential shift)
    LDIPOL =      F    correct potential (dipole corrections)
-   IDIPOL =      0    1-x, 2-y, 3-z, 4-all directions 
+   IDIPOL =      0    1-x, 2-y, 3-z, 4-all directions
    EPSILON=  1.0000000 bulk dielectric constant
 
  Exchange correlation treatment:
    GGA     =    RE    GGA type
    LEXCH   =    40    internal setting for exchange type
-   LIBXC   =     F    Libxc                    
+   LIBXC   =     F    Libxc
    VOSKOWN =     0    Vosko Wilk Nusair interpolation
    LHFCALC =     F    Hartree Fock is set to
    LHFONE  =     F    Hartree Fock one center treatment
@@ -586,7 +586,7 @@ Automatic generation of k-mesh.
  charge density and potential will be updated during run
  non-spin polarized calculation
  Conjugate gradient for all bands (Freysoldt, et al. PRB 79, 241103 (2009))
- preconditioned conjugated gradient                                        
+ preconditioned conjugated gradient
  perform sub-space diagonalisation
     before iterative eigenvector-optimisation
  modified Broyden-mixing scheme, WC =      100.0
@@ -595,8 +595,8 @@ Automatic generation of k-mesh.
  using additional bands           68
  reciprocal scheme for non local part
  use partial core corrections
- no Harris-corrections to forces 
- use gradient corrections 
+ no Harris-corrections to forces
+ use gradient corrections
  use of overlap-Matrix (Vanderbilt PP)
  Gauss-broadening in eV      SIGMA  =   0.05
 
@@ -616,7 +616,7 @@ Automatic generation of k-mesh.
 
 
 
- k-points in units of 2pi/SCALE and weight: pymatgen v2020.8.13 with grid density = 
+ k-points in units of 2pi/SCALE and weight: pymatgen v2020.8.13 with grid density =
    0.00000000  0.00000000  0.00000000       0.002
    0.02925306  0.00000000  0.00000000       0.012
    0.05850613  0.00000000  0.00000000       0.012
@@ -653,7 +653,7 @@ Automatic generation of k-mesh.
    0.11701225  0.11701225  0.08775919       0.012
    0.11701225  0.11701225  0.11701225       0.002
 
- k-points in reciprocal lattice and weights: pymatgen v2020.8.13 with grid density = 
+ k-points in reciprocal lattice and weights: pymatgen v2020.8.13 with grid density =
    0.00000000  0.00000000  0.00000000       0.002
    0.12500000  0.00000000  0.00000000       0.012
    0.25000000  0.00000000  0.00000000       0.012
@@ -690,7 +690,7 @@ Automatic generation of k-mesh.
    0.50000000  0.50000000  0.37500000       0.012
    0.50000000  0.50000000  0.50000000       0.002
 
- position of ions in fractional coordinates (direct lattice) 
+ position of ions in fractional coordinates (direct lattice)
    0.00000000  0.00000000  0.00000000
    0.00000000  0.50000000  0.50000000
    0.50000000  0.00000000  0.50000000
@@ -754,7 +754,7 @@ Automatic generation of k-mesh.
  maximum and minimum number of plane-waves per node :       672      632
 
  maximum number of plane-waves:      2624
- maximum index in each direction: 
+ maximum index in each direction:
    IXMAX=    8   IYMAX=    8   IZMAX=    8
    IXMIN=   -9   IYMIN=   -9   IZMIN=   -9
 
@@ -783,7 +783,7 @@ Automatic generation of k-mesh.
 
  initial charge density was supplied:
  charge density of overlapping atoms calculated
- number of electron      56.0000000 magnetization 
+ number of electron      56.0000000 magnetization
  keeping initial charge density in first step
 
 
@@ -821,8 +821,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :  6720
  total energy-change (2. order) : 0.7380726E+02  (-0.4710245E+04)
- number of electron      56.0000000 magnetization 
- augmentation part       56.0000000 magnetization 
+ number of electron      56.0000000 magnetization
+ augmentation part       56.0000000 magnetization
 
  Free energy of the ion-electron system (eV)
   ---------------------------------------------------
@@ -856,8 +856,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  : 10080
  total energy-change (2. order) :-0.1104686E+03  (-0.1104686E+03)
- number of electron      56.0000000 magnetization 
- augmentation part       56.0000000 magnetization 
+ number of electron      56.0000000 magnetization
+ augmentation part       56.0000000 magnetization
 
  Free energy of the ion-electron system (eV)
   ---------------------------------------------------
@@ -891,8 +891,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :  6720
  total energy-change (2. order) :-0.1802426E+00  (-0.1802426E+00)
- number of electron      56.0000000 magnetization 
- augmentation part       56.0000000 magnetization 
+ number of electron      56.0000000 magnetization
+ augmentation part       56.0000000 magnetization
 
  Free energy of the ion-electron system (eV)
   ---------------------------------------------------
@@ -926,8 +926,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  : 13056
  total energy-change (2. order) :-0.1327643E-03  (-0.1327643E-03)
- number of electron      56.0000000 magnetization 
- augmentation part       56.0000000 magnetization 
+ number of electron      56.0000000 magnetization
+ augmentation part       56.0000000 magnetization
 
  Free energy of the ion-electron system (eV)
   ---------------------------------------------------
@@ -962,8 +962,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :  6720
  total energy-change (2. order) :-0.1038643E-08  (-0.1037188E-08)
- number of electron      55.9999922 magnetization 
- augmentation part       19.9396999 magnetization 
+ number of electron      55.9999922 magnetization
+ augmentation part       19.9396999 magnetization
 
  Free energy of the ion-electron system (eV)
   ---------------------------------------------------
@@ -1000,8 +1000,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) : 0.2090941E+02  (-0.1302119E+02)
- number of electron      55.9999908 magnetization 
- augmentation part       19.4048961 magnetization 
+ number of electron      55.9999908 magnetization
+ augmentation part       19.4048961 magnetization
 
  Free energy of the ion-electron system (eV)
   ---------------------------------------------------
@@ -1038,8 +1038,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.1281169E+02  (-0.7217367E+00)
- number of electron      55.9999908 magnetization 
- augmentation part       19.3510642 magnetization 
+ number of electron      55.9999908 magnetization
+ augmentation part       19.3510642 magnetization
 
  Free energy of the ion-electron system (eV)
   ---------------------------------------------------
@@ -1076,8 +1076,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.7277487E+00  (-0.3897901E-01)
- number of electron      55.9999908 magnetization 
- augmentation part       19.3768967 magnetization 
+ number of electron      55.9999908 magnetization
+ augmentation part       19.3768967 magnetization
 
  Free energy of the ion-electron system (eV)
   ---------------------------------------------------
@@ -1114,8 +1114,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.3900266E-01  (-0.3120316E-02)
- number of electron      55.9999908 magnetization 
- augmentation part       19.3763662 magnetization 
+ number of electron      55.9999908 magnetization
+ augmentation part       19.3763662 magnetization
 
  Free energy of the ion-electron system (eV)
   ---------------------------------------------------
@@ -1152,8 +1152,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.3129629E-02  (-0.3737743E-03)
- number of electron      55.9999908 magnetization 
- augmentation part       19.3758403 magnetization 
+ number of electron      55.9999908 magnetization
+ augmentation part       19.3758403 magnetization
 
  Free energy of the ion-electron system (eV)
   ---------------------------------------------------
@@ -1190,8 +1190,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.3758902E-03  (-0.1557974E-03)
- number of electron      55.9999908 magnetization 
- augmentation part       19.3760765 magnetization 
+ number of electron      55.9999908 magnetization
+ augmentation part       19.3760765 magnetization
 
  Free energy of the ion-electron system (eV)
   ---------------------------------------------------
@@ -1228,8 +1228,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.1560565E-03  (-0.3223441E-04)
- number of electron      55.9999908 magnetization 
- augmentation part       19.3761168 magnetization 
+ number of electron      55.9999908 magnetization
+ augmentation part       19.3761168 magnetization
 
  Free energy of the ion-electron system (eV)
   ---------------------------------------------------
@@ -1266,8 +1266,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.3242179E-04  (-0.3778802E-05)
- number of electron      55.9999908 magnetization 
- augmentation part       19.3761026 magnetization 
+ number of electron      55.9999908 magnetization
+ augmentation part       19.3761026 magnetization
 
  Free energy of the ion-electron system (eV)
   ---------------------------------------------------
@@ -1304,8 +1304,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.3854230E-05  (-0.4096345E-06)
- number of electron      55.9999908 magnetization 
- augmentation part       19.3761485 magnetization 
+ number of electron      55.9999908 magnetization
+ augmentation part       19.3761485 magnetization
 
  Free energy of the ion-electron system (eV)
   ---------------------------------------------------
@@ -1342,8 +1342,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.4129552E-06  (-0.2012910E-06)
- number of electron      55.9999908 magnetization 
- augmentation part       19.3762379 magnetization 
+ number of electron      55.9999908 magnetization
+ augmentation part       19.3762379 magnetization
 
  Free energy of the ion-electron system (eV)
   ---------------------------------------------------
@@ -1380,8 +1380,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) : 0.3611831E-06  (-0.4759000E-06)
- number of electron      55.9999908 magnetization 
- augmentation part       19.3762003 magnetization 
+ number of electron      55.9999908 magnetization
+ augmentation part       19.3762003 magnetization
 
  Free energy of the ion-electron system (eV)
   ---------------------------------------------------
@@ -1418,8 +1418,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.4649355E-06  (-0.5365344E-07)
- number of electron      55.9999908 magnetization 
- augmentation part       19.3761773 magnetization 
+ number of electron      55.9999908 magnetization
+ augmentation part       19.3761773 magnetization
 
  Free energy of the ion-electron system (eV)
   ---------------------------------------------------
@@ -1457,8 +1457,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.5384209E-07  (-0.5137179E-08)
- number of electron      55.9999908 magnetization 
- augmentation part       19.3761738 magnetization 
+ number of electron      55.9999908 magnetization
+ augmentation part       19.3761738 magnetization
 
  Free energy of the ion-electron system (eV)
   ---------------------------------------------------
@@ -1496,7 +1496,7 @@ vdW kernel read from vdw_kernel.bindat
  Fermi energy:         2.7031887490
 
  k-point     1 :       0.0000    0.0000    0.0000
-  band No.  band energies     occupation 
+  band No.  band energies     occupation
       1     -37.1633      2.00000
       2     -37.1633      2.00000
       3     -37.1633      2.00000
@@ -1595,7 +1595,7 @@ vdW kernel read from vdw_kernel.bindat
      96      50.4368      0.00000
 
  k-point     2 :       0.1250    0.0000    0.0000
-  band No.  band energies     occupation 
+  band No.  band energies     occupation
       1     -37.1620      2.00000
       2     -37.1620      2.00000
       3     -37.1617      2.00000
@@ -1694,7 +1694,7 @@ vdW kernel read from vdw_kernel.bindat
      96      50.2118      0.00000
 
  k-point     3 :       0.2500    0.0000    0.0000
-  band No.  band energies     occupation 
+  band No.  band energies     occupation
       1     -37.1584      2.00000
       2     -37.1584      2.00000
       3     -37.1559      2.00000
@@ -1793,7 +1793,7 @@ vdW kernel read from vdw_kernel.bindat
      96      49.4217      0.00000
 
  k-point     4 :       0.3750    0.0000    0.0000
-  band No.  band energies     occupation 
+  band No.  band energies     occupation
       1     -37.1527      2.00000
       2     -37.1527      2.00000
       3     -37.1467      2.00000
@@ -1892,7 +1892,7 @@ vdW kernel read from vdw_kernel.bindat
      96      50.3016      0.00000
 
  k-point     5 :       0.5000    0.0000    0.0000
-  band No.  band energies     occupation 
+  band No.  band energies     occupation
       1     -37.1457      2.00000
       2     -37.1457      2.00000
       3     -37.1457      2.00000
@@ -1991,7 +1991,7 @@ vdW kernel read from vdw_kernel.bindat
      96      51.7379      0.00000
 
  k-point     6 :       0.1250    0.1250    0.0000
-  band No.  band energies     occupation 
+  band No.  band energies     occupation
       1     -37.1608      2.00000
       2     -37.1608      2.00000
       3     -37.1607      2.00000
@@ -2090,7 +2090,7 @@ vdW kernel read from vdw_kernel.bindat
      96      50.3032      0.00000
 
  k-point     7 :       0.2500    0.1250    0.0000
-  band No.  band energies     occupation 
+  band No.  band energies     occupation
       1     -37.1578      2.00000
       2     -37.1572      2.00000
       3     -37.1558      2.00000
@@ -2189,7 +2189,7 @@ vdW kernel read from vdw_kernel.bindat
      96      49.3278      0.00000
 
  k-point     8 :       0.3750    0.1250    0.0000
-  band No.  band energies     occupation 
+  band No.  band energies     occupation
       1     -37.1535      2.00000
       2     -37.1516      2.00000
       3     -37.1480      2.00000
@@ -2288,7 +2288,7 @@ vdW kernel read from vdw_kernel.bindat
      96      49.6600      0.00000
 
  k-point     9 :       0.5000    0.1250    0.0000
-  band No.  band energies     occupation 
+  band No.  band energies     occupation
       1     -37.1483      2.00000
       2     -37.1483      2.00000
       3     -37.1449      2.00000
@@ -2387,7 +2387,7 @@ vdW kernel read from vdw_kernel.bindat
      96      49.7426      0.00000
 
  k-point    10 :       0.2500    0.2500    0.0000
-  band No.  band energies     occupation 
+  band No.  band energies     occupation
       1     -37.1556      2.00000
       2     -37.1556      2.00000
       3     -37.1536      2.00000
@@ -2486,7 +2486,7 @@ vdW kernel read from vdw_kernel.bindat
      96      50.0288      0.00000
 
  k-point    11 :       0.3750    0.2500    0.0000
-  band No.  band energies     occupation 
+  band No.  band energies     occupation
       1     -37.1546      2.00000
       2     -37.1510      2.00000
       3     -37.1484      2.00000
@@ -2585,7 +2585,7 @@ vdW kernel read from vdw_kernel.bindat
      96      50.6752      0.00000
 
  k-point    12 :       0.5000    0.2500    0.0000
-  band No.  band energies     occupation 
+  band No.  band energies     occupation
       1     -37.1522      2.00000
       2     -37.1522      2.00000
       3     -37.1441      2.00000
@@ -2684,7 +2684,7 @@ vdW kernel read from vdw_kernel.bindat
      96      50.0526      0.00000
 
  k-point    13 :       0.3750    0.3750    0.0000
-  band No.  band energies     occupation 
+  band No.  band energies     occupation
       1     -37.1534      2.00000
       2     -37.1534      2.00000
       3     -37.1526      2.00000
@@ -2783,7 +2783,7 @@ vdW kernel read from vdw_kernel.bindat
      96      51.4433      0.00000
 
  k-point    14 :       0.5000    0.3750    0.0000
-  band No.  band energies     occupation 
+  band No.  band energies     occupation
       1     -37.1542      2.00000
       2     -37.1542      2.00000
       3     -37.1495      2.00000
@@ -2882,7 +2882,7 @@ vdW kernel read from vdw_kernel.bindat
      96      51.0373      0.00000
 
  k-point    15 :       0.5000    0.5000    0.0000
-  band No.  band energies     occupation 
+  band No.  band energies     occupation
       1     -37.1533      2.00000
       2     -37.1533      2.00000
       3     -37.1533      2.00000
@@ -2981,7 +2981,7 @@ vdW kernel read from vdw_kernel.bindat
      96      51.1036      0.00000
 
  k-point    16 :       0.1250    0.1250    0.1250
-  band No.  band energies     occupation 
+  band No.  band energies     occupation
       1     -37.1598      2.00000
       2     -37.1598      2.00000
       3     -37.1598      2.00000
@@ -3080,7 +3080,7 @@ vdW kernel read from vdw_kernel.bindat
      96      50.7696      0.00000
 
  k-point    17 :       0.2500    0.1250    0.1250
-  band No.  band energies     occupation 
+  band No.  band energies     occupation
       1     -37.1573      2.00000
       2     -37.1573      2.00000
       3     -37.1561      2.00000
@@ -3179,7 +3179,7 @@ vdW kernel read from vdw_kernel.bindat
      96      50.0903      0.00000
 
  k-point    18 :       0.3750    0.1250    0.1250
-  band No.  band energies     occupation 
+  band No.  band energies     occupation
       1     -37.1542      2.00000
       2     -37.1542      2.00000
       3     -37.1498      2.00000
@@ -3278,7 +3278,7 @@ vdW kernel read from vdw_kernel.bindat
      96      49.4455      0.00000
 
  k-point    19 :       0.5000    0.1250    0.1250
-  band No.  band energies     occupation 
+  band No.  band energies     occupation
       1     -37.1525      2.00000
       2     -37.1525      2.00000
       3     -37.1415      2.00000
@@ -3377,7 +3377,7 @@ vdW kernel read from vdw_kernel.bindat
      96      49.5579      0.00000
 
  k-point    20 :       0.2500    0.2500    0.1250
-  band No.  band energies     occupation 
+  band No.  band energies     occupation
       1     -37.1568      2.00000
       2     -37.1568      2.00000
       3     -37.1565      2.00000
@@ -3476,7 +3476,7 @@ vdW kernel read from vdw_kernel.bindat
      96      50.4700      0.00000
 
  k-point    21 :       0.3750    0.2500    0.1250
-  band No.  band energies     occupation 
+  band No.  band energies     occupation
       1     -37.1572      2.00000
       2     -37.1563      2.00000
       3     -37.1536      2.00000
@@ -3575,7 +3575,7 @@ vdW kernel read from vdw_kernel.bindat
      96      51.1416      0.00000
 
  k-point    22 :       0.5000    0.2500    0.1250
-  band No.  band energies     occupation 
+  band No.  band energies     occupation
       1     -37.1570      2.00000
       2     -37.1570      2.00000
       3     -37.1476      2.00000
@@ -3674,7 +3674,7 @@ vdW kernel read from vdw_kernel.bindat
      96      50.8286      0.00000
 
  k-point    23 :       0.3750    0.3750    0.1250
-  band No.  band energies     occupation 
+  band No.  band energies     occupation
       1     -37.1586      2.00000
       2     -37.1571      2.00000
       3     -37.1571      2.00000
@@ -3773,7 +3773,7 @@ vdW kernel read from vdw_kernel.bindat
      96      50.6793      0.00000
 
  k-point    24 :       0.5000    0.3750    0.1250
-  band No.  band energies     occupation 
+  band No.  band energies     occupation
       1     -37.1590      2.00000
       2     -37.1590      2.00000
       3     -37.1537      2.00000
@@ -3872,7 +3872,7 @@ vdW kernel read from vdw_kernel.bindat
      96      51.5470      0.00000
 
  k-point    25 :       0.5000    0.5000    0.1250
-  band No.  band energies     occupation 
+  band No.  band energies     occupation
       1     -37.1579      2.00000
       2     -37.1579      2.00000
       3     -37.1579      2.00000
@@ -3971,7 +3971,7 @@ vdW kernel read from vdw_kernel.bindat
      96      51.3454      0.00000
 
  k-point    26 :       0.2500    0.2500    0.2500
-  band No.  band energies     occupation 
+  band No.  band energies     occupation
       1     -37.1594      2.00000
       2     -37.1594      2.00000
       3     -37.1594      2.00000
@@ -4070,7 +4070,7 @@ vdW kernel read from vdw_kernel.bindat
      96      52.0753      0.00000
 
  k-point    27 :       0.3750    0.2500    0.2500
-  band No.  band energies     occupation 
+  band No.  band energies     occupation
       1     -37.1619      2.00000
       2     -37.1619      2.00000
       3     -37.1589      2.00000
@@ -4169,7 +4169,7 @@ vdW kernel read from vdw_kernel.bindat
      96      50.8324      0.00000
 
  k-point    28 :       0.5000    0.2500    0.2500
-  band No.  band energies     occupation 
+  band No.  band energies     occupation
       1     -37.1627      2.00000
       2     -37.1627      2.00000
       3     -37.1549      2.00000
@@ -4268,7 +4268,7 @@ vdW kernel read from vdw_kernel.bindat
      96      50.4171      0.00000
 
  k-point    29 :       0.3750    0.3750    0.2500
-  band No.  band energies     occupation 
+  band No.  band energies     occupation
       1     -37.1653      2.00000
       2     -37.1638      2.00000
       3     -37.1638      2.00000
@@ -4367,7 +4367,7 @@ vdW kernel read from vdw_kernel.bindat
      96      50.9082      0.00000
 
  k-point    30 :       0.5000    0.3750    0.2500
-  band No.  band energies     occupation 
+  band No.  band energies     occupation
       1     -37.1661      2.00000
       2     -37.1661      2.00000
       3     -37.1616      2.00000
@@ -4466,7 +4466,7 @@ vdW kernel read from vdw_kernel.bindat
      96      51.4864      0.00000
 
  k-point    31 :       0.5000    0.5000    0.2500
-  band No.  band energies     occupation 
+  band No.  band energies     occupation
       1     -37.1657      2.00000
       2     -37.1657      2.00000
       3     -37.1657      2.00000
@@ -4565,7 +4565,7 @@ vdW kernel read from vdw_kernel.bindat
      96      51.8288      0.00000
 
  k-point    32 :       0.3750    0.3750    0.3750
-  band No.  band energies     occupation 
+  band No.  band energies     occupation
       1     -37.1688      2.00000
       2     -37.1688      2.00000
       3     -37.1688      2.00000
@@ -4664,7 +4664,7 @@ vdW kernel read from vdw_kernel.bindat
      96      52.2538      0.00000
 
  k-point    33 :       0.5000    0.3750    0.3750
-  band No.  band energies     occupation 
+  band No.  band energies     occupation
       1     -37.1709      2.00000
       2     -37.1709      2.00000
       3     -37.1681      2.00000
@@ -4763,7 +4763,7 @@ vdW kernel read from vdw_kernel.bindat
      96      51.3970      0.00000
 
  k-point    34 :       0.5000    0.5000    0.3750
-  band No.  band energies     occupation 
+  band No.  band energies     occupation
       1     -37.1715      2.00000
       2     -37.1715      2.00000
       3     -37.1715      2.00000
@@ -4862,7 +4862,7 @@ vdW kernel read from vdw_kernel.bindat
      96      51.8291      0.00000
 
  k-point    35 :       0.5000    0.5000    0.5000
-  band No.  band energies     occupation 
+  band No.  band energies     occupation
       1     -37.1738      2.00000
       2     -37.1738      2.00000
       3     -37.1738      2.00000
@@ -5093,7 +5093,7 @@ vdW kernel read from vdw_kernel.bindat
 --------------------------------------------------------------------------------------------------------
 
 
-  
+
  reached required accuracy - stopping structural energy minimisation
      LOOP+:  cpu time     73.8673: real time     74.0060
     4ORBIT:  cpu time      0.0000: real time      0.0000
@@ -5108,19 +5108,19 @@ vdW kernel read from vdw_kernel.bindat
    one-center:         16. kBytes
    wavefun   :       1290. kBytes
 
-  
-  
+
+
  General timing and accounting informations for this job:
  ========================================================
-  
+
                   Total CPU time used (sec):       84.148
                             User time (sec):       83.247
                           System time (sec):        0.900
                          Elapsed time (sec):       89.107
-  
+
                    Maximum memory used (kb):      216852.
                    Average memory used (kb):          N/A
-  
+
                           Minor page faults:        29619
                           Major page faults:            0
                  Voluntary context switches:         9406
