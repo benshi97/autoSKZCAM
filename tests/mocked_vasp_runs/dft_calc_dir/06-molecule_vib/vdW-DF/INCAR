@@ -1,0 +1,35 @@
+SYSTEM=MgO-rocksalt
+ISMEAR=0
+SIGMA=0.05
+EDIFF=1E-8
+ALGO=ALL
+ISTART=0
+IBRION=5
+POTIM=0.01
+NFREE=2
+ISYM=0
+
+DIPOL=0.5 0.5 0.5
+IDIPOL = 4
+LDIPOL = .TRUE.
+
+
+
+GGA = RE
+AGGAC = 0.0
+LUSE_VDW = .TRUE.
+LASPH = .TRUE. 
+
+
+ENCUT=600
+PREC=Accurate  #default (Normal) usually safe, structures/energies change little with Accurate
+LASPH=.TRUE.
+LREAL=.FALSE.
+ISPIN=1
+NELM=200
+NELMIN=8
+NCORE=8
+KPAR=1
+
+LWAVE=.FALSE.
+LCHARG=.FALSE.

@@ -14,7 +14,7 @@ from numpy.testing import assert_allclose, assert_equal
 
 from autoSKZCAM.embed import CreateEmbeddedCluster
 from autoSKZCAM.oniom import Prepare
-from autoSKZCAM.recipes import (
+from autoSKZCAM.recipes_skzcam import (
     skzcam_analyse_eint,
     skzcam_calculate_job,
     skzcam_eint_flow,

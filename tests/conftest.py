@@ -3,12 +3,20 @@ from __future__ import annotations
 import gzip
 import shutil
 from pathlib import Path
-
+import warnings
 import pytest
+from emmet.core.tasks import TaskDoc
+from quacc import settings
+from quacc.schemas.ase import Summarize
+from ase.io import read
+from ase import Atoms
+from ase.calculators.vasp.create_input import count_symbols
+
 
 FILE_DIR = Path(__file__).parent
 MRCC_DIR = Path(FILE_DIR, "mrcc_run")
 ORCA_DIR = Path(FILE_DIR, "orca_run")
+PSEUDO_DIR = FILE_DIR / "fake_pseudos"
 
 
 def mock_mrcc_execute(self, directory, *args, **kwargs):
@@ -76,3 +84,50 @@ def patch_run_chemshell(monkeypatch):
     from autoSKZCAM.embed import CreateEmbeddedCluster
 
     monkeypatch.setattr(CreateEmbeddedCluster, "run_chemshell", mock_run_chemshell)
+
+
+
+
+def mock_vasp_run_and_summarize(atoms, additional_fields, *args, **kwargs):
+
+    def sort_atoms(
+        atoms: Atoms,
+) -> Atoms:
+
+        symbols, _ = count_symbols(atoms,exclude=())
+
+        # Create sorting list
+        srt = []  # type: List[int]
+
+        for symbol in symbols:
+            for m, atom in enumerate(atoms):
+                if atom.symbol == symbol:
+                    srt.append(m)
+        # Create the resorting list
+        resrt = list(range(len(srt)))
+        for n in range(len(resrt)):
+            resrt[srt[n]] = n
+
+        return atoms.copy()[srt]
+
+    job_type = additional_fields['job_type']
+    xc_func = additional_fields['xc_func']
+
+    mock_results_dir = Path(FILE_DIR, "mocked_vasp_runs", "dft_calc_dir", job_type, xc_func)
+
+    with open(Path(mock_results_dir, "OUTCAR"),'r', encoding="ISO-8859-1") as file:
+        final_unsorted_atoms = read(file)
+
+    final_atoms = sort_atoms(final_unsorted_atoms)
+    final_atoms.calc = final_unsorted_atoms.calc
+    return Summarize(directory=mock_results_dir).run(final_atoms,atoms)
+
+
+@pytest.fixture(autouse=True)
+def patch_vasp_run(monkeypatch):
+    monkeypatch.setattr("quacc.recipes.vasp.core.run_and_summarize", mock_vasp_run_and_summarize)
+
+
+@pytest.fixture(autouse=True)
+def patch_vasp_freq_run(monkeypatch):
+    monkeypatch.setattr("autoSKZCAM.recipes_dft.run_and_summarize", mock_vasp_run_and_summarize)

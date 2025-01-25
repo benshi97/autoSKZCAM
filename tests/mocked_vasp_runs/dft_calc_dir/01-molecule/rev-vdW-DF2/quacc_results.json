@@ -1,0 +1,195 @@
+{
+    "atoms": {
+        "@module": "pymatgen.io.ase",
+        "@class": "MSONAtoms",
+        "atoms_json": "{\"numbers\": {\"__ndarray__\": [[2], \"int64\", [6, 8]]}, \"positions\": {\"__ndarray__\": [[2, 3], \"float64\", [10.0, 10.0, 9.99265, 10.0, 10.0, 11.13368]]}, \"cell\": {\"__ndarray__\": [[3, 3], \"float64\", [20.0, 0.0, 0.0, 0.0, 20.0, 0.0, 0.0, 0.0, 21.126328287]]}, \"pbc\": {\"__ndarray__\": [[3], \"bool\", [true, true, true]]}, \"__ase_objtype__\": \"atoms\"}",
+        "atoms_info": {
+            "_id": "d79961dbd04e6a1c7046e7f22d26eca9"
+        }
+    },
+    "builder_meta": {
+        "build_date": "2025-01-25 23:50:46.567926+00:00",
+        "emmet_version": "0.84.6rc3",
+        "pymatgen_version": "2025.1.9"
+    },
+    "chemsys": "C-O",
+    "composition": {
+        "C": 1.0,
+        "O": 1.0
+    },
+    "composition_reduced": {
+        "C": 1.0,
+        "O": 1.0
+    },
+    "density": 0.005504016679745712,
+    "density_atomic": 4225.2656574,
+    "dir_name": "/home/shixubenjamin/Projects/Mol-Adsorb/autoSKZCAM/tests/mocked_vasp_runs/dft_calc_dir/01-molecule/rev-vdW-DF2",
+    "elements": [
+        "C",
+        "O"
+    ],
+    "formula_anonymous": "AB",
+    "formula_pretty": "CO",
+    "input_atoms": {
+        "atoms": {
+            "@module": "pymatgen.io.ase",
+            "@class": "MSONAtoms",
+            "atoms_json": "{\"numbers\": {\"__ndarray__\": [[2], \"int64\", [6, 8]]}, \"positions\": {\"__ndarray__\": [[2, 3], \"float64\", [10.0, 10.0, 9.992619050497707, 10.0, 10.0, 11.13370923663408]]}, \"cell\": {\"__ndarray__\": [[3, 3], \"float64\", [20.0, 0.0, 0.0, 0.0, 20.0, 0.0, 0.0, 0.0, 21.126328287131788]]}, \"pbc\": {\"__ndarray__\": [[3], \"bool\", [true, true, true]]}, \"__ase_objtype__\": \"atoms\"}",
+            "atoms_info": {}
+        },
+        "builder_meta": {
+            "build_date": "2025-01-25 23:50:46.565826+00:00",
+            "emmet_version": "0.84.6rc3",
+            "pymatgen_version": "2025.1.9"
+        },
+        "chemsys": "C-O",
+        "composition": {
+            "C": 1.0,
+            "O": 1.0
+        },
+        "composition_reduced": {
+            "C": 1.0,
+            "O": 1.0
+        },
+        "density": 0.005504016679711377,
+        "density_atomic": 4225.265657426357,
+        "elements": [
+            "C",
+            "O"
+        ],
+        "formula_anonymous": "AB",
+        "formula_pretty": "CO",
+        "nelements": 2,
+        "nsites": 2,
+        "symmetry": {
+            "angle_tolerance": 5.0,
+            "crystal_system": "Tetragonal",
+            "number": 99,
+            "point_group": "4mm",
+            "symbol": "P4mm",
+            "symprec": 0.1,
+            "version": "2.5.0"
+        },
+        "volume": 8450.531314852715
+    },
+    "nelements": 2,
+    "nid": "DESKTOP-Q5QPHVF.",
+    "nsites": 2,
+    "parameters": {},
+    "quacc_version": "0.11.13",
+    "results": {
+        "energy": -12.29733682,
+        "forces": [
+            [
+                0.0,
+                0.0,
+                -0.000153
+            ],
+            [
+                0.0,
+                -0.0,
+                0.000153
+            ]
+        ],
+        "free_energy": -12.29733682,
+        "stress": [
+            6.522377036548004e-06,
+            6.522377036548004e-06,
+            7.789403389102306e-06,
+            -0.0,
+            -0.0,
+            -0.0
+        ]
+    },
+    "structure": {
+        "@module": "pymatgen.core.structure",
+        "@class": "Structure",
+        "charge": 0,
+        "lattice": {
+            "matrix": [
+                [
+                    20.0,
+                    0.0,
+                    0.0
+                ],
+                [
+                    0.0,
+                    20.0,
+                    0.0
+                ],
+                [
+                    0.0,
+                    0.0,
+                    21.126328287
+                ]
+            ],
+            "pbc": [
+                true,
+                true,
+                true
+            ],
+            "a": 20.0,
+            "b": 20.0,
+            "c": 21.126328287,
+            "alpha": 90.0,
+            "beta": 90.0,
+            "gamma": 90.0,
+            "volume": 8450.5313148
+        },
+        "properties": {
+            "_id": "d79961dbd04e6a1c7046e7f22d26eca9"
+        },
+        "sites": [
+            {
+                "species": [
+                    {
+                        "element": "C",
+                        "occu": 1
+                    }
+                ],
+                "abc": [
+                    0.5,
+                    0.5,
+                    0.4729951113250917
+                ],
+                "properties": {},
+                "label": "C",
+                "xyz": [
+                    10.0,
+                    10.0,
+                    9.99265
+                ]
+            },
+            {
+                "species": [
+                    {
+                        "element": "O",
+                        "occu": 1
+                    }
+                ],
+                "abc": [
+                    0.5,
+                    0.5,
+                    0.5270049697585673
+                ],
+                "properties": {},
+                "label": "O",
+                "xyz": [
+                    10.0,
+                    10.0,
+                    11.133679999999998
+                ]
+            }
+        ]
+    },
+    "symmetry": {
+        "angle_tolerance": 5.0,
+        "crystal_system": "Tetragonal",
+        "number": 99,
+        "point_group": "4mm",
+        "symbol": "P4mm",
+        "symprec": 0.1,
+        "version": "2.5.0"
+    },
+    "volume": 8450.5313148
+}

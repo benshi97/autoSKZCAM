@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING
 
 import numpy as np
 from ase.io.orca import write_orca
-from quacc import change_settings
+from quacc import change_settings, flow, job
 from quacc.calculators.mrcc.io import write_mrcc
 
 from autoSKZCAM.analysis import analyze_calculations, compute_skzcam_int_ene
@@ -27,7 +27,6 @@ stream_handler.setLevel(logging.INFO)
 formatter = logging.Formatter("%(message)s")
 stream_handler.setFormatter(formatter)
 logger.addHandler(stream_handler)
-
 
 def skzcam_analyse_eint(
     calc_dir: str | Path,
