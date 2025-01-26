@@ -4,6 +4,7 @@ import gzip
 import shutil
 from pathlib import Path
 from typing import TYPE_CHECKING
+import os
 
 import pytest
 from ase.calculators.vasp.create_input import count_symbols
@@ -16,7 +17,6 @@ if TYPE_CHECKING:
 FILE_DIR = Path(__file__).parent
 MRCC_DIR = Path(FILE_DIR, "mrcc_run")
 ORCA_DIR = Path(FILE_DIR, "orca_run")
-PSEUDO_DIR = FILE_DIR / "fake_pseudos"
 
 
 def mock_mrcc_execute(self, directory, *args, **kwargs):
@@ -116,7 +116,9 @@ def mock_vasp_run_and_summarize(atoms, additional_fields, *args, **kwargs):
 
     final_atoms = sort_atoms(final_unsorted_atoms)
     final_atoms.calc = final_unsorted_atoms.calc
-    return Summarize(directory=mock_results_dir).run(final_atoms, atoms)
+    results_dict =  Summarize(directory=mock_results_dir).run(final_atoms, atoms)
+
+    return results_dict
 
 
 @pytest.fixture(autouse=True)
