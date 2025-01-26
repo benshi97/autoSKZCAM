@@ -81,10 +81,11 @@ def test_dft_ensemble_flow(tmpdir):
         )
         return adsorbate + slab
 
-    # dft_ensemble_results = dft_ensemble_flow(xc_ensemble=xc_ensemble_params, calc_dir=FILE_DIR / 'skzcam_files' /'dft_calc_dir', vib_xc_ensemble=['PBE-D2-Ne','revPBE-D4','vdW-DF','rev-vdW-DF2'], geom_error_xc = 'revPBE-D4')
+    # dft_ensemble_results = dft_ensemble_flow(xc_ensemble=xc_ensemble_params, calc_dir=FILE_DIR / 'mocked_vasp_runs' /'dft_calc_dir', vib_xc_ensemble=['PBE-D2-Ne','revPBE-D4','vdW-DF','rev-vdW-DF2'], geom_error_xc = 'revPBE-D4')
 
     unit_cell = read(FILE_DIR / "mocked_vasp_runs" / "POSCAR_unit_cell")
     adsorbate = read(FILE_DIR / "mocked_vasp_runs" / "POSCAR_adsorbate")
+    adsorbate.center(vacuum=3)
 
     dft_ensemble_results = dft_ensemble_flow(
         xc_ensemble=xc_ensemble_params,

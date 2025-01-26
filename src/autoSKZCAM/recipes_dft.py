@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import logging
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, Callable
 
@@ -8,8 +7,9 @@ from ase.calculators.vasp.create_input import count_symbols
 from ase.io import read
 from quacc import change_settings, flow, job
 from quacc.recipes.vasp._base import run_and_summarize
-from quacc.recipes.vasp.core import relax_job, static_job
 from quacc.schemas.ase import Summarize
+
+import os
 
 # from quacc.recipes.vasp.core import relax_job, double_relax_flow, static_job
 
@@ -17,21 +17,10 @@ if TYPE_CHECKING:
     from ase import Atoms
     from quacc.types import Filenames, SourceDirectory, VaspSchema
 
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)  # Set the level explicitly
-
-# Add a stream handler to ensure output to console
-stream_handler = logging.StreamHandler()
-stream_handler.setLevel(logging.INFO)
-formatter = logging.Formatter("%(message)s")
-stream_handler.setFormatter(formatter)
-logger.addHandler(stream_handler)
-
-
 @flow
 def dft_ensemble_flow(
     xc_ensemble: dict[str, dict[str, Any]],
-    vib_xc_ensemble: list[str] | None = None,
+    vib_xc_ensemble: list[str] = [],
     geom_error_xc: str | None = None,
     freeze_surface_vib: bool = True,
     job_params: dict[str, dict[str, Any]] | None = None,
@@ -81,204 +70,116 @@ def dft_ensemble_flow(
 
     """
 
-    if vib_xc_ensemble is None:
-        vib_xc_ensemble = []
-    dft_ensemble_results = {
-        job_name: {xc_func: None for xc_func in xc_ensemble}
-        for job_name in [
-            "01-molecule",
-            "02-unit_cell",
-            "03-slab",
-            "04-adsorbate_slab",
-            "05-adsorbate_slab_vib",
-            "06-molecule_vib",
-            "07-slab_vib",
-            "08-eint_adsorbate_slab",
-            "09-eint_adsorbate",
-            "10-eint_slab",
-        ]
-    }
+    job_list = [
+                "01-molecule",
+                "02-unit_cell",
+                "03-slab",
+                "04-adsorbate_slab",
+                "05-adsorbate_slab_vib",
+                "06-molecule_vib",
+                "07-slab_vib",
+                "08-eint_adsorbate_slab",
+                "09-eint_adsorbate",
+                "10-eint_slab",
+            ]
+
+    # Ensure that all the functionals in vib_xc_ensemble are also in xc_ensemble
+    for vib_xc in vib_xc_ensemble:
+        if vib_xc not in xc_ensemble:
+            raise ValueError(
+                f"The functional {vib_xc} in vib_xc_ensemble is not in the xc_ensemble."
+            )
+    
+    # Ensure that the geom_error_xc is in the xc_ensemble
+    if geom_error_xc is not None and geom_error_xc not in xc_ensemble:
+        raise ValueError(
+            f"The functional {geom_error_xc} in geom_error_xc is not in the xc_ensemble."
+        )
+    
+    if job_params is not None:
+        for job_type in job_params:
+            if job_type not in job_list:
+                raise ValueError(
+                    f"The {job_type} key in job_params is not valid. Please choose from the following: '01-molecule', '02-unit_cell', '03-slab', '04-adsorbate_slab', '05-adsorbate_slab_vib', '06-molecule_vib', '07-slab_vib', '08-eint_adsorbate_slab', '09-eint_adsorbate', '10-eint_slab'."
+                )
+    else:
+        job_params = {}
 
     # Try to read in completed calculations from the calc_dir
-    for xc_func in xc_ensemble:
-        for job_name in dft_ensemble_results:
-            vasp_dir = Path(calc_dir) / job_name / xc_func
-            outcar_filename = Path(calc_dir) / job_name / xc_func / "OUTCAR"
-            poscar_filename = Path(calc_dir) / job_name / xc_func / "POSCAR"
-            if poscar_filename.exists():
-                input_atoms = read(poscar_filename, format="vasp")
-            else:
-                input_atoms = None
-            if outcar_filename.exists():
-                with open(outcar_filename, encoding="ISO-8859-1") as file:
-                    final_atoms = read(file, format="vasp-out")
-
-                if "vib" in job_name:
-                    real_vib_freqs, imag_vib_freqs = read_vib_freq(outcar_filename)
-                    final_atoms.calc.results["real_vib_freqs"] = real_vib_freqs
-                    final_atoms.calc.results["imag_vib_freqs"] = imag_vib_freqs
-                dft_ensemble_results[job_name][xc_func] = Summarize(
-                    directory=vasp_dir
-                ).run(final_atoms, input_atoms)
+    dft_ensemble_results = read_completed_calculations(calc_dir, xc_ensemble, vib_xc_ensemble, freeze_surface_vib)
 
     for xc_func in xc_ensemble:
         # relax molecule
-        # Set no constraints on the molecule
         if dft_ensemble_results["01-molecule"][xc_func] is None:
-            with change_settings(
-                {
-                    "RESULTS_DIR": Path(calc_dir) / "01-molecule" / xc_func,
-                    "CREATE_UNIQUE_DIR": False,
-                    "GZIP_FILES": False,
-                }
-            ):
-                dft_ensemble_results["01-molecule"][xc_func] = relax_job(
-                    adsorbate,
-                    additional_fields={"job_type": "01-molecule", "xc_func": xc_func},
-                )
-                dft_ensemble_results["01-molecule"][xc_func]["atoms"] = resort_atoms(
-                    adsorbate, dft_ensemble_results["01-molecule"][xc_func]["atoms"]
-                )
+            calc_kwargs = {**job_params.get("01-molecule", {}), **xc_ensemble[xc_func]}
+            dft_ensemble_results["01-molecule"][xc_func] = relax_job(
+                adsorbate,
+                additional_fields={"calc_results_dir": Path(calc_dir, "01-molecule", xc_func)},
+                pmg_kpts= {"kppvol": 1}, **calc_kwargs
+            )
 
         # relax solid
         if dft_ensemble_results["02-unit_cell"][xc_func] is None:
-            with change_settings(
-                {
-                    "RESULTS_DIR": Path(calc_dir) / "02-unit_cell" / xc_func,
-                    "CREATE_UNIQUE_DIR": False,
-                    "GZIP_FILES": False,
-                }
-            ):
-                dft_ensemble_results["02-unit_cell"][xc_func] = relax_job(
-                    unit_cell,
-                    additional_fields={"job_type": "02-unit_cell", "xc_func": xc_func},
-                )
-                dft_ensemble_results["02-unit_cell"][xc_func]["atoms"] = resort_atoms(
-                    unit_cell, dft_ensemble_results["02-unit_cell"][xc_func]["atoms"]
-                )
+            calc_kwargs = {**job_params.get("02-unit_cell", {}), **xc_ensemble[xc_func]}
+            relax_job1 = relax_job(
+                unit_cell,
+                additional_fields={"calc_results_dir": Path(calc_dir, "02-unit_cell", xc_func)},
+                relax_cell=True,
+                unique_dir=True,
+                **calc_kwargs
+            )
+            dft_ensemble_results["02-unit_cell"][xc_func] = relax_job(relax_job1['atoms'], relax_cell=True, additional_fields={"calc_results_dir": Path(calc_dir, "02-unit_cell", xc_func), 'relax1': relax_job1}, **calc_kwargs)
 
         # bulk to slab
         if dft_ensemble_results["03-slab"][xc_func] is None:
+            calc_kwargs = {**job_params.get("03-slab", {}), **xc_ensemble[xc_func]}
             initial_slab = slab_gen_func(
                 dft_ensemble_results["02-unit_cell"][xc_func]["atoms"]
             )
-            with change_settings(
-                {
-                    "RESULTS_DIR": Path(calc_dir) / "03-slab" / xc_func,
-                    "CREATE_UNIQUE_DIR": False,
-                    "GZIP_FILES": False,
-                }
-            ):
-                dft_ensemble_results["03-slab"][xc_func] = relax_job(
-                    initial_slab,
-                    additional_fields={"job_type": "03-slab", "xc_func": xc_func},
-                )
-                dft_ensemble_results["03-slab"][xc_func]["atoms"] = resort_atoms(
-                    initial_slab, dft_ensemble_results["03-slab"][xc_func]["atoms"]
-                )
+            dft_ensemble_results["03-slab"][xc_func] = relax_job(
+                initial_slab,
+                additional_fields={"calc_results_dir": Path(calc_dir, "03-slab", xc_func)},
+                    **calc_kwargs
+            )
 
         # slab to ads_slab
         if dft_ensemble_results["04-adsorbate_slab"][xc_func] is None:
+            calc_kwargs = {**job_params.get("04-adsorbate_slab", {}), **xc_ensemble[xc_func]}
             initial_adsorbate_slab = adsorbate_slab_gen_func(
                 dft_ensemble_results["01-molecule"][xc_func]["atoms"],
                 dft_ensemble_results["03-slab"][xc_func]["atoms"],
             )
-            # sorted_
-            with change_settings(
-                {
-                    "RESULTS_DIR": Path(calc_dir) / "04-adsorbate_slab" / xc_func,
-                    "CREATE_UNIQUE_DIR": False,
-                    "GZIP_FILES": False,
-                }
-            ):
-                dft_ensemble_results["04-adsorbate_slab"][xc_func] = relax_job(
-                    initial_adsorbate_slab,
-                    additional_fields={
-                        "job_type": "04-adsorbate_slab",
-                        "xc_func": xc_func,
-                    },
-                )
-                dft_ensemble_results["04-adsorbate_slab"][xc_func]["atoms"] = (
-                    resort_atoms(
-                        initial_adsorbate_slab,
-                        dft_ensemble_results["04-adsorbate_slab"][xc_func]["atoms"],
-                    )
-                )
+
+            dft_ensemble_results["04-adsorbate_slab"][xc_func] = relax_job(
+                initial_adsorbate_slab,
+                additional_fields={"calc_results_dir": Path(calc_dir, "04-adsorbate_slab", xc_func)},
+                    **calc_kwargs
+            )
 
         if xc_func in vib_xc_ensemble:
             # vibrational calculation
             if dft_ensemble_results["05-adsorbate_slab_vib"][xc_func] is None:
-                with change_settings(
-                    {
-                        "RESULTS_DIR": Path(calc_dir)
-                        / "05-adsorbate_slab_vib"
-                        / xc_func,
-                        "CREATE_UNIQUE_DIR": False,
-                        "GZIP_FILES": True,
-                    }
-                ):
-                    dft_ensemble_results["05-adsorbate_slab_vib"][xc_func] = freq_job(
-                        dft_ensemble_results["04-adsorbate_slab"][xc_func]["atoms"],
-                        additional_fields={
-                            "job_type": "05-adsorbate_slab_vib",
-                            "xc_func": xc_func,
-                        },
-                    )
-                    dft_ensemble_results["05-adsorbate_slab_vib"][xc_func]["atoms"] = (
-                        resort_atoms(
-                            dft_ensemble_results["04-adsorbate_slab"][xc_func]["atoms"],
-                            dft_ensemble_results["05-adsorbate_slab_vib"][xc_func][
-                                "atoms"
-                            ],
-                        )
-                    )
+                calc_kwargs = {**job_params.get("05-adsorbate_slab_vib", {}), **xc_ensemble[xc_func]}
+                dft_ensemble_results["05-adsorbate_slab_vib"][xc_func] = freq_job(
+                    dft_ensemble_results["04-adsorbate_slab"][xc_func]["atoms"],
+                    additional_fields={'calc_results_dir': Path(calc_dir, "05-adsorbate_slab_vib", xc_func)},
+                    **calc_kwargs
+                )
 
             if dft_ensemble_results["06-molecule_vib"][xc_func] is None:
-                with change_settings(
-                    {
-                        "RESULTS_DIR": Path(calc_dir) / "06-molecule_vib" / xc_func,
-                        "CREATE_UNIQUE_DIR": False,
-                        "GZIP_FILES": False,
-                    }
-                ):
-                    dft_ensemble_results["06-molecule_vib"][xc_func] = freq_job(
+                calc_kwargs = {**job_params.get("06-molecule_vib", {}), **xc_ensemble[xc_func]}
+                dft_ensemble_results["06-molecule_vib"][xc_func] = freq_job(
                         dft_ensemble_results["01-molecule"][xc_func]["atoms"],
-                        additional_fields={
-                            "job_type": "06-molecule_vib",
-                            "xc_func": xc_func,
-                        },
-                    )
-                    dft_ensemble_results["06-molecule_vib"][xc_func]["atoms"] = (
-                        resort_atoms(
-                            dft_ensemble_results["01-molecule"][xc_func]["atoms"],
-                            dft_ensemble_results["06-molecule_vib"][xc_func]["atoms"],
-                        )
-                    )
+                        additional_fields={'calc_results_dir': Path(calc_dir, "06-molecule_vib", xc_func)},**calc_kwargs)
 
             if (
                 dft_ensemble_results["07-slab_vib"][xc_func] is None
                 and freeze_surface_vib is False
             ):
-                with change_settings(
-                    {
-                        "RESULTS_DIR": Path(calc_dir) / "07-slab_vib" / xc_func,
-                        "CREATE_UNIQUE_DIR": False,
-                        "GZIP_FILES": False,
-                    }
-                ):
-                    dft_ensemble_results["07-slab_vib"][xc_func] = freq_job(
+                calc_kwargs = {**job_params.get("07-slab_vib", {}), **xc_ensemble[xc_func]}
+                dft_ensemble_results["07-slab_vib"][xc_func] = freq_job(
                         dft_ensemble_results["03-slab"][xc_func]["atoms"],
-                        additional_fields={
-                            "job_type": "07-slab_vib",
-                            "xc_func": xc_func,
-                        },
-                    )
-                    dft_ensemble_results["07-slab_vib"][xc_func]["atoms"] = (
-                        resort_atoms(
-                            dft_ensemble_results["03-slab"][xc_func]["atoms"],
-                            dft_ensemble_results["07-slab_vib"][xc_func]["atoms"],
-                        )
-                    )
+                        additional_fields={'calc_results_dir': Path(calc_dir, "07-slab_vib", xc_func)},**calc_kwargs)
 
     if geom_error_xc is not None:
         adsorbate_len = len(dft_ensemble_results["01-molecule"][geom_error_xc]["atoms"])
@@ -295,49 +196,89 @@ def dft_ensemble_flow(
         for xc_func in xc_ensemble:
             # eint on adsorbate_slab
             if dft_ensemble_results["08-eint_adsorbate_slab"][xc_func] is None:
+                calc_kwargs = {**job_params.get("08-eint_adsorbate_slab", {}), **xc_ensemble[xc_func]}
                 dft_ensemble_results["08-eint_adsorbate_slab"][xc_func] = static_job(
                     adsorbate_slab_atoms,
-                    additional_fields={
-                        "job_type": "08-eint_adsorbate_slab",
-                        "xc_func": xc_func,
-                    },
-                )
-                dft_ensemble_results["08-eint_adsorbate_slab"][xc_func]["atoms"] = (
-                    resort_atoms(
-                        adsorbate_slab_atoms,
-                        dft_ensemble_results["08-eint_adsorbate_slab"][xc_func][
-                            "atoms"
-                        ],
-                    )
-                )
+                    additional_fields={'calc_results_dir': Path(calc_dir, "08-eint_adsorbate_slab", xc_func)},**calc_kwargs)
 
             # eint on adsorbate
             if dft_ensemble_results["09-eint_adsorbate"][xc_func] is None:
+                calc_kwargs= {**job_params.get("09-eint_adsorbate", {}), **xc_ensemble[xc_func]}
                 dft_ensemble_results["09-eint_adsorbate"][xc_func] = static_job(
-                    fixed_adsorbate_atoms,
-                    additional_fields={
-                        "job_type": "09-eint_adsorbate",
-                        "xc_func": xc_func,
-                    },
-                )
-                dft_ensemble_results["09-eint_adsorbate"][xc_func]["atoms"] = (
-                    resort_atoms(
                         fixed_adsorbate_atoms,
-                        dft_ensemble_results["09-eint_adsorbate"][xc_func]["atoms"],
-                    )
-                )
+                        additional_fields={'calc_results_dir': Path(calc_dir, "09-eint_adsorbate", xc_func)},**calc_kwargs)
 
             # eint on slab
             if dft_ensemble_results["10-eint_slab"][xc_func] is None:
+                calc_kwargs = {**job_params.get("10-eint_slab", {}), **xc_ensemble[xc_func]}
                 dft_ensemble_results["10-eint_slab"][xc_func] = static_job(
-                    fixed_slab_atoms,
-                    additional_fields={"job_type": "10-eint_slab", "xc_func": xc_func},
-                )
-                dft_ensemble_results["10-eint_slab"][xc_func]["atoms"] = resort_atoms(
-                    fixed_slab_atoms,
-                    dft_ensemble_results["10-eint_slab"][xc_func]["atoms"],
-                )
+                        fixed_slab_atoms,
+                        additional_fields={'calc_results_dir': Path(calc_dir, "10-eint_slab", xc_func)},**calc_kwargs)
 
+    return dft_ensemble_results
+
+def read_completed_calculations(calc_dir: Path | str, 
+                                xc_ensemble: dict[str, str], 
+                                vib_xc_ensemble: list[str],
+                                freeze_surface_vib: bool) -> dict[str, dict[str, VaspSchema]]:
+    """
+    Read in the completed calculations from the calc_dir.
+
+    Parameters
+    ----------
+    calc_dir : Path or str
+        The directory where the calculations were performed.
+    xc_ensemble : dict[str, str]
+        A dictionary containing the xc functionals to be used as keys and the corresponding settings as values.
+    vib_xc_ensemble : list[str]
+        A list of xc functionals for which the vibrational calculations were performed.
+    freeze_surface_vib : bool
+        True if the vibrational calculations on the slab should be skipped.
+
+    Returns
+    -------
+    dict[str, dict[str,VaspSchema]]
+        A dictionary containing the results of the DFT ensemble calculations for each functional in the ensemble.
+
+    """
+    job_list = [
+                "01-molecule",
+                "02-unit_cell",
+                "03-slab",
+                "04-adsorbate_slab",
+                "05-adsorbate_slab_vib",
+                "06-molecule_vib",
+                "07-slab_vib",
+                "08-eint_adsorbate_slab",
+                "09-eint_adsorbate",
+                "10-eint_slab",
+            ]
+
+    dft_ensemble_results = {
+        job_type: {xc_func: None for xc_func in xc_ensemble}
+        for job_type in job_list
+    }
+    for xc_func in xc_ensemble:
+        for job_type in job_list:
+            vasp_dir = Path(calc_dir) / job_type / xc_func
+            outcar_filename = Path(calc_dir) / job_type / xc_func / "OUTCAR"
+            if outcar_filename.exists():
+                if 'vib' in job_type:
+                    if freeze_surface_vib and 'slab' in job_type:
+                        continue
+                    else:
+                        with Path.open(outcar_filename, encoding="ISO-8859-1") as file:
+                            final_atoms = read(file, format="vasp-out")
+                            real_vib_freqs, imag_vib_freqs = read_vib_freq(outcar_filename)
+                            final_atoms.calc.results["real_vib_freqs"] = real_vib_freqs
+                            final_atoms.calc.results["imag_vib_freqs"] = imag_vib_freqs
+                else:
+                    with Path.open(outcar_filename, encoding="ISO-8859-1") as file:
+                        final_atoms = read(file, format="vasp-out")
+
+                dft_ensemble_results[job_type][xc_func] = Summarize(
+                    directory=vasp_dir
+                ).run(final_atoms, final_atoms)
     return dft_ensemble_results
 
 
@@ -365,7 +306,7 @@ def read_vib_freq(filename):
     freq = []
     i_freq = []
 
-    with open(filename, encoding="ISO-8859-1") as f:
+    with Path.open(filename, encoding="ISO-8859-1") as f:
         lines = f.readlines()
 
     for line in lines:
@@ -412,22 +353,214 @@ def freq_job(
         Dictionary of results from [quacc.schemas.vasp.VaspSummarize.run][].
         See the type-hint for the data structure.
     """
-    calc_defaults = {"ediff": 1e-7, "isym": 0, "lcharg": False, "lwave": True, "nsw": 0}
+    calc_defaults = {
+        "encut": 600,
+        "ismear": 0,
+        "sigma": 0.05,
+        "ediff": 1e-7,
+        "algo": "ALL",
+        "istart": 0,
+        "lreal": False,
+        "ispin": 1,
+        "nelm": 200,
+        "nelmin": 8,
+        "ibrion": 5,
+        "potim": 0.01,
+        "nfree": 2,
+        "isym": 0,
+        "lcharg": False,
+        "lwave": False,
+        "nsw": 0,
+        "symprec": 1e-8,
+    }
 
-    results_dict = run_and_summarize(
-        atoms,
-        preset=preset,
-        calc_defaults=calc_defaults,
-        calc_swaps=calc_kwargs,
-        additional_fields={"name": "VASP Freq"} | (additional_fields or {}),
-        copy_files=copy_files,
-    )
+    if 'calc_results_dir' in additional_fields:
+        with change_settings({"RESULTS_DIR": additional_fields['calc_results_dir'], "CREATE_UNIQUE_DIR": False, "GZIP_FILES": False}): 
+            results_dict = run_and_summarize(
+                atoms,
+                preset=preset,
+                calc_defaults=calc_defaults,
+                calc_swaps=calc_kwargs,
+                additional_fields={"name": "VASP Freq"} | (additional_fields or {}),
+                copy_files=copy_files,
+            )
+    else:
+        results_dict = run_and_summarize(
+            atoms,
+            preset=preset,
+            calc_defaults=calc_defaults,
+            calc_swaps=calc_kwargs,
+            additional_fields={"name": "VASP Freq"} | (additional_fields or {}),
+            copy_files=copy_files,
+        )
 
     real_freqs, imag_freqs = read_vib_freq(results_dict["dir_name"] / "OUTCAR")
     results_dict["results"]["real_vib_freqs"] = real_freqs
     results_dict["results"]["imag_vib_freqs"] = imag_freqs
+    results_dict["atoms"] = resort_atoms(atoms, results_dict["atoms"])
 
     return results_dict
+
+
+@job
+def static_job(
+    atoms: Atoms,
+    preset: str | None = "BulkSet",
+    copy_files: SourceDirectory | dict[SourceDirectory, Filenames] | None = None,
+    additional_fields: dict[str, Any] | None = None,
+    **calc_kwargs,
+) -> VaspSchema:
+    """
+    Carry out a single-point calculation.
+
+    Parameters
+    ----------
+    atoms
+        Atoms object
+    preset
+        Preset to use from `quacc.calculators.vasp.presets`.
+    copy_files
+        Files to copy (and decompress) from source to the runtime directory.
+    additional_fields
+        Additional fields to add to the results dictionary.
+    **calc_kwargs
+        Custom kwargs for the Vasp calculator. Set a value to
+        `None` to remove a pre-existing key entirely. For a list of available
+        keys, refer to [quacc.calculators.vasp.vasp.Vasp][].
+
+    Returns
+    -------
+    VaspSchema
+        Dictionary of results from [quacc.schemas.vasp.VaspSummarize.run][].
+        See the type-hint for the data structure.
+    """
+    calc_defaults = {
+        "encut": 600,
+        "ismear": 0,
+        "sigma": 0.05,
+        "ediff": 5e-7,
+        "algo": "ALL",
+        "istart": 0,
+        "lreal": False,
+        "ispin": 1,
+        "nelm": 200,
+        "nelmin": 8,
+        "ibrion": -1,
+        "isym": 0,
+        "lcharg": False,
+        "lwave": False,
+        "nsw": 0,
+        "symprec": 1e-8,
+    }
+
+    if 'calc_results_dir' in additional_fields:
+        with change_settings({"RESULTS_DIR": additional_fields['calc_results_dir'], "CREATE_UNIQUE_DIR": False, "GZIP_FILES": False}): 
+            results_dict = run_and_summarize(
+                atoms,
+                preset=preset,
+                calc_defaults=calc_defaults,
+                calc_swaps=calc_kwargs,
+                additional_fields={"name": "VASP Static"} | (additional_fields or {}),
+                copy_files=copy_files,
+            )
+    else:
+        results_dict = run_and_summarize(
+            atoms,
+            preset=preset,
+            calc_defaults=calc_defaults,
+            calc_swaps=calc_kwargs,
+            additional_fields={"name": "VASP Static"} | (additional_fields or {}),
+            copy_files=copy_files,
+        )
+
+    results_dict['atoms'] = resort_atoms(atoms, results_dict['atoms'])
+
+    return results_dict
+
+
+@job
+def relax_job(
+    atoms: Atoms,
+    preset: str | None = "BulkSet",
+    relax_cell: bool = False,
+    copy_files: SourceDirectory | dict[SourceDirectory, Filenames] | None = None,
+    additional_fields: dict[str, Any] | None = None,
+    unique_dir: bool = False,
+    **calc_kwargs,
+) -> VaspSchema:
+    """
+    Relax a structure.
+
+    Parameters
+    ----------
+    atoms
+        Atoms object
+    preset
+        Preset to use from `quacc.calculators.vasp.presets`.
+    relax_cell
+        True if a volume relaxation (ISIF = 3) should be performed. False if
+        only the positions (ISIF = 2) should be updated.
+    copy_files
+        Files to copy (and decompress) from source to the runtime directory.
+    additional_fields
+        Additional fields to add to the results dictionary.
+    **calc_kwargs
+        Custom kwargs for the Vasp calculator. Set a value to
+        `None` to remove a pre-existing key entirely. For a list of available
+        keys, refer to the [quacc.calculators.vasp.vasp.Vasp][] calculator.
+
+    Returns
+    -------
+    VaspSchema
+        Dictionary of results from [quacc.schemas.vasp.VaspSummarize.run][].
+        See the type-hint for the data structure.
+    """
+
+    calc_defaults = {
+        "encut": 600,
+        "ismear": 0,
+        "sigma": 0.05,
+        "ediff": 5e-7,
+        "algo": "ALL",
+        "istart": 0,
+        "lreal": False,
+        "ispin": 1,
+        "nelm": 200,
+        "nelmin": 8,
+        "ediffg": -0.01,
+        "isif": 3 if relax_cell else 2,
+        "ibrion": 2,
+        "isym": 0,
+        "lcharg": False,
+        "lwave": False,
+        "nsw": 200,
+        "symprec": 1e-8,
+    }
+
+    if 'calc_results_dir' in additional_fields:
+        with change_settings({"RESULTS_DIR": additional_fields['calc_results_dir'], "CREATE_UNIQUE_DIR": unique_dir, "GZIP_FILES": False}): 
+            results_dict = run_and_summarize(
+                atoms,
+                preset=preset,
+                calc_defaults=calc_defaults,
+                calc_swaps=calc_kwargs,
+                additional_fields={"name": "VASP Relax"} | (additional_fields or {}),
+                copy_files=copy_files,
+            )
+    else:
+        results_dict = run_and_summarize(
+            atoms,
+            preset=preset,
+            calc_defaults=calc_defaults,
+            calc_swaps=calc_kwargs,
+            additional_fields={"name": "VASP Relax"} | (additional_fields or {}),
+            copy_files=copy_files,
+        )
+    
+    results_dict['atoms'] = resort_atoms(atoms, results_dict['atoms'])
+
+    return results_dict
+
 
 
 def resort_atoms(initial_atoms: Atoms, final_atoms: Atoms) -> Atoms:

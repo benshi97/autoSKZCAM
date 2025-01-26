@@ -91,7 +91,7 @@ def mock_vasp_run_and_summarize(atoms, additional_fields, *args, **kwargs):
         symbols, _ = count_symbols(atoms, exclude=())
 
         # Create sorting list
-        srt = []  # type: List[int]
+        srt = []  
 
         for symbol in symbols:
             for m, atom in enumerate(atoms):
@@ -104,8 +104,8 @@ def mock_vasp_run_and_summarize(atoms, additional_fields, *args, **kwargs):
 
         return atoms.copy()[srt]
 
-    job_type = additional_fields["job_type"]
-    xc_func = additional_fields["xc_func"]
+    job_type = additional_fields["calc_results_dir"].parent.name
+    xc_func = additional_fields["calc_results_dir"].name
 
     mock_results_dir = Path(
         FILE_DIR, "mocked_vasp_runs", "dft_calc_dir", job_type, xc_func
@@ -121,13 +121,6 @@ def mock_vasp_run_and_summarize(atoms, additional_fields, *args, **kwargs):
 
 @pytest.fixture(autouse=True)
 def patch_vasp_run(monkeypatch):
-    monkeypatch.setattr(
-        "quacc.recipes.vasp.core.run_and_summarize", mock_vasp_run_and_summarize
-    )
-
-
-@pytest.fixture(autouse=True)
-def patch_vasp_freq_run(monkeypatch):
     monkeypatch.setattr(
         "autoSKZCAM.recipes_dft.run_and_summarize", mock_vasp_run_and_summarize
     )
