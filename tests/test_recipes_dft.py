@@ -401,8 +401,5 @@ def test_adsorbate_slab_rss_flow(tmpdir):
         num_rss=5,
         additional_fields={"calc_results_dir": tmpdir},
     )
-
-    assert all(
-        list(rss_results.keys())
-        == ["RSS_00001", "RSS_00002", "RSS_00003", "RSS_00004", "RSS_00005"]
-    )
+    assert list(rss_results.keys()) == ["RSS_00001", "RSS_00002", "RSS_00003", "RSS_00004", "RSS_00005"]
+    
