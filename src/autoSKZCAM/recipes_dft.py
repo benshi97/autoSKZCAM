@@ -162,10 +162,7 @@ def dft_ensemble_flow(
 
         # slab to ads_slab
         if dft_ensemble_results["04-adsorbate_slab"][xc_func] is None:
-            calc_kwargs = {
-                **job_params.get("04-adsorbate_slab", {}),
-                **xc_func_kwargs,
-            }
+            calc_kwargs = {**job_params.get("04-adsorbate_slab", {}), **xc_func_kwargs}
             initial_adsorbate_slab = adsorbate_slab_gen_func(
                 dft_ensemble_results["01-molecule"][xc_func]["atoms"],
                 dft_ensemble_results["03-slab"][xc_func]["atoms"],
@@ -213,10 +210,7 @@ def dft_ensemble_flow(
                 dft_ensemble_results["07-slab_vib"][xc_func] is None
                 and freeze_surface_vib is False
             ):
-                calc_kwargs = {
-                    **job_params.get("07-slab_vib", {}),
-                    **xc_func_kwargs,
-                }
+                calc_kwargs = {**job_params.get("07-slab_vib", {}), **xc_func_kwargs}
                 dft_ensemble_results["07-slab_vib"][xc_func] = freq_job(
                     dft_ensemble_results["03-slab"][xc_func]["atoms"],
                     additional_fields={
@@ -270,10 +264,7 @@ def dft_ensemble_flow(
 
             # eint on slab
             if dft_ensemble_results["10-eint_slab"][xc_func] is None:
-                calc_kwargs = {
-                    **job_params.get("10-eint_slab", {}),
-                    **xc_func_kwargs,
-                }
+                calc_kwargs = {**job_params.get("10-eint_slab", {}), **xc_func_kwargs}
                 dft_ensemble_results["10-eint_slab"][xc_func] = static_job(
                     fixed_slab_atoms,
                     additional_fields={
@@ -325,15 +316,17 @@ def read_completed_calculations(
     ]
 
     dft_ensemble_results = {
-        job_type: {xc_func: None for xc_func in xc_ensemble.keys()} for job_type in job_list
+        job_type: {xc_func: None for xc_func in xc_ensemble} for job_type in job_list
     }
-    for xc_func in xc_ensemble.keys():
+    for xc_func in xc_ensemble:
         for job_type in job_list:
             vasp_dir = Path(calc_dir) / job_type / xc_func
             outcar_filename = Path(calc_dir) / job_type / xc_func / "OUTCAR"
             if outcar_filename.exists():
                 if "vib" in job_type:
-                    if xc_func not in vib_xc_ensemble or (freeze_surface_vib and "slab" in job_type):
+                    if xc_func not in vib_xc_ensemble or (
+                        freeze_surface_vib and "slab" in job_type
+                    ):
                         continue
                     with Path.open(outcar_filename, encoding="ISO-8859-1") as file:
                         final_atoms = read(file, format="vasp-out")
