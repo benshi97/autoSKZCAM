@@ -716,6 +716,7 @@ def adsorbate_slab_rss_flow(
     """
     import numpy as np
     from ase import neighborlist
+    rng = np.random.default_rng()
 
     calc_defaults = {
         "encut": 400,
@@ -747,14 +748,14 @@ def adsorbate_slab_rss_flow(
     while rss_num < num_rss:
         rotated_adsorbate = adsorbate.copy()
         rotated_adsorbate.set_cell(slab.get_cell())
-        random_angle = np.random.rand() * 360.0
-        random_direction = [np.random.rand(), np.random.rand(), np.random.rand()]
+        random_angle = rng.random() * 360.0
+        random_direction = [rng.random(), rng.random(), rng.random()]
         rotated_adsorbate.rotate(random_angle, random_direction, center="COM")
         random_displacement = (
-            np.random.rand() * slab.get_cell()[0]
-            + np.random.rand() * slab.get_cell()[1]
+            rng.random() * slab.get_cell()[0]
+            + rng.random() * slab.get_cell()[1]
             + np.array(
-                [0.0, 0.0, surface_max_z + np.random.rand() * (max_z - min_z) + min_z]
+                [0.0, 0.0, surface_max_z + rng.random() * (max_z - min_z) + min_z]
             )
             - rotated_adsorbate.get_center_of_mass()
         )
