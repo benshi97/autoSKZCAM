@@ -74,11 +74,9 @@ def skzcam_analyse(
         EmbeddedCluster=EmbeddedCluster,
     )
 
-    skzcam_int_ene = compute_skzcam_int_ene(
+    return compute_skzcam_int_ene(
         skzcam_calcs_analysis=skzcam_calcs_analysis, OniomInfo=OniomInfo
     )
-
-    return skzcam_int_ene
 
 
 def skzcam_eint_flow(

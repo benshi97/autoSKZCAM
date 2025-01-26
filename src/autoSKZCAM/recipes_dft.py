@@ -3,22 +3,24 @@ from __future__ import annotations
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, Callable
 
+import numpy as np
 from ase.calculators.vasp.create_input import count_symbols
 from ase.constraints import FixAtoms
 from ase.io import read
 from quacc import change_settings, flow, job
 from quacc.recipes.vasp._base import run_and_summarize
 from quacc.schemas.ase import Summarize
+
 from autoSKZCAM.analysis import get_quasi_rrho
-import numpy as np
 
 if TYPE_CHECKING:
     from ase import Atoms
     from quacc.types import Filenames, SourceDirectory, VaspSchema
 
+
 def dft_ensemble_analyse(
     calc_dir: Path | str,
-    xc_ensemble: list[str] | dict[str,str],
+    xc_ensemble: list[str] | dict[str, str],
     geom_error_xc: str,
     vib_xc_ensemble: list[str],
     freeze_surface_vib: bool,
@@ -46,7 +48,7 @@ def dft_ensemble_analyse(
     -------
     dict[str, list[float]]
         A dictionary containing the relaxation energy (and its geometry error) and DeltaH contributions from the DFT ensemble.
-    
+
     """
 
     # Ensure that all the functionals in vib_xc_ensemble are also in xc_ensemble
@@ -69,10 +71,15 @@ def dft_ensemble_analyse(
     # Confirm that all the calculations have been completed
     for job_type in dft_ensemble_results:
         for xc_func in xc_ensemble:
-            if 'vib' in job_type and (xc_func not in vib_xc_ensemble or (job_type == '07-slab_vib' and freeze_surface_vib)):
+            if "vib" in job_type and (
+                xc_func not in vib_xc_ensemble
+                or (job_type == "07-slab_vib" and freeze_surface_vib)
+            ):
                 continue
-            if dft_ensemble_results[job_type][xc_func] is None or ('results' in dft_ensemble_results[job_type] and 
-    'energy' not in dft_ensemble_results[job_type][xc_func]['results']):
+            if dft_ensemble_results[job_type][xc_func] is None or (
+                "results" in dft_ensemble_results[job_type]
+                and "energy" not in dft_ensemble_results[job_type][xc_func]["results"]
+            ):
                 raise ValueError(
                     f"The {job_type} calculation for the functional {xc_func} has not been completed."
                 )
@@ -82,27 +89,68 @@ def dft_ensemble_analyse(
     xc_vib_dict = {xc_func: 0 for xc_func in vib_xc_ensemble}
 
     for xc_func in xc_ensemble:
-        xc_eads_dict[xc_func] = dft_ensemble_results["04-adsorbate_slab"][xc_func]['results']['energy'] - dft_ensemble_results["03-slab"][xc_func]['results']['energy'] - dft_ensemble_results["01-molecule"][xc_func]['results']['energy']
-        xc_eint_dict[xc_func] = dft_ensemble_results["08-eint_adsorbate_slab"][xc_func]['results']['energy'] - dft_ensemble_results["09-eint_adsorbate"][xc_func]['results']['energy'] - dft_ensemble_results["10-eint_slab"][xc_func]['results']['energy']
+        xc_eads_dict[xc_func] = (
+            dft_ensemble_results["04-adsorbate_slab"][xc_func]["results"]["energy"]
+            - dft_ensemble_results["03-slab"][xc_func]["results"]["energy"]
+            - dft_ensemble_results["01-molecule"][xc_func]["results"]["energy"]
+        )
+        xc_eint_dict[xc_func] = (
+            dft_ensemble_results["08-eint_adsorbate_slab"][xc_func]["results"]["energy"]
+            - dft_ensemble_results["09-eint_adsorbate"][xc_func]["results"]["energy"]
+            - dft_ensemble_results["10-eint_slab"][xc_func]["results"]["energy"]
+        )
 
         if xc_func in vib_xc_ensemble:
-            adsorbate_slab_dU, _, _, _ = get_quasi_rrho(dft_ensemble_results["05-adsorbate_slab_vib"][xc_func]['results']['real_vib_freqs'], dft_ensemble_results["05-adsorbate_slab_vib"][xc_func]['results']['imag_vib_freqs'], temperature)
-            adsorbate_dU, _, _, _ = get_quasi_rrho(dft_ensemble_results["06-molecule_vib"][xc_func]['results']['real_vib_freqs'], dft_ensemble_results["06-molecule_vib"][xc_func]['results']['imag_vib_freqs'], temperature)
+            adsorbate_slab_dU, _, _, _ = get_quasi_rrho(
+                dft_ensemble_results["05-adsorbate_slab_vib"][xc_func]["results"][
+                    "real_vib_freqs"
+                ],
+                dft_ensemble_results["05-adsorbate_slab_vib"][xc_func]["results"][
+                    "imag_vib_freqs"
+                ],
+                temperature,
+            )
+            adsorbate_dU, _, _, _ = get_quasi_rrho(
+                dft_ensemble_results["06-molecule_vib"][xc_func]["results"][
+                    "real_vib_freqs"
+                ],
+                dft_ensemble_results["06-molecule_vib"][xc_func]["results"][
+                    "imag_vib_freqs"
+                ],
+                temperature,
+            )
 
             if freeze_surface_vib is False:
-                slab_dU, _, _, _ = get_quasi_rrho(dft_ensemble_results["07-slab_vib"][xc_func]['results']['real_vib_freqs'], dft_ensemble_results["07-slab_vib"][xc_func]['results']['imag_vib_freqs'], temperature)
+                slab_dU, _, _, _ = get_quasi_rrho(
+                    dft_ensemble_results["07-slab_vib"][xc_func]["results"][
+                        "real_vib_freqs"
+                    ],
+                    dft_ensemble_results["07-slab_vib"][xc_func]["results"][
+                        "imag_vib_freqs"
+                    ],
+                    temperature,
+                )
             else:
                 slab_dU = 0
             xc_vib_dict[xc_func] = adsorbate_slab_dU - adsorbate_dU - slab_dU
-    
-    erlx = xc_eads_dict[geom_error_xc] - xc_eint_dict[geom_error_xc]
-    geom_error = 2*np.sqrt(np.mean([(xc_eads_dict[xc_func] - xc_eint_dict[xc_func] - erlx)**2 for xc_func in xc_ensemble if xc_func != geom_error_xc]))
-    dft_ensemble_contributions = {
-        'DFT Erlx': [erlx*1000, geom_error*1000],
-        'DFT DeltaH': [np.mean([xc_vib_dict[xc_func] for xc_func in vib_xc_ensemble]), 2*np.std([xc_vib_dict[xc_func] for xc_func in vib_xc_ensemble])],
-    }
 
-    return dft_ensemble_contributions
+    erlx = xc_eads_dict[geom_error_xc] - xc_eint_dict[geom_error_xc]
+    geom_error = 2 * np.sqrt(
+        np.mean(
+            [
+                (xc_eads_dict[xc_func] - xc_eint_dict[xc_func] - erlx) ** 2
+                for xc_func in xc_ensemble
+                if xc_func != geom_error_xc
+            ]
+        )
+    )
+    return {
+        "DFT Erlx": [erlx * 1000, geom_error * 1000],
+        "DFT DeltaH": [
+            np.mean([xc_vib_dict[xc_func] for xc_func in vib_xc_ensemble]),
+            2 * np.std([xc_vib_dict[xc_func] for xc_func in vib_xc_ensemble]),
+        ],
+    }
 
 
 @flow
@@ -391,7 +439,7 @@ def dft_ensemble_flow(
 
 def read_completed_calculations(
     calc_dir: Path | str,
-    xc_ensemble: list[str] | dict[str,str],
+    xc_ensemble: list[str] | dict[str, str],
     vib_xc_ensemble: list[str],
     freeze_surface_vib: bool,
 ) -> dict[str, dict[str, VaspSchema]]:
@@ -769,7 +817,7 @@ def adsorbate_slab_rss_flow(
     additional_fields: dict[str, Any] | None = None,
     unique_dir: bool = False,
     **calc_kwargs,
-) -> dict[str,VaspSchema]:
+) -> dict[str, VaspSchema]:
     """
     Perform a random structure search on a specified number of structures.
 

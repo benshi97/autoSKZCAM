@@ -9,20 +9,52 @@ from ase.constraints import FixAtoms
 from ase.io import read
 from numpy.testing import assert_allclose
 
-from autoSKZCAM.recipes_dft import adsorbate_slab_rss_flow, dft_ensemble_flow, dft_ensemble_analyse, read_completed_calculations
+from autoSKZCAM.recipes_dft import (
+    adsorbate_slab_rss_flow,
+    dft_ensemble_analyse,
+    dft_ensemble_flow,
+    read_completed_calculations,
+)
 
 FILE_DIR = Path(__file__).parent
 
+
 def test_dft_ensemble_analyse():
-    
-    xc_ensemble = ['PBE-D2-Ne', 'revPBE-D4', 'vdW-DF', 'rev-vdW-DF2', 'PBE0-D4', 'B3LYP-D2-Ne']
-    vib_xc_ensemble = ['PBE-D2-Ne', 'revPBE-D4', 'vdW-DF', 'rev-vdW-DF2']
+    xc_ensemble = [
+        "PBE-D2-Ne",
+        "revPBE-D4",
+        "vdW-DF",
+        "rev-vdW-DF2",
+        "PBE0-D4",
+        "B3LYP-D2-Ne",
+    ]
+    vib_xc_ensemble = ["PBE-D2-Ne", "revPBE-D4", "vdW-DF", "rev-vdW-DF2"]
     dft_ensemble_results = read_completed_calculations(
-        calc_dir=Path(FILE_DIR , "mocked_vasp_runs" , "dft_calc_dir"), xc_ensemble = xc_ensemble, vib_xc_ensemble = vib_xc_ensemble, freeze_surface_vib=True
+        calc_dir=Path(FILE_DIR, "mocked_vasp_runs", "dft_calc_dir"),
+        xc_ensemble=xc_ensemble,
+        vib_xc_ensemble=vib_xc_ensemble,
+        freeze_surface_vib=True,
     )
-    dft_ensemble_analysis = dft_ensemble_analyse(calc_dir=Path(FILE_DIR , "mocked_vasp_runs" , "dft_calc_dir"), xc_ensemble=xc_ensemble, geom_error_xc='revPBE-D4', vib_xc_ensemble=vib_xc_ensemble, freeze_surface_vib=True, temperature=61)
-    assert_allclose(dft_ensemble_analysis['DFT Erlx'], [8.499119999989091, 19.779237597405302], rtol=1e-05, atol=1e-07)
-    assert_allclose(dft_ensemble_analysis['DFT DeltaH'], [24.15531290723979, 3.081997964011643], rtol=1e-05, atol=1e-07)
+    dft_ensemble_analysis = dft_ensemble_analyse(
+        calc_dir=Path(FILE_DIR, "mocked_vasp_runs", "dft_calc_dir"),
+        xc_ensemble=xc_ensemble,
+        geom_error_xc="revPBE-D4",
+        vib_xc_ensemble=vib_xc_ensemble,
+        freeze_surface_vib=True,
+        temperature=61,
+    )
+    assert_allclose(
+        dft_ensemble_analysis["DFT Erlx"],
+        [8.499119999989091, 19.779237597405302],
+        rtol=1e-05,
+        atol=1e-07,
+    )
+    assert_allclose(
+        dft_ensemble_analysis["DFT DeltaH"],
+        [24.15531290723979, 3.081997964011643],
+        rtol=1e-05,
+        atol=1e-07,
+    )
 
 
 def test_dft_ensemble_flow(tmpdir):
