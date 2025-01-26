@@ -716,6 +716,7 @@ def adsorbate_slab_rss_flow(
     """
     import numpy as np
     from ase import neighborlist
+
     rng = np.random.default_rng()
 
     calc_defaults = {
