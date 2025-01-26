@@ -1,4 +1,4 @@
- vasp.6.3.0 20Jan22 (build Apr  1 2022 16:44:48) gamma-only                      
+ vasp.6.3.0 20Jan22 (build Apr  1 2022 16:44:48) gamma-only
  executed on        HPECrayEX_GCC date 2022.09.28  14:36:21
  running  128 mpi-ranks, with    1 threads/rank
  distrk:  each k-point on   64 cores,    2 groups
@@ -45,8 +45,8 @@
    LWAVE = .FALSE.
    LCHARG = .FALSE.
 
- POTCAR:    PAW_PBE C 08Apr2002                   
- POTCAR:    PAW_PBE O 08Apr2002                   
+ POTCAR:    PAW_PBE C 08Apr2002
+ POTCAR:    PAW_PBE O 08Apr2002
  -----------------------------------------------------------------------------
 |                                                                             |
 |           W    W    AA    RRRRR   N    N  II  N    N   GGGG   !!!           |
@@ -66,47 +66,47 @@
 |                                                                             |
  -----------------------------------------------------------------------------
 
- POTCAR:    PAW_PBE C 08Apr2002                   
-   SHA256 =  253f7b50bb8d59471dbedb8285d89021f4a42ed1a2c5d38a03a736e69125dd95 C/POTCAR              
-   COPYR  = (c) Copyright 08Apr2002 Georg Kresse                                                    
+ POTCAR:    PAW_PBE C 08Apr2002
+   SHA256 =  253f7b50bb8d59471dbedb8285d89021f4a42ed1a2c5d38a03a736e69125dd95 C/POTCAR
+   COPYR  = (c) Copyright 08Apr2002 Georg Kresse
    COPYR  = This file is part of the software VASP. Any use, copying, and all other rights are regul
-   COPYR  = If you do not have a valid VASP license, you may not use, copy or distribute this file. 
-   VRHFIN =C: s2p2                                                                                  
-   LEXCH  = PE                                                                                      
-   EATOM  =   147.1560 eV,   10.8157 Ry                                                             
-                                                                                                    
-   TITEL  = PAW_PBE C 08Apr2002                                                                     
-   LULTRA =        F    use ultrasoft PP ?                                                          
-   IUNSCR =        1    unscreen: 0-lin 1-nonlin 2-no                                               
-   RPACOR =    1.200    partial core radius                                                         
-   POMASS =   12.011; ZVAL   =    4.000    mass and valenz                                          
-   RCORE  =    1.500    outmost cutoff radius                                                       
-   RWIGS  =    1.630; RWIGS  =    0.863    wigner-seitz radius (au A)                               
-   ENMAX  =  400.000; ENMIN  =  300.000 eV                                                          
-   ICORE  =        2    local potential                                                             
-   LCOR   =        T    correct aug charges                                                         
-   LPAW   =        T    paw PP                                                                      
-   EAUG   =  644.873                                                                                
-   DEXC   =    0.000                                                                                
-   RMAX   =    1.529    core radius for proj-oper                                                   
-   RAUG   =    1.300    factor for augmentation sphere                                              
-   RDEP   =    1.501    radius for radial grids                                                     
-   RDEPT  =    1.300    core radius for aug-charge                                                  
-                                                                                                    
-   Atomic configuration                                                                             
-    4 entries                                                                                       
-     n  l   j            E        occ.                                                              
-     1  0  0.50      -273.3789   2.0000                                                             
-     2  0  0.50       -13.7508   2.0000                                                             
-     2  1  0.50        -5.2854   2.0000                                                             
-     3  2  1.50        -5.4423   0.0000                                                             
-   Description                                                                                      
-     l       E           TYP  RCUT    TYP  RCUT                                                     
-     0    -13.7508458     23  1.200                                                                 
-     0     -8.2022199     23  1.200                                                                 
-     1     -5.2854383     23  1.500                                                                 
-     1     34.0145650     23  1.500                                                                 
-     2     -5.4423304      7  1.500                                                                 
+   COPYR  = If you do not have a valid VASP license, you may not use, copy or distribute this file.
+   VRHFIN =C: s2p2
+   LEXCH  = PE
+   EATOM  =   147.1560 eV,   10.8157 Ry
+
+   TITEL  = PAW_PBE C 08Apr2002
+   LULTRA =        F    use ultrasoft PP ?
+   IUNSCR =        1    unscreen: 0-lin 1-nonlin 2-no
+   RPACOR =    1.200    partial core radius
+   POMASS =   12.011; ZVAL   =    4.000    mass and valenz
+   RCORE  =    1.500    outmost cutoff radius
+   RWIGS  =    1.630; RWIGS  =    0.863    wigner-seitz radius (au A)
+   ENMAX  =  400.000; ENMIN  =  300.000 eV
+   ICORE  =        2    local potential
+   LCOR   =        T    correct aug charges
+   LPAW   =        T    paw PP
+   EAUG   =  644.873
+   DEXC   =    0.000
+   RMAX   =    1.529    core radius for proj-oper
+   RAUG   =    1.300    factor for augmentation sphere
+   RDEP   =    1.501    radius for radial grids
+   RDEPT  =    1.300    core radius for aug-charge
+
+   Atomic configuration
+    4 entries
+     n  l   j            E        occ.
+     1  0  0.50      -273.3789   2.0000
+     2  0  0.50       -13.7508   2.0000
+     2  1  0.50        -5.2854   2.0000
+     3  2  1.50        -5.4423   0.0000
+   Description
+     l       E           TYP  RCUT    TYP  RCUT
+     0    -13.7508458     23  1.200
+     0     -8.2022199     23  1.200
+     1     -5.2854383     23  1.500
+     1     34.0145650     23  1.500
+     2     -5.4423304      7  1.500
   local pseudopotential read in
   partial core-charges read in
   partial kinetic energy density read in
@@ -124,47 +124,47 @@
    number of l-projection  operators is LMAX  =           4
    number of lm-projection operators is LMMAX =           8
 
- POTCAR:    PAW_PBE O 08Apr2002                   
-   SHA256 =  818f92134a0a090dccd8ba1447fa70422a3b330e708bb4f08108d8ae51209ddf O/POTCAR              
-   COPYR  = (c) Copyright 08Apr2002 Georg Kresse                                                    
+ POTCAR:    PAW_PBE O 08Apr2002
+   SHA256 =  818f92134a0a090dccd8ba1447fa70422a3b330e708bb4f08108d8ae51209ddf O/POTCAR
+   COPYR  = (c) Copyright 08Apr2002 Georg Kresse
    COPYR  = This file is part of the software VASP. Any use, copying, and all other rights are regul
-   COPYR  = If you do not have a valid VASP license, you may not use, copy or distribute this file. 
-   VRHFIN =O: s2p4                                                                                  
-   LEXCH  = PE                                                                                      
-   EATOM  =   432.3788 eV,   31.7789 Ry                                                             
-                                                                                                    
-   TITEL  = PAW_PBE O 08Apr2002                                                                     
-   LULTRA =        F    use ultrasoft PP ?                                                          
-   IUNSCR =        1    unscreen: 0-lin 1-nonlin 2-no                                               
-   RPACOR =    1.200    partial core radius                                                         
-   POMASS =   16.000; ZVAL   =    6.000    mass and valenz                                          
-   RCORE  =    1.520    outmost cutoff radius                                                       
-   RWIGS  =    1.550; RWIGS  =    0.820    wigner-seitz radius (au A)                               
-   ENMAX  =  400.000; ENMIN  =  300.000 eV                                                          
-   ICORE  =        2    local potential                                                             
-   LCOR   =        T    correct aug charges                                                         
-   LPAW   =        T    paw PP                                                                      
-   EAUG   =  605.392                                                                                
-   DEXC   =    0.000                                                                                
-   RMAX   =    1.553    core radius for proj-oper                                                   
-   RAUG   =    1.300    factor for augmentation sphere                                              
-   RDEP   =    1.550    radius for radial grids                                                     
-   RDEPT  =    1.329    core radius for aug-charge                                                  
-                                                                                                    
-   Atomic configuration                                                                             
-    4 entries                                                                                       
-     n  l   j            E        occ.                                                              
-     1  0  0.50      -514.6923   2.0000                                                             
-     2  0  0.50       -23.9615   2.0000                                                             
-     2  1  0.50        -9.0305   4.0000                                                             
-     3  2  1.50        -9.5241   0.0000                                                             
-   Description                                                                                      
-     l       E           TYP  RCUT    TYP  RCUT                                                     
-     0    -23.9615318     23  1.200                                                                 
-     0     -9.5240782     23  1.200                                                                 
-     1     -9.0304911     23  1.520                                                                 
-     1      8.1634956     23  1.520                                                                 
-     2     -9.5240782      7  1.500                                                                 
+   COPYR  = If you do not have a valid VASP license, you may not use, copy or distribute this file.
+   VRHFIN =O: s2p4
+   LEXCH  = PE
+   EATOM  =   432.3788 eV,   31.7789 Ry
+
+   TITEL  = PAW_PBE O 08Apr2002
+   LULTRA =        F    use ultrasoft PP ?
+   IUNSCR =        1    unscreen: 0-lin 1-nonlin 2-no
+   RPACOR =    1.200    partial core radius
+   POMASS =   16.000; ZVAL   =    6.000    mass and valenz
+   RCORE  =    1.520    outmost cutoff radius
+   RWIGS  =    1.550; RWIGS  =    0.820    wigner-seitz radius (au A)
+   ENMAX  =  400.000; ENMIN  =  300.000 eV
+   ICORE  =        2    local potential
+   LCOR   =        T    correct aug charges
+   LPAW   =        T    paw PP
+   EAUG   =  605.392
+   DEXC   =    0.000
+   RMAX   =    1.553    core radius for proj-oper
+   RAUG   =    1.300    factor for augmentation sphere
+   RDEP   =    1.550    radius for radial grids
+   RDEPT  =    1.329    core radius for aug-charge
+
+   Atomic configuration
+    4 entries
+     n  l   j            E        occ.
+     1  0  0.50      -514.6923   2.0000
+     2  0  0.50       -23.9615   2.0000
+     2  1  0.50        -9.0305   4.0000
+     3  2  1.50        -9.5241   0.0000
+   Description
+     l       E           TYP  RCUT    TYP  RCUT
+     0    -23.9615318     23  1.200
+     0     -9.5240782     23  1.200
+     1     -9.0304911     23  1.520
+     1      8.1634956     23  1.520
+     2     -9.5240782      7  1.500
   local pseudopotential read in
   partial core-charges read in
   partial kinetic energy density read in
@@ -220,9 +220,9 @@
   LATTYP: Found a simple tetragonal cell.
  ALAT       =    20.0000000000
  C/A-ratio  =     1.0563164144
-  
+
   Lattice vectors:
-  
+
  A1 = (  20.0000000000,   0.0000000000,   0.0000000000)
  A2 = (   0.0000000000,  20.0000000000,   0.0000000000)
  A3 = (   0.0000000000,   0.0000000000,  21.1263282871)
@@ -232,9 +232,9 @@ Analysis of symmetry for initial positions (statically):
 =====================================================================
  Subroutine PRICEL returns:
  Original cell was already a primitive cell.
- 
 
- Routine SETGRP: Setting up the symmetry group for a 
+
+ Routine SETGRP: Setting up the symmetry group for a
  simple tetragonal supercell.
 
 
@@ -250,9 +250,9 @@ Analysis of symmetry for dynamics (positions and initial velocities):
 =====================================================================
  Subroutine PRICEL returns:
  Original cell was already a primitive cell.
- 
 
- Routine SETGRP: Setting up the symmetry group for a 
+
+ Routine SETGRP: Setting up the symmetry group for a
  simple tetragonal supercell.
 
 
@@ -271,7 +271,7 @@ The dynamic configuration has the point symmetry C_4v.
 
 ----------------------------------------------------------------------------------------
 
-                                     Primitive cell                                     
+                                     Primitive cell
 
   volume of cell :    8450.5313
 
@@ -296,7 +296,7 @@ The dynamic configuration has the point symmetry C_4v.
 
 
 
- KPOINTS: pymatgen v2020.8.13 with grid density = 
+ KPOINTS: pymatgen v2020.8.13 with grid density =
 
 Automatic generation of k-mesh.
  Grid dimensions read from file:
@@ -315,24 +315,24 @@ Automatic generation of k-mesh.
   Shift w.r.t. Gamma in fractional coordinates (k-lattice)
      0.000000000  0.000000000  0.000000000
 
- 
+
  Subroutine IBZKPT returns following result:
  ===========================================
- 
+
  Found      1 irreducible k-points:
- 
+
  Following reciprocal coordinates:
             Coordinates               Weight
   0.000000  0.000000  0.000000      1.000000
- 
+
  Following cartesian coordinates:
             Coordinates               Weight
   0.000000  0.000000  0.000000      1.000000
- 
- 
+
+
  Subroutine IBZKPT_HF returns following result:
  ==============================================
- 
+
  Found      1 k-points in 1st BZ
  the following      1 k-points will be used (e.g. in the exchange kernel)
  Following reciprocal coordinates:   # in IRBZ
@@ -357,8 +357,8 @@ Automatic generation of k-mesh.
    NGX,Y,Z   is equivalent  to a cutoff of  13.30, 13.30, 14.16 a.u.
    NGXF,Y,Z  is equivalent  to a cutoff of  26.60, 26.60, 28.33 a.u.
 
- SYSTEM =  MgO-rocksalt                            
- POSCAR =   C  O                                   
+ SYSTEM =  MgO-rocksalt
+ POSCAR =   C  O
 
  Startparameter for this run:
    NWRITE =      2    write-flag & timer
@@ -374,7 +374,7 @@ Automatic generation of k-mesh.
    ENCUT  =  600.0 eV  44.10 Ry    6.64 a.u.  39.94 39.94 42.19*2*pi/ulx,y,z
    ENINI  =  600.0     initial cutoff
    ENAUG  =  644.9 eV  augmentation charge cutoff
-   NELM   =    200;   NELMIN=  8; NELMDL= -5     # of ELM steps 
+   NELM   =    200;   NELMIN=  8; NELMDL= -5     # of ELM steps
    EDIFF  = 0.5E-06   stopping-criterion for ELM
    LREAL  =      F    real-space projection
    NLSPLINE    = F    spline interpolate recip. space projectors
@@ -387,7 +387,7 @@ Automatic generation of k-mesh.
  Ionic relaxation
    EDIFFG = -.5E-02   stopping-criterion for IOM
    NSW    =    200    number of steps for IOM
-   NBLOCK =      1;   KBLOCK =    200    inner block; outer block 
+   NBLOCK =      1;   KBLOCK =    200    inner block; outer block
    IBRION =      2    ionic relax: 0-MD 1-quasi-New 2-CG
    NFREE  =      1    steps in history (QN), initial steepest desc. (CG)
    ISIF   =      2    stress and relaxation
@@ -410,7 +410,7 @@ Automatic generation of k-mesh.
    ZVAL   =   4.00  6.00
   Atomic Wigner-Seitz radii
    RWIGS  =  -1.00 -1.00
-  virtual crystal weights 
+  virtual crystal weights
    VCA    =   1.00  1.00
    NELECT =      10.0000    total number of electrons
    NUPDOWN=      -1.0000    fix difference up-down
@@ -438,7 +438,7 @@ Automatic generation of k-mesh.
  Intra band minimization:
    WEIMIN = 0.0010     energy-eigenvalue tresh-hold
    EBREAK =  0.78E-08  absolut break condition
-   DEPER  =   0.30     relativ break condition  
+   DEPER  =   0.30     relativ break condition
 
    TIME   =   0.40     timestep for ELM
 
@@ -459,13 +459,13 @@ Automatic generation of k-mesh.
  Dipole corrections
    LMONO  =      F    monopole corrections only (constant potential shift)
    LDIPOL =      T    correct potential (dipole corrections)
-   IDIPOL =      4    1-x, 2-y, 3-z, 4-all directions 
+   IDIPOL =      4    1-x, 2-y, 3-z, 4-all directions
    EPSILON=  1.0000000 bulk dielectric constant
 
  Exchange correlation treatment:
    GGA     =    B5    GGA type
    LEXCH   =    12    internal setting for exchange type
-   LIBXC   =     F    Libxc                    
+   LIBXC   =     F    Libxc
    VOSKOWN =     0    Vosko Wilk Nusair interpolation
    EXXOEP  =     0    0=HF, 1=EXX-LHF (local Hartree Fock) 2=EXX OEP
    LHFCALC =     T    Hartree Fock is set to
@@ -533,7 +533,7 @@ Automatic generation of k-mesh.
  charge density and potential will be updated during run
  non-spin polarized calculation
  Conjugate gradient for all bands (Freysoldt, et al. PRB 79, 241103 (2009))
- preconditioned conjugated gradient                                        
+ preconditioned conjugated gradient
  perform sub-space diagonalisation
     before iterative eigenvector-optimisation
  modified Broyden-mixing scheme, WC =      100.0
@@ -542,8 +542,8 @@ Automatic generation of k-mesh.
  using additional bands           11
  reciprocal scheme for non local part
  use partial core corrections
- no Harris-corrections to forces 
- use gradient corrections 
+ no Harris-corrections to forces
+ use gradient corrections
  use of overlap-Matrix (Vanderbilt PP)
  Gauss-broadening in eV      SIGMA  =   0.05
 
@@ -563,13 +563,13 @@ Automatic generation of k-mesh.
 
 
 
- k-points in units of 2pi/SCALE and weight: pymatgen v2020.8.13 with grid density = 
+ k-points in units of 2pi/SCALE and weight: pymatgen v2020.8.13 with grid density =
    0.00000000  0.00000000  0.00000000       1.000
 
- k-points in reciprocal lattice and weights: pymatgen v2020.8.13 with grid density = 
+ k-points in reciprocal lattice and weights: pymatgen v2020.8.13 with grid density =
    0.00000000  0.00000000  0.00000000       1.000
 
- position of ions in fractional coordinates (direct lattice) 
+ position of ions in fractional coordinates (direct lattice)
    0.50000000  0.50000000  0.47323276
    0.50000000  0.50000000  0.52676724
 
@@ -588,7 +588,7 @@ Automatic generation of k-mesh.
  maximum and minimum number of plane-waves per node :     35244    35233
 
  maximum number of plane-waves:    140949
- maximum index in each direction: 
+ maximum index in each direction:
    IXMAX=   39   IYMAX=   39   IZMAX=   42
    IXMIN=  -39   IYMIN=  -39   IZMIN=    0
 
@@ -599,7 +599,7 @@ Automatic generation of k-mesh.
     minimum data exchange during FFTs selected (reduces bandwidth)
 
 
- FFT grid for exact exchange (Hartree Fock) 
+ FFT grid for exact exchange (Hartree Fock)
   NGX =120; NGY =120; NGZ =128
 
  use parallel FFT for orbitals z direction half grid
@@ -637,7 +637,7 @@ Automatic generation of k-mesh.
 
  initial charge density was supplied:
  charge density of overlapping atoms calculated
- number of electron      10.0000000 magnetization 
+ number of electron      10.0000000 magnetization
  keeping initial charge density in first step
 
 
@@ -665,8 +665,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :    48
  total energy-change (2. order) : 0.5611330E+02  (-0.1826793E+03)
- number of electron      10.0000000 magnetization 
- augmentation part       10.0000000 magnetization 
+ number of electron      10.0000000 magnetization
+ augmentation part       10.0000000 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -711,8 +711,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :    64
  total energy-change (2. order) :-0.9062423E+02  (-0.8717597E+02)
- number of electron      10.0000000 magnetization 
- augmentation part       10.0000000 magnetization 
+ number of electron      10.0000000 magnetization
+ augmentation part       10.0000000 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -757,8 +757,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :    32
  total energy-change (2. order) :-0.2892727E+02  (-0.2892727E+02)
- number of electron      10.0000000 magnetization 
- augmentation part       10.0000000 magnetization 
+ number of electron      10.0000000 magnetization
+ augmentation part       10.0000000 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -803,8 +803,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :    64
  total energy-change (2. order) :-0.1523224E+01  (-0.1523224E+01)
- number of electron      10.0000000 magnetization 
- augmentation part       10.0000000 magnetization 
+ number of electron      10.0000000 magnetization
+ augmentation part       10.0000000 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -852,8 +852,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :    32
  total energy-change (2. order) : 0.4578078E+02  (-0.5521929E-01)
- number of electron       9.9999998 magnetization 
- augmentation part        0.7535192 magnetization 
+ number of electron       9.9999998 magnetization
+ augmentation part        0.7535192 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -901,8 +901,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) : 0.2594092E+01  (-0.1186282E+01)
- number of electron       9.9999998 magnetization 
- augmentation part        0.6942702 magnetization 
+ number of electron       9.9999998 magnetization
+ augmentation part        0.6942702 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -950,8 +950,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.1202173E+01  (-0.1728171E+00)
- number of electron       9.9999998 magnetization 
- augmentation part        0.6702971 magnetization 
+ number of electron       9.9999998 magnetization
+ augmentation part        0.6702971 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -999,8 +999,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.1729305E+00  (-0.7355031E-01)
- number of electron       9.9999998 magnetization 
- augmentation part        0.6644824 magnetization 
+ number of electron       9.9999998 magnetization
+ augmentation part        0.6644824 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -1048,8 +1048,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.7353418E-01  (-0.2354271E-01)
- number of electron       9.9999998 magnetization 
- augmentation part        0.6647709 magnetization 
+ number of electron       9.9999998 magnetization
+ augmentation part        0.6647709 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -1097,8 +1097,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.2353203E-01  (-0.8875508E-02)
- number of electron       9.9999998 magnetization 
- augmentation part        0.6645453 magnetization 
+ number of electron       9.9999998 magnetization
+ augmentation part        0.6645453 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -1146,8 +1146,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.8868738E-02  (-0.3139559E-02)
- number of electron       9.9999998 magnetization 
- augmentation part        0.6649020 magnetization 
+ number of electron       9.9999998 magnetization
+ augmentation part        0.6649020 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -1195,8 +1195,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.3133360E-02  (-0.1240737E-02)
- number of electron       9.9999998 magnetization 
- augmentation part        0.6651979 magnetization 
+ number of electron       9.9999998 magnetization
+ augmentation part        0.6651979 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -1244,8 +1244,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.1239264E-02  (-0.4383034E-03)
- number of electron       9.9999998 magnetization 
- augmentation part        0.6651659 magnetization 
+ number of electron       9.9999998 magnetization
+ augmentation part        0.6651659 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -1293,8 +1293,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.4412822E-03  (-0.1481938E-03)
- number of electron       9.9999998 magnetization 
- augmentation part        0.6650864 magnetization 
+ number of electron       9.9999998 magnetization
+ augmentation part        0.6650864 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -1342,8 +1342,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.1445501E-03  (-0.3827348E-04)
- number of electron       9.9999998 magnetization 
- augmentation part        0.6649848 magnetization 
+ number of electron       9.9999998 magnetization
+ augmentation part        0.6649848 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -1391,8 +1391,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.4094387E-04  (-0.9064222E-05)
- number of electron       9.9999998 magnetization 
- augmentation part        0.6649498 magnetization 
+ number of electron       9.9999998 magnetization
+ augmentation part        0.6649498 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -1440,8 +1440,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.8705044E-05  (-0.2478677E-04)
- number of electron       9.9999998 magnetization 
- augmentation part        0.6649043 magnetization 
+ number of electron       9.9999998 magnetization
+ augmentation part        0.6649043 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -1489,8 +1489,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) : 0.5093887E-04  (-0.4622318E-04)
- number of electron       9.9999998 magnetization 
- augmentation part        0.6649134 magnetization 
+ number of electron       9.9999998 magnetization
+ augmentation part        0.6649134 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -1538,8 +1538,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.4806646E-04  (-0.8851568E-05)
- number of electron       9.9999998 magnetization 
- augmentation part        0.6649409 magnetization 
+ number of electron       9.9999998 magnetization
+ augmentation part        0.6649409 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -1587,8 +1587,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.8488670E-05  (-0.2716201E-05)
- number of electron       9.9999998 magnetization 
- augmentation part        0.6649661 magnetization 
+ number of electron       9.9999998 magnetization
+ augmentation part        0.6649661 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -1636,8 +1636,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.9895307E-06  (-0.8178582E-06)
- number of electron       9.9999998 magnetization 
- augmentation part        0.6649712 magnetization 
+ number of electron       9.9999998 magnetization
+ augmentation part        0.6649712 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -1685,8 +1685,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.1133270E-05  ( 0.1190031E-05)
- number of electron       9.9999998 magnetization 
- augmentation part        0.6649687 magnetization 
+ number of electron       9.9999998 magnetization
+ augmentation part        0.6649687 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -1734,8 +1734,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.2352723E-05  (-0.4678412E-06)
- number of electron       9.9999998 magnetization 
- augmentation part        0.6649726 magnetization 
+ number of electron       9.9999998 magnetization
+ augmentation part        0.6649726 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -1784,8 +1784,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) : 0.4925306E-06  (-0.1193950E-06)
- number of electron       9.9999998 magnetization 
- augmentation part        0.6649738 magnetization 
+ number of electron       9.9999998 magnetization
+ augmentation part        0.6649738 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -1833,7 +1833,7 @@ Automatic generation of k-mesh.
  Fermi energy:       -10.1141171412
 
  k-point     1 :       0.0000    0.0000    0.0000
-  band No.  band energies     occupation 
+  band No.  band energies     occupation
       1     -31.9479      2.00000
       2     -15.7210      2.00000
       3     -13.0932      2.00000
@@ -2008,8 +2008,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) : 0.1225140E-03  (-0.7032345E-04)
- number of electron       9.9999998 magnetization 
- augmentation part        0.6644115 magnetization 
+ number of electron       9.9999998 magnetization
+ augmentation part        0.6644115 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -2057,8 +2057,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.6922213E-04  (-0.2507807E-04)
- number of electron       9.9999998 magnetization 
- augmentation part        0.6645409 magnetization 
+ number of electron       9.9999998 magnetization
+ augmentation part        0.6645409 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -2106,8 +2106,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.2380615E-04  (-0.7216060E-05)
- number of electron       9.9999998 magnetization 
- augmentation part        0.6646207 magnetization 
+ number of electron       9.9999998 magnetization
+ augmentation part        0.6646207 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -2155,8 +2155,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.6148234E-05  (-0.2036748E-05)
- number of electron       9.9999998 magnetization 
- augmentation part        0.6646411 magnetization 
+ number of electron       9.9999998 magnetization
+ augmentation part        0.6646411 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -2204,8 +2204,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.4493312E-05  (-0.3438107E-06)
- number of electron       9.9999998 magnetization 
- augmentation part        0.6646461 magnetization 
+ number of electron       9.9999998 magnetization
+ augmentation part        0.6646461 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -2253,8 +2253,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) : 0.9827220E-06  (-0.2578024E-06)
- number of electron       9.9999998 magnetization 
- augmentation part        0.6646495 magnetization 
+ number of electron       9.9999998 magnetization
+ augmentation part        0.6646495 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -2302,8 +2302,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.6926314E-07  (-0.1464875E-05)
- number of electron       9.9999998 magnetization 
- augmentation part        0.6646776 magnetization 
+ number of electron       9.9999998 magnetization
+ augmentation part        0.6646776 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -2351,8 +2351,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) : 0.1815201E-04  (-0.1516836E-04)
- number of electron       9.9999998 magnetization 
- augmentation part        0.6646996 magnetization 
+ number of electron       9.9999998 magnetization
+ augmentation part        0.6646996 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -2400,8 +2400,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.1377968E-04  (-0.3239913E-05)
- number of electron       9.9999998 magnetization 
- augmentation part        0.6646747 magnetization 
+ number of electron       9.9999998 magnetization
+ augmentation part        0.6646747 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -2449,8 +2449,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.1821532E-05  (-0.1206742E-05)
- number of electron       9.9999998 magnetization 
- augmentation part        0.6646655 magnetization 
+ number of electron       9.9999998 magnetization
+ augmentation part        0.6646655 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -2498,8 +2498,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.2270779E-05  (-0.3390128E-06)
- number of electron       9.9999998 magnetization 
- augmentation part        0.6646517 magnetization 
+ number of electron       9.9999998 magnetization
+ augmentation part        0.6646517 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -2547,8 +2547,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) : 0.8313888E-06  ( 0.4933316E-06)
- number of electron       9.9999998 magnetization 
- augmentation part        0.6646317 magnetization 
+ number of electron       9.9999998 magnetization
+ augmentation part        0.6646317 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -2596,8 +2596,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.1479681E-05  (-0.7005614E-06)
- number of electron       9.9999998 magnetization 
- augmentation part        0.6646452 magnetization 
+ number of electron       9.9999998 magnetization
+ augmentation part        0.6646452 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -2645,8 +2645,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) : 0.1230943E-05  (-0.2719662E-06)
- number of electron       9.9999998 magnetization 
- augmentation part        0.6646530 magnetization 
+ number of electron       9.9999998 magnetization
+ augmentation part        0.6646530 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -2694,8 +2694,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.8497702E-06  (-0.1173095E-06)
- number of electron       9.9999998 magnetization 
- augmentation part        0.6646515 magnetization 
+ number of electron       9.9999998 magnetization
+ augmentation part        0.6646515 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -2743,8 +2743,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) : 0.6313543E-06  (-0.2263385E-06)
- number of electron       9.9999998 magnetization 
- augmentation part        0.6646511 magnetization 
+ number of electron       9.9999998 magnetization
+ augmentation part        0.6646511 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -2793,8 +2793,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) : 0.7070173E-07  (-0.7308653E-07)
- number of electron       9.9999998 magnetization 
- augmentation part        0.6646510 magnetization 
+ number of electron       9.9999998 magnetization
+ augmentation part        0.6646510 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -2842,7 +2842,7 @@ Automatic generation of k-mesh.
  Fermi energy:       -10.1144961630
 
  k-point     1 :       0.0000    0.0000    0.0000
-  band No.  band energies     occupation 
+  band No.  band energies     occupation
       1     -31.9393      2.00000
       2     -15.7215      2.00000
       3     -13.0882      2.00000
@@ -3009,8 +3009,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) : 0.7416662E-04  (-0.6139277E-04)
- number of electron       9.9999998 magnetization 
- augmentation part        0.6651737 magnetization 
+ number of electron       9.9999998 magnetization
+ augmentation part        0.6651737 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -3058,8 +3058,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.6184725E-04  (-0.2219376E-04)
- number of electron       9.9999998 magnetization 
- augmentation part        0.6650530 magnetization 
+ number of electron       9.9999998 magnetization
+ augmentation part        0.6650530 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -3107,8 +3107,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.2165067E-04  (-0.6447302E-05)
- number of electron       9.9999998 magnetization 
- augmentation part        0.6649702 magnetization 
+ number of electron       9.9999998 magnetization
+ augmentation part        0.6649702 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -3156,8 +3156,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.5791014E-05  (-0.1549493E-05)
- number of electron       9.9999998 magnetization 
- augmentation part        0.6649606 magnetization 
+ number of electron       9.9999998 magnetization
+ augmentation part        0.6649606 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -3205,8 +3205,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.1418273E-05  (-0.5724777E-06)
- number of electron       9.9999998 magnetization 
- augmentation part        0.6649447 magnetization 
+ number of electron       9.9999998 magnetization
+ augmentation part        0.6649447 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -3254,8 +3254,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.8636658E-06  (-0.6519311E-07)
- number of electron       9.9999998 magnetization 
- augmentation part        0.6649415 magnetization 
+ number of electron       9.9999998 magnetization
+ augmentation part        0.6649415 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -3303,8 +3303,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.4019932E-07  (-0.1162821E-06)
- number of electron       9.9999998 magnetization 
- augmentation part        0.6649391 magnetization 
+ number of electron       9.9999998 magnetization
+ augmentation part        0.6649391 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -3352,8 +3352,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.5775927E-06  (-0.1065570E-07)
- number of electron       9.9999998 magnetization 
- augmentation part        0.6649391 magnetization 
+ number of electron       9.9999998 magnetization
+ augmentation part        0.6649391 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -3402,8 +3402,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) : 0.1606692E-06  (-0.9476327E-08)
- number of electron       9.9999998 magnetization 
- augmentation part        0.6649395 magnetization 
+ number of electron       9.9999998 magnetization
+ augmentation part        0.6649395 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -3451,7 +3451,7 @@ Automatic generation of k-mesh.
  Fermi energy:       -10.1183425290
 
  k-point     1 :       0.0000    0.0000    0.0000
-  band No.  band energies     occupation 
+  band No.  band energies     occupation
       1     -31.9478      2.00000
       2     -15.7215      2.00000
       3     -13.0933      2.00000
@@ -3588,7 +3588,7 @@ Automatic generation of k-mesh.
 --------------------------------------------------------------------------------------------------------
 
 
-  
+
  reached required accuracy - stopping structural energy minimisation
      LOOP+:  cpu time     54.0091: real time     54.0997
     4ORBIT:  cpu time      0.0000: real time      0.0000
@@ -3606,19 +3606,19 @@ Automatic generation of k-mesh.
    wavefun   :       1692. kBytes
    fock_wrk  :     253981. kBytes
 
-  
-  
+
+
  General timing and accounting informations for this job:
  ========================================================
-  
+
                   Total CPU time used (sec):      293.149
                             User time (sec):      263.548
                           System time (sec):       29.601
                          Elapsed time (sec):      295.015
-  
+
                    Maximum memory used (kb):      611152.
                    Average memory used (kb):          N/A
-  
+
                           Minor page faults:      6041984
                           Major page faults:           47
                  Voluntary context switches:         5392

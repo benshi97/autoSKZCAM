@@ -1,4 +1,4 @@
- vasp.6.3.0 20Jan22 (build Apr  1 2022 16:44:48) gamma-only                      
+ vasp.6.3.0 20Jan22 (build Apr  1 2022 16:44:48) gamma-only
  executed on        HPECrayEX_GCC date 2022.09.24  19:07:28
  running  128 mpi-ranks, with    1 threads/rank
  distrk:  each k-point on   64 cores,    2 groups
@@ -38,8 +38,8 @@
    LWAVE = .FALSE.
    LCHARG = .FALSE.
 
- POTCAR:    PAW_PBE C 08Apr2002                   
- POTCAR:    PAW_PBE O 08Apr2002                   
+ POTCAR:    PAW_PBE C 08Apr2002
+ POTCAR:    PAW_PBE O 08Apr2002
  -----------------------------------------------------------------------------
 |                                                                             |
 |               ----> ADVICE to this user running VASP <----                  |
@@ -55,47 +55,47 @@
 |                                                                             |
  -----------------------------------------------------------------------------
 
- POTCAR:    PAW_PBE C 08Apr2002                   
-   SHA256 =  253f7b50bb8d59471dbedb8285d89021f4a42ed1a2c5d38a03a736e69125dd95 C/POTCAR              
-   COPYR  = (c) Copyright 08Apr2002 Georg Kresse                                                    
+ POTCAR:    PAW_PBE C 08Apr2002
+   SHA256 =  253f7b50bb8d59471dbedb8285d89021f4a42ed1a2c5d38a03a736e69125dd95 C/POTCAR
+   COPYR  = (c) Copyright 08Apr2002 Georg Kresse
    COPYR  = This file is part of the software VASP. Any use, copying, and all other rights are regul
-   COPYR  = If you do not have a valid VASP license, you may not use, copy or distribute this file. 
-   VRHFIN =C: s2p2                                                                                  
-   LEXCH  = PE                                                                                      
-   EATOM  =   147.1560 eV,   10.8157 Ry                                                             
-                                                                                                    
-   TITEL  = PAW_PBE C 08Apr2002                                                                     
-   LULTRA =        F    use ultrasoft PP ?                                                          
-   IUNSCR =        1    unscreen: 0-lin 1-nonlin 2-no                                               
-   RPACOR =    1.200    partial core radius                                                         
-   POMASS =   12.011; ZVAL   =    4.000    mass and valenz                                          
-   RCORE  =    1.500    outmost cutoff radius                                                       
-   RWIGS  =    1.630; RWIGS  =    0.863    wigner-seitz radius (au A)                               
-   ENMAX  =  400.000; ENMIN  =  300.000 eV                                                          
-   ICORE  =        2    local potential                                                             
-   LCOR   =        T    correct aug charges                                                         
-   LPAW   =        T    paw PP                                                                      
-   EAUG   =  644.873                                                                                
-   DEXC   =    0.000                                                                                
-   RMAX   =    1.529    core radius for proj-oper                                                   
-   RAUG   =    1.300    factor for augmentation sphere                                              
-   RDEP   =    1.501    radius for radial grids                                                     
-   RDEPT  =    1.300    core radius for aug-charge                                                  
-                                                                                                    
-   Atomic configuration                                                                             
-    4 entries                                                                                       
-     n  l   j            E        occ.                                                              
-     1  0  0.50      -273.3789   2.0000                                                             
-     2  0  0.50       -13.7508   2.0000                                                             
-     2  1  0.50        -5.2854   2.0000                                                             
-     3  2  1.50        -5.4423   0.0000                                                             
-   Description                                                                                      
-     l       E           TYP  RCUT    TYP  RCUT                                                     
-     0    -13.7508458     23  1.200                                                                 
-     0     -8.2022199     23  1.200                                                                 
-     1     -5.2854383     23  1.500                                                                 
-     1     34.0145650     23  1.500                                                                 
-     2     -5.4423304      7  1.500                                                                 
+   COPYR  = If you do not have a valid VASP license, you may not use, copy or distribute this file.
+   VRHFIN =C: s2p2
+   LEXCH  = PE
+   EATOM  =   147.1560 eV,   10.8157 Ry
+
+   TITEL  = PAW_PBE C 08Apr2002
+   LULTRA =        F    use ultrasoft PP ?
+   IUNSCR =        1    unscreen: 0-lin 1-nonlin 2-no
+   RPACOR =    1.200    partial core radius
+   POMASS =   12.011; ZVAL   =    4.000    mass and valenz
+   RCORE  =    1.500    outmost cutoff radius
+   RWIGS  =    1.630; RWIGS  =    0.863    wigner-seitz radius (au A)
+   ENMAX  =  400.000; ENMIN  =  300.000 eV
+   ICORE  =        2    local potential
+   LCOR   =        T    correct aug charges
+   LPAW   =        T    paw PP
+   EAUG   =  644.873
+   DEXC   =    0.000
+   RMAX   =    1.529    core radius for proj-oper
+   RAUG   =    1.300    factor for augmentation sphere
+   RDEP   =    1.501    radius for radial grids
+   RDEPT  =    1.300    core radius for aug-charge
+
+   Atomic configuration
+    4 entries
+     n  l   j            E        occ.
+     1  0  0.50      -273.3789   2.0000
+     2  0  0.50       -13.7508   2.0000
+     2  1  0.50        -5.2854   2.0000
+     3  2  1.50        -5.4423   0.0000
+   Description
+     l       E           TYP  RCUT    TYP  RCUT
+     0    -13.7508458     23  1.200
+     0     -8.2022199     23  1.200
+     1     -5.2854383     23  1.500
+     1     34.0145650     23  1.500
+     2     -5.4423304      7  1.500
   local pseudopotential read in
   partial core-charges read in
   partial kinetic energy density read in
@@ -113,47 +113,47 @@
    number of l-projection  operators is LMAX  =           4
    number of lm-projection operators is LMMAX =           8
 
- POTCAR:    PAW_PBE O 08Apr2002                   
-   SHA256 =  818f92134a0a090dccd8ba1447fa70422a3b330e708bb4f08108d8ae51209ddf O/POTCAR              
-   COPYR  = (c) Copyright 08Apr2002 Georg Kresse                                                    
+ POTCAR:    PAW_PBE O 08Apr2002
+   SHA256 =  818f92134a0a090dccd8ba1447fa70422a3b330e708bb4f08108d8ae51209ddf O/POTCAR
+   COPYR  = (c) Copyright 08Apr2002 Georg Kresse
    COPYR  = This file is part of the software VASP. Any use, copying, and all other rights are regul
-   COPYR  = If you do not have a valid VASP license, you may not use, copy or distribute this file. 
-   VRHFIN =O: s2p4                                                                                  
-   LEXCH  = PE                                                                                      
-   EATOM  =   432.3788 eV,   31.7789 Ry                                                             
-                                                                                                    
-   TITEL  = PAW_PBE O 08Apr2002                                                                     
-   LULTRA =        F    use ultrasoft PP ?                                                          
-   IUNSCR =        1    unscreen: 0-lin 1-nonlin 2-no                                               
-   RPACOR =    1.200    partial core radius                                                         
-   POMASS =   16.000; ZVAL   =    6.000    mass and valenz                                          
-   RCORE  =    1.520    outmost cutoff radius                                                       
-   RWIGS  =    1.550; RWIGS  =    0.820    wigner-seitz radius (au A)                               
-   ENMAX  =  400.000; ENMIN  =  300.000 eV                                                          
-   ICORE  =        2    local potential                                                             
-   LCOR   =        T    correct aug charges                                                         
-   LPAW   =        T    paw PP                                                                      
-   EAUG   =  605.392                                                                                
-   DEXC   =    0.000                                                                                
-   RMAX   =    1.553    core radius for proj-oper                                                   
-   RAUG   =    1.300    factor for augmentation sphere                                              
-   RDEP   =    1.550    radius for radial grids                                                     
-   RDEPT  =    1.329    core radius for aug-charge                                                  
-                                                                                                    
-   Atomic configuration                                                                             
-    4 entries                                                                                       
-     n  l   j            E        occ.                                                              
-     1  0  0.50      -514.6923   2.0000                                                             
-     2  0  0.50       -23.9615   2.0000                                                             
-     2  1  0.50        -9.0305   4.0000                                                             
-     3  2  1.50        -9.5241   0.0000                                                             
-   Description                                                                                      
-     l       E           TYP  RCUT    TYP  RCUT                                                     
-     0    -23.9615318     23  1.200                                                                 
-     0     -9.5240782     23  1.200                                                                 
-     1     -9.0304911     23  1.520                                                                 
-     1      8.1634956     23  1.520                                                                 
-     2     -9.5240782      7  1.500                                                                 
+   COPYR  = If you do not have a valid VASP license, you may not use, copy or distribute this file.
+   VRHFIN =O: s2p4
+   LEXCH  = PE
+   EATOM  =   432.3788 eV,   31.7789 Ry
+
+   TITEL  = PAW_PBE O 08Apr2002
+   LULTRA =        F    use ultrasoft PP ?
+   IUNSCR =        1    unscreen: 0-lin 1-nonlin 2-no
+   RPACOR =    1.200    partial core radius
+   POMASS =   16.000; ZVAL   =    6.000    mass and valenz
+   RCORE  =    1.520    outmost cutoff radius
+   RWIGS  =    1.550; RWIGS  =    0.820    wigner-seitz radius (au A)
+   ENMAX  =  400.000; ENMIN  =  300.000 eV
+   ICORE  =        2    local potential
+   LCOR   =        T    correct aug charges
+   LPAW   =        T    paw PP
+   EAUG   =  605.392
+   DEXC   =    0.000
+   RMAX   =    1.553    core radius for proj-oper
+   RAUG   =    1.300    factor for augmentation sphere
+   RDEP   =    1.550    radius for radial grids
+   RDEPT  =    1.329    core radius for aug-charge
+
+   Atomic configuration
+    4 entries
+     n  l   j            E        occ.
+     1  0  0.50      -514.6923   2.0000
+     2  0  0.50       -23.9615   2.0000
+     2  1  0.50        -9.0305   4.0000
+     3  2  1.50        -9.5241   0.0000
+   Description
+     l       E           TYP  RCUT    TYP  RCUT
+     0    -23.9615318     23  1.200
+     0     -9.5240782     23  1.200
+     1     -9.0304911     23  1.520
+     1      8.1634956     23  1.520
+     2     -9.5240782      7  1.500
   local pseudopotential read in
   partial core-charges read in
   partial kinetic energy density read in
@@ -209,9 +209,9 @@
   LATTYP: Found a simple tetragonal cell.
  ALAT       =    20.0000000000
  C/A-ratio  =     1.0563164144
-  
+
   Lattice vectors:
-  
+
  A1 = (  20.0000000000,   0.0000000000,   0.0000000000)
  A2 = (   0.0000000000,  20.0000000000,   0.0000000000)
  A3 = (   0.0000000000,   0.0000000000,  21.1263282871)
@@ -221,9 +221,9 @@ Analysis of symmetry for initial positions (statically):
 =====================================================================
  Subroutine PRICEL returns:
  Original cell was already a primitive cell.
- 
 
- Routine SETGRP: Setting up the symmetry group for a 
+
+ Routine SETGRP: Setting up the symmetry group for a
  simple tetragonal supercell.
 
 
@@ -239,9 +239,9 @@ Analysis of symmetry for dynamics (positions and initial velocities):
 =====================================================================
  Subroutine PRICEL returns:
  Original cell was already a primitive cell.
- 
 
- Routine SETGRP: Setting up the symmetry group for a 
+
+ Routine SETGRP: Setting up the symmetry group for a
  simple tetragonal supercell.
 
 
@@ -260,7 +260,7 @@ The dynamic configuration has the point symmetry C_4v.
 
 ----------------------------------------------------------------------------------------
 
-                                     Primitive cell                                     
+                                     Primitive cell
 
   volume of cell :    8450.5313
 
@@ -285,7 +285,7 @@ The dynamic configuration has the point symmetry C_4v.
 
 
 
- KPOINTS: pymatgen v2020.8.13 with grid density = 
+ KPOINTS: pymatgen v2020.8.13 with grid density =
 
 Automatic generation of k-mesh.
  Grid dimensions read from file:
@@ -304,20 +304,20 @@ Automatic generation of k-mesh.
   Shift w.r.t. Gamma in fractional coordinates (k-lattice)
      0.000000000  0.000000000  0.000000000
 
- 
+
  Subroutine IBZKPT returns following result:
  ===========================================
- 
+
  Found      1 irreducible k-points:
- 
+
  Following reciprocal coordinates:
             Coordinates               Weight
   0.000000  0.000000  0.000000      1.000000
- 
+
  Following cartesian coordinates:
             Coordinates               Weight
   0.000000  0.000000  0.000000      1.000000
- 
+
 
 
 --------------------------------------------------------------------------------------------------------
@@ -338,8 +338,8 @@ Automatic generation of k-mesh.
    NGX,Y,Z   is equivalent  to a cutoff of   9.97,  9.97, 10.07 a.u.
    NGXF,Y,Z  is equivalent  to a cutoff of  19.95, 19.95, 20.14 a.u.
 
- SYSTEM =  MgO-rocksalt                            
- POSCAR =   C  O                                   
+ SYSTEM =  MgO-rocksalt
+ POSCAR =   C  O
 
  Startparameter for this run:
    NWRITE =      2    write-flag & timer
@@ -355,7 +355,7 @@ Automatic generation of k-mesh.
    ENCUT  =  600.0 eV  44.10 Ry    6.64 a.u.  39.94 39.94 42.19*2*pi/ulx,y,z
    ENINI  =  600.0     initial cutoff
    ENAUG  =  644.9 eV  augmentation charge cutoff
-   NELM   =    200;   NELMIN=  8; NELMDL= -5     # of ELM steps 
+   NELM   =    200;   NELMIN=  8; NELMDL= -5     # of ELM steps
    EDIFF  = 0.5E-06   stopping-criterion for ELM
    LREAL  =      F    real-space projection
    NLSPLINE    = F    spline interpolate recip. space projectors
@@ -368,7 +368,7 @@ Automatic generation of k-mesh.
  Ionic relaxation
    EDIFFG = -.5E-02   stopping-criterion for IOM
    NSW    =    200    number of steps for IOM
-   NBLOCK =      1;   KBLOCK =    200    inner block; outer block 
+   NBLOCK =      1;   KBLOCK =    200    inner block; outer block
    IBRION =      2    ionic relax: 0-MD 1-quasi-New 2-CG
    NFREE  =      1    steps in history (QN), initial steepest desc. (CG)
    ISIF   =      2    stress and relaxation
@@ -391,7 +391,7 @@ Automatic generation of k-mesh.
    ZVAL   =   4.00  6.00
   Atomic Wigner-Seitz radii
    RWIGS  =  -1.00 -1.00
-  virtual crystal weights 
+  virtual crystal weights
    VCA    =   1.00  1.00
    NELECT =      10.0000    total number of electrons
    NUPDOWN=      -1.0000    fix difference up-down
@@ -419,7 +419,7 @@ Automatic generation of k-mesh.
  Intra band minimization:
    WEIMIN = 0.0010     energy-eigenvalue tresh-hold
    EBREAK =  0.78E-08  absolut break condition
-   DEPER  =   0.30     relativ break condition  
+   DEPER  =   0.30     relativ break condition
 
    TIME   =   0.40     timestep for ELM
 
@@ -440,13 +440,13 @@ Automatic generation of k-mesh.
  Dipole corrections
    LMONO  =      F    monopole corrections only (constant potential shift)
    LDIPOL =      T    correct potential (dipole corrections)
-   IDIPOL =      4    1-x, 2-y, 3-z, 4-all directions 
+   IDIPOL =      4    1-x, 2-y, 3-z, 4-all directions
    EPSILON=  1.0000000 bulk dielectric constant
 
  Exchange correlation treatment:
    GGA     =    RE    GGA type
    LEXCH   =    40    internal setting for exchange type
-   LIBXC   =     F    Libxc                    
+   LIBXC   =     F    Libxc
    VOSKOWN =     0    Vosko Wilk Nusair interpolation
    LHFCALC =     F    Hartree Fock is set to
    LHFONE  =     F    Hartree Fock one center treatment
@@ -493,7 +493,7 @@ Automatic generation of k-mesh.
  charge density and potential will be updated during run
  non-spin polarized calculation
  Conjugate gradient for all bands (Freysoldt, et al. PRB 79, 241103 (2009))
- preconditioned conjugated gradient                                        
+ preconditioned conjugated gradient
  perform sub-space diagonalisation
     before iterative eigenvector-optimisation
  modified Broyden-mixing scheme, WC =      100.0
@@ -502,8 +502,8 @@ Automatic generation of k-mesh.
  using additional bands           11
  reciprocal scheme for non local part
  use partial core corrections
- no Harris-corrections to forces 
- use gradient corrections 
+ no Harris-corrections to forces
+ use gradient corrections
  use of overlap-Matrix (Vanderbilt PP)
  Gauss-broadening in eV      SIGMA  =   0.05
 
@@ -523,13 +523,13 @@ Automatic generation of k-mesh.
 
 
 
- k-points in units of 2pi/SCALE and weight: pymatgen v2020.8.13 with grid density = 
+ k-points in units of 2pi/SCALE and weight: pymatgen v2020.8.13 with grid density =
    0.00000000  0.00000000  0.00000000       1.000
 
- k-points in reciprocal lattice and weights: pymatgen v2020.8.13 with grid density = 
+ k-points in reciprocal lattice and weights: pymatgen v2020.8.13 with grid density =
    0.00000000  0.00000000  0.00000000       1.000
 
- position of ions in fractional coordinates (direct lattice) 
+ position of ions in fractional coordinates (direct lattice)
    0.50000000  0.50000000  0.47299365
    0.50000000  0.50000000  0.52700635
 
@@ -548,7 +548,7 @@ Automatic generation of k-mesh.
  maximum and minimum number of plane-waves per node :     35244    35233
 
  maximum number of plane-waves:    140949
- maximum index in each direction: 
+ maximum index in each direction:
    IXMAX=   39   IYMAX=   39   IZMAX=   42
    IXMIN=  -39   IYMIN=  -39   IZMIN=    0
 
@@ -577,7 +577,7 @@ Automatic generation of k-mesh.
 
  initial charge density was supplied:
  charge density of overlapping atoms calculated
- number of electron      10.0000000 magnetization 
+ number of electron      10.0000000 magnetization
  keeping initial charge density in first step
 
 
@@ -615,8 +615,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :    48
  total energy-change (2. order) : 0.1069729E+03  (-0.1820982E+03)
- number of electron      10.0000000 magnetization 
- augmentation part       10.0000000 magnetization 
+ number of electron      10.0000000 magnetization
+ augmentation part       10.0000000 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -660,8 +660,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :    64
  total energy-change (2. order) :-0.8815982E+02  (-0.8488651E+02)
- number of electron      10.0000000 magnetization 
- augmentation part       10.0000000 magnetization 
+ number of electron      10.0000000 magnetization
+ augmentation part       10.0000000 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -705,8 +705,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :    32
  total energy-change (2. order) :-0.2932648E+02  (-0.2932648E+02)
- number of electron      10.0000000 magnetization 
- augmentation part       10.0000000 magnetization 
+ number of electron      10.0000000 magnetization
+ augmentation part       10.0000000 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -750,8 +750,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :    48
  total energy-change (2. order) :-0.1707333E+01  (-0.1707333E+01)
- number of electron      10.0000000 magnetization 
- augmentation part       10.0000000 magnetization 
+ number of electron      10.0000000 magnetization
+ augmentation part       10.0000000 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -796,8 +796,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :    32
  total energy-change (2. order) :-0.3585014E-02  (-0.3585014E-02)
- number of electron       9.9999983 magnetization 
- augmentation part        0.7416484 magnetization 
+ number of electron       9.9999983 magnetization
+ augmentation part        0.7416484 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -844,8 +844,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) : 0.2081211E+01  (-0.1011466E+01)
- number of electron       9.9999985 magnetization 
- augmentation part        0.6845718 magnetization 
+ number of electron       9.9999985 magnetization
+ augmentation part        0.6845718 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -892,8 +892,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.1023129E+01  (-0.1264459E+00)
- number of electron       9.9999985 magnetization 
- augmentation part        0.6639278 magnetization 
+ number of electron       9.9999985 magnetization
+ augmentation part        0.6639278 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -940,8 +940,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.1264089E+00  (-0.4412886E-01)
- number of electron       9.9999986 magnetization 
- augmentation part        0.6602607 magnetization 
+ number of electron       9.9999986 magnetization
+ augmentation part        0.6602607 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -988,8 +988,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.4412155E-01  (-0.1138878E-01)
- number of electron       9.9999986 magnetization 
- augmentation part        0.6605347 magnetization 
+ number of electron       9.9999986 magnetization
+ augmentation part        0.6605347 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -1036,8 +1036,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.1137947E-01  (-0.4485618E-02)
- number of electron       9.9999986 magnetization 
- augmentation part        0.6604638 magnetization 
+ number of electron       9.9999986 magnetization
+ augmentation part        0.6604638 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -1084,8 +1084,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.4478708E-02  (-0.1848319E-02)
- number of electron       9.9999986 magnetization 
- augmentation part        0.6605673 magnetization 
+ number of electron       9.9999986 magnetization
+ augmentation part        0.6605673 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -1132,8 +1132,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.1844575E-02  (-0.6481248E-03)
- number of electron       9.9999986 magnetization 
- augmentation part        0.6606587 magnetization 
+ number of electron       9.9999986 magnetization
+ augmentation part        0.6606587 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -1180,8 +1180,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.6475878E-03  (-0.1744091E-03)
- number of electron       9.9999986 magnetization 
- augmentation part        0.6606508 magnetization 
+ number of electron       9.9999986 magnetization
+ augmentation part        0.6606508 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -1228,8 +1228,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.1744197E-03  (-0.4202249E-04)
- number of electron       9.9999986 magnetization 
- augmentation part        0.6606159 magnetization 
+ number of electron       9.9999986 magnetization
+ augmentation part        0.6606159 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -1276,8 +1276,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.4204701E-04  (-0.9852675E-05)
- number of electron       9.9999986 magnetization 
- augmentation part        0.6605943 magnetization 
+ number of electron       9.9999986 magnetization
+ augmentation part        0.6605943 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -1324,8 +1324,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.9876700E-05  (-0.2633106E-05)
- number of electron       9.9999986 magnetization 
- augmentation part        0.6605954 magnetization 
+ number of electron       9.9999986 magnetization
+ augmentation part        0.6605954 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -1372,8 +1372,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.2652714E-05  (-0.7701753E-06)
- number of electron       9.9999986 magnetization 
- augmentation part        0.6606016 magnetization 
+ number of electron       9.9999986 magnetization
+ augmentation part        0.6606016 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -1420,8 +1420,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.7870320E-06  (-0.2350045E-06)
- number of electron       9.9999986 magnetization 
- augmentation part        0.6606087 magnetization 
+ number of electron       9.9999986 magnetization
+ augmentation part        0.6606087 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -1469,8 +1469,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.2427638E-06  (-0.7931342E-07)
- number of electron       9.9999986 magnetization 
- augmentation part        0.6606142 magnetization 
+ number of electron       9.9999986 magnetization
+ augmentation part        0.6606142 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -1517,7 +1517,7 @@ vdW kernel read from vdw_kernel.bindat
  Fermi energy:        -9.0627843297
 
  k-point     1 :       0.0000    0.0000    0.0000
-  band No.  band energies     occupation 
+  band No.  band energies     occupation
       1     -29.4429      2.00000
       2     -14.2138      2.00000
       3     -11.8429      2.00000
@@ -1668,8 +1668,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) : 0.4449504E+00  (-0.2680973E+00)
- number of electron       9.9999987 magnetization 
- augmentation part        0.6251290 magnetization 
+ number of electron       9.9999987 magnetization
+ augmentation part        0.6251290 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -1716,8 +1716,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.2677648E+00  (-0.9759666E-01)
- number of electron       9.9999987 magnetization 
- augmentation part        0.6368024 magnetization 
+ number of electron       9.9999987 magnetization
+ augmentation part        0.6368024 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -1764,8 +1764,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.9752139E-01  (-0.2083187E-01)
- number of electron       9.9999987 magnetization 
- augmentation part        0.6412289 magnetization 
+ number of electron       9.9999987 magnetization
+ augmentation part        0.6412289 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -1812,8 +1812,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.2082830E-01  (-0.4346422E-02)
- number of electron       9.9999987 magnetization 
- augmentation part        0.6416857 magnetization 
+ number of electron       9.9999987 magnetization
+ augmentation part        0.6416857 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -1860,8 +1860,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.4346476E-02  (-0.1001799E-02)
- number of electron       9.9999987 magnetization 
- augmentation part        0.6423846 magnetization 
+ number of electron       9.9999987 magnetization
+ augmentation part        0.6423846 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -1908,8 +1908,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.1001713E-02  (-0.2523838E-03)
- number of electron       9.9999987 magnetization 
- augmentation part        0.6424782 magnetization 
+ number of electron       9.9999987 magnetization
+ augmentation part        0.6424782 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -1956,8 +1956,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.2524256E-03  (-0.7612589E-04)
- number of electron       9.9999987 magnetization 
- augmentation part        0.6424089 magnetization 
+ number of electron       9.9999987 magnetization
+ augmentation part        0.6424089 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -2004,8 +2004,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.7610330E-04  (-0.3132158E-04)
- number of electron       9.9999987 magnetization 
- augmentation part        0.6424698 magnetization 
+ number of electron       9.9999987 magnetization
+ augmentation part        0.6424698 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -2052,8 +2052,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.3134157E-04  (-0.1190434E-04)
- number of electron       9.9999987 magnetization 
- augmentation part        0.6424499 magnetization 
+ number of electron       9.9999987 magnetization
+ augmentation part        0.6424499 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -2100,8 +2100,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.1188389E-04  (-0.3933835E-05)
- number of electron       9.9999987 magnetization 
- augmentation part        0.6424211 magnetization 
+ number of electron       9.9999987 magnetization
+ augmentation part        0.6424211 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -2148,8 +2148,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.3838458E-05  (-0.1043300E-05)
- number of electron       9.9999987 magnetization 
- augmentation part        0.6424068 magnetization 
+ number of electron       9.9999987 magnetization
+ augmentation part        0.6424068 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -2196,8 +2196,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.1009305E-05  (-0.2689031E-06)
- number of electron       9.9999987 magnetization 
- augmentation part        0.6424055 magnetization 
+ number of electron       9.9999987 magnetization
+ augmentation part        0.6424055 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -2245,8 +2245,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.2564992E-06  (-0.1184051E-06)
- number of electron       9.9999987 magnetization 
- augmentation part        0.6424030 magnetization 
+ number of electron       9.9999987 magnetization
+ augmentation part        0.6424030 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -2293,7 +2293,7 @@ vdW kernel read from vdw_kernel.bindat
  Fermi energy:        -9.0933521825
 
  k-point     1 :       0.0000    0.0000    0.0000
-  band No.  band energies     occupation 
+  band No.  band energies     occupation
       1     -28.9235      2.00000
       2     -14.2384      2.00000
       3     -11.5459      2.00000
@@ -2454,8 +2454,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) : 0.2686236E+00  (-0.2178518E+00)
- number of electron       9.9999985 magnetization 
- augmentation part        0.6716785 magnetization 
+ number of electron       9.9999985 magnetization
+ augmentation part        0.6716785 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -2502,8 +2502,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.2176043E+00  (-0.8208652E-01)
- number of electron       9.9999985 magnetization 
- augmentation part        0.6634055 magnetization 
+ number of electron       9.9999985 magnetization
+ augmentation part        0.6634055 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -2550,8 +2550,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.8213966E-01  (-0.1761740E-01)
- number of electron       9.9999985 magnetization 
- augmentation part        0.6596067 magnetization 
+ number of electron       9.9999985 magnetization
+ augmentation part        0.6596067 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -2598,8 +2598,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.1762381E-01  (-0.3741010E-02)
- number of electron       9.9999985 magnetization 
- augmentation part        0.6593692 magnetization 
+ number of electron       9.9999985 magnetization
+ augmentation part        0.6593692 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -2646,8 +2646,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.3740644E-02  (-0.8817069E-03)
- number of electron       9.9999985 magnetization 
- augmentation part        0.6588197 magnetization 
+ number of electron       9.9999985 magnetization
+ augmentation part        0.6588197 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -2694,8 +2694,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.8819725E-03  (-0.2298914E-03)
- number of electron       9.9999985 magnetization 
- augmentation part        0.6587267 magnetization 
+ number of electron       9.9999985 magnetization
+ augmentation part        0.6587267 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -2742,8 +2742,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.2298957E-03  (-0.7078772E-04)
- number of electron       9.9999985 magnetization 
- augmentation part        0.6588291 magnetization 
+ number of electron       9.9999985 magnetization
+ augmentation part        0.6588291 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -2790,8 +2790,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.7079440E-04  (-0.2908961E-04)
- number of electron       9.9999985 magnetization 
- augmentation part        0.6588088 magnetization 
+ number of electron       9.9999985 magnetization
+ augmentation part        0.6588088 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -2838,8 +2838,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.2909836E-04  (-0.1025925E-04)
- number of electron       9.9999985 magnetization 
- augmentation part        0.6588390 magnetization 
+ number of electron       9.9999985 magnetization
+ augmentation part        0.6588390 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -2886,8 +2886,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.1027931E-04  (-0.2749706E-05)
- number of electron       9.9999985 magnetization 
- augmentation part        0.6588666 magnetization 
+ number of electron       9.9999985 magnetization
+ augmentation part        0.6588666 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -2934,8 +2934,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.2764270E-05  (-0.6153510E-06)
- number of electron       9.9999985 magnetization 
- augmentation part        0.6588739 magnetization 
+ number of electron       9.9999985 magnetization
+ augmentation part        0.6588739 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -2982,8 +2982,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.6192554E-06  (-0.1380764E-06)
- number of electron       9.9999985 magnetization 
- augmentation part        0.6588766 magnetization 
+ number of electron       9.9999985 magnetization
+ augmentation part        0.6588766 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -3031,8 +3031,8 @@ vdW kernel read from vdw_kernel.bindat
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.1392430E-06  (-0.2402897E-07)
- number of electron       9.9999985 magnetization 
- augmentation part        0.6588769 magnetization 
+ number of electron       9.9999985 magnetization
+ augmentation part        0.6588769 magnetization
 
  DIPCOR: dipole corrections for dipol
  direction  1 min pos     1, direction  2 min pos     1, direction  3 min pos     1,
@@ -3079,7 +3079,7 @@ vdW kernel read from vdw_kernel.bindat
  Fermi energy:        -9.0355886358
 
  k-point     1 :       0.0000    0.0000    0.0000
-  band No.  band energies     occupation 
+  band No.  band energies     occupation
       1     -29.3943      2.00000
       2     -14.2158      2.00000
       3     -11.8147      2.00000
@@ -3210,7 +3210,7 @@ vdW kernel read from vdw_kernel.bindat
 --------------------------------------------------------------------------------------------------------
 
 
-  
+
  reached required accuracy - stopping structural energy minimisation
      LOOP+:  cpu time     84.0093: real time     84.1364
     4ORBIT:  cpu time      0.0000: real time      0.0000
@@ -3225,19 +3225,19 @@ vdW kernel read from vdw_kernel.bindat
    one-center:          1. kBytes
    wavefun   :       1692. kBytes
 
-  
-  
+
+
  General timing and accounting informations for this job:
  ========================================================
-  
+
                   Total CPU time used (sec):      274.193
                             User time (sec):      267.508
                           System time (sec):        6.685
                          Elapsed time (sec):      275.640
-  
+
                    Maximum memory used (kb):      409808.
                    Average memory used (kb):          N/A
-  
+
                           Minor page faults:       997133
                           Major page faults:           47
                  Voluntary context switches:         4381
