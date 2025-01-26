@@ -91,7 +91,7 @@ def mock_vasp_run_and_summarize(atoms, additional_fields, *args, **kwargs):
         symbols, _ = count_symbols(atoms, exclude=())
 
         # Create sorting list
-        srt = []  
+        srt = []
 
         for symbol in symbols:
             for m, atom in enumerate(atoms):
