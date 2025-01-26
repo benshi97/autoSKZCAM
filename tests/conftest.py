@@ -4,7 +4,6 @@ import gzip
 import shutil
 from pathlib import Path
 from typing import TYPE_CHECKING
-import os
 
 import pytest
 from ase.calculators.vasp.create_input import count_symbols
@@ -116,9 +115,7 @@ def mock_vasp_run_and_summarize(atoms, additional_fields, *args, **kwargs):
 
     final_atoms = sort_atoms(final_unsorted_atoms)
     final_atoms.calc = final_unsorted_atoms.calc
-    results_dict =  Summarize(directory=mock_results_dir).run(final_atoms, atoms)
-
-    return results_dict
+    return Summarize(directory=mock_results_dir).run(final_atoms, atoms)
 
 
 @pytest.fixture(autouse=True)

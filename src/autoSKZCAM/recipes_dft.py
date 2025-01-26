@@ -4,11 +4,11 @@ from pathlib import Path
 from typing import TYPE_CHECKING, Any, Callable
 
 from ase.calculators.vasp.create_input import count_symbols
+from ase.constraints import FixAtoms
 from ase.io import read
 from quacc import change_settings, flow, job
 from quacc.recipes.vasp._base import run_and_summarize
 from quacc.schemas.ase import Summarize
-from ase.constraints import FixAtoms
 
 # from quacc.recipes.vasp.core import relax_job, double_relax_flow, static_job
 
@@ -187,13 +187,20 @@ def dft_ensemble_flow(
                     **job_params.get("05-adsorbate_slab_vib", {}),
                     **xc_func_kwargs,
                 }
-                adsorbate_slab_vib_atoms = dft_ensemble_results["04-adsorbate_slab"][xc_func]["atoms"]
+                adsorbate_slab_vib_atoms = dft_ensemble_results["04-adsorbate_slab"][
+                    xc_func
+                ]["atoms"]
 
                 if freeze_surface_vib:
-                    adsorbate_len = len(dft_ensemble_results["01-molecule"][xc_func]["atoms"])
-                    slab_indices = list(range(len(adsorbate_slab_vib_atoms)))[adsorbate_len:]
-                    adsorbate_slab_vib_atoms.set_constraint(FixAtoms(indices=slab_indices))
-
+                    adsorbate_len = len(
+                        dft_ensemble_results["01-molecule"][xc_func]["atoms"]
+                    )
+                    slab_indices = list(range(len(adsorbate_slab_vib_atoms)))[
+                        adsorbate_len:
+                    ]
+                    adsorbate_slab_vib_atoms.set_constraint(
+                        FixAtoms(indices=slab_indices)
+                    )
 
                 dft_ensemble_results["05-adsorbate_slab_vib"][xc_func] = freq_job(
                     adsorbate_slab_vib_atoms,
@@ -202,7 +209,7 @@ def dft_ensemble_flow(
                             calc_dir, "05-adsorbate_slab_vib", xc_func
                         )
                     },
-                pmg_kpts={"length_densities": [50, 50, 1]},
+                    pmg_kpts={"length_densities": [50, 50, 1]},
                     **calc_kwargs,
                 )
 
@@ -230,7 +237,7 @@ def dft_ensemble_flow(
                     additional_fields={
                         "calc_results_dir": Path(calc_dir, "07-slab_vib", xc_func)
                     },
-                pmg_kpts={"length_densities": [50, 50, 1]},
+                    pmg_kpts={"length_densities": [50, 50, 1]},
                     **calc_kwargs,
                 )
 
@@ -260,7 +267,7 @@ def dft_ensemble_flow(
                             calc_dir, "08-eint_adsorbate_slab", xc_func
                         )
                     },
-                pmg_kpts={"length_densities": [50, 50, 1]},
+                    pmg_kpts={"length_densities": [50, 50, 1]},
                     **calc_kwargs,
                 )
 
@@ -275,7 +282,7 @@ def dft_ensemble_flow(
                     additional_fields={
                         "calc_results_dir": Path(calc_dir, "09-eint_adsorbate", xc_func)
                     },
-                pmg_kpts={"length_densities": [50, 50, 1]},
+                    pmg_kpts={"length_densities": [50, 50, 1]},
                     **calc_kwargs,
                 )
 
@@ -287,7 +294,7 @@ def dft_ensemble_flow(
                     additional_fields={
                         "calc_results_dir": Path(calc_dir, "10-eint_slab", xc_func)
                     },
-                pmg_kpts={"length_densities": [50, 50, 1]},
+                    pmg_kpts={"length_densities": [50, 50, 1]},
                     **calc_kwargs,
                 )
 
@@ -661,6 +668,7 @@ def relax_job(
 
     return results_dict
 
+
 @flow
 def adsorbate_slab_rss_flow(
     adsorbate: Atoms,
@@ -731,8 +739,8 @@ def adsorbate_slab_rss_flow(
     }
 
     surface_max_z = np.max([atom.position[2] for atom in slab])
-    adsorbate_num_clashes = len(neighborlist.neighbor_list('i', adsorbate, cutoff=1.4))
-    slab_num_clashes = len(neighborlist.neighbor_list('i', slab, cutoff=1.4))
+    adsorbate_num_clashes = len(neighborlist.neighbor_list("i", adsorbate, cutoff=1.4))
+    slab_num_clashes = len(neighborlist.neighbor_list("i", slab, cutoff=1.4))
     rss_results_dict = {}
 
     rss_num = 0
@@ -741,20 +749,31 @@ def adsorbate_slab_rss_flow(
         rotated_adsorbate.set_cell(slab.get_cell())
         random_angle = np.random.rand() * 360.0
         random_direction = [np.random.rand(), np.random.rand(), np.random.rand()]
-        rotated_adsorbate.rotate(random_angle, random_direction, center='COM')
-        random_displacement = np.random.rand()*slab.get_cell()[0] + np.random.rand()*slab.get_cell()[1] + np.array([0.0,0.0, surface_max_z + np.random.rand()*(max_z - min_z) + min_z]) - rotated_adsorbate.get_center_of_mass()
+        rotated_adsorbate.rotate(random_angle, random_direction, center="COM")
+        random_displacement = (
+            np.random.rand() * slab.get_cell()[0]
+            + np.random.rand() * slab.get_cell()[1]
+            + np.array(
+                [0.0, 0.0, surface_max_z + np.random.rand() * (max_z - min_z) + min_z]
+            )
+            - rotated_adsorbate.get_center_of_mass()
+        )
         rotated_adsorbate.translate(random_displacement)
         rss_adsorbate_slab = rotated_adsorbate + slab
-        slab_indices = slab.constraints[0].__dict__['index']
-        c = FixAtoms(indices=len(adsorbate)+slab_indices)
+        slab_indices = slab.constraints[0].__dict__["index"]
+        c = FixAtoms(indices=len(adsorbate) + slab_indices)
         rss_adsorbate_slab.set_constraint(c)
-        num_of_clashes = len(neighborlist.neighbor_list('i', rss_adsorbate_slab, cutoff=1.4))
+        num_of_clashes = len(
+            neighborlist.neighbor_list("i", rss_adsorbate_slab, cutoff=1.4)
+        )
         if num_of_clashes - adsorbate_num_clashes - slab_num_clashes == 0:
             rss_num += 1
             if "calc_results_dir" in additional_fields:
                 with change_settings(
                     {
-                        "RESULTS_DIR": Path(additional_fields["calc_results_dir"], f'RSS_{rss_num:05d}'),
+                        "RESULTS_DIR": Path(
+                            additional_fields["calc_results_dir"], f"RSS_{rss_num:05d}"
+                        ),
                         "CREATE_UNIQUE_DIR": unique_dir,
                         "GZIP_FILES": False,
                     }
@@ -764,7 +783,14 @@ def adsorbate_slab_rss_flow(
                         preset=preset,
                         calc_defaults=calc_defaults,
                         calc_swaps=calc_kwargs,
-                        additional_fields={"name": f"VASP RSS {rss_num:05d}", "calc_results_dir": Path(additional_fields["calc_results_dir"], "rss_calcs", f'RSS_{rss_num:05d}')},
+                        additional_fields={
+                            "name": f"VASP RSS {rss_num:05d}",
+                            "calc_results_dir": Path(
+                                additional_fields["calc_results_dir"],
+                                "rss_calcs",
+                                f"RSS_{rss_num:05d}",
+                            ),
+                        },
                         copy_files=copy_files,
                     )
             else:
@@ -773,12 +799,21 @@ def adsorbate_slab_rss_flow(
                     preset=preset,
                     calc_defaults=calc_defaults,
                     calc_swaps=calc_kwargs,
-                    additional_fields={"name": f"VASP RSS {rss_num:05d}", "calc_results_dir": Path(additional_fields["calc_results_dir"], "rss_calcs",f'RSS_{rss_num:05d}')},
+                    additional_fields={
+                        "name": f"VASP RSS {rss_num:05d}",
+                        "calc_results_dir": Path(
+                            additional_fields["calc_results_dir"],
+                            "rss_calcs",
+                            f"RSS_{rss_num:05d}",
+                        ),
+                    },
                     copy_files=copy_files,
                 )
-            results_dict["atoms"] = resort_atoms(rss_adsorbate_slab, results_dict["atoms"])
+            results_dict["atoms"] = resort_atoms(
+                rss_adsorbate_slab, results_dict["atoms"]
+            )
             results_dict["atoms"].set_constraint(rss_adsorbate_slab.constraints.copy())
-            rss_results_dict[f'RSS_{rss_num:05d}'] = results_dict
+            rss_results_dict[f"RSS_{rss_num:05d}"] = results_dict
     return rss_results_dict
 
 
