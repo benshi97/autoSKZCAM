@@ -480,3 +480,48 @@ def parse_energy(filename, code="mrcc"):
         energy_dict = read_orca_outputs(filename)
 
     return energy_dict
+
+
+def get_quasi_rrho(r_freq, i_freq, T):
+    """
+    Uses the quasi rigid rotor harmonic approximation to calculate the thermal change and zero-point energies from vibrational frequencies in cm-1 and a temperature in Kelvin.
+    
+    Parameters
+    ----------
+    r_freq : list
+        List of real vibrational frequencies in cm-1.
+    i_freq : list
+        List of imaginary vibrational frequencies in cm-1.
+    T : float
+        Temperature in Kelvin.
+        
+    Returns
+    -------
+    dU : float
+        The total change in energy including thermal energy and zero-point energy in eV.
+    eth : float
+        The thermal energy in eV.
+    zpe : float
+        The zero-point energy in eV.
+    kT : float
+        The product of Boltzmann constant (kB) and temperature (kT) in eV.
+    """
+
+
+
+    k = 8.617330337217213e-05  # Boltzmann constant
+    hundredcm1 = 100000 / 8065.54429
+    combined_freq = r_freq + [0.0001] * len(i_freq)  # Combine real and imaginary frequencies
+    kT = k * T * 1000  # Calculate kT in eV
+
+    dU = 0  # Initialize total energy change
+    zpe = 0.0  # Initialize zero-point energy correction
+    eth = 0.0  # Initialize thermal energy contribution
+    for i in combined_freq:
+        omega = 1 / (1 + ((hundredcm1 / i) ** 4))  # Calculate the vibrational frequenecy in meV
+        dURRho = i / (np.exp(i / kT) - 1.0) + 0.5 * i  # Calculate the contribution to thermal energy from this frequency
+        zpe += omega * 0.5 * i  # Calculate the contribution to zero-point energy
+        eth += omega * i / (np.exp(i / kT) - 1.0) + (1 - omega) * 0.5 * kT  # Calculate the thermal energy contribution
+        dU += omega * dURRho + (1 - omega) * 0.5 * kT  # Calculate the total energy change
+    
+    return dU, eth, zpe, kT  # Return the calculated values

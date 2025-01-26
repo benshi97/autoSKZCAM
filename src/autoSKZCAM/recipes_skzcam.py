@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import logging
 from copy import deepcopy
 from pathlib import Path
 from typing import TYPE_CHECKING
@@ -18,23 +17,12 @@ from autoSKZCAM.quacc import static_job_mrcc, static_job_orca
 if TYPE_CHECKING:
     from autoSKZCAM.types import ElementStr, OniomLayerInfo, SkzcamOutput
 
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)  # Set the level explicitly
 
-# Add a stream handler to ensure output to console
-stream_handler = logging.StreamHandler()
-stream_handler.setLevel(logging.INFO)
-formatter = logging.Formatter("%(message)s")
-stream_handler.setFormatter(formatter)
-logger.addHandler(stream_handler)
-
-
-def skzcam_analyse_eint(
+def skzcam_analyse(
     calc_dir: str | Path,
     embedded_cluster_npy_path: Path | str | None = None,
     OniomInfo: dict[str, OniomLayerInfo] | None = None,
     EmbeddedCluster: CreateEmbeddedCluster | None = None,
-    print_results: bool = True,
 ) -> dict[str, tuple[float, float]]:
     """
     Analyze the completed SKZCAM calculations and compute the final ONIOM contributions.
@@ -89,18 +77,6 @@ def skzcam_analyse_eint(
     skzcam_int_ene = compute_skzcam_int_ene(
         skzcam_calcs_analysis=skzcam_calcs_analysis, OniomInfo=OniomInfo
     )
-
-    # Updated code block with logger
-    if print_results:
-        logger.info("-" * 42)
-        for key, value in skzcam_int_ene.items():
-            energy = int(round(value[0] * 1000))
-            error = int(round(value[1] * 1000))
-            formatted_key = key[:15].ljust(10)
-            if key == "Total":
-                logger.info("-" * 42)
-            logger.info(f"{formatted_key:<15}  : {energy:^8} ± {error:<8} meV")
-        logger.info("-" * 42)
 
     return skzcam_int_ene
 
