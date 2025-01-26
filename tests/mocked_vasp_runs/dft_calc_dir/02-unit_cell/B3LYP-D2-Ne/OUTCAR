@@ -1,4 +1,4 @@
- vasp.6.3.0 20Jan22 (build Apr  1 2022 16:44:48) complex
+ vasp.6.3.0 20Jan22 (build Apr  1 2022 16:44:48) complex                         
  executed on        HPECrayEX_GCC date 2022.09.25  02:51:56
  running  384 mpi-ranks, with    1 threads/rank
  distrk:  each k-point on  192 cores,    2 groups
@@ -42,8 +42,8 @@
    LWAVE = .FALSE.
    LCHARG = .FALSE.
 
- POTCAR:    PAW_PBE Mg_pv 13Apr2007
- POTCAR:    PAW_PBE O 08Apr2002
+ POTCAR:    PAW_PBE Mg_pv 13Apr2007               
+ POTCAR:    PAW_PBE O 08Apr2002                   
  -----------------------------------------------------------------------------
 |                                                                             |
 |           W    W    AA    RRRRR   N    N  II  N    N   GGGG   !!!           |
@@ -63,48 +63,48 @@
 |                                                                             |
  -----------------------------------------------------------------------------
 
- POTCAR:    PAW_PBE Mg_pv 13Apr2007
-   SHA256 =  f474ac0dd33840b9ae76c01d57fea79fdf77cdfbb07d5ade72c65f83c709b62b Mg_pv/POTCAR
-   COPYR  = (c) Copyright 13Apr2007 Georg Kresse
+ POTCAR:    PAW_PBE Mg_pv 13Apr2007               
+   SHA256 =  f474ac0dd33840b9ae76c01d57fea79fdf77cdfbb07d5ade72c65f83c709b62b Mg_pv/POTCAR          
+   COPYR  = (c) Copyright 13Apr2007 Georg Kresse                                                    
    COPYR  = This file is part of the software VASP. Any use, copying, and all other rights are regul
-   COPYR  = If you do not have a valid VASP license, you may not use, copy or distribute this file.
-   VRHFIN =Mg: p6s2
-   LEXCH  = PE
-   EATOM  =  1056.7344 eV,   77.6678 Ry
-
-   TITEL  = PAW_PBE Mg_pv 13Apr2007
-   LULTRA =        F    use ultrasoft PP ?
-   IUNSCR =        1    unscreen: 0-lin 1-nonlin 2-no
-   RPACOR =    1.500    partial core radius
-   POMASS =   24.305; ZVAL   =    8.000    mass and valenz
-   RCORE  =    2.000    outmost cutoff radius
-   RWIGS  =    2.000; RWIGS  =    1.058    wigner-seitz radius (au A)
-   ENMAX  =  403.929; ENMIN  =  302.947 eV
-   RCLOC  =    1.506    cutoff for local pot
-   LCOR   =        T    correct aug charges
-   LPAW   =        T    paw PP
-   EAUG   =  758.780
-   DEXC   =    0.000
-   RMAX   =    2.045    core radius for proj-oper
-   RAUG   =    1.300    factor for augmentation sphere
-   RDEP   =    2.025    radius for radial grids
-   RDEPT  =    1.557    core radius for aug-charge
-
-   Atomic configuration
-    5 entries
-     n  l   j            E        occ.
-     1  0  0.50     -1259.6230   2.0000
-     2  0  0.50       -79.8442   2.0000
-     2  1  1.50       -46.6121   6.0000
-     3  0  0.50        -4.7055   2.0000
-     3  2  1.50        -1.3606   0.0000
-   Description
-     l       E           TYP  RCUT    TYP  RCUT
-     1    -46.6121073     23  1.600
-     1      2.7211652     23  1.600
-     0     -4.7054661     23  2.000
-     0     61.2262170     23  2.000
-     2     -1.3605826     23  2.000
+   COPYR  = If you do not have a valid VASP license, you may not use, copy or distribute this file. 
+   VRHFIN =Mg: p6s2                                                                                 
+   LEXCH  = PE                                                                                      
+   EATOM  =  1056.7344 eV,   77.6678 Ry                                                             
+                                                                                                    
+   TITEL  = PAW_PBE Mg_pv 13Apr2007                                                                 
+   LULTRA =        F    use ultrasoft PP ?                                                          
+   IUNSCR =        1    unscreen: 0-lin 1-nonlin 2-no                                               
+   RPACOR =    1.500    partial core radius                                                         
+   POMASS =   24.305; ZVAL   =    8.000    mass and valenz                                          
+   RCORE  =    2.000    outmost cutoff radius                                                       
+   RWIGS  =    2.000; RWIGS  =    1.058    wigner-seitz radius (au A)                               
+   ENMAX  =  403.929; ENMIN  =  302.947 eV                                                          
+   RCLOC  =    1.506    cutoff for local pot                                                        
+   LCOR   =        T    correct aug charges                                                         
+   LPAW   =        T    paw PP                                                                      
+   EAUG   =  758.780                                                                                
+   DEXC   =    0.000                                                                                
+   RMAX   =    2.045    core radius for proj-oper                                                   
+   RAUG   =    1.300    factor for augmentation sphere                                              
+   RDEP   =    2.025    radius for radial grids                                                     
+   RDEPT  =    1.557    core radius for aug-charge                                                  
+                                                                                                    
+   Atomic configuration                                                                             
+    5 entries                                                                                       
+     n  l   j            E        occ.                                                              
+     1  0  0.50     -1259.6230   2.0000                                                             
+     2  0  0.50       -79.8442   2.0000                                                             
+     2  1  1.50       -46.6121   6.0000                                                             
+     3  0  0.50        -4.7055   2.0000                                                             
+     3  2  1.50        -1.3606   0.0000                                                             
+   Description                                                                                      
+     l       E           TYP  RCUT    TYP  RCUT                                                     
+     1    -46.6121073     23  1.600                                                                 
+     1      2.7211652     23  1.600                                                                 
+     0     -4.7054661     23  2.000                                                                 
+     0     61.2262170     23  2.000                                                                 
+     2     -1.3605826     23  2.000                                                                 
   local pseudopotential read in
   partial core-charges read in
   partial kinetic energy density read in
@@ -124,47 +124,47 @@
    number of l-projection  operators is LMAX  =           5
    number of lm-projection operators is LMMAX =          13
 
- POTCAR:    PAW_PBE O 08Apr2002
-   SHA256 =  818f92134a0a090dccd8ba1447fa70422a3b330e708bb4f08108d8ae51209ddf O/POTCAR
-   COPYR  = (c) Copyright 08Apr2002 Georg Kresse
+ POTCAR:    PAW_PBE O 08Apr2002                   
+   SHA256 =  818f92134a0a090dccd8ba1447fa70422a3b330e708bb4f08108d8ae51209ddf O/POTCAR              
+   COPYR  = (c) Copyright 08Apr2002 Georg Kresse                                                    
    COPYR  = This file is part of the software VASP. Any use, copying, and all other rights are regul
-   COPYR  = If you do not have a valid VASP license, you may not use, copy or distribute this file.
-   VRHFIN =O: s2p4
-   LEXCH  = PE
-   EATOM  =   432.3788 eV,   31.7789 Ry
-
-   TITEL  = PAW_PBE O 08Apr2002
-   LULTRA =        F    use ultrasoft PP ?
-   IUNSCR =        1    unscreen: 0-lin 1-nonlin 2-no
-   RPACOR =    1.200    partial core radius
-   POMASS =   16.000; ZVAL   =    6.000    mass and valenz
-   RCORE  =    1.520    outmost cutoff radius
-   RWIGS  =    1.550; RWIGS  =    0.820    wigner-seitz radius (au A)
-   ENMAX  =  400.000; ENMIN  =  300.000 eV
-   ICORE  =        2    local potential
-   LCOR   =        T    correct aug charges
-   LPAW   =        T    paw PP
-   EAUG   =  605.392
-   DEXC   =    0.000
-   RMAX   =    1.553    core radius for proj-oper
-   RAUG   =    1.300    factor for augmentation sphere
-   RDEP   =    1.550    radius for radial grids
-   RDEPT  =    1.329    core radius for aug-charge
-
-   Atomic configuration
-    4 entries
-     n  l   j            E        occ.
-     1  0  0.50      -514.6923   2.0000
-     2  0  0.50       -23.9615   2.0000
-     2  1  0.50        -9.0305   4.0000
-     3  2  1.50        -9.5241   0.0000
-   Description
-     l       E           TYP  RCUT    TYP  RCUT
-     0    -23.9615318     23  1.200
-     0     -9.5240782     23  1.200
-     1     -9.0304911     23  1.520
-     1      8.1634956     23  1.520
-     2     -9.5240782      7  1.500
+   COPYR  = If you do not have a valid VASP license, you may not use, copy or distribute this file. 
+   VRHFIN =O: s2p4                                                                                  
+   LEXCH  = PE                                                                                      
+   EATOM  =   432.3788 eV,   31.7789 Ry                                                             
+                                                                                                    
+   TITEL  = PAW_PBE O 08Apr2002                                                                     
+   LULTRA =        F    use ultrasoft PP ?                                                          
+   IUNSCR =        1    unscreen: 0-lin 1-nonlin 2-no                                               
+   RPACOR =    1.200    partial core radius                                                         
+   POMASS =   16.000; ZVAL   =    6.000    mass and valenz                                          
+   RCORE  =    1.520    outmost cutoff radius                                                       
+   RWIGS  =    1.550; RWIGS  =    0.820    wigner-seitz radius (au A)                               
+   ENMAX  =  400.000; ENMIN  =  300.000 eV                                                          
+   ICORE  =        2    local potential                                                             
+   LCOR   =        T    correct aug charges                                                         
+   LPAW   =        T    paw PP                                                                      
+   EAUG   =  605.392                                                                                
+   DEXC   =    0.000                                                                                
+   RMAX   =    1.553    core radius for proj-oper                                                   
+   RAUG   =    1.300    factor for augmentation sphere                                              
+   RDEP   =    1.550    radius for radial grids                                                     
+   RDEPT  =    1.329    core radius for aug-charge                                                  
+                                                                                                    
+   Atomic configuration                                                                             
+    4 entries                                                                                       
+     n  l   j            E        occ.                                                              
+     1  0  0.50      -514.6923   2.0000                                                             
+     2  0  0.50       -23.9615   2.0000                                                             
+     2  1  0.50        -9.0305   4.0000                                                             
+     3  2  1.50        -9.5241   0.0000                                                             
+   Description                                                                                      
+     l       E           TYP  RCUT    TYP  RCUT                                                     
+     0    -23.9615318     23  1.200                                                                 
+     0     -9.5240782     23  1.200                                                                 
+     1     -9.0304911     23  1.520                                                                 
+     1      8.1634956     23  1.520                                                                 
+     2     -9.5240782      7  1.500                                                                 
   local pseudopotential read in
   partial core-charges read in
   partial kinetic energy density read in
@@ -225,9 +225,9 @@
 
   LATTYP: Found a simple cubic cell.
  ALAT       =     4.2024309975
-
+  
   Lattice vectors:
-
+  
  A1 = (   4.2024309975,   0.0000000000,  -0.0000000000)
  A2 = (  -0.0000000000,   4.2024309975,  -0.0000000000)
  A3 = (   0.0000000000,   0.0000000000,   4.2024309975)
@@ -236,20 +236,20 @@
 Analysis of symmetry for initial positions (statically):
 =====================================================================
  Subroutine PRICEL returns following result:
-
+ 
   LATTYP: Found a face centered cubic cell.
  ALAT       =     4.2024309975
-
+  
   Lattice vectors:
-
+  
  A1 = (   2.1012154987,  -2.1012154987,   0.0000000000)
  A2 = (   2.1012154987,   0.0000000000,   2.1012154987)
  A3 = (   0.0000000000,  -2.1012154987,   2.1012154987)
-
+ 
    4 primitive cells build up your supercell.
+ 
 
-
- Routine SETGRP: Setting up the symmetry group for a
+ Routine SETGRP: Setting up the symmetry group for a 
  simple cubic supercell.
 
 
@@ -264,20 +264,20 @@ The static configuration has the point symmetry O_h .
 Analysis of symmetry for dynamics (positions and initial velocities):
 =====================================================================
  Subroutine PRICEL returns following result:
-
+ 
   LATTYP: Found a face centered cubic cell.
  ALAT       =     4.2024309975
-
+  
   Lattice vectors:
-
+  
  A1 = (   2.1012154987,  -2.1012154987,   0.0000000000)
  A2 = (   2.1012154987,   0.0000000000,   2.1012154987)
  A3 = (   0.0000000000,  -2.1012154987,   2.1012154987)
-
+ 
    4 primitive cells build up your supercell.
+ 
 
-
- Routine SETGRP: Setting up the symmetry group for a
+ Routine SETGRP: Setting up the symmetry group for a 
  simple cubic supercell.
 
 
@@ -296,7 +296,7 @@ The dynamic configuration has the point symmetry O_h .
 
 ----------------------------------------------------------------------------------------
 
-                                     Primitive cell
+                                     Primitive cell                                     
 
   volume of cell :      18.5542
 
@@ -321,7 +321,7 @@ The dynamic configuration has the point symmetry O_h .
 
 
 
- KPOINTS: pymatgen v2020.8.13 with grid density =
+ KPOINTS: pymatgen v2020.8.13 with grid density = 
 
 Automatic generation of k-mesh.
  Grid dimensions read from file:
@@ -340,12 +340,12 @@ Automatic generation of k-mesh.
   Shift w.r.t. Gamma in fractional coordinates (k-lattice)
      0.000000000  0.000000000  0.000000000
 
-
+ 
  Subroutine IBZKPT returns following result:
  ===========================================
-
+ 
  Found     35 irreducible k-points:
-
+ 
  Following reciprocal coordinates:
             Coordinates               Weight
   0.000000  0.000000  0.000000      1.000000
@@ -383,7 +383,7 @@ Automatic generation of k-mesh.
   0.500000  0.375000  0.375000     12.000000
   0.500000  0.500000  0.375000      6.000000
   0.500000  0.500000  0.500000      1.000000
-
+ 
  Following cartesian coordinates:
             Coordinates               Weight
   0.000000  0.000000  0.000000      1.000000
@@ -421,11 +421,11 @@ Automatic generation of k-mesh.
   0.118979  0.089234  0.089234     12.000000
   0.118979  0.118979  0.089234      6.000000
   0.118979  0.118979  0.118979      1.000000
-
-
+ 
+ 
  Subroutine IBZKPT_HF returns following result:
  ==============================================
-
+ 
  Found    512 k-points in 1st BZ
  the following    512 k-points will be used (e.g. in the exchange kernel)
  Following reciprocal coordinates:   # in IRBZ
@@ -961,8 +961,8 @@ Automatic generation of k-mesh.
    NGX,Y,Z   is equivalent  to a cutoff of  11.08, 11.08, 11.08 a.u.
    NGXF,Y,Z  is equivalent  to a cutoff of  22.15, 22.15, 22.15 a.u.
 
- SYSTEM =  MgO-rocksalt
- POSCAR =  Mg4 O4
+ SYSTEM =  MgO-rocksalt                            
+ POSCAR =  Mg4 O4                                  
 
  Startparameter for this run:
    NWRITE =      2    write-flag & timer
@@ -978,7 +978,7 @@ Automatic generation of k-mesh.
    ENCUT  =  600.0 eV  44.10 Ry    6.64 a.u.   8.39  8.39  8.39*2*pi/ulx,y,z
    ENINI  =  600.0     initial cutoff
    ENAUG  =  758.8 eV  augmentation charge cutoff
-   NELM   =    200;   NELMIN=  8; NELMDL= -5     # of ELM steps
+   NELM   =    200;   NELMIN=  8; NELMDL= -5     # of ELM steps 
    EDIFF  = 0.1E-06   stopping-criterion for ELM
    LREAL  =      F    real-space projection
    NLSPLINE    = F    spline interpolate recip. space projectors
@@ -991,7 +991,7 @@ Automatic generation of k-mesh.
  Ionic relaxation
    EDIFFG = -.5E-02   stopping-criterion for IOM
    NSW    =   1000    number of steps for IOM
-   NBLOCK =      1;   KBLOCK =   1000    inner block; outer block
+   NBLOCK =      1;   KBLOCK =   1000    inner block; outer block 
    IBRION =      2    ionic relax: 0-MD 1-quasi-New 2-CG
    NFREE  =      1    steps in history (QN), initial steepest desc. (CG)
    ISIF   =      3    stress and relaxation
@@ -1014,7 +1014,7 @@ Automatic generation of k-mesh.
    ZVAL   =   8.00  6.00
   Atomic Wigner-Seitz radii
    RWIGS  =  -1.00 -1.00
-  virtual crystal weights
+  virtual crystal weights 
    VCA    =   1.00  1.00
    NELECT =      56.0000    total number of electrons
    NUPDOWN=      -1.0000    fix difference up-down
@@ -1042,7 +1042,7 @@ Automatic generation of k-mesh.
  Intra band minimization:
    WEIMIN = 0.0010     energy-eigenvalue tresh-hold
    EBREAK =  0.52E-09  absolut break condition
-   DEPER  =   0.30     relativ break condition
+   DEPER  =   0.30     relativ break condition  
 
    TIME   =   0.40     timestep for ELM
 
@@ -1063,13 +1063,13 @@ Automatic generation of k-mesh.
  Dipole corrections
    LMONO  =      F    monopole corrections only (constant potential shift)
    LDIPOL =      F    correct potential (dipole corrections)
-   IDIPOL =      0    1-x, 2-y, 3-z, 4-all directions
+   IDIPOL =      0    1-x, 2-y, 3-z, 4-all directions 
    EPSILON=  1.0000000 bulk dielectric constant
 
  Exchange correlation treatment:
    GGA     =    B5    GGA type
    LEXCH   =    12    internal setting for exchange type
-   LIBXC   =     F    Libxc
+   LIBXC   =     F    Libxc                    
    VOSKOWN =     0    Vosko Wilk Nusair interpolation
    EXXOEP  =     0    0=HF, 1=EXX-LHF (local Hartree Fock) 2=EXX OEP
    LHFCALC =     T    Hartree Fock is set to
@@ -1137,7 +1137,7 @@ Automatic generation of k-mesh.
  charge density and potential will be updated during run
  non-spin polarized calculation
  Conjugate gradient for all bands (Freysoldt, et al. PRB 79, 241103 (2009))
- preconditioned conjugated gradient
+ preconditioned conjugated gradient                                        
  perform sub-space diagonalisation
     before iterative eigenvector-optimisation
  modified Broyden-mixing scheme, WC =      100.0
@@ -1146,8 +1146,8 @@ Automatic generation of k-mesh.
  using additional bands           20
  reciprocal scheme for non local part
  use partial core corrections
- no Harris-corrections to forces
- use gradient corrections
+ no Harris-corrections to forces 
+ use gradient corrections 
  use of overlap-Matrix (Vanderbilt PP)
  Gauss-broadening in eV      SIGMA  =   0.05
 
@@ -1167,7 +1167,7 @@ Automatic generation of k-mesh.
 
 
 
- k-points in units of 2pi/SCALE and weight: pymatgen v2020.8.13 with grid density =
+ k-points in units of 2pi/SCALE and weight: pymatgen v2020.8.13 with grid density = 
    0.00000000  0.00000000  0.00000000       0.002
    0.02974469  0.00000000  0.00000000       0.012
    0.05948938  0.00000000  0.00000000       0.012
@@ -1204,7 +1204,7 @@ Automatic generation of k-mesh.
    0.11897875  0.11897875  0.08923406       0.012
    0.11897875  0.11897875  0.11897875       0.002
 
- k-points in reciprocal lattice and weights: pymatgen v2020.8.13 with grid density =
+ k-points in reciprocal lattice and weights: pymatgen v2020.8.13 with grid density = 
    0.00000000  0.00000000  0.00000000       0.002
    0.12500000  0.00000000  0.00000000       0.012
    0.25000000  0.00000000  0.00000000       0.012
@@ -1241,7 +1241,7 @@ Automatic generation of k-mesh.
    0.50000000  0.50000000  0.37500000       0.012
    0.50000000  0.50000000  0.50000000       0.002
 
- position of ions in fractional coordinates (direct lattice)
+ position of ions in fractional coordinates (direct lattice) 
    0.00000000  0.00000000  0.00000000
    0.00000000  0.50000000  0.50000000
    0.50000000  0.00000000  0.50000000
@@ -1305,7 +1305,7 @@ Automatic generation of k-mesh.
  maximum and minimum number of plane-waves per node :       644      580
 
  maximum number of plane-waves:      2517
- maximum index in each direction:
+ maximum index in each direction: 
    IXMAX=    8   IYMAX=    8   IZMAX=    8
    IXMIN=   -8   IYMIN=   -8   IZMIN=   -8
 
@@ -1349,7 +1349,7 @@ Automatic generation of k-mesh.
 
  initial charge density was supplied:
  charge density of overlapping atoms calculated
- number of electron      56.0000000 magnetization
+ number of electron      56.0000000 magnetization 
  keeping initial charge density in first step
 
 
@@ -1377,8 +1377,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :  3360
  total energy-change (2. order) :-0.1618709E+03  (-0.4567729E+04)
- number of electron      56.0000000 magnetization
- augmentation part       56.0000000 magnetization
+ number of electron      56.0000000 magnetization 
+ augmentation part       56.0000000 magnetization 
 
  Free energy of the ion-electron system (eV)
   ---------------------------------------------------
@@ -1413,8 +1413,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :  4224
  total energy-change (2. order) :-0.2370774E+03  (-0.2361078E+03)
- number of electron      56.0000000 magnetization
- augmentation part       56.0000000 magnetization
+ number of electron      56.0000000 magnetization 
+ augmentation part       56.0000000 magnetization 
 
  Free energy of the ion-electron system (eV)
   ---------------------------------------------------
@@ -1449,8 +1449,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :  3936
  total energy-change (2. order) :-0.2817931E+01  (-0.2817931E+01)
- number of electron      56.0000000 magnetization
- augmentation part       56.0000000 magnetization
+ number of electron      56.0000000 magnetization 
+ augmentation part       56.0000000 magnetization 
 
  Free energy of the ion-electron system (eV)
   ---------------------------------------------------
@@ -1485,8 +1485,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :  5760
  total energy-change (2. order) :-0.5356520E-02  (-0.5356515E-02)
- number of electron      56.0000000 magnetization
- augmentation part       56.0000000 magnetization
+ number of electron      56.0000000 magnetization 
+ augmentation part       56.0000000 magnetization 
 
  Free energy of the ion-electron system (eV)
   ---------------------------------------------------
@@ -1524,8 +1524,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :  3840
  total energy-change (2. order) : 0.3379150E+03  (-0.4120028E+00)
- number of electron      55.9999941 magnetization
- augmentation part       19.9969398 magnetization
+ number of electron      55.9999941 magnetization 
+ augmentation part       19.9969398 magnetization 
 
  Free energy of the ion-electron system (eV)
   ---------------------------------------------------
@@ -1563,8 +1563,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) : 0.2412114E+02  (-0.1322929E+02)
- number of electron      55.9999956 magnetization
- augmentation part       19.5460045 magnetization
+ number of electron      55.9999956 magnetization 
+ augmentation part       19.5460045 magnetization 
 
  Free energy of the ion-electron system (eV)
   ---------------------------------------------------
@@ -1602,8 +1602,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.1318959E+02  (-0.1652251E+01)
- number of electron      55.9999960 magnetization
- augmentation part       19.2869667 magnetization
+ number of electron      55.9999960 magnetization 
+ augmentation part       19.2869667 magnetization 
 
  Free energy of the ion-electron system (eV)
   ---------------------------------------------------
@@ -1641,8 +1641,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.1647377E+01  (-0.4137087E+00)
- number of electron      55.9999960 magnetization
- augmentation part       19.3917020 magnetization
+ number of electron      55.9999960 magnetization 
+ augmentation part       19.3917020 magnetization 
 
  Free energy of the ion-electron system (eV)
   ---------------------------------------------------
@@ -1680,8 +1680,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.4140704E+00  (-0.8012662E-01)
- number of electron      55.9999959 magnetization
- augmentation part       19.3910492 magnetization
+ number of electron      55.9999959 magnetization 
+ augmentation part       19.3910492 magnetization 
 
  Free energy of the ion-electron system (eV)
   ---------------------------------------------------
@@ -1719,8 +1719,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.8014748E-01  (-0.1300223E-01)
- number of electron      55.9999959 magnetization
- augmentation part       19.3994704 magnetization
+ number of electron      55.9999959 magnetization 
+ augmentation part       19.3994704 magnetization 
 
  Free energy of the ion-electron system (eV)
   ---------------------------------------------------
@@ -1758,8 +1758,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.1300423E-01  (-0.3225519E-02)
- number of electron      55.9999959 magnetization
- augmentation part       19.4056472 magnetization
+ number of electron      55.9999959 magnetization 
+ augmentation part       19.4056472 magnetization 
 
  Free energy of the ion-electron system (eV)
   ---------------------------------------------------
@@ -1797,8 +1797,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.3219849E-02  (-0.7130997E-03)
- number of electron      55.9999959 magnetization
- augmentation part       19.4020372 magnetization
+ number of electron      55.9999959 magnetization 
+ augmentation part       19.4020372 magnetization 
 
  Free energy of the ion-electron system (eV)
   ---------------------------------------------------
@@ -1836,8 +1836,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.7148389E-03  (-0.1915929E-03)
- number of electron      55.9999959 magnetization
- augmentation part       19.4014412 magnetization
+ number of electron      55.9999959 magnetization 
+ augmentation part       19.4014412 magnetization 
 
  Free energy of the ion-electron system (eV)
   ---------------------------------------------------
@@ -1875,8 +1875,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.1909734E-03  (-0.3778500E-04)
- number of electron      55.9999959 magnetization
- augmentation part       19.4014392 magnetization
+ number of electron      55.9999959 magnetization 
+ augmentation part       19.4014392 magnetization 
 
  Free energy of the ion-electron system (eV)
   ---------------------------------------------------
@@ -1914,8 +1914,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.3746754E-04  (-0.7999487E-05)
- number of electron      55.9999959 magnetization
- augmentation part       19.4012401 magnetization
+ number of electron      55.9999959 magnetization 
+ augmentation part       19.4012401 magnetization 
 
  Free energy of the ion-electron system (eV)
   ---------------------------------------------------
@@ -1953,8 +1953,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.8042892E-05  (-0.1914985E-05)
- number of electron      55.9999959 magnetization
- augmentation part       19.4011968 magnetization
+ number of electron      55.9999959 magnetization 
+ augmentation part       19.4011968 magnetization 
 
  Free energy of the ion-electron system (eV)
   ---------------------------------------------------
@@ -1992,8 +1992,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.1913892E-05  (-0.6793433E-06)
- number of electron      55.9999959 magnetization
- augmentation part       19.4012036 magnetization
+ number of electron      55.9999959 magnetization 
+ augmentation part       19.4012036 magnetization 
 
  Free energy of the ion-electron system (eV)
   ---------------------------------------------------
@@ -2031,8 +2031,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.6225355E-06  (-0.1506376E-06)
- number of electron      55.9999959 magnetization
- augmentation part       19.4011800 magnetization
+ number of electron      55.9999959 magnetization 
+ augmentation part       19.4011800 magnetization 
 
  Free energy of the ion-electron system (eV)
   ---------------------------------------------------
@@ -2070,8 +2070,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.1512326E-06  (-0.4391221E-07)
- number of electron      55.9999959 magnetization
- augmentation part       19.4011669 magnetization
+ number of electron      55.9999959 magnetization 
+ augmentation part       19.4011669 magnetization 
 
  Free energy of the ion-electron system (eV)
   ---------------------------------------------------
@@ -2110,8 +2110,8 @@ Automatic generation of k-mesh.
 
  eigenvalue-minimisations  :     0
  total energy-change (2. order) :-0.4097183E-07  (-0.2647756E-07)
- number of electron      55.9999959 magnetization
- augmentation part       19.4011623 magnetization
+ number of electron      55.9999959 magnetization 
+ augmentation part       19.4011623 magnetization 
 
  Free energy of the ion-electron system (eV)
   ---------------------------------------------------
@@ -2150,7 +2150,7 @@ Automatic generation of k-mesh.
  Fermi energy:         2.1083497356
 
  k-point     1 :       0.0000    0.0000    0.0000
-  band No.  band energies     occupation
+  band No.  band energies     occupation 
       1     -39.6959      2.00000
       2     -39.6959      2.00000
       3     -39.6959      2.00000
@@ -2201,7 +2201,7 @@ Automatic generation of k-mesh.
      48      24.3077      0.00000
 
  k-point     2 :       0.1250    0.0000    0.0000
-  band No.  band energies     occupation
+  band No.  band energies     occupation 
       1     -39.6940      2.00000
       2     -39.6940      2.00000
       3     -39.6928      2.00000
@@ -2252,7 +2252,7 @@ Automatic generation of k-mesh.
      48      24.7725      0.00000
 
  k-point     3 :       0.2500    0.0000    0.0000
-  band No.  band energies     occupation
+  band No.  band energies     occupation 
       1     -39.6890      2.00000
       2     -39.6890      2.00000
       3     -39.6860      2.00000
@@ -2303,7 +2303,7 @@ Automatic generation of k-mesh.
      48      24.1474      0.00000
 
  k-point     4 :       0.3750    0.0000    0.0000
-  band No.  band energies     occupation
+  band No.  band energies     occupation 
       1     -39.6816      2.00000
       2     -39.6816      2.00000
       3     -39.6748      2.00000
@@ -2354,7 +2354,7 @@ Automatic generation of k-mesh.
      48      25.0295      0.00000
 
  k-point     5 :       0.5000    0.0000    0.0000
-  band No.  band energies     occupation
+  band No.  band energies     occupation 
       1     -39.6731      2.00000
       2     -39.6731      2.00000
       3     -39.6731      2.00000
@@ -2405,7 +2405,7 @@ Automatic generation of k-mesh.
      48      26.4069      0.00000
 
  k-point     6 :       0.1250    0.1250    0.0000
-  band No.  band energies     occupation
+  band No.  band energies     occupation 
       1     -39.6921      2.00000
       2     -39.6918      2.00000
       3     -39.6918      2.00000
@@ -2456,7 +2456,7 @@ Automatic generation of k-mesh.
      48      24.5850      0.00000
 
  k-point     7 :       0.2500    0.1250    0.0000
-  band No.  band energies     occupation
+  band No.  band energies     occupation 
       1     -39.6883      2.00000
       2     -39.6874      2.00000
       3     -39.6859      2.00000
@@ -2507,7 +2507,7 @@ Automatic generation of k-mesh.
      48      24.0198      0.00000
 
  k-point     8 :       0.3750    0.1250    0.0000
-  band No.  band energies     occupation
+  band No.  band energies     occupation 
       1     -39.6831      2.00000
       2     -39.6802      2.00000
       3     -39.6765      2.00000
@@ -2558,7 +2558,7 @@ Automatic generation of k-mesh.
      48      24.9070      0.00000
 
  k-point     9 :       0.5000    0.1250    0.0000
-  band No.  band energies     occupation
+  band No.  band energies     occupation 
       1     -39.6765      2.00000
       2     -39.6765      2.00000
       3     -39.6718      2.00000
@@ -2609,7 +2609,7 @@ Automatic generation of k-mesh.
      48      26.0075      0.00000
 
  k-point    10 :       0.2500    0.2500    0.0000
-  band No.  band energies     occupation
+  band No.  band energies     occupation 
       1     -39.6854      2.00000
       2     -39.6854      2.00000
       3     -39.6828      2.00000
@@ -2660,7 +2660,7 @@ Automatic generation of k-mesh.
      48      23.6559      0.00000
 
  k-point    11 :       0.3750    0.2500    0.0000
-  band No.  band energies     occupation
+  band No.  band energies     occupation 
       1     -39.6843      2.00000
       2     -39.6800      2.00000
       3     -39.6763      2.00000
@@ -2711,7 +2711,7 @@ Automatic generation of k-mesh.
      48      24.5482      0.00000
 
  k-point    12 :       0.5000    0.2500    0.0000
-  band No.  band energies     occupation
+  band No.  band energies     occupation 
       1     -39.6814      2.00000
       2     -39.6814      2.00000
       3     -39.6717      2.00000
@@ -2762,7 +2762,7 @@ Automatic generation of k-mesh.
      48      25.3213      0.00000
 
  k-point    13 :       0.3750    0.3750    0.0000
-  band No.  band energies     occupation
+  band No.  band energies     occupation 
       1     -39.6830      2.00000
       2     -39.6830      2.00000
       3     -39.6817      2.00000
@@ -2813,7 +2813,7 @@ Automatic generation of k-mesh.
      48      23.9686      0.00000
 
  k-point    14 :       0.5000    0.3750    0.0000
-  band No.  band energies     occupation
+  band No.  band energies     occupation 
       1     -39.6839      2.00000
       2     -39.6839      2.00000
       3     -39.6786      2.00000
@@ -2864,7 +2864,7 @@ Automatic generation of k-mesh.
      48      25.0388      0.00000
 
  k-point    15 :       0.5000    0.5000    0.0000
-  band No.  band energies     occupation
+  band No.  band energies     occupation 
       1     -39.6830      2.00000
       2     -39.6830      2.00000
       3     -39.6830      2.00000
@@ -2915,7 +2915,7 @@ Automatic generation of k-mesh.
      48      24.2565      0.00000
 
  k-point    16 :       0.1250    0.1250    0.1250
-  band No.  band energies     occupation
+  band No.  band energies     occupation 
       1     -39.6907      2.00000
       2     -39.6907      2.00000
       3     -39.6907      2.00000
@@ -2966,7 +2966,7 @@ Automatic generation of k-mesh.
      48      24.7702      0.00000
 
  k-point    17 :       0.2500    0.1250    0.1250
-  band No.  band energies     occupation
+  band No.  band energies     occupation 
       1     -39.6878      2.00000
       2     -39.6878      2.00000
       3     -39.6862      2.00000
@@ -3017,7 +3017,7 @@ Automatic generation of k-mesh.
      48      23.5753      0.00000
 
  k-point    18 :       0.3750    0.1250    0.1250
-  band No.  band energies     occupation
+  band No.  band energies     occupation 
       1     -39.6839      2.00000
       2     -39.6839      2.00000
       3     -39.6787      2.00000
@@ -3068,7 +3068,7 @@ Automatic generation of k-mesh.
      48      24.4911      0.00000
 
  k-point    19 :       0.5000    0.1250    0.1250
-  band No.  band energies     occupation
+  band No.  band energies     occupation 
       1     -39.6816      2.00000
       2     -39.6816      2.00000
       3     -39.6684      2.00000
@@ -3119,7 +3119,7 @@ Automatic generation of k-mesh.
      48      25.5304      0.00000
 
  k-point    20 :       0.2500    0.2500    0.1250
-  band No.  band energies     occupation
+  band No.  band energies     occupation 
       1     -39.6872      2.00000
       2     -39.6872      2.00000
       3     -39.6870      2.00000
@@ -3170,7 +3170,7 @@ Automatic generation of k-mesh.
      48      23.5043      0.00000
 
  k-point    21 :       0.3750    0.2500    0.1250
-  band No.  band energies     occupation
+  band No.  band energies     occupation 
       1     -39.6878      2.00000
       2     -39.6866      2.00000
       3     -39.6835      2.00000
@@ -3221,7 +3221,7 @@ Automatic generation of k-mesh.
      48      24.2754      0.00000
 
  k-point    22 :       0.5000    0.2500    0.1250
-  band No.  band energies     occupation
+  band No.  band energies     occupation 
       1     -39.6874      2.00000
       2     -39.6874      2.00000
       3     -39.6764      2.00000
@@ -3272,7 +3272,7 @@ Automatic generation of k-mesh.
      48      24.9962      0.00000
 
  k-point    23 :       0.3750    0.3750    0.1250
-  band No.  band energies     occupation
+  band No.  band energies     occupation 
       1     -39.6895      2.00000
       2     -39.6879      2.00000
       3     -39.6879      2.00000
@@ -3323,7 +3323,7 @@ Automatic generation of k-mesh.
      48      24.0428      0.00000
 
  k-point    24 :       0.5000    0.3750    0.1250
-  band No.  band energies     occupation
+  band No.  band energies     occupation 
       1     -39.6901      2.00000
       2     -39.6901      2.00000
       3     -39.6840      2.00000
@@ -3374,7 +3374,7 @@ Automatic generation of k-mesh.
      48      24.9494      0.00000
 
  k-point    25 :       0.5000    0.5000    0.1250
-  band No.  band energies     occupation
+  band No.  band energies     occupation 
       1     -39.6889      2.00000
       2     -39.6889      2.00000
       3     -39.6889      2.00000
@@ -3425,7 +3425,7 @@ Automatic generation of k-mesh.
      48      24.7175      0.00000
 
  k-point    26 :       0.2500    0.2500    0.2500
-  band No.  band energies     occupation
+  band No.  band energies     occupation 
       1     -39.6906      2.00000
       2     -39.6906      2.00000
       3     -39.6906      2.00000
@@ -3476,7 +3476,7 @@ Automatic generation of k-mesh.
      48      24.4161      0.00000
 
  k-point    27 :       0.3750    0.2500    0.2500
-  band No.  band energies     occupation
+  band No.  band energies     occupation 
       1     -39.6938      2.00000
       2     -39.6938      2.00000
       3     -39.6903      2.00000
@@ -3527,7 +3527,7 @@ Automatic generation of k-mesh.
      48      24.0182      0.00000
 
  k-point    28 :       0.5000    0.2500    0.2500
-  band No.  band energies     occupation
+  band No.  band energies     occupation 
       1     -39.6950      2.00000
       2     -39.6950      2.00000
       3     -39.6856      2.00000
@@ -3578,7 +3578,7 @@ Automatic generation of k-mesh.
      48      24.8878      0.00000
 
  k-point    29 :       0.3750    0.3750    0.2500
-  band No.  band energies     occupation
+  band No.  band energies     occupation 
       1     -39.6983      2.00000
       2     -39.6962      2.00000
       3     -39.6962      2.00000
@@ -3629,7 +3629,7 @@ Automatic generation of k-mesh.
      48      24.5622      0.00000
 
  k-point    30 :       0.5000    0.3750    0.2500
-  band No.  band energies     occupation
+  band No.  band energies     occupation 
       1     -39.6991      2.00000
       2     -39.6991      2.00000
       3     -39.6938      2.00000
@@ -3680,7 +3680,7 @@ Automatic generation of k-mesh.
      48      25.3178      0.00000
 
  k-point    31 :       0.5000    0.5000    0.2500
-  band No.  band energies     occupation
+  band No.  band energies     occupation 
       1     -39.6988      2.00000
       2     -39.6988      2.00000
       3     -39.6988      2.00000
@@ -3731,7 +3731,7 @@ Automatic generation of k-mesh.
      48      25.8344      0.00000
 
  k-point    32 :       0.3750    0.3750    0.3750
-  band No.  band energies     occupation
+  band No.  band energies     occupation 
       1     -39.7028      2.00000
       2     -39.7028      2.00000
       3     -39.7028      2.00000
@@ -3782,7 +3782,7 @@ Automatic generation of k-mesh.
      48      25.8245      0.00000
 
  k-point    33 :       0.5000    0.3750    0.3750
-  band No.  band energies     occupation
+  band No.  band energies     occupation 
       1     -39.7052      2.00000
       2     -39.7052      2.00000
       3     -39.7019      2.00000
@@ -3833,7 +3833,7 @@ Automatic generation of k-mesh.
      48      26.0248      0.00000
 
  k-point    34 :       0.5000    0.5000    0.3750
-  band No.  band energies     occupation
+  band No.  band energies     occupation 
       1     -39.7063      2.00000
       2     -39.7063      2.00000
       3     -39.7063      2.00000
@@ -3884,7 +3884,7 @@ Automatic generation of k-mesh.
      48      25.9599      0.00000
 
  k-point    35 :       0.5000    0.5000    0.5000
-  band No.  band energies     occupation
+  band No.  band energies     occupation 
       1     -39.7088      2.00000
       2     -39.7088      2.00000
       3     -39.7088      2.00000
@@ -4091,7 +4091,7 @@ Automatic generation of k-mesh.
 --------------------------------------------------------------------------------------------------------
 
 
-
+  
  reached required accuracy - stopping structural energy minimisation
      LOOP+:  cpu time   5935.1083: real time   5935.7375
     4ORBIT:  cpu time      0.0000: real time      0.0000
@@ -4109,19 +4109,19 @@ Automatic generation of k-mesh.
    wavefun   :       1209. kBytes
    fock_wrk  :       9536. kBytes
 
-
-
+  
+  
  General timing and accounting informations for this job:
  ========================================================
-
+  
                   Total CPU time used (sec):     5940.775
                             User time (sec):     5909.186
                           System time (sec):       31.589
                          Elapsed time (sec):     5943.314
-
+  
                    Maximum memory used (kb):      130796.
                    Average memory used (kb):          N/A
-
+  
                           Minor page faults:        63521
                           Major page faults:            0
                  Voluntary context switches:         5619
