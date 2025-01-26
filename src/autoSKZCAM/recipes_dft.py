@@ -111,10 +111,10 @@ def dft_ensemble_flow(
         calc_dir, xc_ensemble, vib_xc_ensemble, freeze_surface_vib
     )
 
-    for xc_func in xc_ensemble:
+    for xc_func, xc_func_kwargs in xc_ensemble.items():
         # relax molecule
         if dft_ensemble_results["01-molecule"][xc_func] is None:
-            calc_kwargs = {**job_params.get("01-molecule", {}), **xc_ensemble[xc_func]}
+            calc_kwargs = {**job_params.get("01-molecule", {}), **xc_func_kwargs}
             dft_ensemble_results["01-molecule"][xc_func] = relax_job(
                 adsorbate,
                 additional_fields={
@@ -126,7 +126,7 @@ def dft_ensemble_flow(
 
         # relax solid
         if dft_ensemble_results["02-unit_cell"][xc_func] is None:
-            calc_kwargs = {**job_params.get("02-unit_cell", {}), **xc_ensemble[xc_func]}
+            calc_kwargs = {**job_params.get("02-unit_cell", {}), **xc_func_kwargs}
             relax_job1 = relax_job(
                 unit_cell,
                 additional_fields={
@@ -148,7 +148,7 @@ def dft_ensemble_flow(
 
         # bulk to slab
         if dft_ensemble_results["03-slab"][xc_func] is None:
-            calc_kwargs = {**job_params.get("03-slab", {}), **xc_ensemble[xc_func]}
+            calc_kwargs = {**job_params.get("03-slab", {}), **xc_func_kwargs}
             initial_slab = slab_gen_func(
                 dft_ensemble_results["02-unit_cell"][xc_func]["atoms"]
             )
@@ -164,7 +164,7 @@ def dft_ensemble_flow(
         if dft_ensemble_results["04-adsorbate_slab"][xc_func] is None:
             calc_kwargs = {
                 **job_params.get("04-adsorbate_slab", {}),
-                **xc_ensemble[xc_func],
+                **xc_func_kwargs,
             }
             initial_adsorbate_slab = adsorbate_slab_gen_func(
                 dft_ensemble_results["01-molecule"][xc_func]["atoms"],
@@ -184,7 +184,7 @@ def dft_ensemble_flow(
             if dft_ensemble_results["05-adsorbate_slab_vib"][xc_func] is None:
                 calc_kwargs = {
                     **job_params.get("05-adsorbate_slab_vib", {}),
-                    **xc_ensemble[xc_func],
+                    **xc_func_kwargs,
                 }
                 dft_ensemble_results["05-adsorbate_slab_vib"][xc_func] = freq_job(
                     dft_ensemble_results["04-adsorbate_slab"][xc_func]["atoms"],
@@ -199,7 +199,7 @@ def dft_ensemble_flow(
             if dft_ensemble_results["06-molecule_vib"][xc_func] is None:
                 calc_kwargs = {
                     **job_params.get("06-molecule_vib", {}),
-                    **xc_ensemble[xc_func],
+                    **xc_func_kwargs,
                 }
                 dft_ensemble_results["06-molecule_vib"][xc_func] = freq_job(
                     dft_ensemble_results["01-molecule"][xc_func]["atoms"],
@@ -215,7 +215,7 @@ def dft_ensemble_flow(
             ):
                 calc_kwargs = {
                     **job_params.get("07-slab_vib", {}),
-                    **xc_ensemble[xc_func],
+                    **xc_func_kwargs,
                 }
                 dft_ensemble_results["07-slab_vib"][xc_func] = freq_job(
                     dft_ensemble_results["03-slab"][xc_func]["atoms"],
@@ -242,7 +242,7 @@ def dft_ensemble_flow(
             if dft_ensemble_results["08-eint_adsorbate_slab"][xc_func] is None:
                 calc_kwargs = {
                     **job_params.get("08-eint_adsorbate_slab", {}),
-                    **xc_ensemble[xc_func],
+                    **xc_func_kwargs,
                 }
                 dft_ensemble_results["08-eint_adsorbate_slab"][xc_func] = static_job(
                     adsorbate_slab_atoms,
@@ -258,7 +258,7 @@ def dft_ensemble_flow(
             if dft_ensemble_results["09-eint_adsorbate"][xc_func] is None:
                 calc_kwargs = {
                     **job_params.get("09-eint_adsorbate", {}),
-                    **xc_ensemble[xc_func],
+                    **xc_func_kwargs,
                 }
                 dft_ensemble_results["09-eint_adsorbate"][xc_func] = static_job(
                     fixed_adsorbate_atoms,
@@ -272,7 +272,7 @@ def dft_ensemble_flow(
             if dft_ensemble_results["10-eint_slab"][xc_func] is None:
                 calc_kwargs = {
                     **job_params.get("10-eint_slab", {}),
-                    **xc_ensemble[xc_func],
+                    **xc_func_kwargs,
                 }
                 dft_ensemble_results["10-eint_slab"][xc_func] = static_job(
                     fixed_slab_atoms,
@@ -325,15 +325,15 @@ def read_completed_calculations(
     ]
 
     dft_ensemble_results = {
-        job_type: {xc_func: None for xc_func in xc_ensemble} for job_type in job_list
+        job_type: {xc_func: None for xc_func in xc_ensemble.keys()} for job_type in job_list
     }
-    for xc_func in xc_ensemble:
+    for xc_func in xc_ensemble.keys():
         for job_type in job_list:
             vasp_dir = Path(calc_dir) / job_type / xc_func
             outcar_filename = Path(calc_dir) / job_type / xc_func / "OUTCAR"
             if outcar_filename.exists():
                 if "vib" in job_type:
-                    if freeze_surface_vib and "slab" in job_type:
+                    if xc_func not in vib_xc_ensemble or (freeze_surface_vib and "slab" in job_type):
                         continue
                     with Path.open(outcar_filename, encoding="ISO-8859-1") as file:
                         final_atoms = read(file, format="vasp-out")
