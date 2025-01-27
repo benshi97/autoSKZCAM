@@ -29,12 +29,7 @@ def test_dft_ensemble_analyse():
         "B3LYP-D2-Ne",
     ]
     vib_xc_ensemble = ["PBE-D2-Ne", "revPBE-D4", "vdW-DF", "rev-vdW-DF2"]
-    dft_ensemble_results = read_completed_calculations(
-        calc_dir=Path(FILE_DIR, "mocked_vasp_runs", "dft_calc_dir"),
-        xc_ensemble=xc_ensemble,
-        vib_xc_ensemble=vib_xc_ensemble,
-        freeze_surface_vib=True,
-    )
+
     dft_ensemble_analysis = dft_ensemble_analyse(
         calc_dir=Path(FILE_DIR, "mocked_vasp_runs", "dft_calc_dir"),
         xc_ensemble=xc_ensemble,
