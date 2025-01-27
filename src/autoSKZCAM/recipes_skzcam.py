@@ -41,8 +41,6 @@ def skzcam_analyse(
         The CreateEmbeddedCluster object containing the embedded cluster.
     OniomInfo
         A dictionary containing the information about the ONIOM layers.
-    print_results
-        If True, displays the results
 
     Returns
     -------
@@ -65,10 +63,14 @@ def skzcam_analyse(
         EmbeddedCluster = np.load(embedded_cluster_npy_path, allow_pickle=True).item()
 
     # Load the OniomInfo dictionary if it is not provided
-    if EmbeddedCluster.OniomInfo is None and OniomInfo is None:
-        raise ValueError(
-            "The OniomInfo dictionary must be provided in EmbeddedCluster or as an argument."
-        )
+    if EmbeddedCluster.OniomInfo is None:
+        if OniomInfo is None:
+            raise ValueError(
+                "The OniomInfo dictionary must be provided in EmbeddedCluster or as an argument."
+            )
+        else:
+            EmbeddedCluster.OniomInfo = OniomInfo
+
     if EmbeddedCluster.OniomInfo is not None and OniomInfo is None:
         OniomInfo = EmbeddedCluster.OniomInfo
 
@@ -324,12 +326,22 @@ def skzcam_calculate_job(
                             ][structure].results = final_energy
                         else:
                             if use_quacc:
-                                static_job_orca(
-                                    EmbeddedCluster.skzcam_calcs[cluster_num][
-                                        calculation_label
-                                    ][structure],
-                                    **calc_parameters,
-                                )
+                                calc_parameters = EmbeddedCluster.skzcam_calcs[cluster_num][
+                                    calculation_label
+                                ][structure].calc.parameters
+                                with change_settings(
+                                    {
+                                        "RESULTS_DIR": system_path,
+                                        "CREATE_UNIQUE_DIR": False,
+                                        "GZIP_FILES": False,
+                                    }
+                                ):
+                                    static_job_orca(
+                                        EmbeddedCluster.skzcam_calcs[cluster_num][
+                                            calculation_label
+                                        ][structure],
+                                        **calc_parameters,
+                                    )
                             else:
                                 EmbeddedCluster.skzcam_calcs[cluster_num][
                                     calculation_label

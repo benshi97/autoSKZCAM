@@ -1,22 +1,11 @@
-! TightSCF RI-MP2 RIJCOSX SlowConv DIIS
-%pal nprocs 8 end
-%maxcore 25000
+! TightSCF RI-MP2 TightPNO RIJCOSX DIIS 
+
+%pal nprocs 1 end
+%maxcore 2000
 %method
 Method hf
 RI on
 RunTyp Energy
-NewNCore C 2 end
-NewNCore Mg 10 end
-NewNCore O 2 end
-end
-%basis
-NewGTO C "aug-cc-pVTZ" end
-NewGTO Mg "cc-pVTZ" end
-NewGTO O "aug-cc-pVTZ" end
-Aux "def2/J"
-NewAuxCGTO C "aug-cc-pVTZ/C" end
-NewAuxCGTO Mg "cc-pVTZ/C" end
-NewAuxCGTO O "aug-cc-pVTZ/C" end
 end
 %scf
 HFTyp rhf
@@ -24,6 +13,23 @@ SCFMode Direct
 sthresh 1e-6
 AutoTRAHIter 60
 MaxIter 1000
+end
+
+%method
+NewNCore C 2 end
+NewNCore Mg 10 end
+NewNCore O 2 end
+end
+%basis
+NewGTO C "aug-cc-pVTZ" end
+NewAuxJGTO C "def2/J" end
+NewAuxCGTO C "aug-cc-pVTZ/C" end
+NewGTO Mg "cc-pVTZ" end
+NewAuxJGTO Mg "def2/J" end
+NewAuxCGTO Mg "cc-pVTZ/C" end
+NewGTO O "aug-cc-pVTZ" end
+NewAuxJGTO O "def2/J" end
+NewAuxCGTO O "aug-cc-pVTZ/C" end
 end
 %coords
 CTyp xyz
@@ -93,3 +99,4 @@ O:                     -4.22049352791   -6.32889565859    0.00772802266
 O:                     -6.32889565859   -4.22049352791    0.00772802266
 end
 end
+ 
