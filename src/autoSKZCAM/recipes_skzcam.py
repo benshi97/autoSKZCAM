@@ -98,11 +98,10 @@ def skzcam_eint_flow(
 
     Returns
     -------
-    CalculatorInfo
-        A dictionary containing the cluster number as key and a dictionary of ASE calculators for the calculations that have been performed.
+    None
     """
 
-    # Generate the embedded clusters
+    # Generate the skzcam embedded clusters
     skzcam_generate_job(EmbeddedCluster, **kwargs)
 
     # Perform the calculations on the embedded clusters
