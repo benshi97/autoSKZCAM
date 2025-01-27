@@ -30,9 +30,7 @@ def get_final_autoSKZCAM_Hads(
         The final Hads dictionary including the Hads contributions from the DFT ensemble and the SKZCAM calculations.
     """
 
-    final_Hads = {}
-    for key, contribution in skzcam_eint_analysis.items():
-        final_Hads[key] = contribution
+    final_Hads =  skzcam_eint_analysis.copy()
 
     final = skzcam_eint_analysis["Overall Eint"].copy()
     for key, contribution in dft_ensemble_analysis.items():
