@@ -9,7 +9,11 @@ from ase.io.orca import write_orca
 from quacc import change_settings
 from quacc.calculators.mrcc.io import write_mrcc
 
-from autoSKZCAM.analysis import analyze_calculations, compute_skzcam_int_ene, parse_energy
+from autoSKZCAM.analysis import (
+    analyze_calculations,
+    compute_skzcam_int_ene,
+    parse_energy,
+)
 from autoSKZCAM.embed import CreateEmbeddedCluster
 from autoSKZCAM.oniom import Prepare
 from autoSKZCAM.quacc import static_job_mrcc, static_job_orca
@@ -280,19 +284,19 @@ def skzcam_calculate_job(
                     # Check whether the calculation has already been performed
                     if code == "mrcc":
                         # Simply read calculation if it has already been performed
-                        if (
-                            Path(system_path, "mrcc.out").exists()
-                        ):
-                            final_energy = parse_energy(Path(system_path, "mrcc.out"), code=code)
-                            EmbeddedCluster.skzcam_calcs[cluster_num][calculation_label][
-                                structure
-                            ].results = final_energy             
+                        if Path(system_path, "mrcc.out").exists():
+                            final_energy = parse_energy(
+                                Path(system_path, "mrcc.out"), code=code
+                            )
+                            EmbeddedCluster.skzcam_calcs[cluster_num][
+                                calculation_label
+                            ][structure].results = final_energy
 
                         else:
                             if use_quacc:
-                                calc_parameters = EmbeddedCluster.skzcam_calcs[cluster_num][
-                                    calculation_label
-                                ][structure].calc.parameters
+                                calc_parameters = EmbeddedCluster.skzcam_calcs[
+                                    cluster_num
+                                ][calculation_label][structure].calc.parameters
                                 with change_settings(
                                     {
                                         "RESULTS_DIR": system_path,
@@ -307,15 +311,19 @@ def skzcam_calculate_job(
                                         **calc_parameters,
                                     )
                             else:
-                                EmbeddedCluster.skzcam_calcs[cluster_num][calculation_label][
-                                    structure
-                                ].get_potential_energy()  
+                                EmbeddedCluster.skzcam_calcs[cluster_num][
+                                    calculation_label
+                                ][structure].get_potential_energy()
                     elif code == "orca":
-                        if ( Path(system_path, "orca.out").exists() ):
-                            final_energy = parse_energy(Path(system_path, "orca.out"), code=code)
-                            EmbeddedCluster.skzcam_calcs[cluster_num][calculation_label][structure].results = final_energy
+                        if Path(system_path, "orca.out").exists():
+                            final_energy = parse_energy(
+                                Path(system_path, "orca.out"), code=code
+                            )
+                            EmbeddedCluster.skzcam_calcs[cluster_num][
+                                calculation_label
+                            ][structure].results = final_energy
                         else:
-                            if use_quacc:                             
+                            if use_quacc:
                                 static_job_orca(
                                     EmbeddedCluster.skzcam_calcs[cluster_num][
                                         calculation_label
@@ -323,9 +331,9 @@ def skzcam_calculate_job(
                                     **calc_parameters,
                                 )
                             else:
-                                EmbeddedCluster.skzcam_calcs[cluster_num][calculation_label][
-                                    structure
-                                ].get_potential_energy()
+                                EmbeddedCluster.skzcam_calcs[cluster_num][
+                                    calculation_label
+                                ][structure].get_potential_energy()
 
 
 def skzcam_write_inputs(
