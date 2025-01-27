@@ -68,8 +68,7 @@ def skzcam_analyse(
             raise ValueError(
                 "The OniomInfo dictionary must be provided in EmbeddedCluster or as an argument."
             )
-        else:
-            EmbeddedCluster.OniomInfo = OniomInfo
+        EmbeddedCluster.OniomInfo = OniomInfo
 
     if EmbeddedCluster.OniomInfo is not None and OniomInfo is None:
         OniomInfo = EmbeddedCluster.OniomInfo
@@ -326,9 +325,9 @@ def skzcam_calculate_job(
                             ][structure].results = final_energy
                         else:
                             if use_quacc:
-                                calc_parameters = EmbeddedCluster.skzcam_calcs[cluster_num][
-                                    calculation_label
-                                ][structure].calc.parameters
+                                calc_parameters = EmbeddedCluster.skzcam_calcs[
+                                    cluster_num
+                                ][calculation_label][structure].calc.parameters
                                 with change_settings(
                                     {
                                         "RESULTS_DIR": system_path,
