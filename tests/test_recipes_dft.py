@@ -13,7 +13,6 @@ from autoSKZCAM.recipes_dft import (
     adsorbate_slab_rss_flow,
     dft_ensemble_analyse,
     dft_ensemble_flow,
-    read_completed_calculations,
 )
 
 FILE_DIR = Path(__file__).parent
