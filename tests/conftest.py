@@ -3,8 +3,15 @@ from __future__ import annotations
 import gzip
 import shutil
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 import pytest
+from ase.calculators.vasp.create_input import count_symbols
+from ase.io import read
+from quacc.schemas.ase import Summarize
+
+if TYPE_CHECKING:
+    from ase import Atoms
 
 FILE_DIR = Path(__file__).parent
 MRCC_DIR = Path(FILE_DIR, "mrcc_run")
@@ -76,3 +83,43 @@ def patch_run_chemshell(monkeypatch):
     from autoSKZCAM.embed import CreateEmbeddedCluster
 
     monkeypatch.setattr(CreateEmbeddedCluster, "run_chemshell", mock_run_chemshell)
+
+
+def mock_vasp_run_and_summarize(atoms, additional_fields, *args, **kwargs):
+    def sort_atoms(atoms: Atoms) -> Atoms:
+        symbols, _ = count_symbols(atoms, exclude=())
+
+        # Create sorting list
+        srt = []
+
+        for symbol in symbols:
+            for m, atom in enumerate(atoms):
+                if atom.symbol == symbol:
+                    srt.append(m)
+        # Create the resorting list
+        resrt = list(range(len(srt)))
+        for n in range(len(resrt)):
+            resrt[srt[n]] = n
+
+        return atoms.copy()[srt]
+
+    job_type = additional_fields["calc_results_dir"].parent.name
+    xc_func = additional_fields["calc_results_dir"].name
+
+    mock_results_dir = Path(
+        FILE_DIR, "mocked_vasp_runs", "dft_calc_dir", job_type, xc_func
+    )
+
+    with open(Path(mock_results_dir, "OUTCAR"), encoding="ISO-8859-1") as file:
+        final_unsorted_atoms = read(file)
+
+    final_atoms = sort_atoms(final_unsorted_atoms)
+    final_atoms.calc = final_unsorted_atoms.calc
+    return Summarize(directory=mock_results_dir).run(final_atoms, atoms)
+
+
+@pytest.fixture(autouse=True)
+def patch_vasp_run(monkeypatch):
+    monkeypatch.setattr(
+        "autoSKZCAM.recipes_dft.run_and_summarize", mock_vasp_run_and_summarize
+    )
