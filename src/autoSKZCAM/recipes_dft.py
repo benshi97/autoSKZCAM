@@ -25,7 +25,7 @@ def dft_ensemble_analyse(
     vib_xc_ensemble: list[str],
     freeze_surface_vib: bool,
     temperature: float = 200.0,
-):
+) -> dict[str, list[float]]:
     """
     Analyses the completed DFT ensemble calculations.
 

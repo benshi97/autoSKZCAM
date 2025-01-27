@@ -202,9 +202,13 @@ def compute_skzcam_int_ene(
         np.sum([skzcam_int_ene[layer_name][1] ** 2 for layer_name in skzcam_int_ene])
     )
 
-    skzcam_int_ene["Total"] = [final_int_ene, final_int_ene_error]
+    skzcam_int_ene["Overall Eint"] = [final_int_ene, final_int_ene_error]
 
-    return skzcam_int_ene
+    # Multiply all terms by 1000 to convert to meV
+
+    final_skzcam_int_ene = {key: [value[0] * 1000, value[1] * 1000] for key, value in skzcam_int_ene.items()}
+
+    return final_skzcam_int_ene
 
 
 def _get_method_int_ene(

@@ -99,13 +99,7 @@ def test_compute_skzcam_int_ene(ref_EmbeddedCluster):
         skzcam_calcs_analysis=skzcam_calcs_analysis, OniomInfo=OniomInfo
     )
 
-    ref_skzcam_int_ene = {
-        "Extrapolated Bulk MP2": [-0.16764139187528543, 0],
-        "Delta_Basis and Delta_Core": [-0.02731886802347076, 0.0061532110649601636],
-        "FSE Error": [0, 0.002993648282250169],
-        "DeltaCC": [-0.010131662669145438, 0.0010088038275787748],
-        "Total": [-0.20509192256790162, 0.006916763810504532],
-    }
+    ref_skzcam_int_ene = {'Extrapolated Bulk MP2': [-167.64139187528542, 0], 'Delta_Basis and Delta_Core': [-27.31886802347076, 6.153211064960163], 'FSE Error': [0, 2.9936482822501693], 'DeltaCC': [-10.131662669145438, 1.0088038275787747], 'Overall Eint': [-205.09192256790163, 6.9167638105045315]}
 
     for key, value in ref_skzcam_int_ene.items():
         assert_allclose(skzcam_int_ene[key], value, rtol=1e-05, atol=1e-07)
@@ -163,8 +157,8 @@ def test_compute_skzcam_int_ene(ref_EmbeddedCluster):
         skzcam_calcs_analysis=skzcam_calcs_analysis, OniomInfo=OniomInfo
     )
     assert_allclose(
-        skzcam_int_ene["Total"],
-        [-0.03847792236925364, 0.01283915060710039],
+        skzcam_int_ene["Overall Eint"],
+        [-0.03847792236925364*1000, 0.01283915060710039*1000],
         rtol=1e-05,
         atol=1e-07,
     )
@@ -222,8 +216,8 @@ def test_compute_skzcam_int_ene(ref_EmbeddedCluster):
     skzcam_int_ene = compute_skzcam_int_ene(
         skzcam_calcs_analysis=skzcam_calcs_analysis, OniomInfo=OniomInfo
     )
-    assert skzcam_int_ene["Total"][0] == pytest.approx(
-        skzcam_calcs_analysis[5]["orca MP2 valence DZ"]["int_ene"]["energy"]
+    assert skzcam_int_ene["Overall Eint"][0] == pytest.approx(
+        skzcam_calcs_analysis[5]["orca MP2 valence DZ"]["int_ene"]["energy"]*1000
     )
 
     # Check if no error bar provided when Delta is less than 3
@@ -253,7 +247,7 @@ def test_compute_skzcam_int_ene(ref_EmbeddedCluster):
     skzcam_int_ene = compute_skzcam_int_ene(
         skzcam_calcs_analysis=skzcam_calcs_analysis, OniomInfo=OniomInfo
     )
-    assert skzcam_int_ene["Total"][1] == pytest.approx(0)
+    assert skzcam_int_ene["Overall Eint"][1] == pytest.approx(0)
 
 
 def test_get_method_int_ene():
