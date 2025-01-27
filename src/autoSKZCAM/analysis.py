@@ -206,9 +206,9 @@ def compute_skzcam_int_ene(
 
     # Multiply all terms by 1000 to convert to meV
 
-    final_skzcam_int_ene = {key: [value[0] * 1000, value[1] * 1000] for key, value in skzcam_int_ene.items()}
-
-    return final_skzcam_int_ene
+    return {
+        key: [value[0] * 1000, value[1] * 1000] for key, value in skzcam_int_ene.items()
+    }
 
 
 def _get_method_int_ene(

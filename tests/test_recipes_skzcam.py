@@ -256,7 +256,13 @@ def test_skzcam_analyse(tmp_path, ref_EmbeddedCluster1):
         EmbeddedCluster=ref_EmbeddedCluster1,
     )
 
-    ref_skzcam_int_ene = {'Extrapolated Bulk MP2': [-167.64139187528542, 0], 'Delta_Basis and Delta_Core': [-27.31886802347076, 6.153211064960163], 'FSE Error': [0, 2.9936482822501693], 'DeltaCC': [-10.131662669145438, 1.0088038275787747], 'Overall Eint': [-205.09192256790163, 6.9167638105045315]}
+    ref_skzcam_int_ene = {
+        "Extrapolated Bulk MP2": [-167.64139187528542, 0],
+        "Delta_Basis and Delta_Core": [-27.31886802347076, 6.153211064960163],
+        "FSE Error": [0, 2.9936482822501693],
+        "DeltaCC": [-10.131662669145438, 1.0088038275787747],
+        "Overall Eint": [-205.09192256790163, 6.9167638105045315],
+    }
 
     for key, value in ref_skzcam_int_ene.items():
         assert_allclose(skzcam_int_ene[key], value, rtol=1e-05, atol=1e-07)

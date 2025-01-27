@@ -1,21 +1,20 @@
 from __future__ import annotations
 
 import gzip
-import os
-import shutil
-from copy import deepcopy
 from pathlib import Path
 
 import numpy as np
 import pytest
-from ase import Atoms
-from ase.io import read
-from numpy.testing import assert_allclose, assert_equal
+from numpy.testing import assert_allclose
 
-from autoSKZCAM.embed import CreateEmbeddedCluster
-from autoSKZCAM.recipes import skzcam_analyse, dft_ensemble_analyse, get_final_autoSKZCAM_Hads
+from autoSKZCAM.recipes import (
+    dft_ensemble_analyse,
+    get_final_autoSKZCAM_Hads,
+    skzcam_analyse,
+)
 
 FILE_DIR = Path(__file__).parent
+
 
 @pytest.fixture
 def ref_EmbeddedCluster1():
@@ -25,6 +24,7 @@ def ref_EmbeddedCluster1():
         EmbeddedCluster = np.load(file, allow_pickle=True).item()
     EmbeddedCluster.OniomInfo = None
     return EmbeddedCluster
+
 
 def test_get_final_autoSKZCAM_Hads(ref_EmbeddedCluster1):
     OniomInfo = {
@@ -113,11 +113,18 @@ def test_get_final_autoSKZCAM_Hads(ref_EmbeddedCluster1):
         temperature=61,
     )
 
-    final_Hads = get_final_autoSKZCAM_Hads(
-        skzcam_int_ene, dft_ensemble_analysis
-    )
+    final_Hads = get_final_autoSKZCAM_Hads(skzcam_int_ene, dft_ensemble_analysis)
 
-    ref_final_Hads = {'Extrapolated Bulk MP2': [-167.64139187528542, 0], 'Delta_Basis and Delta_Core': [-27.31886802347076, 6.153211064960163], 'FSE Error': [0, 2.9936482822501693], 'DeltaCC': [-10.131662669145438, 1.0088038275787747], 'Overall Eint': [-205.09192256790163, 6.9167638105045315], 'DFT Erlx': [8.499119999989091, 19.779237597405302], 'DFT DeltaH': [24.15531290723979, 3.081997964011643], 'Final Hads': [-172.43748966067275, 21.179201424867006]}
+    ref_final_Hads = {
+        "Extrapolated Bulk MP2": [-167.64139187528542, 0],
+        "Delta_Basis and Delta_Core": [-27.31886802347076, 6.153211064960163],
+        "FSE Error": [0, 2.9936482822501693],
+        "DeltaCC": [-10.131662669145438, 1.0088038275787747],
+        "Overall Eint": [-205.09192256790163, 6.9167638105045315],
+        "DFT Erlx": [8.499119999989091, 19.779237597405302],
+        "DFT DeltaH": [24.15531290723979, 3.081997964011643],
+        "Final Hads": [-172.43748966067275, 21.179201424867006],
+    }
 
     for key, value in final_Hads.items():
         assert_allclose(value, ref_final_Hads[key], rtol=1e-5)

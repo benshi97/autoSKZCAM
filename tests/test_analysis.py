@@ -99,7 +99,13 @@ def test_compute_skzcam_int_ene(ref_EmbeddedCluster):
         skzcam_calcs_analysis=skzcam_calcs_analysis, OniomInfo=OniomInfo
     )
 
-    ref_skzcam_int_ene = {'Extrapolated Bulk MP2': [-167.64139187528542, 0], 'Delta_Basis and Delta_Core': [-27.31886802347076, 6.153211064960163], 'FSE Error': [0, 2.9936482822501693], 'DeltaCC': [-10.131662669145438, 1.0088038275787747], 'Overall Eint': [-205.09192256790163, 6.9167638105045315]}
+    ref_skzcam_int_ene = {
+        "Extrapolated Bulk MP2": [-167.64139187528542, 0],
+        "Delta_Basis and Delta_Core": [-27.31886802347076, 6.153211064960163],
+        "FSE Error": [0, 2.9936482822501693],
+        "DeltaCC": [-10.131662669145438, 1.0088038275787747],
+        "Overall Eint": [-205.09192256790163, 6.9167638105045315],
+    }
 
     for key, value in ref_skzcam_int_ene.items():
         assert_allclose(skzcam_int_ene[key], value, rtol=1e-05, atol=1e-07)
@@ -158,7 +164,7 @@ def test_compute_skzcam_int_ene(ref_EmbeddedCluster):
     )
     assert_allclose(
         skzcam_int_ene["Overall Eint"],
-        [-0.03847792236925364*1000, 0.01283915060710039*1000],
+        [-0.03847792236925364 * 1000, 0.01283915060710039 * 1000],
         rtol=1e-05,
         atol=1e-07,
     )
@@ -217,7 +223,7 @@ def test_compute_skzcam_int_ene(ref_EmbeddedCluster):
         skzcam_calcs_analysis=skzcam_calcs_analysis, OniomInfo=OniomInfo
     )
     assert skzcam_int_ene["Overall Eint"][0] == pytest.approx(
-        skzcam_calcs_analysis[5]["orca MP2 valence DZ"]["int_ene"]["energy"]*1000
+        skzcam_calcs_analysis[5]["orca MP2 valence DZ"]["int_ene"]["energy"] * 1000
     )
 
     # Check if no error bar provided when Delta is less than 3
