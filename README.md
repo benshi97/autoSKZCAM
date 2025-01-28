@@ -10,6 +10,16 @@
 
 - `autoSKZCAM` is powered by [QuAcc](https://github.com/Quantum-Accelerators/quacc) and provides pre-made surface chemistry workflows that can be efficiently dispatched (and restarted) anywhere: locally, HPC, the cloud, or any combination thereof.
 
+## Citation and Reproducing Data
+
+If you use `autoSKZCAM` in your work, please cite it as follows:
+
+- An accurate and efficient framework for predictive insights into ionic surface chemistry, [arXiv:2412.17204](https://arxiv.org/abs/2412.17204)
+
+This repository features the underlying code to power and perform the calculations found in the above work, using the CO on MgO(001) system as an example.
+
+In the companion repository found at [benshi97/Data_autoSKZCAM](https://github.com/benshi97/Data_autoSKZCAM), we have compiled the data and outputs for **all** of the calculations in [arXiv:2412.17204](https://arxiv.org/abs/2412.17204) with detailed explanation/codes for analysing and reproducing **all** the outcomes.
+
 ## Installation
 
 For local development of the code:
@@ -20,25 +30,52 @@ For local development of the code:
 git clone https://github.com/benshi97/autoSKZCAM.git
 ```
 
-2. Then install the package in editable mode.
+2. Then install the package in editable mode
 
 ```
 pip install -e .
 ```
 
-where this command is run in the root directory. All dependences (i.e., QuAcc) will be automatically installed. By using the `-e` flag, the package will be installed in editable mode, meaning that changes to the code will be reflected in the installed package.
+where this command is run in the root directory. All dependences (i.e., QuAcc) will be automatically installed. By using the `-e` flag, the package will be installed in editable mode, meaning that changes to the code will be reflected in the installed package. Installation should only take a few minutes.
 
-Note: You also will need to have [py-ChemShell](https://chemshell.org/) installed to run the code. It can be downloaded for free and installation instructions are [here](https://chemshell.org/static_files/py-chemshell/manual/build/html/install.html)
+Note: You also will need to have [py-ChemShell](https://chemshell.org/) installed to run the code. It can be downloaded for free and installation instructions can be found [here](https://chemshell.org/static_files/py-chemshell/manual/build/html/install.html)
 
-## Documentation
+## Instructions and Demo
 
-Instructions for running autoSKZCAM can be found in [example/autoskzcam.ipynb](example/autoskzcam.ipynb). We will provide more detailed documentation following its official release.
+Instructions for running autoSKZCAM can be found in [example/autoskzcam.ipynb](example/autoskzcam.ipynb). It features:
+- pre-calculated wave-function and DFT (ensemble) data, found in example/calc_dir and example/dft_calc_dir, respectively for the CO on MgO(001) system. This allows for the CO on MgO(001) results to be reproduced (Note: there are minor differences to the  [arXiv:2412.17204](https://arxiv.org/abs/2412.17204) paper due to differing basis set procedures).
+- a Jupyter Notebook demo with instructions to run on the pre-calculated data (which should only take a couple of minutes to analyse), together with the expected final outputs.
+- detailed explanation of keyword arguments entering each of the functions for the `autoSKZCAM` recipes.
 
-## Citation
+As the example.ipynb is restarting from completed calculations, it does not perform any quantum chemistry calculations. If the user would like to perform these calculations, please move or delete the example/calc_dir and example/dft_calc_dir folders and follow the guidance within the demo to initialise these calculations. `autoSKZCAM` makes heavy use of the QuAcc computational materials workflow library and its documentation can be found [here](https://quantum-accelerators.github.io/quacc/index.html). The key requirement is that the calculators for each of the codes VASP, MRCC and ORCA must be set-up:
+```
+# Setup ORCA
+export QUACC_ORCA_CMD="/path/to/orca/orca"
 
-If you use `autoSKZCAM` in your work, please cite it as follows:
+# Setup MRCC
+export QUACC_MRCC_CMD="/path/to/orca/mrcc/dmrcc"
 
-- An accurate and efficient framework for predictive insights into ionic surface chemistry, [arXiv:2412.17204](https://arxiv.org/abs/2412.17204)
+# Setup VASP
+export QUACC_VASP_PARALLEL_CMD="srun -N 2 --ntasks-per-node 24"
+export QUACC_VASP_PP_PATH="/path/to/POTCARs"
+```
+
+## Requirements
+
+`autoSKZCAM` requires only a standard computer with e.g., 8 GB of RAM to be performed. The quantum chemistry calculations in e.g., MRCC or ORCA can require more RAM depending on the type of system studied and calculations become significantly accelerated with greater availability of RAM and computing resources.
+
+This package is supported for both macOS and Linux. The package has been tested on the following systems:
++ Apple: macOS 15 Sequoia
++ Linux: Ubuntu 20.04 (via Windows Subsystem for Linux 2) and Ubuntu 22.04.5
+
+`autoSKZCAM` mainly depends on the Python >= 3.9 scientific stack, with the following dependencies:
+- `quacc` >= 0.11.13 (its dependencies are automatically installed and can be found [here](https://github.com/Quantum-Accelerators/quacc/blob/main/pyproject.toml))
+- `py-ChemShell` >= 20.0.0 (its pre-requisites can be found [here](https://chemshell.org/static_files/py-chemshell/manual/build/html/install.html#prerequisites))
+
+To perform quantum chemistry calculations, [MRCC](https://mrcc.hu/) (>= 2023) and/or [ORCA](https://orcaforum.kofo.mpg.de/) (>= 5) must also be installed, both of which are free for academics.
+
+Calculations with the DFT ensemble currently supports [VASP](https://vasp.at/), which requires the purchase of a licence.
+
 
 ## License
 
