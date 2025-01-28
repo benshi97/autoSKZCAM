@@ -12,6 +12,13 @@
 
 ## Installation
 
+`autoSKZCAM` requires python >= 3.11. We recommend starting in a new python environment using [miniconda](https://docs.anaconda.com/miniconda/):
+
+```
+conda create --name autoskzcam python=3.11
+conda activate autoskzcam
+```
+
 For local development of the code:
 
 1. Clone the repository
