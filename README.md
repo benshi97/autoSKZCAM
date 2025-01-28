@@ -10,16 +10,6 @@
 
 - `autoSKZCAM` is powered by [QuAcc](https://github.com/Quantum-Accelerators/quacc) and provides pre-made surface chemistry workflows that can be efficiently dispatched (and restarted) anywhere: locally, HPC, the cloud, or any combination thereof.
 
-## Citation and Reproducing Data
-
-If you use `autoSKZCAM` in your work, please cite it as follows:
-
-- An accurate and efficient framework for predictive insights into ionic surface chemistry, [arXiv:2412.17204](https://arxiv.org/abs/2412.17204)
-
-This repository features the underlying code to power and perform the calculations found in the above work, using the CO on MgO(001) system as an example.
-
-In the companion repository found at [benshi97/Data_autoSKZCAM](https://github.com/benshi97/Data_autoSKZCAM), we have compiled the data and outputs for **all** of the calculations in [arXiv:2412.17204](https://arxiv.org/abs/2412.17204) with detailed explanation/codes for analysing and reproducing **all** the outcomes.
-
 ## Installation
 
 For local development of the code:
@@ -75,6 +65,16 @@ This package is supported for both macOS and Linux. The package has been tested 
 To perform quantum chemistry calculations, [MRCC](https://mrcc.hu/) (>= 2023) and/or [ORCA](https://orcaforum.kofo.mpg.de/) (>= 5) must also be installed, both of which are free for academics.
 
 Calculations with the DFT ensemble currently supports [VASP](https://vasp.at/), which requires the purchase of a licence.
+
+## Citation and Reproducing Data
+
+If you use `autoSKZCAM` in your work, please cite it as follows:
+
+- An accurate and efficient framework for predictive insights into ionic surface chemistry, [arXiv:2412.17204](https://arxiv.org/abs/2412.17204)
+
+This repository features the underlying code to power and perform the calculations found in the above work, using the CO on MgO(001) system as an example.
+
+In the companion repository found at [benshi97/Data_autoSKZCAM](https://github.com/benshi97/Data_autoSKZCAM), we have compiled the data and outputs for **all** of the calculations in [arXiv:2412.17204](https://arxiv.org/abs/2412.17204) with detailed explanation/codes for analysing and reproducing **all** the outcomes. This can be viewed online on [Colab](https://colab.research.google.com/github/benshi97/Data_autoSKZCAM/blob/master/analyse.ipynb).
 
 
 ## License
