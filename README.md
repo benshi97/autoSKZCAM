@@ -49,6 +49,7 @@ export QUACC_MRCC_CMD="/path/to/orca/mrcc/dmrcc"
 export QUACC_VASP_PARALLEL_CMD="srun -N 2 --ntasks-per-node 24"
 export QUACC_VASP_PP_PATH="/path/to/POTCARs"
 ```
+To improve the ORCA and MRCC calculation efficiencies, it is important to scale up the requested RAM (default: 2GB) and number of processes (default: 1) to the size of your computing system. This can be controlled in the `OniomInfo` (see example/autoskzcam.ipynb) parameter under `code_inputs`. For example, you can change the MRCC memory requirement using `{'mem': '20000MB'}` or using `{'orcablocks': 'nprocs 8 end\nmaxcore 10000'}`. Similarly the (parallel) VASP DFT calculations can be made more efficient by changing how you setup VASP (see code block above) as well as changing e.g., `NCORE` in the `job_params` parameter described in example/autoskzcam.ipynb.
 
 ## Requirements
 
