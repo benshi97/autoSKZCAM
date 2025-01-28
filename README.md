@@ -81,4 +81,3 @@ In the companion repository found at [benshi97/Data_autoSKZCAM](https://github.c
 ## License
 
 `autoSKZCAM` is released under a [BSD 3-Clause license](https://github.com/quantum-accelerators/quacc/blob/main/LICENSE.md).
-
