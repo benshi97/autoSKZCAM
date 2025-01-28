@@ -65,7 +65,7 @@ This package is supported for both macOS and Linux. The package has been tested 
 
 To perform quantum chemistry calculations, [MRCC](https://mrcc.hu/) (>= 2023) and/or [ORCA](https://orcaforum.kofo.mpg.de/) (>= 5) must also be installed, both of which are free for academics.
 
-Calculations with the DFT ensemble currently supports [VASP](https://vasp.at/), which requires the purchase of a licence.
+Calculations with the DFT ensemble currently supports [VASP](https://vasp.at/), which requires the purchase of a license.
 
 ## Citation and Reproducing Data
 
