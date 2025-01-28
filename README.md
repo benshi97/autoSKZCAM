@@ -32,12 +32,12 @@ Note: You also will need to have [py-ChemShell](https://chemshell.org/) installe
 
 ## Instructions and Demo
 
-Instructions for running autoSKZCAM can be found in [example/autoskzcam.ipynb](example/autoskzcam.ipynb). It features:
-- pre-calculated wave-function and DFT (ensemble) data, found in example/calc_dir and example/dft_calc_dir, respectively for the CO on MgO(001) system. This allows for the CO on MgO(001) results to be reproduced (Note: there are minor differences to the  [arXiv:2412.17204](https://arxiv.org/abs/2412.17204) paper due to differing basis set procedures).
+Instructions for running autoSKZCAM can be found in [`example/autoskzcam.ipynb`](example/autoskzcam.ipynb). It features:
+- pre-calculated wave-function and DFT (ensemble) data, found in `example/calc_dir` and `example/dft_calc_dir`, respectively for the CO on MgO(001) system. This allows for the CO on MgO(001) results to be reproduced (Note: there are minor differences to the  [arXiv:2412.17204](https://arxiv.org/abs/2412.17204) paper due to differing basis set procedures).
 - a Jupyter Notebook demo with instructions to run on the pre-calculated data (which should only take a couple of minutes to analyse), together with the expected final outputs.
 - detailed explanation of keyword arguments entering each of the functions for the `autoSKZCAM` recipes.
 
-As the example.ipynb is restarting from completed calculations, it does not perform any quantum chemistry calculations. If the user would like to perform these calculations, please move or delete the example/calc_dir and example/dft_calc_dir folders and follow the guidance within the demo to initialise these calculations. `autoSKZCAM` makes heavy use of the QuAcc computational materials workflow library and its documentation can be found [here](https://quantum-accelerators.github.io/quacc/index.html). The key requirement is that the calculators for each of the codes VASP, MRCC and ORCA must be set-up:
+As the `example.ipynb` is restarting from completed calculations, it does not perform any quantum chemistry calculations. If the user would like to perform these calculations, please move or delete the example/calc_dir and example/dft_calc_dir folders and follow the guidance within the demo to initialise these calculations. `autoSKZCAM` makes heavy use of the QuAcc computational materials workflow library and its documentation can be found [here](https://quantum-accelerators.github.io/quacc/index.html). The key requirement is that the calculators for each of the codes VASP, MRCC and ORCA must be set-up:
 ```
 # Setup ORCA
 export QUACC_ORCA_CMD="/path/to/orca/orca"
@@ -49,7 +49,7 @@ export QUACC_MRCC_CMD="/path/to/orca/mrcc/dmrcc"
 export QUACC_VASP_PARALLEL_CMD="srun -N 2 --ntasks-per-node 24"
 export QUACC_VASP_PP_PATH="/path/to/POTCARs"
 ```
-To improve the ORCA and MRCC calculation efficiencies, it is important to scale up the requested RAM (default: 2GB) and number of processes (default: 1) to the size of your computing system. This can be controlled in the `OniomInfo` (see example/autoskzcam.ipynb) parameter under `code_inputs`. For example, you can change the MRCC memory requirement using `{'mem': '20000MB'}` or using `{'orcablocks': 'nprocs 8 end\nmaxcore 10000'}`. Similarly the (parallel) VASP DFT calculations can be made more efficient by changing how you setup VASP (see code block above) as well as changing e.g., `NCORE` in the `job_params` parameter described in example/autoskzcam.ipynb.
+To improve the ORCA and MRCC calculation efficiencies, it is important to scale up the requested RAM (default: 2GB) and number of processes (default: 1) to the size of your computing system. This can be controlled in the `OniomInfo` (see `example/autoskzcam.ipynb`) parameter under `code_inputs`. For example, you can change the MRCC memory requirement using `{'mem': '20000MB'}` or using `{'orcablocks': 'nprocs 8 end\nmaxcore 10000'}`. Similarly the (parallel) VASP DFT calculations can be made more efficient by changing how you setup VASP (see code block above) as well as changing e.g., `NCORE` in the `job_params` parameter described in `example/autoskzcam.ipynb`.
 
 ## Requirements
 
