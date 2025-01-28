@@ -23,7 +23,7 @@ git clone https://github.com/benshi97/autoSKZCAM.git
 2. Then install the package in editable mode.
 
 ```
-pip install -e .[dev]
+pip install -e .
 ```
 
 where this command is run in the root directory. All dependences (i.e., QuAcc) will be automatically installed. By using the `-e` flag, the package will be installed in editable mode, meaning that changes to the code will be reflected in the installed package.
