@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import TYPE_CHECKING, Any, Callable
+from typing import TYPE_CHECKING, Any
 
 import numpy as np
 from ase.calculators.vasp.create_input import count_symbols
@@ -14,6 +14,8 @@ from quacc.schemas.ase import Summarize
 from autoSKZCAM.analysis import get_quasi_rrho
 
 if TYPE_CHECKING:
+    from collections.abc import Callable
+
     from ase import Atoms
     from quacc.types import Filenames, SourceDirectory, VaspSchema
 
