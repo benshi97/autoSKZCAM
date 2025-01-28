@@ -4,7 +4,7 @@
 
 # `autoSKZCAM` – Accurate Ionic Surface Predictions
 
-- `autoSKZCAM` is a computational framework for performing accurate yet efficient predictions of ionic surfaces.
+`autoSKZCAM` is a computational framework for performing accurate yet efficient predictions of ionic surfaces.
 
 - `autoSKZCAM` is highly flexible, current supporting two quantum chemistry codes (MRCC and ORCA), combining an arbitrary number electrostatic and mechanical embedding [ONIOM](https://pubs.acs.org/doi/10.1021/cr5004419) layers.
 
