@@ -263,7 +263,7 @@ class Prepare:
                 )
         self.max_cluster = max_cluster
 
-    def initialize_calculator(
+    def initialise_calculator(
         self,
         oniom_layer_parameters: OniomLayerInfo,
         quantum_cluster_indices: list[int],
@@ -538,7 +538,7 @@ class Prepare:
                             ):
                                 skzcam_cluster_calculators[cluster_num][
                                     calculation_label
-                                ] = self.initialize_calculator(
+                                ] = self.initialise_calculator(
                                     oniom_layer_parameters=oniom_layer_parameters,
                                     quantum_cluster_indices=self.quantum_cluster_indices_set[
                                         cluster_num - 1

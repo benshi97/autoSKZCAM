@@ -6,7 +6,7 @@ from autoSKZCAM.recipes_dft import dft_ensemble_analyse, dft_ensemble_flow
 from autoSKZCAM.recipes_skzcam import (
     skzcam_analyse,
     skzcam_eint_flow,
-    skzcam_initialize,
+    skzcam_initialise,
 )
 
 
@@ -48,5 +48,5 @@ __all__ = [
     "get_final_autoSKZCAM_Hads",
     "skzcam_analyse",
     "skzcam_eint_flow",
-    "skzcam_initialize",
+    "skzcam_initialise",
 ]

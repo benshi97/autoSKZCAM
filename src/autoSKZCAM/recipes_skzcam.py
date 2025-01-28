@@ -95,7 +95,7 @@ def skzcam_eint_flow(
     Parameters
     ----------
     EmbeddedCluster
-        The CreateEmbeddedCluster object containing the embedded cluster. This is initialized using the skzcam_initialize() function.
+        The CreateEmbeddedCluster object containing the embedded cluster. This is initialised using the skzcam_initialise() function.
     OniomInfo
         A dictionary containing the information about the ONIOM layers.
     **kwargs
@@ -113,7 +113,7 @@ def skzcam_eint_flow(
     skzcam_calculate_job(EmbeddedCluster, OniomInfo, **kwargs)
 
 
-def skzcam_initialize(
+def skzcam_initialise(
     adsorbate_indices: list[int],
     slab_center_indices: list[int],
     atom_oxi_states: dict[ElementStr, int],
@@ -127,7 +127,7 @@ def skzcam_initialize(
     **kwargs,  # noqa ARG001
 ) -> CreateEmbeddedCluster:
     """
-    Parameters to initialize the SKZCAM protocol to generate the embedded clusters.
+    Parameters to initialise the SKZCAM protocol to generate the embedded clusters.
 
     Parameters
     ----------
