@@ -394,8 +394,7 @@ def analyze_calculations(
             raise ValueError(
                 "The embedded_cluster_path or EmbeddedCluster object must be provided."
             )
-        else:
-            EmbeddedCluster = np.load(embedded_cluster_path, allow_pickle=True).item()
+        EmbeddedCluster = np.load(embedded_cluster_path, allow_pickle=True).item()
     elif EmbeddedCluster is None and embedded_cluster_path is not None:
         EmbeddedCluster = np.load(embedded_cluster_path, allow_pickle=True).item()
 
