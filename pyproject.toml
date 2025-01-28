@@ -4,12 +4,12 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "autoSKZCAM"
-description="A Python package description goes here."
+description="An accurate and efficient framework for ionic surface chemistry."
 version = "0.0.1"
 readme = "README.md"
 license = { text = "BSD-3" }
 authors = [{ name = "Benjamin X. Shi", email = "mail@benjaminshi.com" }]
-keywords = ["MyKeyword1", "MyKeyword2"]
+keywords = ["surface", "chemistry","materials","automated"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Science/Research",
@@ -25,7 +25,7 @@ classifiers = [
     "Operating System :: MacOS",
 ]
 requires-python = ">=3.9"
-dependencies = ["numpy", "quacc"]
+dependencies = ["quacc>=0.11.13","numpy"]
 
 [project.optional-dependencies]
 dev = ["pytest>=7.4.0", "pytest-cov>=3.0.0", "ruff>=0.0.285"]
