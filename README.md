@@ -12,6 +12,13 @@
 
 ## Installation
 
+`autoSKZCAM` requires python >= 3.11. We recommend starting in a new python environment using [miniconda](https://docs.anaconda.com/miniconda/):
+
+```
+conda create --name autoskzcam python=3.11
+conda activate autoskzcam
+```
+
 For local development of the code:
 
 1. Clone the repository
@@ -65,7 +72,7 @@ This package is supported for both macOS and Linux. The package has been tested 
 
 To perform quantum chemistry calculations, [MRCC](https://mrcc.hu/) (>= 2023) and/or [ORCA](https://orcaforum.kofo.mpg.de/) (>= 5) must also be installed, both of which are free for academics.
 
-Calculations with the DFT ensemble currently supports [VASP](https://vasp.at/), which requires the purchase of a licence.
+Calculations with the DFT ensemble currently supports [VASP](https://vasp.at/), which requires the purchase of a license.
 
 ## Citation and Reproducing Data
 
@@ -81,4 +88,3 @@ In the companion repository found at [benshi97/Data_autoSKZCAM](https://github.c
 ## License
 
 `autoSKZCAM` is released under a [BSD 3-Clause license](https://github.com/quantum-accelerators/quacc/blob/main/LICENSE.md).
-

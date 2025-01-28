@@ -569,7 +569,7 @@ def test_Prepare_intialize_calculator(
     }
 
     # Confirm that the MP2 default are created correctly
-    calculators = prep_cluster.initialize_calculator(
+    calculators = prep_cluster.initialise_calculator(
         oniom_layer_parameters=oniom_layer_parameters,
         quantum_cluster_indices=ref_EmbeddedCluster.quantum_cluster_indices_set[0],
         ecp_region_indices=ref_EmbeddedCluster.ecp_region_indices_set[0],
@@ -607,7 +607,7 @@ def test_Prepare_intialize_calculator(
         "max_cluster_num": 2,
         "code": "mrcc",
     }
-    calculators = prep_cluster.initialize_calculator(
+    calculators = prep_cluster.initialise_calculator(
         oniom_layer_parameters=oniom_layer_parameters,
         quantum_cluster_indices=ref_EmbeddedCluster.quantum_cluster_indices_set[0],
         ecp_region_indices=ref_EmbeddedCluster.ecp_region_indices_set[0],
@@ -653,7 +653,7 @@ def test_Prepare_intialize_calculator(
         "code": "mrcc",
         "code_inputs": {"calc": "dRPA", "scf": "uhf"},
     }
-    calculators = prep_cluster.initialize_calculator(
+    calculators = prep_cluster.initialise_calculator(
         oniom_layer_parameters=oniom_layer_parameters,
         quantum_cluster_indices=ref_EmbeddedCluster.quantum_cluster_indices_set[0],
         ecp_region_indices=ref_EmbeddedCluster.ecp_region_indices_set[0],
@@ -688,7 +688,7 @@ def test_Prepare_intialize_calculator(
         "max_cluster_num": 2,
         "code": "orca",
     }
-    calculators = prep_cluster.initialize_calculator(
+    calculators = prep_cluster.initialise_calculator(
         oniom_layer_parameters=oniom_layer_parameters,
         quantum_cluster_indices=ref_EmbeddedCluster.quantum_cluster_indices_set[0],
         ecp_region_indices=ref_EmbeddedCluster.ecp_region_indices_set[0],
@@ -754,7 +754,7 @@ def test_Prepare_intialize_calculator(
         "max_cluster_num": 2,
         "code": "orca",
     }
-    calculators = prep_cluster.initialize_calculator(
+    calculators = prep_cluster.initialise_calculator(
         oniom_layer_parameters=oniom_layer_parameters,
         quantum_cluster_indices=ref_EmbeddedCluster.quantum_cluster_indices_set[0],
         ecp_region_indices=ref_EmbeddedCluster.ecp_region_indices_set[0],
@@ -771,7 +771,7 @@ def test_Prepare_intialize_calculator(
         "max_cluster_num": 2,
         "code": "orca",
     }
-    calculators = prep_cluster.initialize_calculator(
+    calculators = prep_cluster.initialise_calculator(
         oniom_layer_parameters=oniom_layer_parameters,
         quantum_cluster_indices=ref_EmbeddedCluster.quantum_cluster_indices_set[0],
         ecp_region_indices=ref_EmbeddedCluster.ecp_region_indices_set[0],
@@ -794,7 +794,7 @@ def test_Prepare_intialize_calculator(
             "orcablocks": "%scf\nHFTyp uhf\nend",
         },
     }
-    calculators = prep_cluster.initialize_calculator(
+    calculators = prep_cluster.initialise_calculator(
         oniom_layer_parameters=oniom_layer_parameters,
         quantum_cluster_indices=ref_EmbeddedCluster.quantum_cluster_indices_set[0],
         ecp_region_indices=ref_EmbeddedCluster.ecp_region_indices_set[0],
@@ -814,7 +814,7 @@ def test_Prepare_intialize_calculator(
         "code": "orca",
         "code_inputs": {"orcasimpleinput": "CEPA"},
     }
-    calculators = prep_cluster.initialize_calculator(
+    calculators = prep_cluster.initialise_calculator(
         oniom_layer_parameters=oniom_layer_parameters,
         quantum_cluster_indices=ref_EmbeddedCluster.quantum_cluster_indices_set[0],
         ecp_region_indices=ref_EmbeddedCluster.ecp_region_indices_set[0],

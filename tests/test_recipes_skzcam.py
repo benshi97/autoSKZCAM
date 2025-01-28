@@ -19,7 +19,7 @@ from autoSKZCAM.recipes_skzcam import (
     skzcam_calculate_job,
     skzcam_eint_flow,
     skzcam_generate_job,
-    skzcam_initialize,
+    skzcam_initialise,
     skzcam_write_inputs,
 )
 
@@ -321,7 +321,7 @@ def test_skzcam_analyse(tmp_path, ref_EmbeddedCluster1):
 
 
 def test_skzcam_eint_flow(tmp_path, ref_oniom_layers):
-    EmbeddedCluster = skzcam_initialize(
+    EmbeddedCluster = skzcam_initialise(
         adsorbate_indices=[0, 1],
         slab_center_indices=[32],
         atom_oxi_states={"Mg": 2.0, "O": -2.0},
@@ -435,19 +435,19 @@ def test_skzcam_eint_flow(tmp_path, ref_oniom_layers):
     ]
 
 
-def test_skzcam_initialize(tmp_path):
+def test_skzcam_initialise(tmp_path):
     with pytest.raises(
         ValueError,
         match="The path to the .pun file from ChemShell must be provided in EmbeddedCluster if run_chemshell is False.",
     ):
-        skzcam_initialize(
+        skzcam_initialise(
             adsorbate_indices=[0, 1],
             slab_center_indices=[32],
             atom_oxi_states={"Mg": 2.0, "O": -2.0},
             adsorbate_slab_file=Path(FILE_DIR, "skzcam_files", "CO_MgO.poscar.gz"),
             pun_filepath="test.pun",
         )
-    EmbeddedCluster = skzcam_initialize(
+    EmbeddedCluster = skzcam_initialise(
         adsorbate_indices=[0, 1],
         slab_center_indices=[32],
         atom_oxi_states={"Mg": 2.0, "O": -2.0},
@@ -513,7 +513,7 @@ def test_skzcam_initialize(tmp_path):
     )
 
     # Run ChemShell
-    EmbeddedCluster = skzcam_initialize(
+    EmbeddedCluster = skzcam_initialise(
         adsorbate_indices=[0, 1],
         slab_center_indices=[32],
         atom_oxi_states={"Mg": 2.0, "O": -2.0},
@@ -599,7 +599,7 @@ def test_skzcam_generate_job(tmp_path):
 
     assert hasattr(EmbeddedCluster, "adsorbate_slab")
 
-    EmbeddedCluster = skzcam_initialize(
+    EmbeddedCluster = skzcam_initialise(
         adsorbate_indices=[0, 1],
         slab_center_indices=[32],
         atom_oxi_states={"Mg": 2.0, "O": -2.0},
@@ -725,7 +725,7 @@ def test_skzcam_generate_job(tmp_path):
 
 
 def test_skzcam_calculate_job(tmp_path):
-    EmbeddedCluster = skzcam_initialize(
+    EmbeddedCluster = skzcam_initialise(
         adsorbate_indices=[0, 1],
         slab_center_indices=[32],
         atom_oxi_states={"Mg": 2.0, "O": -2.0},
