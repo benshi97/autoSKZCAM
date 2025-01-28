@@ -59,7 +59,7 @@ This package is supported for both macOS and Linux. The package has been tested 
 + Apple: macOS 15 Sequoia
 + Linux: Ubuntu 20.04 (via Windows Subsystem for Linux 2) and Ubuntu 22.04.5
 
-`autoSKZCAM` mainly depends on the Python >= 3.9 scientific stack, with the following dependencies:
+`autoSKZCAM` mainly depends on the Python >= 3.11 scientific stack, with the following dependencies:
 - `quacc` >= 0.11.13 (its dependencies are automatically installed and can be found [here](https://github.com/Quantum-Accelerators/quacc/blob/main/pyproject.toml))
 - `py-ChemShell` >= 20.0.0 (its pre-requisites can be found [here](https://chemshell.org/static_files/py-chemshell/manual/build/html/install.html#prerequisites))
 
