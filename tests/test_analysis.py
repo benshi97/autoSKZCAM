@@ -471,7 +471,7 @@ def test_analyze_calculations(ref_EmbeddedCluster, tmp_path):
         ValueError,
         match="The embedded_cluster_path or EmbeddedCluster object must be provided.",
     ):
-        analyze_calculations(calc_dir=Path(FILE_DIR, "skzcam_files", "calc_dir"))
+        analyze_calculations(calc_dir=Path(FILE_DIR, "skzcam_files", "calc_dir1"))
 
     test_EmbeddedCluster = deepcopy(ref_EmbeddedCluster)
     test_EmbeddedCluster.skzcam_calcs = None
