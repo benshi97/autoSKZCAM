@@ -9,7 +9,11 @@ from ase.io.orca import write_orca
 from quacc import change_settings
 from quacc.calculators.mrcc.io import write_mrcc
 
-from autoSKZCAM.analysis import analyze_calculations, compute_skzcam_int_ene
+from autoSKZCAM.analysis import (
+    analyze_calculations,
+    compute_skzcam_int_ene,
+    parse_energy,
+)
 from autoSKZCAM.embed import CreateEmbeddedCluster
 from autoSKZCAM.oniom import Prepare
 from autoSKZCAM.quacc import static_job_mrcc, static_job_orca
@@ -37,8 +41,6 @@ def skzcam_analyse(
         The CreateEmbeddedCluster object containing the embedded cluster.
     OniomInfo
         A dictionary containing the information about the ONIOM layers.
-    print_results
-        If True, displays the results
 
     Returns
     -------
@@ -61,10 +63,13 @@ def skzcam_analyse(
         EmbeddedCluster = np.load(embedded_cluster_npy_path, allow_pickle=True).item()
 
     # Load the OniomInfo dictionary if it is not provided
-    if EmbeddedCluster.OniomInfo is None and OniomInfo is None:
-        raise ValueError(
-            "The OniomInfo dictionary must be provided in EmbeddedCluster or as an argument."
-        )
+    if EmbeddedCluster.OniomInfo is None:
+        if OniomInfo is None:
+            raise ValueError(
+                "The OniomInfo dictionary must be provided in EmbeddedCluster or as an argument."
+            )
+        EmbeddedCluster.OniomInfo = OniomInfo
+
     if EmbeddedCluster.OniomInfo is not None and OniomInfo is None:
         OniomInfo = EmbeddedCluster.OniomInfo
 
@@ -98,11 +103,10 @@ def skzcam_eint_flow(
 
     Returns
     -------
-    CalculatorInfo
-        A dictionary containing the cluster number as key and a dictionary of ASE calculators for the calculations that have been performed.
+    None
     """
 
-    # Generate the embedded clusters
+    # Generate the skzcam embedded clusters
     skzcam_generate_job(EmbeddedCluster, **kwargs)
 
     # Perform the calculations on the embedded clusters
@@ -278,35 +282,69 @@ def skzcam_calculate_job(
                     EmbeddedCluster.skzcam_calcs[cluster_num][calculation_label][
                         structure
                     ].calc.directory = system_path
-                    if use_quacc:
-                        calc_parameters = EmbeddedCluster.skzcam_calcs[cluster_num][
-                            calculation_label
-                        ][structure].calc.parameters
-                        with change_settings(
-                            {
-                                "RESULTS_DIR": system_path,
-                                "CREATE_UNIQUE_DIR": False,
-                                "GZIP_FILES": False,
-                            }
-                        ):
-                            if code == "mrcc":
-                                static_job_mrcc(
-                                    EmbeddedCluster.skzcam_calcs[cluster_num][
-                                        calculation_label
-                                    ][structure],
-                                    **calc_parameters,
-                                )
-                            elif code == "orca":
-                                static_job_orca(
-                                    EmbeddedCluster.skzcam_calcs[cluster_num][
-                                        calculation_label
-                                    ][structure],
-                                    **calc_parameters,
-                                )
-                    else:
-                        EmbeddedCluster.skzcam_calcs[cluster_num][calculation_label][
-                            structure
-                        ].get_potential_energy()
+                    # Check whether the calculation has already been performed
+                    if code == "mrcc":
+                        # Simply read calculation if it has already been performed
+                        if Path(system_path, "mrcc.out").exists():
+                            final_energy = parse_energy(
+                                Path(system_path, "mrcc.out"), code=code
+                            )
+                            EmbeddedCluster.skzcam_calcs[cluster_num][
+                                calculation_label
+                            ][structure].results = final_energy
+
+                        else:
+                            if use_quacc:
+                                calc_parameters = EmbeddedCluster.skzcam_calcs[
+                                    cluster_num
+                                ][calculation_label][structure].calc.parameters
+                                with change_settings(
+                                    {
+                                        "RESULTS_DIR": system_path,
+                                        "CREATE_UNIQUE_DIR": False,
+                                        "GZIP_FILES": False,
+                                    }
+                                ):
+                                    static_job_mrcc(
+                                        EmbeddedCluster.skzcam_calcs[cluster_num][
+                                            calculation_label
+                                        ][structure],
+                                        **calc_parameters,
+                                    )
+                            else:
+                                EmbeddedCluster.skzcam_calcs[cluster_num][
+                                    calculation_label
+                                ][structure].get_potential_energy()
+                    elif code == "orca":
+                        if Path(system_path, "orca.out").exists():
+                            final_energy = parse_energy(
+                                Path(system_path, "orca.out"), code=code
+                            )
+                            EmbeddedCluster.skzcam_calcs[cluster_num][
+                                calculation_label
+                            ][structure].results = final_energy
+                        else:
+                            if use_quacc:
+                                calc_parameters = EmbeddedCluster.skzcam_calcs[
+                                    cluster_num
+                                ][calculation_label][structure].calc.parameters
+                                with change_settings(
+                                    {
+                                        "RESULTS_DIR": system_path,
+                                        "CREATE_UNIQUE_DIR": False,
+                                        "GZIP_FILES": False,
+                                    }
+                                ):
+                                    static_job_orca(
+                                        EmbeddedCluster.skzcam_calcs[cluster_num][
+                                            calculation_label
+                                        ][structure],
+                                        **calc_parameters,
+                                    )
+                            else:
+                                EmbeddedCluster.skzcam_calcs[cluster_num][
+                                    calculation_label
+                                ][structure].get_potential_energy()
 
 
 def skzcam_write_inputs(

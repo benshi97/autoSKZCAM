@@ -273,7 +273,7 @@ def test_skzcam_analyse(tmp_path, ref_EmbeddedCluster1):
         match="Either the EmbeddedCluster object must be provided or embedded_cluster_npy_path is set or embedded_cluster.npy is provided in calc_dir.",
     ):
         skzcam_int_ene = skzcam_analyse(
-            calc_dir=Path(FILE_DIR, "skzcam_files", "calc_dir"),
+            calc_dir=Path(FILE_DIR, "skzcam_files", "calc_dir1"),
             OniomInfo=None,
             EmbeddedCluster=None,
         )
