@@ -326,6 +326,9 @@ class CreateEmbeddedCluster:
                     cluster_atoms = quantum_atoms + ecp_atoms
                 else:
                     cluster_atoms = quantum_atoms
+
+                cluster_atoms.set_pbc(False)
+                cluster_atoms.set_cell([0, 0, 0])
                 write(
                     Path(write_clusters_path, f"SKZCAM_cluster_{idx}.xyz"),
                     cluster_atoms,

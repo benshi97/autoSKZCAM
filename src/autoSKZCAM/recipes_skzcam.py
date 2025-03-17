@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from copy import deepcopy
 from pathlib import Path
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Literal
 
 import numpy as np
 from ase.io.orca import write_orca
@@ -87,6 +87,7 @@ def skzcam_analyse(
 def skzcam_eint_flow(
     EmbeddedCluster: CreateEmbeddedCluster,
     OniomInfo: dict[str, OniomLayerInfo],
+    capped_ecp: dict[Literal['mrcc','orca'], str] | None = None,
     **kwargs,
 ):
     """
@@ -110,7 +111,7 @@ def skzcam_eint_flow(
     skzcam_generate_job(EmbeddedCluster, **kwargs)
 
     # Perform the calculations on the embedded clusters
-    skzcam_calculate_job(EmbeddedCluster, OniomInfo, **kwargs)
+    skzcam_calculate_job(EmbeddedCluster, OniomInfo, capped_ecp=capped_ecp, **kwargs)
 
 
 def skzcam_initialise(
@@ -238,6 +239,8 @@ def skzcam_calculate_job(
     dryrun: bool = False,
     use_quacc: bool = False,
     calc_dir: str | Path = "calc_dir",
+    capped_ecp: dict[Literal['mrcc', 'orca'], str] | None = None,
+    **kwargs,  # noqa ARG001
 ):
     """
     Perform the skzcam calculations on the embedded clusters.
@@ -256,7 +259,7 @@ def skzcam_calculate_job(
     """
 
     # Prepare the embedded cluster for the calculations
-    Prepare(EmbeddedCluster=EmbeddedCluster, OniomInfo=OniomInfo).create_cluster_calcs()
+    Prepare(EmbeddedCluster=EmbeddedCluster, OniomInfo=OniomInfo, capped_ecp=capped_ecp).create_cluster_calcs()
 
     # Set the OniomInfo attribute
     EmbeddedCluster.OniomInfo = OniomInfo
