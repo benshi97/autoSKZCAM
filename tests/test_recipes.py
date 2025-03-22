@@ -88,7 +88,7 @@ def test_get_final_autoSKZCAM_Hads(ref_EmbeddedCluster1):
         },
     }
 
-    skzcam_int_ene = skzcam_analyse(
+    skzcam_int_ene, oniom_layer_int_ene = skzcam_analyse(
         calc_dir=Path(FILE_DIR, "skzcam_files", "calc_dir"),
         OniomInfo=OniomInfo,
         EmbeddedCluster=ref_EmbeddedCluster1,

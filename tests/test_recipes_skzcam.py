@@ -250,7 +250,7 @@ def test_skzcam_analyse(tmp_path, ref_EmbeddedCluster1):
         },
     }
 
-    skzcam_int_ene = skzcam_analyse(
+    skzcam_int_ene, oniom_layer_int_ene = skzcam_analyse(
         calc_dir=Path(FILE_DIR, "skzcam_files", "calc_dir"),
         OniomInfo=OniomInfo,
         EmbeddedCluster=ref_EmbeddedCluster1,
@@ -272,7 +272,7 @@ def test_skzcam_analyse(tmp_path, ref_EmbeddedCluster1):
         ValueError,
         match="Either the EmbeddedCluster object must be provided or embedded_cluster_npy_path is set or embedded_cluster.npy is provided in calc_dir.",
     ):
-        skzcam_int_ene = skzcam_analyse(
+        skzcam_int_ene, oniom_layer_int_ene = skzcam_analyse(
             calc_dir=Path(FILE_DIR, "skzcam_files", "calc_dir1"),
             OniomInfo=None,
             EmbeddedCluster=None,
@@ -285,7 +285,7 @@ def test_skzcam_analyse(tmp_path, ref_EmbeddedCluster1):
         ValueError,
         match="The OniomInfo dictionary must be provided in EmbeddedCluster or as an argument.",
     ):
-        skzcam_int_ene = skzcam_analyse(
+        skzcam_int_ene, oniom_layer_int_ene = skzcam_analyse(
             calc_dir=Path(FILE_DIR, "skzcam_files", "calc_dir"),
             OniomInfo=None,
             EmbeddedCluster=wrong_EmbeddedCluster,
@@ -293,7 +293,7 @@ def test_skzcam_analyse(tmp_path, ref_EmbeddedCluster1):
 
     ref_EmbeddedCluster2 = deepcopy(ref_EmbeddedCluster1)
     ref_EmbeddedCluster2.OniomInfo = OniomInfo
-    skzcam_int_ene = skzcam_analyse(
+    skzcam_int_ene, oniom_layer_int_ene = skzcam_analyse(
         calc_dir=Path(FILE_DIR, "skzcam_files", "calc_dir"),
         OniomInfo=None,
         EmbeddedCluster=ref_EmbeddedCluster2,
@@ -306,12 +306,12 @@ def test_skzcam_analyse(tmp_path, ref_EmbeddedCluster1):
     calc_dir = Path(tmp_path, "calc_dir")
     shutil.copytree(Path(FILE_DIR, "skzcam_files", "calc_dir"), calc_dir)
     np.save(Path(calc_dir, "embedded_cluster.npy"), ref_EmbeddedCluster2)
-    skzcam_int_ene = skzcam_analyse(calc_dir=calc_dir)
+    skzcam_int_ene, oniom_layer_int_ene = skzcam_analyse(calc_dir=calc_dir)
 
     for key, value in ref_skzcam_int_ene.items():
         assert_allclose(skzcam_int_ene[key], value, rtol=1e-05, atol=1e-07)
 
-    skzcam_int_ene = skzcam_analyse(
+    skzcam_int_ene, oniom_layer_int_ene = skzcam_analyse(
         calc_dir=Path(FILE_DIR, "skzcam_files", "calc_dir"),
         embedded_cluster_npy_path=Path(calc_dir, "embedded_cluster.npy"),
     )

@@ -95,7 +95,7 @@ def test_compute_skzcam_int_ene(ref_EmbeddedCluster):
         calc_dir=Path(FILE_DIR, "skzcam_files", "calc_dir"),
         EmbeddedCluster=ref_EmbeddedCluster,
     )
-    skzcam_int_ene = compute_skzcam_int_ene(
+    skzcam_int_ene, oniom_layer_int_ene = compute_skzcam_int_ene(
         skzcam_calcs_analysis=skzcam_calcs_analysis, OniomInfo=OniomInfo
     )
 
@@ -159,7 +159,7 @@ def test_compute_skzcam_int_ene(ref_EmbeddedCluster):
         calc_dir=Path(FILE_DIR, "skzcam_files", "calc_dir"),
         EmbeddedCluster=ref_EmbeddedCluster,
     )
-    skzcam_int_ene = compute_skzcam_int_ene(
+    skzcam_int_ene, oniom_layer_int_ene = compute_skzcam_int_ene(
         skzcam_calcs_analysis=skzcam_calcs_analysis, OniomInfo=OniomInfo
     )
     assert_allclose(
@@ -219,7 +219,7 @@ def test_compute_skzcam_int_ene(ref_EmbeddedCluster):
         calc_dir=Path(FILE_DIR, "skzcam_files", "calc_dir"),
         EmbeddedCluster=ref_EmbeddedCluster,
     )
-    skzcam_int_ene = compute_skzcam_int_ene(
+    skzcam_int_ene, oniom_layer_int_ene = compute_skzcam_int_ene(
         skzcam_calcs_analysis=skzcam_calcs_analysis, OniomInfo=OniomInfo
     )
     assert skzcam_int_ene["Overall Eint"][0] == pytest.approx(
@@ -250,7 +250,7 @@ def test_compute_skzcam_int_ene(ref_EmbeddedCluster):
         calc_dir=Path(FILE_DIR, "skzcam_files", "calc_dir"),
         EmbeddedCluster=ref_EmbeddedCluster,
     )
-    skzcam_int_ene = compute_skzcam_int_ene(
+    skzcam_int_ene, oniom_layer_int_ene = compute_skzcam_int_ene(
         skzcam_calcs_analysis=skzcam_calcs_analysis, OniomInfo=OniomInfo
     )
     assert skzcam_int_ene["Overall Eint"][1] == pytest.approx(0)
