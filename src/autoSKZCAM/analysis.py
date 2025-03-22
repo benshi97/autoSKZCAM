@@ -34,6 +34,7 @@ def compute_skzcam_int_ene(
     """
 
     skzcam_int_ene = {layer_name: [0, 0] for layer_name in OniomInfo}
+    oniom_layer_int_ene = {}
 
     for layer_name, oniom_layer in OniomInfo.items():
         cluster_level_int_ene = {"ll": [], "hl": []}
@@ -141,6 +142,7 @@ def compute_skzcam_int_ene(
 
         cluster_level_int_ene["ll"] = np.array(cluster_level_int_ene["ll"])
         cluster_level_int_ene["hl"] = np.array(cluster_level_int_ene["hl"])
+        oniom_layer_int_ene[layer_name] = cluster_level_int_ene
 
         if "extrapolate" in layer_name.lower() and "bulk" in layer_name.lower():
             skzcam_int_ene[layer_name] = [
@@ -208,7 +210,7 @@ def compute_skzcam_int_ene(
 
     return {
         key: [value[0] * 1000, value[1] * 1000] for key, value in skzcam_int_ene.items()
-    }
+    }, oniom_layer_int_ene
 
 
 def _get_method_int_ene(
