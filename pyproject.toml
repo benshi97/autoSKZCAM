@@ -124,8 +124,8 @@ lint.ignore = [
   "ISC001",   # single-line-implicit-string-concatenation
   "PLR",    # Design related pylint codes
   "PERF203",  # try-except-in-loop
-  "PT004",  # Fixture does not return anything
   "RET505", # Unnecessary `elif` after `return`
+  "A005",
 ]
 src = ["src"]
 lint.unfixable = [
