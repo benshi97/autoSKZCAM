@@ -229,16 +229,16 @@ class MRCCInputGenerator:
             return (
                 f"""
 basis_sm=special
-{self._create_atomtype_basis(quantum_region=quantum_region, ecp_region=ecp_region, element_basis_info={element: 'def2-SVP' for element in self.element_info})}
+{self._create_atomtype_basis(quantum_region=quantum_region, ecp_region=ecp_region, element_basis_info={element: "def2-SVP" for element in self.element_info})}
 
 basis=special
-{self._create_atomtype_basis(quantum_region=quantum_region, ecp_region=ecp_region, element_basis_info={element: self.element_info[element]['basis'] for element in self.element_info})}
+{self._create_atomtype_basis(quantum_region=quantum_region, ecp_region=ecp_region, element_basis_info={element: self.element_info[element]["basis"] for element in self.element_info})}
 
 dfbasis_scf=special
-{self._create_atomtype_basis(quantum_region=quantum_region, ecp_region=ecp_region, element_basis_info={element: self.element_info[element]['ri_scf_basis'] for element in self.element_info})}
+{self._create_atomtype_basis(quantum_region=quantum_region, ecp_region=ecp_region, element_basis_info={element: self.element_info[element]["ri_scf_basis"] for element in self.element_info})}
 
 dfbasis_cor=special
-{self._create_atomtype_basis(quantum_region=quantum_region, ecp_region=ecp_region, element_basis_info={element: self.element_info[element]['ri_cwft_basis'] for element in self.element_info})}
+{self._create_atomtype_basis(quantum_region=quantum_region, ecp_region=ecp_region, element_basis_info={element: self.element_info[element]["ri_cwft_basis"] for element in self.element_info})}
 
 """
                 + atomtype_ecp
@@ -330,20 +330,20 @@ dfbasis_cor=special
 
         # Add the charge and core electron information to skzcam_input_str
         self.skzcam_input_str["adsorbate_slab"] += f"""charge={charge}
-mult={self.multiplicities['adsorbate_slab']}
-core={int(core['adsorbate_slab']/2)}
+mult={self.multiplicities["adsorbate_slab"]}
+core={int(core["adsorbate_slab"] / 2)}
 unit=angs
 geom=xyz
 """
         self.skzcam_input_str["adsorbate"] += f"""charge=0
-mult={self.multiplicities['adsorbate']}
-core={int(core['adsorbate']/2)}
+mult={self.multiplicities["adsorbate"]}
+core={int(core["adsorbate"] / 2)}
 unit=angs
 geom=xyz
 """
         self.skzcam_input_str["slab"] += f"""charge={charge}
-mult={self.multiplicities['slab']}
-core={int(core['slab']/2)}
+mult={self.multiplicities["slab"]}
+core={int(core["slab"] / 2)}
 unit=angs
 geom=xyz
 """
@@ -591,21 +591,21 @@ class ORCAInputGenerator:
         # Add the coords strings for the adsorbate-slab complex, adsorbate, and slab
         self.orcablocks["adsorbate_slab"] += f"""%coords
 CTyp xyz
-Mult {self.multiplicities['adsorbate_slab']}
+Mult {self.multiplicities["adsorbate_slab"]}
 Units angs
 Charge {charge}
 coords
 """
         self.orcablocks["adsorbate"] += f"""%coords
 CTyp xyz
-Mult {self.multiplicities['adsorbate']}
+Mult {self.multiplicities["adsorbate"]}
 Units angs
 Charge 0
 coords
 """
         self.orcablocks["slab"] += f"""%coords
 CTyp xyz
-Mult {self.multiplicities['slab']}
+Mult {self.multiplicities["slab"]}
 Units angs
 Charge {charge}
 coords
@@ -746,10 +746,10 @@ def create_atom_coord_string(
         raise ValueError("Point charge value must be given for atoms with ECP info.")
 
     if is_ghost_atom:
-        atom_coord_str = f"{(atom.symbol + ':').ljust(3)} {' '*16} {atom.position[0]:-16.11f} {atom.position[1]:-16.11f} {atom.position[2]:-16.11f}\n"
+        atom_coord_str = f"{(atom.symbol + ':').ljust(3)} {' ' * 16} {atom.position[0]:-16.11f} {atom.position[1]:-16.11f} {atom.position[2]:-16.11f}\n"
     elif is_capped_ecp:
         atom_coord_str = f"{(atom.symbol + '>').ljust(3)} {pc_charge:-16.11f} {atom.position[0]:-16.11f} {atom.position[1]:-16.11f} {atom.position[2]:-16.11f}\ncappedECP\n"
     else:
-        atom_coord_str = f"{atom.symbol.ljust(3)} {' '*16} {atom.position[0]:-16.11f} {atom.position[1]:-16.11f} {atom.position[2]:-16.11f}\n"
+        atom_coord_str = f"{atom.symbol.ljust(3)} {' ' * 16} {atom.position[0]:-16.11f} {atom.position[1]:-16.11f} {atom.position[2]:-16.11f}\n"
 
     return atom_coord_str
