@@ -32,7 +32,7 @@ class Prepare:
         OniomInfo: dict[str, OniomLayerInfo],
         capped_ecp: dict[Literal["mrcc", "orca"], str] | None = None,
         multiplicities: dict[str, int] | None = None,
-        **kwargs, # noqa ARG002
+        **kwargs,  # noqa ARG002
     ) -> None:
         """
         Parameters
