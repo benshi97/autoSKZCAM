@@ -87,7 +87,7 @@ def skzcam_analyse(
 def skzcam_eint_flow(
     EmbeddedCluster: CreateEmbeddedCluster,
     OniomInfo: dict[str, OniomLayerInfo],
-    capped_ecp: dict[Literal['mrcc','orca'], str] | None = None,
+    capped_ecp: dict[Literal["mrcc", "orca"], str] | None = None,
     **kwargs,
 ):
     """
@@ -239,7 +239,7 @@ def skzcam_calculate_job(
     dryrun: bool = False,
     use_quacc: bool = False,
     calc_dir: str | Path = "calc_dir",
-    capped_ecp: dict[Literal['mrcc', 'orca'], str] | None = None,
+    capped_ecp: dict[Literal["mrcc", "orca"], str] | None = None,
     **kwargs,  # noqa ARG001
 ):
     """
@@ -259,7 +259,9 @@ def skzcam_calculate_job(
     """
 
     # Prepare the embedded cluster for the calculations
-    Prepare(EmbeddedCluster=EmbeddedCluster, OniomInfo=OniomInfo, capped_ecp=capped_ecp).create_cluster_calcs()
+    Prepare(
+        EmbeddedCluster=EmbeddedCluster, OniomInfo=OniomInfo, capped_ecp=capped_ecp
+    ).create_cluster_calcs()
 
     # Set the OniomInfo attribute
     EmbeddedCluster.OniomInfo = OniomInfo
