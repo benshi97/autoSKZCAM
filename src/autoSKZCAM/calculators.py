@@ -230,20 +230,20 @@ def read_orca_energy(lines: list[str]) -> EnergyInfo:
     -------
     EnergyInfo
         Dictionary with the energy components. The keys are:
-        
-        - **energy** (`float`):  
+
+        - **energy** (`float`):
           Total energy (not computed in this function).
-          
-        - **scf_energy** (`float`):  
+
+        - **scf_energy** (`float`):
           SCF energy.
-          
-        - **mp2_corr_energy** (`float`):  
+
+        - **mp2_corr_energy** (`float`):
           MP2 correlation energy.
-          
-        - **ccsd_corr_energy** (`float`):  
+
+        - **ccsd_corr_energy** (`float`):
           CCSD correlation energy.
-          
-        - **ccsdt_corr_energy** (`float`):  
+
+        - **ccsdt_corr_energy** (`float`):
           CCSD(T) correlation energy.
     """
 
@@ -289,20 +289,20 @@ def read_orca_outputs(output_file_path: Path | str) -> EnergyInfo:
     -------
     EnergyInfo
         Dictionary with the energy components. The keys are:
-        
-        - **energy** (`float`):  
+
+        - **energy** (`float`):
           Total energy (not computed in this function).
-          
-        - **scf_energy** (`float`):  
+
+        - **scf_energy** (`float`):
           SCF energy.
-          
-        - **mp2_corr_energy** (`float`):  
+
+        - **mp2_corr_energy** (`float`):
           MP2 correlation energy.
-          
-        - **ccsd_corr_energy** (`float`):  
+
+        - **ccsd_corr_energy** (`float`):
           CCSD correlation energy.
-          
-        - **ccsdt_corr_energy** (`float`):  
+
+        - **ccsdt_corr_energy** (`float`):
           CCSD(T) correlation energy.
     """
     with Path.open(output_file_path) as output_textio:

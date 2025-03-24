@@ -19,7 +19,12 @@ from autoSKZCAM.oniom import Prepare
 from autoSKZCAM.quacc import static_job_mrcc, static_job_orca
 
 if TYPE_CHECKING:
-    from autoSKZCAM.types import ElementStr, OniomLayerInfo, SkzcamOutput, CalculatorInfo
+    from autoSKZCAM.types import (
+        CalculatorInfo,
+        ElementStr,
+        OniomLayerInfo,
+        SkzcamOutput,
+    )
 
 
 def skzcam_analyse(
