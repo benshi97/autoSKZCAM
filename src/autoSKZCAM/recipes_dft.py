@@ -978,7 +978,7 @@ def resort_atoms(initial_atoms: Atoms, final_atoms: Atoms) -> Atoms:
     symbols, _ = count_symbols(initial_atoms, exclude=())
 
     # Create sorting list
-    srt = []  # type: List[int]
+    srt = []  # type: list[int]
 
     for symbol in symbols:
         for m, atom in enumerate(initial_atoms):
