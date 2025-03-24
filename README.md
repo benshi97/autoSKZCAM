@@ -3,6 +3,7 @@
 </div>
 
 # `autoSKZCAM` – Accurate Ionic Surface Predictions
+[![codecov](https://codecov.io/github/benshi97/autoSKZCAM/graph/badge.svg?token=WNMCJ9G1AY)](https://codecov.io/github/benshi97/autoSKZCAM)
 
 `autoSKZCAM` is a computational framework for performing accurate yet efficient predictions of ionic surfaces.
 
