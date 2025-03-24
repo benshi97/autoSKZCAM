@@ -1,3 +1,5 @@
+"""Input and output functions for MRCC and ORCA."""
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
@@ -22,7 +24,8 @@ if TYPE_CHECKING:
 
 class MRCCInputGenerator:
     """
-    A class to generate the SKZCAM input for the MRCC ASE calculator.
+    A class to generate the inputs necessary to perform SKZCAM calculators for the
+    MRCC ASE calculator found in [QuAcc](https://github.com/Quantum-Accelerators/quacc/tree/main/src/quacc/calculators/mrcc).
     """
 
     def __init__(
@@ -35,20 +38,22 @@ class MRCCInputGenerator:
         multiplicities: MultiplicityDict | None = None,
     ) -> None:
         """
+        Initialize the MRCCInputGenerator class.
+
         Parameters
         ----------
         adsorbate_slab_embedded_cluster
-            The ASE Atoms object containing the atomic coordinates and atomic charges from the .pun file, as well as the atom type. This object is created within the [quacc.atoms.skzcam.CreateEmbeddedCluster][] class.
+            The ASE Atoms object containing the atomic coordinates and atomic charges from the .pun file, as well as the atom type. This object is created within the [autoSKZCAM.embed.CreateEmbeddedCluster][] class.
         quantum_cluster_indices
-            A list containing the indices of the atoms in one quantum cluster. These indices are created within the [quacc.atoms.skzcam.CreateEmbeddedCluster][] class.
+            A list containing the indices of the atoms in one quantum cluster. These indices are created within the [autoSKZCAM.embed.CreateEmbeddedCluster][] class.
         ecp_region_indices
-            A list containing the indices of the atoms in the corresponding ECP region of one quantum cluster. These indices are provided by the [quacc.atoms.skzcam.CreateEmbeddedCluster][] class.
+            A list containing the indices of the atoms in the corresponding ECP region of one quantum cluster. These indices are provided by the [autoSKZCAM.embed.CreateEmbeddedCluster][] class.
         element_info
-            A dictionary with elements as keys which gives the (1) number of core electrons as 'core', (2) basis set as 'basis', (3) effective core potential as 'ecp', (4) resolution-of-identity/density-fitting auxiliary basis set for DFT/HF calculations as 'ri_scf_basis' and (5) resolution-of-identity/density-fitting for correlated wave-function methods as 'ri_cwft_basis'.
+            A dictionary with elements as keys which gives the (1) number of core electrons as `core`, (2) basis set as `basis`, (3) effective core potential as `ecp`, (4) resolution-of-identity/density-fitting auxiliary basis set for DFT/HF calculations as `ri_scf_basis` and (5) resolution-of-identity/density-fitting for correlated wave-function methods as `ri_cwft_basis`.
         include_cp
             If True, the coords strings will include the counterpoise correction (i.e., ghost atoms) for the adsorbate and slab.
         multiplicities
-            The multiplicity of the adsorbate-slab complex, adsorbate and slab respectively, with the keys 'adsorbate_slab', 'adsorbate', and 'slab'.
+            The multiplicity of the adsorbate-slab complex, adsorbate and slab respectively, with the keys `adsorbate_slab`, `adsorbate`, and `slab`.
 
         Returns
         -------
@@ -180,10 +185,6 @@ class MRCCInputGenerator:
     def create_genbas_file(self) -> str:
         """
         Create a GENBAS file that can be read by MRCC. This contains the capped ECP in CFOUR format as well as empty basis sets for the capped ECP.
-
-        Parameters
-        ----------
-        None
 
         Returns
         -------
@@ -412,7 +413,7 @@ geom=xyz
 
     def _generate_point_charge_block(self) -> str:
         """
-        Create the point charge block for the MRCC input file. This requires the embedded_cluster Atoms object containing both atom_type and oxi_states arrays, as well as the indices of the quantum cluster and ECP region. Such arrays are created by the [quacc.atoms.skzcam.CreateEmbeddedCluster][] class.
+        Create the point charge block for the MRCC input file. This requires the embedded_cluster Atoms object containing both atom_type and oxi_states arrays, as well as the indices of the quantum cluster and ECP region. Such arrays are created by the [autoSKZCAM.embed.CreateEmbeddedCluster][] class.
 
         Returns
         -------
@@ -456,20 +457,22 @@ class ORCAInputGenerator:
         multiplicities: MultiplicityDict | None = None,
     ) -> None:
         """
+        Initializes the ORCA input generator.
+
         Parameters
         ----------
         adsorbate_slab_embedded_cluster
-            The ASE Atoms object containing the atomic coordinates and atomic charges from the .pun file, as well as the atom type. This object is created by the [quacc.atoms.skzcam.CreateEmbeddedCluster][] class.
+            The ASE Atoms object containing the atomic coordinates and atomic charges from the .pun file, as well as the atom type. This object is created by the [autoSKZCAM.embed.CreateEmbeddedCluster][] class.
         quantum_cluster_indices
-            A list containing the indices of the atoms in each quantum cluster. These indices are provided by the [quacc.atoms.skzcam.CreateEmbeddedCluster][] class.
+            A list containing the indices of the atoms in each quantum cluster. These indices are provided by the [autoSKZCAM.embed.CreateEmbeddedCluster][] class.
         ecp_region_indices
-            A list containing the indices of the atoms in each ECP region. These indices are provided by the [quacc.atoms.skzcam.CreateEmbeddedCluster][] class.
+            A list containing the indices of the atoms in each ECP region. These indices are provided by the [autoSKZCAM.embed.CreateEmbeddedCluster][] class.
         element_info
-            A dictionary with elements as keys which gives the (1) number of core electrons as 'core', (2) basis set as 'basis', (3) effective core potential as 'ecp', (4) resolution-of-identity/density-fitting auxiliary basis set for DFT/HF calculations as 'ri_scf_basis' and (5) resolution-of-identity/density-fitting for correlated wave-function methods as 'ri_cwft_basis'.
+            A dictionary with elements as keys which gives the (1) number of core electrons as `core`, (2) basis set as `basis`, (3) effective core potential as `ecp`, (4) resolution-of-identity/density-fitting auxiliary basis set for DFT/HF calculations as `ri_scf_basis` and (5) resolution-of-identity/density-fitting for correlated wave-function methods as `ri_cwft_basis`.
         include_cp
             If True, the coords strings will include the counterpoise correction (i.e., ghost atoms) for the adsorbate and slab.
         multiplicities
-            The multiplicity of the adsorbate-slab complex, adsorbate and slab respectively, with the keys 'adsorbate_slab', 'adsorbate', and 'slab'.
+            The multiplicity of the adsorbate-slab complex, adsorbate and slab respectively, with the keys `adsorbate_slab`, `adsorbate`, and `slab`.
 
         Returns
         -------
@@ -547,10 +550,6 @@ class ORCAInputGenerator:
     def create_point_charge_file(self) -> str:
         """
         Create a point charge file that can be read by ORCA. This requires the embedded_cluster Atoms object containing both atom_type and oxi_states arrays, as well as the indices of the quantum cluster and ECP region.
-
-        Parameters
-        ----------
-        None
 
         Returns
         -------
@@ -726,7 +725,7 @@ def create_atom_coord_string(
         The ASE Atom (not Atoms) object containing the atomic coordinates.
     is_ghost_atom
         If True, then the atom is a ghost atom.
-    is_capping_ecp
+    is_capped_ecp
         If True, then the atom is a capped_ECP.
     pc_charge
         The point charge value for the ECP region atom.

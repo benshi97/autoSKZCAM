@@ -3,22 +3,16 @@ site_author: YourName
 site_description: >-
   This is the autoSKZCAM package!
 nav:
-  - Home: index.md
-  - Overview:
-      - example_docs/intro/why.md
-      - example_docs/intro/resources.md
-  - Setup:
-      - example_docs/setup/prep.md
-      - example_docs/setup/name.md
-      - example_docs/setup/basics.md
-  - Installation:
-      - example_docs/installation/pyproject.md
-      - example_docs/installation/install.md
+  - Overview: 
+      - index.md
+      - installation/install.md
+  - Examples: 
+      - CO on MgO(001): https://github.com/benshi97/autoSKZCAM/blob/main/example/autoskzcam.ipynb
   - Code Documentation: reference/ # keep me!
   - About:
-      - example_docs/about/changelog.md
-      - example_docs/about/conduct.md
-      - example_docs/about/license.md
+      - about/changelog.md
+      - about/conduct.md
+      - about/license.md
 
 repo_url: https://github.com/benshi97/autoSKZCAM/
 edit_uri: blob/main/docs/
@@ -43,8 +37,8 @@ theme:
     - toc.follow
   name: material
   palette:
-    primary: orange
-    scheme: slate
+    primary: grey
+    scheme: default
 
 markdown_extensions:
   - abbr

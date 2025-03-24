@@ -30,14 +30,6 @@ def static_job_mrcc(
     ----------
     atoms
         Atoms object
-    charge
-        Charge of the system.
-    spin_multiplicity
-        Multiplicity of the system.
-    method
-        The method [e.g., PBE or CCSD(T)] to use, this is the value for the calc keyword.
-    basis
-        Basis set
     copy_files
         Files to copy (and decompress) from source to the runtime directory.
     **calc_kwargs
@@ -47,7 +39,7 @@ def static_job_mrcc(
     Returns
     -------
     RunSchema
-        Dictionary of results from [quacc.schemas.ase.Summarize][]
+        Dictionary of results from [quacc.schemas.ase.Summarize](https://quantum-accelerators.github.io/quacc/reference/quacc/schemas/ase.html)
     """
 
     # Convert a charge string to an integer
@@ -80,15 +72,15 @@ def static_job_orca(
     orcasimpleinput
         List of `orcasimpleinput` swaps for the calculator. To remove entries
         from the defaults, put a `#` in front of the name. Refer to the
-        [ase.calculators.orca.ORCA][] calculator for details on `orcasimpleinput`.
+        [ase.calculators.orca.ORCA](https://wiki.fysik.dtu.dk/ase/ase/calculators/orca.html) calculator for details on `orcasimpleinput`.
     orcablocks
         List of `orcablocks` swaps for the calculator. To remove entries
         from the defaults, put a `#` in front of the name. Refer to the
-        [ase.calculators.orca.ORCA][] calculator for details on `orcablocks`.
+        [ase.calculators.orca.ORCA](https://wiki.fysik.dtu.dk/ase/ase/calculators/orca.html) calculator for details on `orcablocks`.
+    pointcharges
+        File containing point charges in XYZ format.
     copy_files
         Files to copy (and decompress) from source to the runtime directory.
-    additional_fields
-        Additional fields to add to the results dictionary.
 
     Returns
     -------

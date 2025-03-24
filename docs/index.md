@@ -1,5 +1,11 @@
-# autoSKZCAM
+# Home
 
-Welcome to the documentation for the `autoSKZCAM` code! Here you will find everything you need to get started with your own Python package.
+`autoSKZCAM` is a computational framework for performing accurate yet efficient predictions of ionic surfaces.
 
-**Check out the corresponding ⭐[YouTube tutorial](https://www.youtube.com/watch?v=th2CqJ6oBuM)⭐ for a video overview!**
+- `autoSKZCAM` is highly flexible, currently supporting two popular quantum chemistry codes: [MRCC](https://mrcc.hu/) and [ORCA](https://orcaforum.kofo.mpg.de/), combining an arbitrary number electrostatic and mechanical embedding [ONIOM](https://pubs.acs.org/doi/10.1021/cr5004419) layers.
+
+- `autoSKZCAM` is powered by [QuAcc](https://github.com/Quantum-Accelerators/quacc) and provides pre-made surface chemistry workflows that can be efficiently dispatched (and restarted) anywhere: locally, HPC, the cloud, or any combination thereof.
+
+---
+
+![autoSKZCAM logo](images/logo.png)

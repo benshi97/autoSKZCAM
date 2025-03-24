@@ -169,30 +169,26 @@ class MRCC(GenericFileIOCalculator):
 
 
 class ORCA(GenericFileIOCalculator):
-    """Class for doing ORCA calculations.
-
-    Example:
-
-      calc = ORCA(charge=0, mult=1, orcasimpleinput='B3LYP def2-TZVP',
-        orcablocks='%pal nprocs 16 end')
+    """
+    Class for performing ORCA calculations.
     """
 
     def __init__(self, *, profile=None, directory=".", **kwargs):
-        """Construct ORCA-calculator object.
+        """
+        Construct ORCA-calculator object.
 
         Parameters
-        ==========
-        charge: int
-
-        mult: int
-
-        orcasimpleinput : str
-
-        orcablocks: str
+        ----------
+        profile: OrcaProfile
+            The ORCA profile to use.
+        directory: str
+            The directory in which to run the calculation.
+        **kwargs
+            The parameters for the ORCA calculation.
 
 
         Examples
-        ========
+        --------
         Use default values:
 
         >>> from ase.calculators.orca import ORCA
@@ -206,6 +202,10 @@ class ORCA(GenericFileIOCalculator):
         ...         orcablocks="%pal nprocs 16 end",
         ...     ),
         ... )
+
+        Returns
+        -------
+        None
 
         """
 
@@ -229,12 +229,22 @@ def read_orca_energy(lines: list[str]) -> EnergyInfo:
     Returns
     -------
     EnergyInfo
-        Dictionary with the energy components. The keys are the following:
-        - energy : float <-- Total energy which will not be computed in this function.
-        - scf_energy : float <-- SCF energy.
-        - mp2_corr_energy : float <-- MP2 correlation energy.
-        - ccsd_corr_energy : float <-- CCSD correlation energy.
-        - ccsdt_corr_energy : float <-- CCSD(T) correlation energy.
+        Dictionary with the energy components. The keys are:
+        
+        - **energy** (`float`):  
+          Total energy (not computed in this function).
+          
+        - **scf_energy** (`float`):  
+          SCF energy.
+          
+        - **mp2_corr_energy** (`float`):  
+          MP2 correlation energy.
+          
+        - **ccsd_corr_energy** (`float`):  
+          CCSD correlation energy.
+          
+        - **ccsdt_corr_energy** (`float`):  
+          CCSD(T) correlation energy.
     """
 
     energy_dict = {
@@ -278,12 +288,22 @@ def read_orca_outputs(output_file_path: Path | str) -> EnergyInfo:
     Returns
     -------
     EnergyInfo
-        Dictionary with the energy components. The keys are the following:
-        - energy : float | None <-- Total energy of highest available level.
-        - scf_energy : float | None <-- SCF energy.
-        - mp2_corr_energy : float | None <-- MP2 correlation energy.
-        - ccsd_corr_energy : float | None <-- CCSD correlation energy.
-        - ccsdt_corr_energy : float | None <-- CCSD(T) correlation energy.
+        Dictionary with the energy components. The keys are:
+        
+        - **energy** (`float`):  
+          Total energy (not computed in this function).
+          
+        - **scf_energy** (`float`):  
+          SCF energy.
+          
+        - **mp2_corr_energy** (`float`):  
+          MP2 correlation energy.
+          
+        - **ccsd_corr_energy** (`float`):  
+          CCSD correlation energy.
+          
+        - **ccsdt_corr_energy** (`float`):  
+          CCSD(T) correlation energy.
     """
     with Path.open(output_file_path) as output_textio:
         lines = output_textio.readlines()

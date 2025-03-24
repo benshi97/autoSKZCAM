@@ -198,7 +198,7 @@ def dft_ensemble_flow(
         The directory where the calculations will be performed. Defaults to './calc_dir'.
     slab_gen_func : Callable[[Atoms], Atoms]
         The function to generate the slab from the unit cell.
-    adsorbate_gen_func : Callable[[Atoms], Atoms]
+    adsorbate_slab_gen_func : Callable[[Atoms], Atoms]
         The function to generate the adsorbate molecule. It is important that the indices of the adsorbates are always the first indices in the Atoms object, followed by the slab Atoms object.
 
     Returns
@@ -569,12 +569,12 @@ def freq_job(
     **calc_kwargs
         Custom kwargs for the Vasp calculator. Set a value to
         `None` to remove a pre-existing key entirely. For a list of available
-        keys, refer to [quacc.calculators.vasp.vasp.Vasp][].
+        keys, refer to [quacc.calculators.vasp.vasp.Vasp](https://quantum-accelerators.github.io/quacc/reference/quacc/calculators/vasp/vasp.html#quacc.calculators.vasp.vasp.Vasp).
 
     Returns
     -------
     VaspSchema
-        Dictionary of results from [quacc.schemas.vasp.VaspSummarize.run][].
+        Dictionary of results from [quacc.schemas.vasp.VaspSummarize.run](https://quantum-accelerators.github.io/quacc/reference/quacc/schemas/vasp.html#quacc.schemas.vasp.VaspSummarize).
         See the type-hint for the data structure.
     """
     calc_defaults = {
@@ -657,12 +657,12 @@ def static_job(
     **calc_kwargs
         Custom kwargs for the Vasp calculator. Set a value to
         `None` to remove a pre-existing key entirely. For a list of available
-        keys, refer to [quacc.calculators.vasp.vasp.Vasp][].
+        keys, refer to [quacc.calculators.vasp.vasp.Vasp](https://quantum-accelerators.github.io/quacc/reference/quacc/calculators/vasp/vasp.html#quacc.calculators.vasp.vasp.Vasp).
 
     Returns
     -------
     VaspSchema
-        Dictionary of results from [quacc.schemas.vasp.VaspSummarize.run][].
+        Dictionary of results from [quacc.schemas.vasp.VaspSummarize.run](https://quantum-accelerators.github.io/quacc/reference/quacc/schemas/vasp.html#quacc.schemas.vasp.VaspSummarize).
         See the type-hint for the data structure.
     """
     calc_defaults = {
@@ -745,12 +745,12 @@ def relax_job(
     **calc_kwargs
         Custom kwargs for the Vasp calculator. Set a value to
         `None` to remove a pre-existing key entirely. For a list of available
-        keys, refer to the [quacc.calculators.vasp.vasp.Vasp][] calculator.
+        keys, refer to the [quacc.calculators.vasp.vasp.Vasp](https://quantum-accelerators.github.io/quacc/reference/quacc/calculators/vasp/vasp.html#quacc.calculators.vasp.vasp.Vasp) calculator.
 
     Returns
     -------
     VaspSchema
-        Dictionary of results from [quacc.schemas.vasp.VaspSummarize.run][].
+        Dictionary of results from [quacc.schemas.vasp.VaspSummarize.run](https://quantum-accelerators.github.io/quacc/reference/quacc/schemas/vasp.html#quacc.schemas.vasp.VaspSummarize).
         See the type-hint for the data structure.
     """
 
@@ -841,15 +841,17 @@ def adsorbate_slab_rss_flow(
         Files to copy (and decompress) from source to the runtime directory.
     additional_fields
         Additional fields to add to the results dictionary.
+    unique_dir
+        True if a unique directory should be created for each calculation.
     **calc_kwargs
         Custom kwargs for the Vasp calculator. Set a value to
         `None` to remove a pre-existing key entirely. For a list of available
-        keys, refer to the [quacc.calculators.vasp.vasp.Vasp][] calculator.
+        keys, refer to the [quacc.calculators.vasp.vasp.Vasp](https://quantum-accelerators.github.io/quacc/reference/quacc/calculators/vasp/vasp.html#quacc.calculators.vasp.vasp.Vasp) calculator.
 
     Returns
     -------
-    VaspSchema
-        Dictionary of results from [quacc.schemas.vasp.VaspSummarize.run][].
+    dict[str,VaspSchema]
+        Dictionary with RSS calculation number as key and the value is Dictionary of results from [quacc.schemas.vasp.VaspSummarize.run](https://quantum-accelerators.github.io/quacc/reference/quacc/schemas/vasp.html#quacc.schemas.vasp.VaspSummarize).
         See the type-hint for the data structure.
     """
     from ase import neighborlist
@@ -966,6 +968,11 @@ def resort_atoms(initial_atoms: Atoms, final_atoms: Atoms) -> Atoms:
         The initial Atoms object prior to entering the ASE calculator.
     final_atoms : Atoms
         The final Atoms object after being run by the ASE calculator.
+
+    Returns
+    -------
+    Atoms
+        The final Atoms object with the atoms in the same order as the initial Atoms object.
 
     """
     symbols, _ = count_symbols(initial_atoms, exclude=())

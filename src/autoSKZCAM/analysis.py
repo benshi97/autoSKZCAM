@@ -16,7 +16,7 @@ if TYPE_CHECKING:
 
 def compute_skzcam_int_ene(
     skzcam_calcs_analysis: dict[int, list[str]], OniomInfo: dict[str, OniomLayerInfo]
-) -> dict[str, list[float]]:
+) -> (dict[str, list[float]], dict[str, dict[str, np.ndarray]]):
     """
     Computes the interaction energy contributions for each ONIOM layer in the SKZCAM protocol.
 
@@ -31,6 +31,8 @@ def compute_skzcam_int_ene(
     -------
     dict[str,list[float]]
         The interaction energy and error contributions for each ONIOM layer in the SKZCAM protocol.
+    dict[str, dict[str, np.ndarray]]
+        For each ONIOM layer, the interaction energy contributions for each cluster size is stored as a list.
     """
 
     skzcam_int_ene = {layer_name: [0, 0] for layer_name in OniomInfo}
@@ -257,7 +259,7 @@ def extrapolate_to_bulk(x_data: list[float], y_data: list[float]) -> float:
 
     Returns
     -------
-    tuple[float,float,float]
+    float
         The bulk limit, which is the zero intercept of the linear fit.
     """
 
@@ -281,7 +283,7 @@ def get_cbs_extrapolation(
     X_size: Literal["DZ", "TZ", "QZ"] = "DZ",
     Y_size: Literal["TZ", "QZ", "5Z"] = "TZ",
     family: Literal["def2", "cc", "acc", "mixcc"] = "mixcc",
-):
+) -> tuple[float, float, float]:
     """
     Function to perform basis set extrapolation of HF and correlation energies for both the cc-pVXZ and def2-XZVP basis sets
 
@@ -300,7 +302,7 @@ def get_cbs_extrapolation(
     Y_size : str
         Cardinal zeta number of Y basis set
     family : str
-        Basis set family. Options are 'cc', 'def2', 'acc', and 'mixcc'. Where cc is for non-augmented correlation consistent basis sets, def2 is for def2 basis sets, acc is for augmented correlation consistent basis sets while mixcc is for mixed augmented + non-augmented correlation consistent basis sets
+        Basis set family. Options are `cc`, `def2`, `acc`, and `mixcc`. Where cc is for non-augmented correlation consistent basis sets, def2 is for def2 basis sets, acc is for augmented correlation consistent basis sets while mixcc is for mixed augmented + non-augmented correlation consistent basis sets
 
     Returns
     -------
@@ -384,7 +386,8 @@ def analyze_calculations(
 
     Returns
     -------
-    None
+    dict[int, list[str]]
+        The dictionary containing the cluster number and the calculations performed.
 
     """
 
@@ -462,7 +465,7 @@ def analyze_calculations(
     return skzcam_calcs_analysis
 
 
-def parse_energy(filename, code="mrcc"):
+def parse_energy(filename, code="mrcc") -> dict[str, float]:
     """
     Function to parse the energy from a MRCC or ORCA output file.
 
@@ -475,8 +478,8 @@ def parse_energy(filename, code="mrcc"):
 
     Returns
     -------
-    float
-        The energy in the original units.
+    dict[str, float]
+        A dictionary containing the energies parsed from the output file.
     """
 
     if code == "mrcc":
@@ -488,7 +491,7 @@ def parse_energy(filename, code="mrcc"):
     return energy_dict
 
 
-def get_quasi_rrho(r_freq, i_freq, T):
+def get_quasi_rrho(r_freq, i_freq, T) -> tuple[float, float, float, float]:
     """
     Uses the quasi rigid rotor harmonic approximation to calculate the thermal change and zero-point energies from vibrational frequencies in cm-1 and a temperature in Kelvin.
 
