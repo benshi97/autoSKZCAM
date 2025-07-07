@@ -230,7 +230,7 @@ class MRCCInputGenerator:
             return (
                 f"""
 basis_sm=special
-{self._create_atomtype_basis(quantum_region=quantum_region, ecp_region=ecp_region, element_basis_info={element: "def2-SVP" for element in self.element_info})}
+{self._create_atomtype_basis(quantum_region=quantum_region, ecp_region=ecp_region, element_basis_info=dict.fromkeys(self.element_info, "def2-SVP"))}
 
 basis=special
 {self._create_atomtype_basis(quantum_region=quantum_region, ecp_region=ecp_region, element_basis_info={element: self.element_info[element]["basis"] for element in self.element_info})}
