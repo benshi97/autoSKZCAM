@@ -49,9 +49,7 @@ def static_job_mrcc(
 
     final_atoms = Runner(atoms, calc, copy_files=copy_files).run_calc()
 
-    return Summarize(
-        additional_fields={"name": "MRCC Static"}
-    ).run(final_atoms, atoms)
+    return Summarize(additional_fields={"name": "MRCC Static"}).run(final_atoms, atoms)
 
 
 @job
@@ -99,6 +97,4 @@ def static_job_orca(
 
     final_atoms = Runner(atoms, calc, copy_files=copy_files).run_calc()
 
-    return Summarize(
-        additional_fields={"name": "ORCA Static"}
-    ).run(final_atoms, atoms)
+    return Summarize(additional_fields={"name": "ORCA Static"}).run(final_atoms, atoms)
