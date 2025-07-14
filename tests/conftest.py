@@ -12,6 +12,7 @@ from quacc.schemas.ase import Summarize
 
 from autoSKZCAM.calculators import SkzcamMrccTemplate, SkzcamOrcaTemplate
 from autoSKZCAM.embed import CreateEmbeddedCluster
+import gzip
 
 if TYPE_CHECKING:
     from ase import Atoms
@@ -22,7 +23,6 @@ ORCA_DIR = Path(FILE_DIR, "orca_run")
 
 
 def mock_mrcc_execute(self, directory, *args, **kwargs):
-    import gzip
 
     with (
         gzip.open(MRCC_DIR / "mrcc.out.gz", "rb") as f,
@@ -37,7 +37,6 @@ def patch_mrcc_execute(monkeypatch):
 
 
 def mock_orca_execute(self, directory, *args, **kwargs):
-    import gzip
 
     with (
         gzip.open(ORCA_DIR / "orca.out.gz", "rb") as f,
