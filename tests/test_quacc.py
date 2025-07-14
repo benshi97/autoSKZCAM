@@ -24,7 +24,7 @@ def test_static_job_mrcc(tmp_path):
             calc="PBE",
             symm="off",
         )
-    assert output['molecule_metadata']["natoms"] == len(atoms)
+    assert output["molecule_metadata"]["natoms"] == len(atoms)
     assert output["parameters"]["basis"] == "def2-TZVP"
     assert output["parameters"]["calc"] == "PBE"
     assert output["parameters"]["symm"] == "off"
@@ -46,7 +46,7 @@ def test_static_job_orca(tmp_path):
         output = static_job_orca(
             atoms, orcasimpleinput="def2-tzvp engrad normalprint wb97x-d3bj xyzfile"
         )
-    assert output['molecule_metadata']["natoms"] == len(atoms)
+    assert output["molecule_metadata"]["natoms"] == len(atoms)
     assert (
         output["parameters"]["orcasimpleinput"]
         == "def2-tzvp engrad normalprint wb97x-d3bj xyzfile"
