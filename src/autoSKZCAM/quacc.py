@@ -50,7 +50,7 @@ def static_job_mrcc(
     final_atoms = Runner(atoms, calc, copy_files=copy_files).run_calc()
 
     return Summarize(
-        charge_and_multiplicity=(0, 1), additional_fields={"name": "MRCC Static"}
+        additional_fields={"name": "MRCC Static"}
     ).run(final_atoms, atoms)
 
 
@@ -100,5 +100,5 @@ def static_job_orca(
     final_atoms = Runner(atoms, calc, copy_files=copy_files).run_calc()
 
     return Summarize(
-        charge_and_multiplicity=(0, 1), additional_fields={"name": "ORCA Static"}
+        additional_fields={"name": "ORCA Static"}
     ).run(final_atoms, atoms)
