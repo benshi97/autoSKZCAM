@@ -4,11 +4,10 @@ from pathlib import Path
 from typing import TYPE_CHECKING, Any
 
 import numpy as np
+from ase import neighborlist
 from ase.calculators.vasp.create_input import count_symbols
 from ase.constraints import FixAtoms
 from ase.io import read
-from ase import neighborlist
-
 from quacc import change_settings, flow, job
 from quacc.recipes.vasp._base import run_and_summarize
 from quacc.schemas.ase import Summarize

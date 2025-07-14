@@ -9,6 +9,7 @@ import pytest
 from ase.calculators.vasp.create_input import count_symbols
 from ase.io import read
 from quacc.schemas.ase import Summarize
+
 from autoSKZCAM.calculators import SkzcamMrccTemplate, SkzcamOrcaTemplate
 from autoSKZCAM.embed import CreateEmbeddedCluster
 
@@ -32,7 +33,6 @@ def mock_mrcc_execute(self, directory, *args, **kwargs):
 
 @pytest.fixture(autouse=True)
 def patch_mrcc_execute(monkeypatch):
-
     monkeypatch.setattr(SkzcamMrccTemplate, "execute", mock_mrcc_execute)
 
 
@@ -79,7 +79,6 @@ def mock_run_chemshell(*args, filepath=".", write_xyz_file=False, **kwargs):
 
 @pytest.fixture(autouse=True)
 def patch_run_chemshell(monkeypatch):
-
     monkeypatch.setattr(CreateEmbeddedCluster, "run_chemshell", mock_run_chemshell)
 
 
