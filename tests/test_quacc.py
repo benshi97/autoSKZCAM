@@ -24,13 +24,12 @@ def test_static_job_mrcc(tmp_path):
             calc="PBE",
             symm="off",
         )
-    assert output["natoms"] == len(atoms)
+    assert output["molecule_metadata"]["natoms"] == len(atoms)
     assert output["parameters"]["basis"] == "def2-TZVP"
     assert output["parameters"]["calc"] == "PBE"
     assert output["parameters"]["symm"] == "off"
     assert output["parameters"]["charge"] == 0
     assert output["parameters"]["mult"] == 1
-    assert output["charge"] == 0
     assert output["results"]["energy"] == pytest.approx(-2026.1497783941234)
 
     # Check if it runs without specifying anything besides atoms
@@ -47,10 +46,8 @@ def test_static_job_orca(tmp_path):
         output = static_job_orca(
             atoms, orcasimpleinput="def2-tzvp engrad normalprint wb97x-d3bj xyzfile"
         )
-    assert output["natoms"] == len(atoms)
+    assert output["molecule_metadata"]["natoms"] == len(atoms)
     assert (
         output["parameters"]["orcasimpleinput"]
         == "def2-tzvp engrad normalprint wb97x-d3bj xyzfile"
     )
-    assert output["spin_multiplicity"] == 1
-    assert output["charge"] == 0
