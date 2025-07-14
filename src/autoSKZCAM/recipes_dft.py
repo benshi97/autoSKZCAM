@@ -7,6 +7,8 @@ import numpy as np
 from ase.calculators.vasp.create_input import count_symbols
 from ase.constraints import FixAtoms
 from ase.io import read
+from ase import neighborlist
+
 from quacc import change_settings, flow, job
 from quacc.recipes.vasp._base import run_and_summarize
 from quacc.schemas.ase import Summarize
@@ -854,7 +856,6 @@ def adsorbate_slab_rss_flow(
         Dictionary with RSS calculation number as key and the value is Dictionary of results from [quacc.schemas.vasp.VaspSummarize.run](https://quantum-accelerators.github.io/quacc/reference/quacc/schemas/vasp.html#quacc.schemas.vasp.VaspSummarize).
         See the type-hint for the data structure.
     """
-    from ase import neighborlist
 
     rng = np.random.default_rng()
 

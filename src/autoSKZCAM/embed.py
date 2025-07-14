@@ -160,7 +160,7 @@ class CreateEmbeddedCluster:
         -------
         None
         """
-        from chemsh.io.tools import convert_atoms_to_frag
+        from chemsh.io.tools import convert_atoms_to_frag. # noqa: PLC0415
 
         # Convert ASE Atoms to ChemShell Fragment object
         slab_frag = convert_atoms_to_frag(
