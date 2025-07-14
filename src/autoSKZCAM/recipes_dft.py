@@ -4,6 +4,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING, Any
 
 import numpy as np
+from ase import neighborlist
 from ase.calculators.vasp.create_input import count_symbols
 from ase.constraints import FixAtoms
 from ase.io import read
@@ -86,9 +87,9 @@ def dft_ensemble_analyse(
                     f"The {job_type} calculation for the functional {xc_func} has not been completed."
                 )
 
-    xc_eads_dict = {xc_func: 0 for xc_func in xc_ensemble}
-    xc_eint_dict = {xc_func: 0 for xc_func in xc_ensemble}
-    xc_vib_dict = {xc_func: 0 for xc_func in vib_xc_ensemble}
+    xc_eads_dict = dict.fromkeys(xc_ensemble, 0)
+    xc_eint_dict = dict.fromkeys(xc_ensemble, 0)
+    xc_vib_dict = dict.fromkeys(vib_xc_ensemble, 0)
 
     for xc_func in xc_ensemble:
         xc_eads_dict[xc_func] = (
@@ -479,7 +480,7 @@ def read_completed_calculations(
     ]
 
     dft_ensemble_results = {
-        job_type: {xc_func: None for xc_func in xc_ensemble} for job_type in job_list
+        job_type: dict.fromkeys(xc_ensemble) for job_type in job_list
     }
     for xc_func in xc_ensemble:
         for job_type in job_list:
@@ -854,7 +855,6 @@ def adsorbate_slab_rss_flow(
         Dictionary with RSS calculation number as key and the value is Dictionary of results from [quacc.schemas.vasp.VaspSummarize.run](https://quantum-accelerators.github.io/quacc/reference/quacc/schemas/vasp.html#quacc.schemas.vasp.VaspSummarize).
         See the type-hint for the data structure.
     """
-    from ase import neighborlist
 
     rng = np.random.default_rng()
 

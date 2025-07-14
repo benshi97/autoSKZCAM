@@ -10,6 +10,9 @@ from ase.calculators.vasp.create_input import count_symbols
 from ase.io import read
 from quacc.schemas.ase import Summarize
 
+from autoSKZCAM.calculators import SkzcamMrccTemplate, SkzcamOrcaTemplate
+from autoSKZCAM.embed import CreateEmbeddedCluster
+
 if TYPE_CHECKING:
     from ase import Atoms
 
@@ -19,8 +22,6 @@ ORCA_DIR = Path(FILE_DIR, "orca_run")
 
 
 def mock_mrcc_execute(self, directory, *args, **kwargs):
-    import gzip
-
     with (
         gzip.open(MRCC_DIR / "mrcc.out.gz", "rb") as f,
         open(Path(directory, "mrcc.out"), "wb") as out,
@@ -30,14 +31,10 @@ def mock_mrcc_execute(self, directory, *args, **kwargs):
 
 @pytest.fixture(autouse=True)
 def patch_mrcc_execute(monkeypatch):
-    from autoSKZCAM.calculators import SkzcamMrccTemplate
-
     monkeypatch.setattr(SkzcamMrccTemplate, "execute", mock_mrcc_execute)
 
 
 def mock_orca_execute(self, directory, *args, **kwargs):
-    import gzip
-
     with (
         gzip.open(ORCA_DIR / "orca.out.gz", "rb") as f,
         open(Path(directory, "orca.out"), "wb") as out,
@@ -47,8 +44,6 @@ def mock_orca_execute(self, directory, *args, **kwargs):
 
 @pytest.fixture(autouse=True)
 def patch_orca_execute(monkeypatch):
-    from autoSKZCAM.calculators import SkzcamOrcaTemplate
-
     monkeypatch.setattr(SkzcamOrcaTemplate, "execute", mock_orca_execute)
 
 
@@ -80,8 +75,6 @@ def mock_run_chemshell(*args, filepath=".", write_xyz_file=False, **kwargs):
 
 @pytest.fixture(autouse=True)
 def patch_run_chemshell(monkeypatch):
-    from autoSKZCAM.embed import CreateEmbeddedCluster
-
     monkeypatch.setattr(CreateEmbeddedCluster, "run_chemshell", mock_run_chemshell)
 
 
