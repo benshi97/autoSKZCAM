@@ -386,7 +386,8 @@ def test_CreateEmbeddedCluster_find_cation_shells(
     )
 
     assert_equal(
-        np.sort(cation_shells_idx_flatten), np.sort([0, 9, 8, 6, 7, 11, 12, 10, 13, 19, 21, 18, 20, 22])
+        np.sort(cation_shells_idx_flatten),
+        np.sort([0, 9, 8, 6, 7, 11, 12, 10, 13, 19, 21, 18, 20, 22]),
     )
 
 
