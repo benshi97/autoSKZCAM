@@ -311,7 +311,7 @@ def test_skzcam_analyse(tmp_path, ref_EmbeddedCluster1):
     for key, value in ref_skzcam_int_ene.items():
         assert_allclose(skzcam_int_ene[key], value, rtol=1e-05, atol=1e-07)
 
-    skzcam_int_ene, oniom_layer_int_ene = skzcam_analyse(
+    skzcam_int_ene, _oniom_layer_int_ene = skzcam_analyse(
         calc_dir=Path(FILE_DIR, "skzcam_files", "calc_dir"),
         embedded_cluster_npy_path=Path(calc_dir, "embedded_cluster.npy"),
     )
